@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = {
-	name: 'frost-list',
+	name: 'ember-frost-list',
 
 	included: function(app) {
 		this._super.included(app);

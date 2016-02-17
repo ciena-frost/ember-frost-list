@@ -9,7 +9,7 @@ import hbs from 'htmlbars-inline-precompile';
 import setupMirage from '../../helpers/mirage-integration';
 
 describeComponent(
-	'frost-list',
+	'ember-frost-list',
 	'Integration: FrostListComponent',
 	{
 		integration: true,
@@ -18,7 +18,7 @@ describeComponent(
 		}
 	},
 	function () {
-		it('renders frost-list-item', function () {
+		it('renders ember-frost-list-item', function () {
 			var list = Ember.A();
 			list.addObject(Ember.Object.create(server.create('listItem',{
 				'dimension':'custom'
@@ -40,7 +40,7 @@ describeComponent(
 			});
 
 			this.render(hbs`
-				{{#frost-list
+				{{#ember-frost-list
 					class='frost-flex-1'
 					on-scroll-y-end=(action 'yEndReached')
 					on-select=(action 'selected')
@@ -49,7 +49,7 @@ describeComponent(
 					as |record|
 				}}
 					{{#if (eq record.record-type 'custom')}}
-						<div class="frost-list-item terse frost-list-user">
+						<div class="ember-frost-list-item terse ember-frost-list-user">
 							<div class='icon'>
 								{{frost-svg path='frost/service'}}
 							</div>
@@ -71,14 +71,14 @@ describeComponent(
 							</div>
 						</div>
 					{{/if}}
-				{{/frost-list}}
+				{{/ember-frost-list}}
 			`);
 
-			assert.lengthOf(this.$('.frost-list-item'),1);
+			assert.lengthOf(this.$('.ember-frost-list-item'),1);
 			expect(this.$()).to.have.length(1);
 		});
 
-		it('renders frost-list-node', function () {
+		it('renders ember-frost-list-node', function () {
 			var list = Ember.A();
 			list.addObject(Ember.Object.create(server.create('listItem',{
 				'dimension':'NC'
@@ -99,7 +99,7 @@ describeComponent(
 			});
 
 			this.render(hbs`
-				{{#frost-list
+				{{#ember-frost-list
 					class='frost-flex-1'
 					on-scroll-y-end=(action 'yEndReached')
 					on-select=(action 'selected')
@@ -107,16 +107,16 @@ describeComponent(
 					selections=items
 					as |record|
 				}}
-				{{/frost-list}}
+				{{/ember-frost-list}}
 			`);
 
-			assert.lengthOf(this.$('.frost-list-item'),1);
-			Ember.run(()=>$('.frost-list-item').eq(0).click());
+			assert.lengthOf(this.$('.ember-frost-list-item'),1);
+			Ember.run(()=>$('.ember-frost-list-item').eq(0).click());
 			assert.lengthOf(this.get('items'),1);
 			expect(this.get('items')).to.have.length(1);
 		});
 
-		it('renders a frost-list-service', function () {
+		it('renders a ember-frost-list-service', function () {
 			var list = Ember.A();
 			list.addObject(Ember.Object.create(server.create('listItem',{
 				'dimension':'SERVICE'
@@ -137,7 +137,7 @@ describeComponent(
 			});
 
 			this.render(hbs`
-				{{#frost-list
+				{{#ember-frost-list
 					class='frost-flex-1'
 					on-scroll-y-end=(action 'yEndReached')
 					on-select=(action 'selected')
@@ -145,16 +145,16 @@ describeComponent(
 					selections=items
 					as |record|
 				}}
-				{{/frost-list}}
+				{{/ember-frost-list}}
 			`);
 
-			assert.lengthOf(this.$('.frost-list-item'),1);
-			Ember.run(()=>$('.frost-list-item').eq(0).click());
+			assert.lengthOf(this.$('.ember-frost-list-item'),1);
+			Ember.run(()=>$('.ember-frost-list-item').eq(0).click());
 			assert.lengthOf(this.get('items'),1);
 			expect(this.get('items')).to.have.length(1);
 		});
 
-		it('renders a frost-list-service and can be unselected', function () {
+		it('renders a ember-frost-list-service and can be unselected', function () {
 			var list = Ember.A();
 			list.addObject(Ember.Object.create(server.create('listItem',{
 				'dimension':'SERVICE'
@@ -175,7 +175,7 @@ describeComponent(
 			});
 
 			this.render(hbs`
-				{{#frost-list
+				{{#ember-frost-list
 					class='frost-flex-1'
 					on-scroll-y-end=(action 'yEndReached')
 					on-select=(action 'selected')
@@ -183,13 +183,13 @@ describeComponent(
 					selections=items
 					as |record|
 				}}
-				{{/frost-list}}
+				{{/ember-frost-list}}
 			`);
 
-			assert.lengthOf(this.$('.frost-list-item'),1);
-			Ember.run(()=>$('.frost-list-item').eq(0).click());
+			assert.lengthOf(this.$('.ember-frost-list-item'),1);
+			Ember.run(()=>$('.ember-frost-list-item').eq(0).click());
 			assert.lengthOf(this.get('items'),1);
-			Ember.run(()=>$('.frost-list-item').eq(0).click());
+			Ember.run(()=>$('.ember-frost-list-item').eq(0).click());
 			expect(this.get('items')).to.have.length(0);
 		});
 	}

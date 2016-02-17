@@ -1,30 +1,32 @@
 {
-  "name": "frost-list",
-  "version": "1.3.0",
+  "name": "ember-frost-list",
+  "version": "0.1.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
+    "lint": "eslint *.js addon app config tests",
     "start": "ember server",
     "build": "ember build",
-    "test": "ember try:testall"
+    "test": "npm run-script lint && ember test"
   },
-  "repository": "https://stash.ciena.com/scm/nms_frost/frost-list.git",
+  "repository": "git@github.com:ciena-frost/ember-frost-list.git",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 5.0.0"
   },
-  "author": "",
+  "author": "Steven Glanzer (https://github.com/sglanzer)",
+  "contributors": [
+    "Roxanne Panthaky (https://github.com/rox163)"
+  ],
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
     "ember-cli": "1.13.13",
     "ember-cli-app-version": "^1.0.0",
-    "ember-cli-blanket": "0.6.2",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.1.0",
-    "ember-cli-github-pages": "0.0.6",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-ic-ajax": "0.2.4",
     "ember-cli-inject-live-reload": "1.3.1",
@@ -42,25 +44,20 @@
     "ember-moment": "4.1.0",
     "ember-truth-helpers": "^1.2.0",
     "ember-try": "~0.0.8",
-    "frost-helpers": "~1.1.0",
-    "frost-svg": "~1.1.0",
-    "frost-tabs": "~2.1.0"
+    "eslint": "^2.1.0",
+    "eslint-config-frost-standard": "^0.2.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "frost"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-sass": "5.1.0",
-    "frost-css": "^1.1.0",
-    "frost-checkbox": "^1.1.0",
-    "frost-scroll": "^1.1.0"
+    "ember-frost-theme": "^0.3.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "publishConfig": {
-    "registry": "https://artifactory.ciena.com/api/npm/icebreaker-npm"
   }
 }

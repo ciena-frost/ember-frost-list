@@ -2,6 +2,6 @@
 
 module.exports = function(/* environment, appConfig */) {
 	return {
-		podModulePrefix: 'frost-list/pods'
+		podModulePrefix: 'ember-frost-list/pods'
 	};
 };

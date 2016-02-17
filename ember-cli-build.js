@@ -5,10 +5,12 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
 	  sassOptions: {
 		  includePaths: [
-			  'bower_components/bourbon/app/assets/stylesheets',
-			  'node_modules/frost-css/styles'
+			  'node_modules/ember-frost-theme/scss'
 		  ]
-	  }
+	  },
+      'ember-cli-mocha': {
+        useLintTree: false
+      }
   });
 
   /*

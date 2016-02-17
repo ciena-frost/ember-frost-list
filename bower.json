@@ -1,5 +1,5 @@
 {
-  "name": "frost-list",
+  "name": "ember-frost-list",
   "dependencies": {
     "ember": "2.2.0",
     "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
