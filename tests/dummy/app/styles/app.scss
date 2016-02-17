@@ -1,0 +1,30 @@
+@import 'bourbon';
+@import 'frost/variables';
+@import 'frost/app';
+@import 'frost/patterns';
+
+.dummy-notification-container {
+	position: fixed;
+	top: 60px;
+	right: 10px;
+	z-index: 999;
+	width: 80%;
+	max-width: 400px;
+	margin: auto;
+}
+
+.dummy-body {
+  height: 100%;
+}
+
+.dummy-content {
+  height: 100%;
+  @include display(flex);
+  @include flex-direction(column);
+}
+
+.frost-tabs.iframe {
+	.navigation {
+		display: none;
+	}
+}

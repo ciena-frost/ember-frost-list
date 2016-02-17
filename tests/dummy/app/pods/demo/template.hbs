@@ -1,0 +1,40 @@
+{{#frost-tabs class=(if iframe 'iframe') on-change=(action 'tabSelected') selection=selectedTab}}
+	{{#frost-tab alias='Readme' id='readme'}}
+        <div id='content'></div>
+	{{/frost-tab}}
+	{{#frost-tab alias='Demo' id='demo' }}
+
+		{{#frost-list
+		class='frost-flex-1'
+		on-scroll-y-end=(action 'yEndReached')
+		on-select=(action 'selected')
+		records=model
+		selections=selectedItems
+		as |record|
+		}}
+			{{#if (eq record.record-type 'custom')}}
+                <div class="frost-list-item terse frost-list-user">
+                    <div class='icon'>
+						{{frost-svg path='frost/service'}}
+                    </div>
+                    <div class='block frost-flex-1'>
+                        <div class='primary name'>Glanzer, Steven</div>
+                        <div class='tertiary'>
+                            <span class='label'>Email:</span>sglanzer@gmail.com</div>
+                    </div>
+                    <div class='block frost-flex-1'>
+                        <div class='secondary'>Application access</div>
+                        <div class='tertiary'>None</div>
+                    </div>
+                    <div class='block frost-flex-1'>
+                        <div class='secondary'>API keys</div>
+                        <div class='tertiary'>None</div>
+                    </div>
+                    <div class='block frost-flex-1'>
+                        <div class='secondary'>Enabled</div>
+                    </div>
+                </div>
+			{{/if}}
+		{{/frost-list}}
+	{{/frost-tab}}
+{{/frost-tabs}}

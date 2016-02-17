@@ -1,0 +1,28 @@
+{
+  "name": "frost-list",
+  "dependencies": {
+    "ember": "2.2.0",
+    "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
+    "ember-cli-test-loader": "ember-cli/ember-cli-test-loader#0.1.3",
+    "ember-data": "2.2.0",
+    "ember-load-initializers": "0.1.7",
+    "ember-resolver": "~0.1.20",
+    "jquery": "2.1.4",
+    "loader.js": "ember-cli/loader.js#3.4.0",
+    "bourbon": "4.2.6",
+    "ember-inflector": "1.3.1",
+    "ember-mocha": "0.8.7",
+    "Faker": "3.0.1",
+    "lodash": "3.10.1",
+    "perfect-scrollbar": "0.6.7",
+    "pretender": "0.10.1",
+    "moment": ">= 2.8.0",
+    "moment-timezone": ">= 0.1.0"
+  },
+  "resolutions": {
+    "ember": "2.2.0"
+  },
+  "devDependencies": {
+    "blanket": "1.1.7"
+  }
+}
