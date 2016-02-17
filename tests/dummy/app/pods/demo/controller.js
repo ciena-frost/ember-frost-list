@@ -1,27 +1,24 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	selectedItems: Ember.A(),
+  selectedItems: Ember.A(),
 
-	actions: {
-		selected(attrs) {
-			if (attrs.isSelected) {
-				this.get('selectedItems').addObject(attrs.record);
-			} else {
-				this.get('selectedItems').removeObject(attrs.record);
-			}
-		},
+  actions: {
+    selected(attrs) {
+        if (attrs.isSelected) {
+          this.get('selectedItems').addObject(attrs.record);
+        } else {
+          this.get('selectedItems').removeObject(attrs.record);
+        }
+      },
 
-		yEndReached() {
-			this.notifications.addNotification({
-				message: 'Scroll reached end of y axis',
-				type: 'success',
-				autoClear: true,
-				clearDuration: 2000
-			});
-		},
-		tabSelected(tab) {
-			this.set('selectedTab', tab);
-		}
-	}
+      yEndReached() {
+        this.notifications.addNotification({
+          message: 'Scroll reached end of y axis',
+          type: 'success',
+          autoClear: true,
+          clearDuration: 2000
+        });
+      }
+  }
 });

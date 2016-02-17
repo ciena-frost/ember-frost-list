@@ -1,7 +1,5 @@
-@import 'bourbon';
-@import 'frost/variables';
-@import 'frost/app';
-@import 'frost/patterns';
+@import 'frost-core';
+@import 'frost-theme';
 
 .dummy-notification-container {
 	position: fixed;
@@ -19,8 +17,8 @@
 
 .dummy-content {
   height: 100%;
-  @include display(flex);
-  @include flex-direction(column);
+  display: flex;
+  flex-direction: column;
 }
 
 .frost-tabs.iframe {

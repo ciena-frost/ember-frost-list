@@ -1,15 +1,9 @@
 <div class="border-top"></div>
-{{#frost-scroll on-scroll-y-end=on-scroll-y-end}}
-    <div class="records">
-		{{#each mappedRecords as |record index|}}
-			{{#if (eq record.record-type "NC")}}
-				{{frost-list-node model=record}}
-			{{else if (eq record.record-type "SERVICE")}}
-				{{frost-list-service model=record}}
-			{{else}}
-				{{yield record index}}
-			{{/if}}
-		{{/each}}
-	</div>
-{{/frost-scroll}}
+{{#perfect-scroll class='frost-scroll' on-scroll-y-end=on-scroll-y-end}}
+  <div class="records">
+    {{#each mappedRecords as |record index|}}
+      {{yield record index}}
+    {{/each}}
+  </div>
+{{/perfect-scroll}}
 <div class="border-bottom"></div>
