@@ -1,0 +1,7 @@
+{
+  "extends": ["frost-standard"],
+  "globals": {
+    "$": true,
+    "server": true
+  }
+}

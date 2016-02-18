@@ -1,0 +1,220 @@
+@import 'node_modules/ember-frost-theme/scss/frost-theme';
+
+@mixin linear-gradient($pos, $g1, $g2: null,
+                       $g3: null, $g4: null,
+                       $g5: null, $g6: null,
+                       $g7: null, $g8: null,
+                       $g9: null, $g10: null,
+                       $fallback: null) {
+  // Detect what type of value exists in $pos
+  $pos-type: type-of(nth($pos, 1));
+  $pos-spec: null;
+  $pos-degree: null;
+
+  // If $pos is missing from mixin, reassign vars and add default position
+  @if ($pos-type == color) or (nth($pos, 1) == "transparent")  {
+    $g10: $g9; $g9: $g8; $g8: $g7; $g7: $g6; $g6: $g5;
+    $g5: $g4; $g4: $g3; $g3: $g2; $g2: $g1; $g1: $pos;
+    $pos: null;
+  }
+
+  @if $pos {
+    $positions: _linear-positions-parser($pos);
+    $pos-degree: nth($positions, 1);
+    $pos-spec:   nth($positions, 2);
+  }
+
+  $full: $g1, $g2, $g3, $g4, $g5, $g6, $g7, $g8, $g9, $g10;
+
+  // Set $g1 as the default fallback color
+  $fallback-color: nth($g1, 1);
+
+  // If $fallback is a color use that color as the fallback color
+  @if (type-of($fallback) == color) or ($fallback == "transparent") {
+    $fallback-color: $fallback;
+  }
+
+  background-color: $fallback-color;
+  background-image: -webkit-linear-gradient($pos-degree $full); // Safari 5.1+, Chrome
+  background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
+}
+
+.frost-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.frost-list .frost-scroll::before,
+.frost-list .frost-scroll::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	width: 1px;
+	height: 100%;
+	background-color: $frost-color-lgrey-1;
+}
+
+.frost-list .frost-scroll::before {
+	left: 0;
+}
+
+.frost-list .frost-scroll {
+	flex: 1;
+	padding-right: 15px;
+}
+
+.frost-list .frost-scroll::after {
+	right: 15px;
+}
+
+.frost-list .border-top {
+	height: 1px;
+	margin-right: 15px;
+	background-color: $frost-color-lgrey-1;
+}
+
+.frost-list .records {
+	border-right: 1px solid $frost-color-lgrey-1;
+	border-left: 1px solid $frost-color-lgrey-1;
+	background-color: $frost-color-white;
+}
+
+.frost-list .border-bottom {
+	height: 1px;
+	margin-right: 15px;
+	background-color: $frost-color-lgrey-1;
+}
+
+.frost-list-item {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	min-width: 0;
+}
+
+.frost-list-item .select-checkbox {
+	//Override frost-checkbox
+	.frost-checkbox,
+    .frost-list-selection-indicator {
+		margin: 15px 0 0 10px;
+	}
+}
+
+.frost-list-item .primary {
+	padding-bottom: 5px;
+	font-size: $frost-font-s;
+	font-weight: bold;
+	color: $frost-color-grey-2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.frost-list-item .secondary {
+	padding-bottom: 5px;
+	font-size: $frost-font-xs;
+	font-weight: bold;
+	color: $frost-color-grey-2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.frost-list-item .tertiary {
+	flex-direction: row;
+	align-items: center;
+	font-size: $frost-font-xs;
+	color: $frost-color-grey-4;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.frost-list-item .block {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	padding: 5px 15px 0 10px;
+	margin: 5px 0;
+}
+
+.frost-list-item .block ~ .block {
+	border-left: 1px solid $frost-color-lgrey-2;
+}
+
+.frost-list-item .block.end * {
+	direction: rtl;
+}
+
+.frost-list-item .block.start {
+	padding: 0;
+	margin: 0;
+}
+
+.frost-list-item .label {
+	margin-right: 5px;
+}
+
+.frost-list-item.terse {
+	height: 50px;
+}
+
+.frost-list-item.terse .icon {
+	width: 40px;
+	height: 40px;
+	margin: 5px 0 5px 5px;
+}
+
+.frost-list-item:hover {
+    background-color: rgba($frost-color-blue-3, 0.05);
+    cursor: pointer;
+}
+
+.frost-list .records :first-child {
+	border-top: none;
+}
+
+.frost-list .records > div:not(.is-selected) {
+	padding: 1px 2px 2px 2px;
+	border-top: 1px solid $frost-color-lgrey-1;
+}
+
+.frost-list .records > div.is-selected {
+	padding: 0;
+	border: 2px solid $frost-color-blue-3;
+}
+
+.frost-list-item .badge {
+	display: inline-block;
+	margin-right: auto;
+}
+
+// Complete clone of checkbox styles - need a better solution to copying this CSS
+.frost-list-selection-indicator {
+  display: inline-block;
+  position: relative;
+  font-size: $frost-font-s;
+  font-weight: bold;
+  color: $frost-color-grey-5;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  &::before {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    @include linear-gradient(white, $frost-color-lgrey-5);
+    margin-right: 5px;
+    border: 1px solid $frost-color-grey-6;
+    vertical-align: middle;
+    color: $frost-color-blue-1;
+    content: "";
+  }
+
+  &.selected::before {
+    content: url("data:image/svg+xml;utf8,
+ <svg xmlns='http://www.w3.org/2000/svg' viewBox='3 2 31 31'> <rect xmlns='http://www.w3.org/2000/svg' x='10.7' y='15.3' transform='matrix(-0.7071 0.7071 -0.7071 -0.7071 35.6974 26.188)' fill='%23009EEF' width='3.5' height='10.3'/> <polygon xmlns='http://www.w3.org/2000/svg' fill='%23009EEF' points='14.9,25.4 12.4,22.9 26.2,9.4 28.7,12.1'/> </svg>");
+  }
+}
