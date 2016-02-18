@@ -1,0 +1,9 @@
+<div class="border-top"></div>
+{{#perfect-scroll class='frost-scroll' on-scroll-y-end=on-scroll-y-end}}
+  <div class="records">
+    {{#each mappedRecords as |record index|}}
+      {{yield record index}}
+    {{/each}}
+  </div>
+{{/perfect-scroll}}
+<div class="border-bottom"></div>

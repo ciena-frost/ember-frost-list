@@ -1,0 +1,28 @@
+@import 'frost-core';
+@import 'frost-theme';
+
+.dummy-notification-container {
+	position: fixed;
+	top: 60px;
+	right: 10px;
+	z-index: 999;
+	width: 80%;
+	max-width: 400px;
+	margin: auto;
+}
+
+.dummy-body {
+  height: 100%;
+}
+
+.dummy-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.frost-tabs.iframe {
+	.navigation {
+		display: none;
+	}
+}
