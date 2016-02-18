@@ -48,7 +48,7 @@
     "ember-truth-helpers": "^1.2.0",
     "ember-try": "~0.0.8",
     "eslint": "^2.1.0",
-    "eslint-config-frost-standard": "^0.2.5"
+    "eslint-config-frost-standard": "^1.0.0"
   },
   "keywords": [
     "ember-addon",

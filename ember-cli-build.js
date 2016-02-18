@@ -1,5 +1,5 @@
 /* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
+var EmberApp = require('ember-cli/lib/broccoli/ember-addon')
 
 module.exports = function (defaults) {
   var app = new EmberApp(defaults, {
@@ -12,7 +12,7 @@ module.exports = function (defaults) {
         'node_modules/ember-frost-theme/scss'
       ]
     }
-  });
+  })
 
   /*
     This build file specifes the options for the dummy test app of this
@@ -21,5 +21,5 @@ module.exports = function (defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  return app.toTree();
-};
+  return app.toTree()
+}
