@@ -18,7 +18,8 @@
   },
   "author": "Steven Glanzer (https://github.com/sglanzer)",
   "contributors": [
-    "Roxanne Panthaky (https://github.com/rox163)"
+    "Roxanne Panthaky (https://github.com/rox163)",
+    "Matthew Dahl (https://github.com/sandersky)"
   ],
   "license": "MIT",
   "devDependencies": {
