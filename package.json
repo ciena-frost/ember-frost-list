@@ -2,6 +2,7 @@
   "name": "ember-frost-list",
   "version": "0.2.4",
   "description": "The default blueprint for ember-cli addons.",
+  "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
     "doc": "doc",
     "test": "tests"
