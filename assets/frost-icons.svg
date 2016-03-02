@@ -1,4 +1,18 @@
 <svg xmlns='http://www.w3.org/2000/svg' style='display: none'>
+<symbol id="company-strip" viewBox="0 0 5 375">
+  <g>
+    <rect fill="#7B7F7F" width="4" height="260"/>
+    <rect fill="#7B7F7F" width="4" height="260"/>
+  </g>
+</symbol>
+<symbol id="company" viewBox="0 0 730 200">
+<g>
+	<text transform="matrix(1 0 0 1 -1 77.1748)"><tspan x="0" y="0" fill="#919395" font-family="&apos;Roboto-Medium&apos;" font-size="60">Company</tspan><tspan x="212.7" y="0" font-family="&apos;Roboto-Medium&apos;" font-size="60"> </tspan></text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 98.75 106.3463)" fill="#083245" font-family="&apos;Roboto-Regular&apos;" font-size="20">a division of Ipsum</text>
+</g>
+</symbol>
 <symbol id="nav-admin" viewBox="0 0 40 40">
 <g>
 	<rect y="2.9" opacity="0.4" fill="#F1F1F1" width="26.6" height="26.6"/>
@@ -152,6 +166,10 @@
 	<polygon fill="#ED5959" points="24.3,80 0,55.7 0,22.4 24.3,0 57.6,0 80,22.4 80,55.7 57.6,80"/>
 	<circle fill="#FFFFFF" cx="40.1" cy="58.1" r="4.5"/>
 	<path fill="#FFFFFF" d="M45.3,22.5c0-3.6-2.4-6.6-5.5-6.6s-5.3,3.4-5.3,7l3.3,24c0,1.3,0.9,2.4,2,2.4s2-1.1,2-2.4L45.3,22.5z"/>
+</symbol>
+<symbol id="double-chevron-left" viewBox="0 0 48 48">
+  <path class="base" d="M 24.83,14.83 22,12 10,24 22,36 24.83,33.17 15.66,24 Z"/>
+  <path class="base" d="m 38.797605,14.855422 -2.83,-2.83 -12,12 12,12 2.83,-2.83 -9.17,-9.17 z"/>
 </symbol>
 <symbol id="expand-collapse" viewBox="0 0 15 15">
 <polygon fill="#676767" points="7.5,11.4 1.1,5 2.5,3.6 7.5,8.6 12.5,3.6 13.9,5 "/>
