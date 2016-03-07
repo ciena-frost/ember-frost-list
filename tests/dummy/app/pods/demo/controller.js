@@ -4,30 +4,29 @@ import config from '../../config/environment'
 export default Ember.Controller.extend({
   selectedItems: Ember.A(),
   componentPath: Ember.computed({
-    get() {
+    get () {
       if (config.isFrostGuideDirectory) {
-        return "user-list-item"
+        return 'user-list-item'
       } else {
-        return "demo/user-list-item"
+        return 'demo/user-list-item'
       }
     }
   }),
   actions: {
-    selected(attrs) {
-        if (attrs.isSelected) {
-          this.get('selectedItems').addObject(attrs.record)
-        } else {
-          this.get('selectedItems').removeObject(attrs.record)
-        }
-      },
-
-      yEndReached() {
-        this.notifications.addNotification({
-          message: 'Scroll reached end of y axis',
-          type: 'success',
-          autoClear: true,
-          clearDuration: 2000
-        })
+    selected (attrs) {
+      if (attrs.isSelected) {
+        this.get('selectedItems').addObject(attrs.record)
+      } else {
+        this.get('selectedItems').removeObject(attrs.record)
       }
+    },
+    yEndReached () {
+      this.notifications.addNotification({
+        message: 'Scroll reached end of y axis',
+        type: 'success',
+        autoClear: true,
+        clearDuration: 2000
+      })
+    }
   }
 })
