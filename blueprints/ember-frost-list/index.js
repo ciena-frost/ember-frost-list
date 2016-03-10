@@ -1,6 +1,13 @@
 module.exports = {
   afterInstall: function () {
     return this.addBowerPackageToProject('perfect-scrollbar', '0.6.10')
+      .then(() => {
+        return this.addAddonsToProject({
+          packages: [
+            {name: 'ember-frost-theme', target: '^1.3.0'}
+          ]
+        })
+      })
   },
 
   normalizeEntityName: function () {
