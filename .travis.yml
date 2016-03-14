@@ -6,10 +6,6 @@ sudo: false
 branches:
   except:
   - "/^v[0-9\\.]+/"
-cache:
-  directories:
-  - bower_components
-  - node_modules
 addons:
   apt:
     sources:
@@ -19,7 +15,6 @@ addons:
 env:
   matrix:
   - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=ember-1-13
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
@@ -29,9 +24,9 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-  - env: EMBER_TRY_SCENARIO=ember-1-13
   - env: EMBER_TRY_SCENARIO=ember-canary
 before_install:
+- npm config set spin false
 - npm install -g coveralls pr-bumper
 - pr-bumper check
 before_script:
@@ -45,9 +40,7 @@ script:
 - npm run lint
 - ember try:one $EMBER_TRY_SCENARIO --- ember test
 after_success:
-- sed -i -- 's/SF:ember-frost-button\/\(.*\)/SF:addon\/\1.js/' coverage/lcov.info
-  && rm -f coverage/lcov.info--
-- cat coverage/lcov.info | coveralls
+- .travis/publish-coverage.sh
 before_deploy:
 - pr-bumper bump
 deploy:

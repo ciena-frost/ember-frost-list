@@ -1,7 +1,7 @@
 {
-  "extends": ["frost-standard"],
   "globals": {
-    "$": true,
-    "server": true
+    "$": false,
+    "chai": false,
+    "server": false
   }
 }
