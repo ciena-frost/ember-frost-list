@@ -1,3 +1,4 @@
+/* global $ */
 import Ember from 'ember'
 import _ from 'lodash/lodash'
 import layout from './template'
@@ -34,5 +35,27 @@ export default Ember.Component.extend({
       }
       return record
     })
-  })
+  }),
+
+  didInsertElement () {
+    this.$('.frost-scroll').bind('touchmove', this.onScroll.bind(this))
+    this.$('.frost-scroll').bind('scroll', this.onScroll.bind(this))
+  },
+
+  willRemoveElement () {
+    this.$('.frost-scroll').unbind('scroll')
+    this.$('.frost-scroll').unbind('touchmove')
+  },
+
+  onScroll (e) {
+    const $element = $(e.currentTarget).first()
+
+    if ($element[0].scrollHeight - $element.scrollTop() === $element.outerHeight()) {
+      const fn = this.get('on-scroll-y-end')
+
+      if (fn) {
+        fn()
+      }
+    }
+  }
 })

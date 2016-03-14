@@ -61,6 +61,7 @@
 .frost-list .frost-scroll {
 	flex: 1;
 	padding-right: 15px;
+  overflow-y: scroll;
 }
 
 .frost-list .frost-scroll::after {
