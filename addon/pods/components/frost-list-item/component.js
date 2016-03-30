@@ -19,8 +19,8 @@ export default Ember.Component.extend({
     event.preventDefault()
     event.stopPropagation()
 
-    if (_.isFunction(this.get('_frostList.on-select'))) {
-      this.get('_frostList.on-select')({
+    if (_.isFunction(this.get('_frostList.onSelect'))) {
+      this.get('_frostList.onSelect')({
         record: this.get('model'),
         isSelected: !this.get('model.isSelected')
       })

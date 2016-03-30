@@ -44,8 +44,8 @@ describeComponent(
       this.render(hbs `
 				{{#frost-list
 					class='frost-flex-1'
-					on-scroll-y-end=(action 'yEndReached')
-					on-select=(action 'selected')
+					onScrollYEnd=(action 'yEndReached')
+					onSelect=(action 'selected')
 					records=model
 					selections=items
 					as |record|
@@ -104,8 +104,8 @@ describeComponent(
 //      this.render(hbs `
 //				{{#frost-list
 //					class='frost-flex-1'
-//					on-scroll-y-end=(action 'yEndReached')
-//					on-select=(action 'selected')
+//					onScrollYEnd=(action 'yEndReached')
+//					onSelect=(action 'selected')
 //					records=model
 //					selections=items
 //					as |record|
