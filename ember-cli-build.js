@@ -9,7 +9,6 @@ module.exports = function (defaults) {
     },
     sassOptions: {
       includePaths: [
-        'node_modules/ember-frost-core/addon/styles'
       ]
     }
   })
