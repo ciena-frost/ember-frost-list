@@ -51,7 +51,7 @@ export default Ember.Component.extend({
     const $element = $(e.currentTarget).first()
 
     if ($element[0].scrollHeight - $element.scrollTop() === $element.outerHeight()) {
-      const fn = this.get('on-scroll-y-end')
+      const fn = this.get('onScrollYEnd')
 
       if (fn) {
         fn()
