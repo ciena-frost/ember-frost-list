@@ -42,39 +42,39 @@ describeComponent(
       })
 
       this.render(hbs `
-				{{#frost-list
-					class='frost-flex-1'
-					onScrollYEnd=(action 'yEndReached')
-					onSelect=(action 'selected')
-					records=model
-					selections=items
-					as |record|
-				}}
-					{{#if (eq record.record-type 'custom')}}
-						<div class="frost-list-item terse frost-list-user">
-							<div class='icon'>
-								{{frost-icon icon='frost/service'}}
-							</div>
-							<div class='block frost-flex-1'>
-								<div class='primary name'>Glanzer, Steven</div>
-								<div class='tertiary'>
-									<span class='label'>Email:</span>sglanzer@gmail.com</div>
-							</div>
-							<div class='block frost-flex-1'>
-								<div class='secondary'>Application access</div>
-								<div class='tertiary'>None</div>
-							</div>
-							<div class='block frost-flex-1'>
-								<div class='secondary'>API keys</div>
-								<div class='tertiary'>None</div>
-							</div>
-							<div class='block frost-flex-1'>
-								<div class='secondary'>Enabled</div>
-							</div>
-						</div>
-					{{/if}}
-				{{/frost-list}}
-			`)
+        {{#frost-list
+          class='frost-flex-1'
+          onScrollYEnd=(action 'yEndReached')
+          onSelect=(action 'selected')
+          records=model
+          selections=items
+          as |record|
+        }}
+          {{#if (eq record.record-type 'custom')}}
+            <div class="frost-list-item terse frost-list-user">
+              <div class='icon'>
+                {{frost-icon icon='frost/info'}}
+              </div>
+              <div class='block frost-flex-1'>
+                <div class='primary name'>Glanzer, Steven</div>
+                <div class='tertiary'>
+                  <span class='label'>Email:</span>sglanzer@gmail.com</div>
+              </div>
+              <div class='block frost-flex-1'>
+                <div class='secondary'>Application access</div>
+                <div class='tertiary'>None</div>
+              </div>
+              <div class='block frost-flex-1'>
+                <div class='secondary'>API keys</div>
+                <div class='tertiary'>None</div>
+              </div>
+              <div class='block frost-flex-1'>
+                <div class='secondary'>Enabled</div>
+              </div>
+            </div>
+          {{/if}}
+        {{/frost-list}}
+      `)
 
       assert.lengthOf(this.$('.frost-list-item'), 1)
       expect(this.$()).to.have.length(1)
@@ -102,39 +102,39 @@ describeComponent(
 //      })
 //
 //      this.render(hbs `
-//				{{#frost-list
-//					class='frost-flex-1'
-//					onScrollYEnd=(action 'yEndReached')
-//					onSelect=(action 'selected')
-//					records=model
-//					selections=items
-//					as |record|
-//				}}
-//					{{#if (eq record.record-type 'custom')}}
-//						<div class="frost-list-item terse frost-list-user">
-//							<div class='icon'>
-//								{{frost-icon icon='frost/service'}}
-//							</div>
-//							<div class='block frost-flex-1'>
-//								<div class='primary name'>Glanzer, Steven</div>
-//								<div class='tertiary'>
-//									<span class='label'>Email:</span>sglanzer@gmail.com</div>
-//							</div>
-//							<div class='block frost-flex-1'>
-//								<div class='secondary'>Application access</div>
-//								<div class='tertiary'>None</div>
-//							</div>
-//							<div class='block frost-flex-1'>
-//								<div class='secondary'>API keys</div>
-//								<div class='tertiary'>None</div>
-//							</div>
-//							<div class='block frost-flex-1'>
-//								<div class='secondary'>Enabled</div>
-//							</div>
-//						</div>
-//					{{/if}}
-//				{{/frost-list}}
-//			`)
+//        {{#frost-list
+//          class='frost-flex-1'
+//          onScrollYEnd=(action 'yEndReached')
+//          onSelect=(action 'selected')
+//          records=model
+//          selections=items
+//          as |record|
+//        }}
+//          {{#if (eq record.record-type 'custom')}}
+//            <div class="frost-list-item terse frost-list-user">
+//              <div class='icon'>
+//                {{frost-icon icon='frost/service'}}
+//              </div>
+//              <div class='block frost-flex-1'>
+//                <div class='primary name'>Glanzer, Steven</div>
+//                <div class='tertiary'>
+//                  <span class='label'>Email:</span>sglanzer@gmail.com</div>
+//              </div>
+//              <div class='block frost-flex-1'>
+//                <div class='secondary'>Application access</div>
+//                <div class='tertiary'>None</div>
+//              </div>
+//              <div class='block frost-flex-1'>
+//                <div class='secondary'>API keys</div>
+//                <div class='tertiary'>None</div>
+//              </div>
+//              <div class='block frost-flex-1'>
+//                <div class='secondary'>Enabled</div>
+//              </div>
+//            </div>
+//          {{/if}}
+//        {{/frost-list}}
+//      `)
 //
 //      assert.lengthOf(this.$('.frost-list-item'), 1)
 //      Ember.run(() => $('.frost-list-item').eq(0).click())
