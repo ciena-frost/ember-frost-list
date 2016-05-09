@@ -20,10 +20,19 @@ export default Ember.Component.extend({
     event.stopPropagation()
 
     if (_.isFunction(this.get('_frostList.onSelect'))) {
-      this.get('_frostList.onSelect')({
-        record: this.get('model'),
-        isSelected: !this.get('model.isSelected')
-      })
+        this.get('_frostList.onSelect')({
+          record: this.get('model'),
+          isSelected: !this.get('model.isSelected'),
+          checkboxIsClick: this.get('checkboxIsClick')
+        })
     }
-  })
+    this.set('checkboxIsClick', false);
+  }),
+
+  checkboxIsClick: false,
+  actions: {
+    checkboxIsClick() {
+      this.set('checkboxIsClick',true)
+    }
+  }
 })

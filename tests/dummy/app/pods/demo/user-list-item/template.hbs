@@ -1,7 +1,7 @@
 <div class="block start frost-flex-1">
     <div class="row">
         <div class='select-checkbox'>
-          {{frost-list-selection-indicator isSelected=isSelected}}
+          {{frost-list-selection-indicator isSelected=isSelected onClick=(action 'checkboxIsClick')}}
         </div>
         <div class='icon'>
             <div class='alarm frost-alarm-background-{{model.severityClass}}'>
