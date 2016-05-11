@@ -20,11 +20,11 @@ export default Ember.Component.extend({
     event.stopPropagation()
 
     if (_.isFunction(this.get('_frostList.onSelect'))) {
-      let checkboxIsClick = $(event.target).hasClass('frost-list-selection-indicator');
+      let isTargetSelectionIndicator = $(event.target).hasClass('frost-list-selection-indicator');
       this.get('_frostList.onSelect')({
         record: this.get('model'),
         isSelected: !this.get('model.isSelected'),
-        checkboxIsClick: checkboxIsClick
+        isTargetSelectionIndicator: isTargetSelectionIndicator
       })
     }
     this.set('checkboxIsClick', false);

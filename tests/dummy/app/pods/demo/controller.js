@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
   actions: {
     selected (attrs) {
       if(attrs.isSelected) {
-        if(!attrs.checkboxIsClick) this.set('selectedItems', []);
+        if(!attrs.isTargetSelectionIndicator) this.set('selectedItems', []);
         this.get('selectedItems').addObject(attrs.record)
       } else {
         this.get('selectedItems').removeObject(attrs.record)
