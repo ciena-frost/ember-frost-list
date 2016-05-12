@@ -6,16 +6,20 @@ import layout from './template'
 function findElementsInBetween (array, firstElement, lastElement) {
   let loopKey = 0
   let resultArray = []
-  _.each(array, (record) => {
-    if (record.id === firstElement.id || record.id === lastElement.id) {
-      resultArray.pushObject(record)
-      loopKey = loopKey + 1
-    } else {
-      if (loopKey === 1) resultArray.pushObject(record)
-      else if (loopKey === 2) return false
-    }
-  })
-  return resultArray
+  if(firstElement && lastElement ) {
+    _.each(array, (record) => {
+      if (record.id === firstElement.id || record.id === lastElement.id) {
+        resultArray.pushObject(record)
+        loopKey = loopKey + 1
+      } else {
+        if (loopKey === 1) resultArray.pushObject(record)
+        else if (loopKey === 2) return false
+      }
+    })
+    return resultArray
+  } else {
+    return [lastElement]
+  }
 }
 
 export default Ember.Component.extend({
