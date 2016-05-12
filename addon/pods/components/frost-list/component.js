@@ -6,7 +6,7 @@ import layout from './template'
 function findElementsInBetween (array, firstElement, lastElement) {
   let loopKey = 0
   let resultArray = []
-  if(firstElement && lastElement ) {
+  if (firstElement && lastElement) {
     _.each(array, (record) => {
       if (record.id === firstElement.id || record.id === lastElement.id) {
         resultArray.pushObject(record)
