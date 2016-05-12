@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   isSelected: Ember.computed.reads('model.isSelected'),
 
   onclick: Ember.on('click', function (event) {
-    if (!Ember.ViewUtils.isSimpleClick(event)) {
+    if (!Ember.ViewUtils.isSimpleClick(event) && !event.shiftKey && !event.metaKey && !event.ctrlKey) {
       return true
     }
 
@@ -20,13 +20,22 @@ export default Ember.Component.extend({
     event.stopPropagation()
 
     if (_.isFunction(this.get('_frostList.onSelect'))) {
-      let isTargetSelectionIndicator = $(event.target).hasClass('frost-list-selection-indicator');
-      this.get('_frostList.onSelect')({
-        record: this.get('model'),
-        isSelected: !this.get('model.isSelected'),
-        isTargetSelectionIndicator: isTargetSelectionIndicator
-      })
+      let isTargetSelectionIndicator = $(event.target).hasClass('frost-list-selection-indicator') // eslint-disable-line no-undef
+      if (event.shiftKey && (!this.get('_frostList.persistedClickState.isSelected')) && !this.get('isSelected')) {
+        this.get('_frostList.onShiftSelect').call(this.get('_frostList'), {
+          secondClickedRecord: this.get('model'),
+          isTargetSelectionIndicator: isTargetSelectionIndicator
+        })
+      } else {
+        this.get('_frostList.onSelect')({
+          record: this.get('model'),
+          isSelected: !this.get('model.isSelected'),
+          isTargetSelectionIndicator: isTargetSelectionIndicator,
+          isShiftSelect: false,
+          isCtrlSelect: (event.metaKey || event.ctrlKey) && (!this.get('_frostList.persistedClickState.isSelected')) && !this.get('isSelected')
+        })
+      }
+      this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
     }
-    this.set('checkboxIsClick', false);
   })
 })
