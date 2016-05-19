@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   isSelected: Ember.computed.reads('model.isSelected'),
 
   onclick: Ember.on('click', function (event) {
-    if (!Ember.ViewUtils.isSimpleClick(event) && !event.shiftKey && !event.metaKey && !event.ctrlKey) {
+    if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
     }
 
