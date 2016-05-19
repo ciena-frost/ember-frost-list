@@ -1,5 +1,6 @@
 import Ember from 'ember'
 import config from '../../config/environment'
+import _ from 'lodash'
 
 export default Ember.Controller.extend({
   selectedItems: Ember.A(),
@@ -15,7 +16,14 @@ export default Ember.Controller.extend({
   actions: {
     selected (attrs) {
       if (attrs.isSelected) {
-        this.get('selectedItems').addObject(attrs.record)
+        if (attrs.isShiftSelect) {
+          _.each(attrs.record, (record) => {
+            this.get('selectedItems').addObject(record)
+          })
+        } else {
+          if ((!attrs.isTargetSelectionIndicator && !attrs.isCtrlSelect)) this.set('selectedItems', [])
+          this.get('selectedItems').addObject(attrs.record)
+        }
       } else {
         this.get('selectedItems').removeObject(attrs.record)
       }
