@@ -20,7 +20,7 @@ export default Ember.Component.extend({
     event.stopPropagation()
 
     if (_.isFunction(this.get('_frostList.onSelect'))) {
-      let isTargetSelectionIndicator = $(event.target).hasClass('frost-list-selection-indicator') // eslint-disable-line no-undef
+      let isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
       if (event.shiftKey && (!this.get('_frostList.persistedClickState.isSelected')) && !this.get('isSelected')) {
         this.get('_frostList.onShiftSelect').call(this.get('_frostList'), {
           secondClickedRecord: this.get('model'),
