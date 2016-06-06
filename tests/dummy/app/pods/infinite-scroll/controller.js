@@ -68,11 +68,10 @@ export default Ember.Controller.extend({
       pageSize: 100,
       start: firstOffset - 100
     }).then((newItems) => {
-      let content = this.model.items.content
+      let oldContent = this.model.items.content
       let newContent = newItems.content
-      let newList = content.slice(0, content.length - newContent.length)
-      let concatedList = newContent.concat(newList)
-      this.get('listItems').set('content', concatedList)
+      let retContent = newContent.concat(oldContent.slice(0, oldContent.length - newContent.length))
+      this.get('listItems').set('content', retContent)
 
       // for demo only
       this.set('currentPageSize', 100)
