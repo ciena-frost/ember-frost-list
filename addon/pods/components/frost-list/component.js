@@ -1,4 +1,3 @@
-/* global $ */
 import Ember from 'ember'
 import _ from 'lodash/lodash'
 import layout from './template'
@@ -70,6 +69,14 @@ export default Ember.Component.extend({
     })
   }),
 
+  //  Optional attrs for sm vertical-collection
+  //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
+  idForFirstItem: null,
+  scrollPosition: 0,
+  key: '@identity',
+  defaultHeight: 60,
+  alwaysUseDefaultHeight: false,
+
   onShiftSelect (attrs) {
     let mappedRecords = this.get('mappedRecords')
     let firstElement = this.get('persistedClickState.clickedRecord')
@@ -80,27 +87,5 @@ export default Ember.Component.extend({
       isShiftSelect: true,
       isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
     })
-  },
-
-  didInsertElement () {
-    this.$('.frost-scroll').bind('touchmove', this.onScroll.bind(this))
-    this.$('.frost-scroll').bind('scroll', this.onScroll.bind(this))
-  },
-
-  willRemoveElement () {
-    this.$('.frost-scroll').unbind('scroll')
-    this.$('.frost-scroll').unbind('touchmove')
-  },
-
-  onScroll (e) {
-    const $element = $(e.currentTarget).first()
-
-    if ($element[0].scrollHeight - $element.scrollTop() === $element.outerHeight()) {
-      const fn = this.get('onScrollYEnd')
-
-      if (fn) {
-        fn()
-      }
-    }
   }
 })

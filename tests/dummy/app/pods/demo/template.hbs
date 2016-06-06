@@ -1,12 +1,8 @@
-{{#frost-list
-  class='frost-flex-1'
-  onScrollYEnd=(action 'yEndReached')
-  onSelect=(action 'selected')
-  records=model
-  selections=selectedItems
-  as |record|
-}}
-  {{!#if (eq record.record-type 'custom')}}
-    {{component componentPath model=record detailLevel=activeDetailLevel}}
-  {{!/if}}
-{{/frost-list}}
+<div class="demo">
+    <div>
+      {{frost-button priority='secondary' size='small' text='Demo lists' onClick=(action 'transitionHandler' 'demo-lists')}}
+    </div>
+    <div>
+      {{frost-button priority='secondary' size='small' text='Infinite scroll' onClick=(action 'transitionHandler' 'infinite-scroll')}}
+    </div>
+</div>

@@ -19,10 +19,33 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
 
-.frost-tabs.iframe {
-  .navigation {
-    display: none;
+  .demo {
+    margin-top: 20px;
+    .frost-button {
+      margin-bottom: 10px;
+    }
+  }
+
+  .dummy-infinite-scroll {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .dummy-list {
+      display: flex;
+      flex-direction: column;
+
+      .actions {
+        margin-top: 30px;
+        display: block;
+        width: 700px;
+        margin-left: auto;
+      }
+    }
+
+    .section {
+      margin-left: 30px;
+    }
   }
 }
