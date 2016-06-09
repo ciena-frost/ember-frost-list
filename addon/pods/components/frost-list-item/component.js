@@ -5,7 +5,7 @@ import FrostList from '../frost-list/component'
 export default Ember.Component.extend({
   classNameBindings: ['isSelected', 'frost-list-item'],
 
-  initContext: Ember.on('didInitAttrs', function () {
+  initContext: Ember.on('init', function () {
     this.set('_frostList', this.nearestOfType(FrostList))
   }),
 
