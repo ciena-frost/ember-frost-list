@@ -6,9 +6,6 @@ from 'ember-cli-mirage'
 var type = null
 
 export default Mirage.Factory.extend({
-  id: function () {
-    return faker.random.uuid()
-  },
   dimension: function () {
     type = faker.list.random('NC', 'SERVICE', 'custom')()
     return type

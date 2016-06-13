@@ -44,7 +44,6 @@ describeComponent(
       this.render(hbs `
         {{#frost-list
           class='frost-flex-1'
-          onScrollYEnd=(action 'yEndReached')
           onSelect=(action 'selected')
           records=model
           selections=items
@@ -76,7 +75,7 @@ describeComponent(
         {{/frost-list}}
       `)
 
-      assert.lengthOf(this.$('.frost-list-item'), 1)
+      assert.lengthOf(this.$('.frost-list'), 1)
       expect(this.$()).to.have.length(1)
     })
 

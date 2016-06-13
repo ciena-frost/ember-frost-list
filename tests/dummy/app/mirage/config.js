@@ -17,26 +17,61 @@ export default function () {
     }
   })
 
-  this.get('/tables', function (db) {
-    return {
-      data: db.tables.map((attrs) => {
-        return {
-          type: 'tables',
-          id: attrs.id,
-          attributes: attrs
-        }
-      })
+  this.get('/list-items', function (db, {queryParams: qp}) {
+    if (qp.pageSize) {
+      return {
+        data: db.listItems.slice(qp.start, +qp.start + +qp.pageSize).map((attrs) => {
+          return {
+            type: 'list-items',
+            id: attrs.id,
+            attributes: attrs
+          }
+        })
+      }
+    } else {
+      return {
+        data: db.listItems.map((attrs) => {
+          return {
+            type: 'list-items',
+            id: attrs.id,
+            attributes: attrs
+          }
+        })
+      }
     }
   })
 
-  this.get('/tables/:id', function (db, request) {
-    let id = request.params.id
-
+  this.del('/list-items/:id', function (db, request) {
+    let ret = db['listItems'].find(request.params.id)
+    db['listItems'].remove(request.params.id)
     return {
       data: {
-        type: 'tables',
-        id: id,
-        attributes: db.tables.find(id)
+        type: 'list-items',
+        id: ret.id,
+        attributes: ret
+      }
+    }
+  })
+
+  this.get('/list-items/:id', function (db, request) {
+    let ret = db['listItems'].find(request.params.id)
+    return {
+      data: {
+        type: 'list-items',
+        id: ret.id,
+        attributes: ret
+      }
+    }
+  })
+
+  this.patch('/list-items/:id', function (db, request) {
+    let attrs = JSON.parse(request.requestBody)
+    let item = db['listItems'].update(request.params.id, attrs)
+    return {
+      data: {
+        type: 'list-items',
+        id: item.id,
+        attributes: item
       }
     }
   })
