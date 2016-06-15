@@ -189,7 +189,11 @@
 .frost-list .container .vertical-item {
   min-height: 30px;
 }
-
+.is-selected + .is-selected {
+	div.is-selected {
+		border-top: none;
+	}
+}
 // Complete clone of checkbox styles - need a better solution to copying this CSS
 .frost-list-selection-indicator {
   display: inline-block;

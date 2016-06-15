@@ -36,6 +36,7 @@ export default Ember.Component.extend({
         })
       }
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
+      this.get('isSelected') ? this.$().parent().removeClass('is-selected') : this.$().parent().addClass('is-selected')
     }
   })
 })
