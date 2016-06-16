@@ -26,6 +26,11 @@ export default Ember.Component.extend({
           secondClickedRecord: this.get('model'),
           isTargetSelectionIndicator: isTargetSelectionIndicator
         })
+        if (window.getSelection) {
+          window.getSelection().removeAllRanges()
+        } else if (document.selection) {  // IE
+          document.selection.empty()
+        }
       } else {
         this.get('_frostList.onSelect')({
           record: this.get('model'),
