@@ -1,3 +1,4 @@
+/* global $ */
 import Ember from 'ember'
 import _ from 'lodash/lodash'
 import FrostList from '../frost-list/component'
@@ -11,7 +12,7 @@ export default Ember.Component.extend({
 
   isSelected: Ember.computed.reads('model.isSelected'),
   isSelectedChanged: Ember.observer('model.isSelected', function () {
-    this.get('isSelected') ? this.$().parent().addClass('is-selected') : this.$().parent().removeClass('is-selected')
+    this.get('isSelected') ? $(this.get('element')).parent().addClass('is-selected') : $(this.get('element')).parent().removeClass('is-selected')
   }),
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
