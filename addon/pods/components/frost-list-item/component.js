@@ -39,7 +39,8 @@ export default Ember.Component.extend({
           isSelected: !this.get('model.isSelected'),
           isTargetSelectionIndicator: isTargetSelectionIndicator,
           isShiftSelect: false,
-          isCtrlSelect: (event.metaKey || event.ctrlKey) && (!this.get('_frostList.persistedClickState.isSelected')) && !this.get('isSelected')
+          isCtrlSelect: (event.metaKey || event.ctrlKey) && (!this.get('_frostList.persistedClickState.isSelected')) &&
+           !this.get('isSelected')
         })
       }
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
