@@ -10,7 +10,9 @@ export default Ember.Component.extend({
   }),
 
   isSelected: Ember.computed.reads('model.isSelected'),
-
+  isSelectedChanged: Ember.observer('model.isSelected', function () {
+    this.get('isSelected') ? this.$().parent().addClass('is-selected') : this.$().parent().removeClass('is-selected')
+  }),
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
@@ -41,7 +43,6 @@ export default Ember.Component.extend({
         })
       }
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
-      this.get('isSelected') ? this.$().parent().removeClass('is-selected') : this.$().parent().addClass('is-selected')
     }
   })
 })
