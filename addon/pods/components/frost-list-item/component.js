@@ -10,10 +10,11 @@ export default Ember.Component.extend({
     this.set('_frostList', this.nearestOfType(FrostList))
   }),
 
-  isSelected: Ember.computed.reads('model.isSelected'),
-  isSelectedChanged: Ember.observer('model.isSelected', function () {
-    this.get('isSelected') ? $(this.get('element')).parent().addClass('is-selected')
+  isSelected: Ember.computed('model.isSelected', function () {
+    let modelIsSelect = this.get('model.isSelected')
+    modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
     : $(this.get('element')).parent().removeClass('is-selected')
+    return modelIsSelect
   }),
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
