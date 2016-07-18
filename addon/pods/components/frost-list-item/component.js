@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   }),
 
   isSelected: Ember.computed('model.isSelected', function () {
+    // TODO: Find a better solution for binding the className to the parent
     let modelIsSelect = this.get('model.isSelected')
     modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
     : $(this.get('element')).parent().removeClass('is-selected')
