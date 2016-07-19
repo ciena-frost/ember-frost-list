@@ -1,18 +1,17 @@
-<div class="dummy-list">
-  {{#frost-list
-  class='frost-flex-1'
-  onSelect=(action 'selected')
-  records=listItems
-  selections=selectedItems
-  as |record|
-  }}
-    {{component componentPath model=record detailLevel=activeDetailLevel}}
-  {{/frost-list}}
 
-  <div class="actions">
-    {{frost-button priority='primary' size='small' text='Update selected' onClick=(action 'updateHandler') disabled=isButtonActive.updateButton}}
-    {{frost-button priority='primary' size='small' text='delete Selected' onClick=(action 'deleteHandler') disabled=isButtonActive.deleteButton}}
-  </div>
+{{#frost-list
+class='frost-flex-1'
+onSelect=(action 'selected')
+records=listItems
+selections=selectedItems
+as |record|
+}}
+  {{component componentPath model=record detailLevel=activeDetailLevel}}
+{{/frost-list}}
+
+<div class="actions">
+  {{frost-button priority='primary' size='small' text='Update selected' onClick=(action 'updateHandler') disabled=isButtonActive.updateButton}}
+  {{frost-button priority='primary' size='small' text='delete Selected' onClick=(action 'deleteHandler') disabled=isButtonActive.deleteButton}}
 </div>
 
 <div class="section">
