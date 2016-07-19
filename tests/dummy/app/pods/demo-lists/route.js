@@ -10,7 +10,7 @@ export default Ember.Route.extend({
     return this._fetch()
   },
 
-  setupController(controller, model) {
+  setupController (controller, model) {
     this._super(controller, model)
     controller.selectedItems.push(model.objectAt(0))
     controller.selectedItems.push(model.objectAt(2))
