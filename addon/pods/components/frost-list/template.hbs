@@ -1,17 +1,42 @@
-<div class='border-top'></div>
-<div class='container'>
-  {{#vertical-collection
-  content=mappedRecords
-  scrollPosition=scrollPosition
-  defaultHeight=defaultHeight
-  alwaysUseDefaultHeight=alwaysUseDefaultHeight
-  key=key
-  idForFirstItem=idForFirstItem
-  firstReached=loadPrevious
-  lastReached=loadNext
-  as |item index|
-  }}
-    {{yield item index}}
-  {{/vertical-collection}}
-</div>
-<div class='border-bottom'></div>
+{{yield}}
+
+{{#yield-slot 'list-header'}}
+  {{yield}}
+{{/yield-slot}}
+
+{{#yield-slot 'list-content'}}
+
+  {{!-- This doesn't work--}}
+  {{#temp-comp items=mappedRecords as |index|}}
+    {{yield (block-params (hash index=index))}}
+  {{/temp-comp}}
+{{/yield-slot}}
+
+  {{!--
+    {{#each mappedRecords as |item index|}}
+      {{yield (block-params index)}}
+    {{/each}}
+
+  {{#temp-comp items=mappedRecords as |index|}}
+    {{yield (block-params index)}}
+  {{/temp-comp}}
+
+
+      <div class='border-top'></div>
+    <div class='container'>
+      {{#vertical-collection
+      content=mappedRecords
+      scrollPosition=scrollPosition
+      defaultHeight=defaultHeight
+      alwaysUseDefaultHeight=alwaysUseDefaultHeight
+      key=key
+      idForFirstItem=idForFirstItem
+      firstReached=loadPrevious
+      lastReached=loadNext
+      as |item index|
+      }}
+        {{yield item index}}
+      {{/vertical-collection}}
+    </div>
+    <div class='border-bottom'></div>
+  --}}

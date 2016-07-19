@@ -1,0 +1,50 @@
+.frost-list-item.user {
+
+  &.small {
+    height: 50px;
+  }
+
+  &.medium {
+    height: 75px;
+  }
+
+  &.large {
+    height: 125px;
+  }
+
+
+  // TODO Don't need a terse/medium/large style
+
+  .row { // TODO Add to the list item pattern (or more globally as frost-row, frost-column)
+    @include display(flex);
+    @include flex-direction(row);
+  }
+
+  .column {
+    @include display(flex);
+    @include flex-direction(column);
+  }
+
+  .icon {
+    margin: 5px 0 5px 5px; // TODO Make global to the list item pattern
+
+    .alarm { // TODO Replace with svg
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+
+      .text {
+        width: 40px;
+        padding-top: 5px;
+        text-align: center;
+        font-size: $frost-font-size-0;
+        font-weight: bold;
+        color: $frost-color-white;
+      }
+    }
+  }
+}
+
+.frost-list-item.user.large {
+  @include flex-direction(row);
+}
