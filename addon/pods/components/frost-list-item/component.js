@@ -1,3 +1,4 @@
+/* global $ */
 import Ember from 'ember'
 import _ from 'lodash/lodash'
 import FrostList from '../frost-list/component'
@@ -9,8 +10,13 @@ export default Ember.Component.extend({
     this.set('_frostList', this.nearestOfType(FrostList))
   }),
 
-  isSelected: Ember.computed.reads('model.isSelected'),
-
+  isSelected: Ember.computed('model.isSelected', function () {
+    // TODO: Find a better solution for binding the className to the parent
+    let modelIsSelect = this.get('model.isSelected')
+    modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
+    : $(this.get('element')).parent().removeClass('is-selected')
+    return modelIsSelect
+  }),
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
@@ -43,7 +49,6 @@ export default Ember.Component.extend({
         })
       }
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
-      this.get('isSelected') ? this.$().parent().removeClass('is-selected') : this.$().parent().addClass('is-selected')
     }
   })
 })
