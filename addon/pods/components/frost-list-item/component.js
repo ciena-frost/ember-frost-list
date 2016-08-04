@@ -1,16 +1,33 @@
 import Ember from 'ember'
+const {Component} = Ember
+import computed, {readOnly} from 'ember-computed-decorators'
 import _ from 'lodash/lodash'
 import FrostList from '../frost-list/component'
 
-export default Ember.Component.extend({
-  classNameBindings: ['isSelected', 'frost-list-item'],
+export default Component.extend({
 
-  initContext: Ember.on('init', function () {
+  // == Dependencies ==========================================================
+
+  // == Properties ============================================================
+  classNameBindings: [
+    'isSelected',
+    'frost-list-item'
+  ],
+
+  // == Computed Properties =====================================================
+  @readOnly
+  @computed('model.isSelected')
+  isSelected (isSelected) {
+    return isSelected
+  },
+
+  // == Functions ==============================================================
+  init () {
+    this._super(...arguments)
     this.set('_frostList', this.nearestOfType(FrostList))
-  }),
+  },
 
-  isSelected: Ember.computed.reads('model.isSelected'),
-
+  // == Events ================================================================
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
@@ -44,4 +61,7 @@ export default Ember.Component.extend({
       this.get('isSelected') ? this.$().parent().removeClass('is-selected') : this.$().parent().addClass('is-selected')
     }
   })
+
+  // == Actions ================================================================
+
 })

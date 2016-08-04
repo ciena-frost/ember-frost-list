@@ -37,7 +37,7 @@
     "ember-cli-mocha": "0.10.2",
     "ember-cli-notifications": "^3.2.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-computed-decorators": "0.2.2",
+    "ember-computed-decorators": ">=0.2.2 <2.0.0",
     "ember-data": "^2.4.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
@@ -63,7 +63,9 @@
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-sass": "^5.2.0",
-    "ember-block-slots": ">=0.12.4 <2.0.0"
+    "ember-block-slots": "^1.0.0",
+    "ember-frost-sort": "2.1.1",
+    "ember-prop-types": "2.1.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
