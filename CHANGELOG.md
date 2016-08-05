@@ -1,3 +1,11 @@
+# 0.7.6
+No CHANGELOG section found in Pull Request description.
+Use a `# CHANGELOG` section in your Pull Request description to auto-populate the `CHANGELOG.md`
+
+# 0.7.5
+
+Updated the demo-lists route to include a sample showing initial selection
+
 # 0.7.4
 No CHANGELOG section found in Pull Request description.
 Use a `# CHANGELOG` section in your Pull Request description to auto-populate the `CHANGELOG.md`

@@ -1,3 +1,4 @@
+/* global $ */
 import Ember from 'ember'
 const {Component} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
@@ -15,11 +16,11 @@ export default Component.extend({
   ],
 
   // == Computed Properties =====================================================
-  @readOnly
-  @computed('model.isSelected')
-  isSelected (isSelected) {
-    return isSelected
-  },
+  //@readOnly
+  //@computed('model.isSelected')
+  //isSelected (isSelected) {
+  //  return isSelected
+  //},
 
   // == Functions ==============================================================
   init () {
@@ -28,6 +29,14 @@ export default Component.extend({
   },
 
   // == Events ================================================================
+  isSelected: Ember.computed('model.isSelected', function () {
+    // TODO: Find a better solution for binding the className to the parent
+    let modelIsSelect = this.get('model.isSelected')
+    modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
+    : $(this.get('element')).parent().removeClass('is-selected')
+    return modelIsSelect
+  }),
+
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
@@ -54,11 +63,12 @@ export default Component.extend({
           isSelected: !this.get('model.isSelected'),
           isTargetSelectionIndicator: isTargetSelectionIndicator,
           isShiftSelect: false,
-          isCtrlSelect: (event.metaKey || event.ctrlKey) && (!this.get('_frostList.persistedClickState.isSelected')) && !this.get('isSelected')
+          isCtrlSelect: (event.metaKey || event.ctrlKey) &&
+            (!this.get('_frostList.persistedClickState.isSelected')) &&
+            !this.get('isSelected')
         })
       }
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
-      this.get('isSelected') ? this.$().parent().removeClass('is-selected') : this.$().parent().addClass('is-selected')
     }
   })
 
