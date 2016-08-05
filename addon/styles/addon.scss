@@ -126,24 +126,6 @@ $frost-list-content-border-bottom: 1px;
   }
 }
 
-//.frost-list .container::before,
-//.frost-list .container::after {
-//	content: '';
-//	position: absolute;
-//	top: 0;
-//	width: 1px;
-//	height: 100%;
-//	background-color: $frost-color-lgrey-1;
-//}
-//
-//.frost-list .container::before {
-//	left: 0;
-//}
-//
-//.frost-list .container::after {
-//  right: 0;
-//}
-
 .frost-list-item {
 	display: flex;
 	flex-direction: row;
@@ -234,13 +216,13 @@ $frost-list-content-border-bottom: 1px;
 }
 
 .frost-list .vertical-item > div:not(.is-selected) {
-	padding: 1px 2px 2px 2px;
+	padding: 0px 2px 1px 2px;
 	border-top: 1px solid $frost-color-lgrey-1;
 }
 
 .frost-list .vertical-item > div.is-selected {
-	padding: 0;
-	border: 2px solid $frost-color-blue-3;
+  padding: 0 1px 1px 1px;
+	border: 1px solid $frost-color-blue-3;
 }
 
 .frost-list-item .badge {
@@ -253,6 +235,7 @@ $frost-list-content-border-bottom: 1px;
 }
 .is-selected + .is-selected {
 	div.is-selected {
+    padding-top: 1px;
 		border-top: none;
 	}
 }

@@ -2,8 +2,9 @@
 import Ember from 'ember'
 const {Component} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
-import _ from 'lodash/lodash'
-import FrostList from '../frost-list/component'
+import {PropTypes} from 'ember-prop-types'
+import _ from 'lodash'
+import FrostList from './frost-list'
 
 export default Component.extend({
 
@@ -12,15 +13,23 @@ export default Component.extend({
   // == Properties ============================================================
   classNameBindings: [
     'isSelected',
-    'frost-list-item'
-  ],
+    'frost-list-item',
+    'showDetail:is-expanded:is-collapsed'
+],
+
+  propTypes: {
+    showDetail: PropTypes.bool
+  },
 
   // == Computed Properties =====================================================
-  //@readOnly
-  //@computed('model.isSelected')
-  //isSelected (isSelected) {
-  //  return isSelected
-  //},
+  @readOnly
+  @computed('model.isSelected')
+  isSelected (isSelected) {
+    // TODO: Find a better solution for binding the className to the parent
+    isSelected ? $(this.get('element')).parent().addClass('is-selected')
+      : $(this.get('element')).parent().removeClass('is-selected')
+    return isSelected
+  },
 
   // == Functions ==============================================================
   init () {
@@ -28,14 +37,20 @@ export default Component.extend({
     this.set('_frostList', this.nearestOfType(FrostList))
   },
 
+  getDefaultProps () {
+    return {
+      showDetail: false
+    }
+  },
+
   // == Events ================================================================
-  isSelected: Ember.computed('model.isSelected', function () {
-    // TODO: Find a better solution for binding the className to the parent
-    let modelIsSelect = this.get('model.isSelected')
-    modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
-    : $(this.get('element')).parent().removeClass('is-selected')
-    return modelIsSelect
-  }),
+  //isSelected: Ember.computed('model.isSelected', function () {
+  //  // TODO: Find a better solution for binding the className to the parent
+  //  let modelIsSelect = this.get('model.isSelected')
+  //  modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
+  //  : $(this.get('element')).parent().removeClass('is-selected')
+  //  return modelIsSelect
+  //}),
 
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {

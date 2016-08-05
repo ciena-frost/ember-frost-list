@@ -1,8 +1,8 @@
 import Ember from 'ember'
 const {Component} = Ember
 import computed from 'ember-computed-decorators'
-import _ from 'lodash/lodash'
-import layout from './template'
+import _ from 'lodash'
+import layout from '../templates/frost-list'
 import {PropTypes} from 'ember-prop-types'
 import SlotsMixin from 'ember-block-slots'
 
@@ -116,13 +116,6 @@ const FrostList = Component.extend(SlotsMixin, {
   // == Events ================================================================
 
   // == Actions ===============================================================
-
-  actions: {
-
-    clickHandler() {
-      console.log('click handler')
-    }
-  }
 
 })
 
