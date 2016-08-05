@@ -1,13 +1,16 @@
 {{yield}}
 
-{{#yield-slot 'header' (block-params (hash
+<div class="header">
+  {{#yield-slot 'header' (block-params (hash
+  toggle=(component 'frost-list-toggle'showDetail=showDetail onClick=(action (mut showDetail) value="target.value"))
   sort=(component 'frost-sort')
-
-))}}
+  ))}}
     {{yield}}
-{{/yield-slot}}
+  {{/yield-slot}}
+</div>
 
-{{frost-list-toggle showDetail=showDetail onClick=(action (mut showDetail) value="target.value")}}
+{{showDetail}}
+
 
 <div class='border-top'></div>
 <div class='container'>

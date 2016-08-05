@@ -12,6 +12,7 @@ const FrostList = Component.extend(SlotsMixin, {
 
   // == Properties ============================================================
   classNames: ['frost-list'],
+  classNameBindings: ['showDetail:is-expanded:is-collapsed'],
   layout: layout,
   records: Ember.computed.alias('model'), // TODO Log deprecation of model as an attribute
 
@@ -19,10 +20,9 @@ const FrostList = Component.extend(SlotsMixin, {
     alwaysUseDefaultHeight: PropTypes.bool,
     defaultHeight: PropTypes.number,
     scrollPosition: PropTypes.number,
+    showDetail: PropTypes.bool,
     size: PropTypes.string
   },
-
-  showDetail: false,
 
   // == Computed Properties =====================================================
 
@@ -56,6 +56,8 @@ const FrostList = Component.extend(SlotsMixin, {
   // == Functions ==============================================================
   getDefaultProps () {
     return {
+      showDetail: false,
+
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
       alwaysUseDefaultHeight: false,

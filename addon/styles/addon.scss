@@ -39,6 +39,24 @@
   background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
 }
 
+
+.frost-list {
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .frost-list-toggle {
+      display: flex;
+      flex-direction: row;
+    }
+
+  }
+}
+
+
+
 .frost-list {
 	display: flex;
 	flex-direction: column;
