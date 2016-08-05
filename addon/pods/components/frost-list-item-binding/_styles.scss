@@ -1,0 +1,115 @@
+
+.frost-list-item {
+  padding: 5px 15px 0 5px;
+
+  &.small {
+    height: 50px;
+  }
+
+  &.medium {
+    height: 75px;
+  }
+
+  &.large {
+    //height: 125px;
+  }
+
+
+  // TODO Don't need a terse/medium/large style
+
+  .row { // TODO Add to the list item pattern (or more globally as frost-row, frost-column)
+    @include display(flex);
+    @include flex-direction(row);
+  }
+
+  .select-checkbox {
+    width: 50px;
+  }
+
+  .column {
+    @include display(flex);
+    @include flex-direction(column);
+  }
+
+  .columns {
+    @include display(flex);
+    @include flex-direction(column);
+
+    .column1 {
+      @include flex(1);
+      width: 70%;
+    }
+    .column2 {
+      @include flex(1);
+      text-align: right;
+      width: 30%;
+    }
+    .state {
+      margin-left: 0px;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      .overlay {
+        top: 0px;
+        left: 0px;
+        width: 25px;
+        height: 25px;
+      }
+    }
+    .cell {
+      height: 20px;
+    }
+    .description {
+      padding-top: 5px;
+    }
+    .overlay {
+
+    }
+  }
+
+  .first-col{
+    padding: 10px 10px 10px 50px;
+  }
+
+  .gne {
+    padding: 2px 2px 2px 2px;
+    height: 15px;
+    border-radius: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+    background-color: $frost-color-blue-3;
+  }
+  .active-gateway {
+    color: $frost-color-grey-2;
+    border-radius: 5px;
+    background-color: $frost-color-green-1;
+    padding: 2px 2px;
+  }
+}
+.list-valueOnly {
+  color: $frost-color-grey-1;
+  float: right;
+  width: 100%;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+}
+
+.frost-list-item .secondary {
+  font-weight: normal;
+  font-size: $frost-font-s;
+}
+
+.frost-list-item .last-col {
+  padding: 0px 5px;
+}
+
+.frost-list-item .small {
+  font-weight: normal;
+  font-size: $frost-font-xs;
+}
+
+.frost-list-item .last {
+  @include display(flex);
+  @include align-items(flex-end);
+}
