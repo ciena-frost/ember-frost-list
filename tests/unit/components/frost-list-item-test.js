@@ -1,9 +1,9 @@
-//const expect = chai.expect
+//  const expect = chai.expect
 //
-//import {beforeEach, describe, it} from 'mocha'
-//import FrostListItem from 'ember-frost-list/pods/components/frost-list-item/component'
+//  import {beforeEach, describe, it} from 'mocha'
+//  import FrostListItem from 'ember-frost-list/pods/components/frost-list-item/component'
 //
-//describe('frost-list-item', function () {
+//  describe('frost-list-item', function () {
 //  let component
 //
 //  beforeEach(function () {
@@ -33,4 +33,4 @@
 //      expect(component.get('isSelected')).to.be.falsy
 //    })
 //  })
-//})
+//  })
