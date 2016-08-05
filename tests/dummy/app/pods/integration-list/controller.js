@@ -5,7 +5,6 @@ import _ from 'lodash'
 const {computed} = Ember
 
 export default Ember.Controller.extend({
-
   // the path of custom list-item component
   componentPath: computed({
     get () {
@@ -73,10 +72,6 @@ export default Ember.Controller.extend({
         return `${sortProperty.value}${sortProperty.direction}`
       }))
       this.set('querySortOrder', temp)
-    },
-
-    expandHandler() {
-
     }
   }
 })

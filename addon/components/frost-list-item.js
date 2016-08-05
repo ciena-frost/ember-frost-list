@@ -42,6 +42,7 @@ export default Component.extend({
     }
   },
 
+  // == Event ==============================================================
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
