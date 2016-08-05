@@ -1,10 +1,10 @@
 import Ember from 'ember'
 const {Component} = Ember
 import computed from 'ember-computed-decorators'
-import _ from 'lodash'
 import layout from '../templates/frost-list'
 import {PropTypes} from 'ember-prop-types'
 import SlotsMixin from 'ember-block-slots'
+import _ from 'lodash'
 
 const FrostList = Component.extend(SlotsMixin, {
 
@@ -12,7 +12,6 @@ const FrostList = Component.extend(SlotsMixin, {
 
   // == Properties ============================================================
   classNames: ['frost-list'],
-  classNameBindings: ['showDetail:is-expanded:is-collapsed'],
   layout: layout,
   records: Ember.computed.alias('model'), // TODO Log deprecation of model as an attribute
 
@@ -57,7 +56,6 @@ const FrostList = Component.extend(SlotsMixin, {
   getDefaultProps () {
     return {
       showDetail: false,
-
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
       alwaysUseDefaultHeight: false,
@@ -111,7 +109,7 @@ const FrostList = Component.extend(SlotsMixin, {
       isShiftSelect: true,
       isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
     })
-  },
+  }
 
   // == Events ================================================================
 

@@ -1,5 +1,9 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
 
+$frost-list-header-height: 60px;
+$frost-list-content-border-top: 1px;
+$frost-list-content-border-bottom: 1px;
+
 @mixin linear-gradient($pos, $g1, $g2: null,
                        $g3: null, $g4: null,
                        $g5: null, $g6: null,
@@ -38,11 +42,6 @@
   background-image: -webkit-linear-gradient($pos-degree $full); // Safari 5.1+, Chrome
   background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
 }
-
-
-$frost-list-header-height: 60px;
-$frost-list-content-border-top: 1px;
-$frost-list-content-border-bottom: 1px;
 
 .frost-list {
   display: flex;
@@ -97,16 +96,8 @@ $frost-list-content-border-bottom: 1px;
         padding: 0 10px 0 10px;
         color: $frost-color-blue-1;
 
-        &.active {
-          color: $frost-color-grey-2;
-        }
-
         &:hover {
           background-color: rgba($frost-color-blue-1, 0.05);
-          .tab-text {
-            color: $frost-color-grey-3;
-            border-bottom: 1px solid $frost-color-grey-3;
-          }
         }
 
         &:nth-child(n + 2) {
@@ -121,10 +112,11 @@ $frost-list-content-border-bottom: 1px;
           }
         }
       }
-
     }
   }
 }
+
+//TODO remove entire frost-list-item styles when new list-item component available
 
 .frost-list-item {
 	display: flex;

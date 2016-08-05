@@ -1,1 +1,1 @@
-export { default } from 'ember-frost-list/pods/components/frost-list-toggle/component'
+export { default } from 'ember-frost-list/components/frost-list-toggle-item'

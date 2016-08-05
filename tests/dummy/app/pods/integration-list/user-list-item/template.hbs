@@ -1,49 +1,51 @@
-<div class="block start frost-flex-1">
-    <div class="row">
-        <div class='select-checkbox'>
-          {{frost-list-selection-indicator isSelected=isSelected}}
-        </div>
-        <div class='icon'>
-            <div class='alarm frost-alarm-background-{{model.severityClass}}'>
-                <div class='text'>
-                  {{model.severityAlias}}
-                </div>
-            </div>
-        </div>
-        <div class="block column">
-            <div class='secondary'>
-              {{model.node-name}}
-            </div>
-            <div class='primary'>
-              {{model.native-condition-type}}
-            </div>
-        </div>
-    </div>
-</div>
-<div class='block frost-flex-1'>
-    <div class='tertiary'>
-        Primary id: {{model.id}}
-        label: {{model.label}}
-    </div>
-</div>
-<div class='block frost-flex-1'>
-    <div class='tertiary'>
-        <span class='label'>Info:</span> {{model.additional-text}}
-    </div>
-</div>
-<div class='block end frost-flex-1'>
-    <div class='secondary badge'>
-      {{model.number-of-occurrences}}
-    </div>
-    <div class='secondary'>
-        <span class='label'>Last raised:</span> <b>{{model.last-raise-time}}</b>
-    </div>
-  {{#if (eq detailLevel 'large')}}
-      <div class='secondary'>
-          <span class='label'>First raised:</span> <b>{{model.first-raise-time}}</b>
+  <div class="block start frost-flex-1">
+      <div class="row">
+          <div class='select-checkbox'>
+            {{frost-list-selection-indicator isSelected=isSelected}}
+          </div>
+          <div class='icon'>
+              <div class='alarm frost-alarm-background-{{model.severityClass}}'>
+                  <div class='text'>
+                    {{model.severityAlias}}
+                  </div>
+              </div>
+          </div>
+          <div class="block column">
+              <div class='secondary'>
+                {{model.node-name}}
+              </div>
+              <div class='primary'>
+                {{model.native-condition-type}}
+              </div>
+          </div>
       </div>
+  </div>
+  <div class='block frost-flex-1'>
       <div class='tertiary'>
-        {{model.acknowledgeState}}
+          Primary id: {{model.id}}
+        {{model.firstName}}{{model.lastName}}
+
+          label: {{model.label}}
       </div>
-  {{/if}}
-</div>
+  </div>
+  <div class='block frost-flex-1'>
+      <div class='tertiary'>
+          <span class='label'>Info:</span> {{model.additional-text}}
+      </div>
+  </div>
+  <div class='block end frost-flex-1'>
+      <div class='secondary badge'>
+        {{model.number-of-occurrences}}
+      </div>
+      <div class='secondary'>
+          <span class='label'>Last raised:</span> <b>{{model.last-raise-time}}</b>
+      </div>
+    {{#if (eq detailLevel 'large')}}
+        <div class='secondary'>
+            <span class='label'>First raised:</span> <b>{{model.first-raise-time}}</b>
+        </div>
+        <div class='tertiary'>
+          {{model.acknowledgeState}}
+        </div>
+    {{/if}}
+  </div>

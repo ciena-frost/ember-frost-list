@@ -6,32 +6,7 @@ const {computed} = Ember
 
 export default Ember.Controller.extend({
 
-  itemsInList: Ember.computed('listItems.content.[]', function () {
-    return this.get('listItems.content.length')
-  }),
-
-  itemsInStore: computed('listItems.content.[]', function () {
-    return this.store.peekAll('list-item').content.length
-  }),
-
-  isButtonActive: computed('selectedItems.[]', function () {
-    let selectedItem = this.get('selectedItems')
-    if (!selectedItem.length) {
-      return {
-        updateButton: true,
-        deleteButton: true
-      }
-    } else {
-      return {
-        updateButton: false,
-        deleteButton: false
-      }
-    }
-  }),
-
-  listItems: computed.alias('model'),
-
-  selectedItems: Ember.A(),
+  // the path of custom list-item component
   componentPath: computed({
     get () {
       if (config.isFrostGuideDirectory) {
@@ -42,15 +17,35 @@ export default Ember.Controller.extend({
     }
   }),
 
-  init() {
-    this._super(...args);
-
-    this.set('selectedItems', )
-
+  queryParams: {
+    querySortOrder: {
+      refreshModel: true
+    }
   },
 
+  // sort related properties
+  querySortOrder: [{value: 'label', direction: 'asc'}],
+  sortOrder: ['id:asc'],
+  sortAttributes: [
+    {
+      value: 'label',
+      label: 'Label'
+    },
+    {
+      value: 'id',
+      label: 'Id'
+    }
+  ],
+
+  // data model
+  listItems: computed.alias('model'),
+  sortedItems: Ember.computed.sort('listItems', 'sortOrder'),
+
+  // list item selection
+  selectedItems: [],
+
   actions: {
-    selected (attrs) {
+    selectHandler (attrs) {
       if (attrs.isSelected) {
         if (attrs.isShiftSelect) {
           _.each(attrs.record, (record) => {
@@ -65,30 +60,23 @@ export default Ember.Controller.extend({
       }
     },
 
-    updateHandler () {
-      let selectedItems = this.get('selectedItems')
-      _.each(selectedItems, (item) => {
-        item.set('label', 'updated label')
-        item.save()
-          .then(
-            (/* success */) => {
-            },
-            (/* fail */reason) => {
-            }
-          )
+    sortHandler(sortItems) {
+      console.log('sort handler')
+      let temp = []
+      sortItems.map(function (item) {
+        temp.push({
+          value: item.value,
+          direction: item.direction
+        })
       })
+      this.set('sortOrder', sortItems.map(function (sortProperty) {
+        return `${sortProperty.value}${sortProperty.direction}`
+      }))
+      this.set('querySortOrder', temp)
     },
 
-    deleteHandler () {
-      let selectedItems = this.get('selectedItems')
-      _.each(selectedItems, (item) => {
-        item.destroyRecord().then(
-          (/* success */) => {
-          },
-          (/* fail */) => {
-          }
-        )
-      })
+    expandHandler() {
+
     }
   }
 })

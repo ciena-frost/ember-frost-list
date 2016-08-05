@@ -5,12 +5,12 @@ import layout from '../templates/frost-list-toggle-item'
 
 export default Component.extend({
   classNames: ['frost-list-toggle-item'],
-  classNameBinds: ['isActive'],
+  classNameBinds: ['active'],
   layout,
 
   //currently not used
   @computed('shouldExpand', 'showDetail')
-  isActive(shouldExpand, showDetail) {
+  active(shouldExpand, showDetail) {
     return shouldExpand === showDetail
   },
 
