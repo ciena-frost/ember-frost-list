@@ -14,7 +14,7 @@
   {{#if hasBlock}}
     {{yield record index}}
   {{else}}
-    {{component item model=record index=index}}
+    {{component item model=record index=index firstBody=firstBody secondBody=secondBody thirdBody=thirdBody}}
   {{/if}}
   {{/vertical-collection}}
 </div>

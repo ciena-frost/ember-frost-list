@@ -22,12 +22,14 @@
            </svg> -->
         </div>
         <div class="block column">
-          {{#if model.id}}
+          {{#if primaryId}}
           <div class="row">
-            <div class='primary'>{{model.id}}</div>
+            <div class='primary'>{{get model primaryId}}</div>
           </div>
           {{/if}}
-          <div class='tertiary'>{{model.label}}</div>
+          {{#if secondaryId}}
+          <div class='tertiary'>{{get model secondaryId}}</div>
+          {{/if}}
         </div>
       </div>
     </div>
@@ -35,133 +37,15 @@
 
     <!--  Column Two -->
     <div class='block frost-flex-1'>
-      <div class='tertiary'>
-        <div class='frost-flex-1 no-overflow-all'>
-          {{#if model.resourceType}}
-            <div class='tertiary small'>
-              {{model.resourceType}}
-            </div>
-          {{else}}
-            <div class='tertiary small'>
-              Unknown type
-            </div>
-          {{/if}}
-          {{#if model.profileName}}
-            <div class='tertiary small'>
-              {{model.profileName}}
-            </div>
-          {{/if}}
-        </div>
-      </div>
+      {{component firstBody  model=model}}
     </div>
-
-
     <!--  Column Three -->
+    <div class='block frost-flex-1'>
+      {{component secondBody model=model}}
+    </div>
+    <!--  Column Four -->
     <div class='block frost-flex-1 last-col'>
-      <div class = "columns">
-        <div class='row'>
-          <span class="cell progress frost-progress">
-            {{#if (not model.isStageStatus)}}
-              <span class="state">
-                {{#if (eq model.iconValidateState "processing")}}
-                {{else if (eq model.iconValidateState "failed")}}
-                {{/if}}
-            </span>
-             <span class="state">
-               {{#if (eq model.iconShallowState "processing")}}
-               {{else if (eq model.iconShallowState "failed")}}
-               {{/if}}
-             </span>
-            <span class="state">
-              {{#if (eq model.iconNsiState "processing")}}
-              {{else if (eq model.iconNsiState "failed")}}
-              {{/if}}
-            </span>
-            {{/if}}
-          </span>
-          <div class='tertiary small right-justified column2'><b>{{model.displayState}}</b></div>
-        </div>
-      {{#if (not model.isStageStatus)}}
-        <div class='row'>
-          <span class='tertiary small description'>{{model.validateState}}</span>
-          {{#if model.shallowState}}<span class='tertiary small description'>, {{model.shallowState}}</span>{{/if}}
-          {{#if model.deepDiscoveryState}}<span class='tertiary small description'>, {{model.deepDiscoveryState}}</span>{{/if}}
-        </div>
-      {{/if}}
-      </div>
+      {{component thirdBody model=model}}      
     </div>
   </div>
-  {{#if isLarge}}
-    <div class='frost-flex-1 no-overflow-all row'>
-      <!--  Column One Large view-->
-      <div class="block start frost-flex-1">
-        {{!-- <div class='tertiary list-value'> {{#if model.projectID}}{{model.projectID}}{{else}}none{{/if}}</div>--}}
-        <div class='first-col'>
-          {{#if (and model.preferredGateway (not model.gneEnabled))}}
-            <div>
-              <span class='tertiary'>Preferred Gateway:</span>
-              <span class='tertiary list-value inner'>{{model.preferredGateway.name}}</span>
-            </div>
-          {{/if}}
-          {{#if model.preferredConnectionAddress}}
-            <div>
-              <span class='tertiary'>Preferred Connection:</span>
-              <span class='tertiary list-value inner'>{{model.preferredConnectionAddress.address}}</span>
-              <span class='tertiary list-value inner'>(cost:{{model.preferredConnectionAddress.cost}})</span>
-              {{#if model.onPreferredGNE}}
-                <span class='tertiary active-gateway'>Active</span>
-              {{/if}}
-            </div>
-            <div>
-              {{#each model.preferredConnectionAddress.endpoints as |endpoint|}}
-                <span class='tertiary'>{{string-uppercase endpoint.protocolType}}:</span>
-                <span class='tertiary'>{{endpoint.port}} &nbsp;&nbsp;&nbsp;</span>
-              {{/each}}
-            </div>
-          {{/if}}
-        </div>
-      </div>
-      <!--  Column two Large view-->
-      <div class='block frost-flex-1'>
-        {{#if (and model.alternativeGateway (not model.gneEnabled))}}
-          <div>
-            <span class='tertiary'>Alternative Gateway:</span>
-            <span class='tertiary list-value inner'>{{model.alternativeGateway.name}}</span>
-          </div>
-        {{/if}}
-        {{#if model.alternativeConnectionAddress}}
-          <div>
-            <span class='tertiary'>Alternative Connection:</span>
-            <span class='tertiary list-value inner'>{{model.alternativeConnectionAddress.address}}</span>
-            <span class='tertiary list-value inner'>(cost:{{model.preferredConnectionAddress.cost}})</span>
-            {{#if (not model.onPreferredGNE)}}
-              <span class='tertiary active-gateway'>Active</span>
-            {{/if}}
-
-          </div>
-          <div>
-            {{#each model.alternativeConnectionAddress.endpoints as |endpoint|}}
-              <span class='tertiary'>{{string-uppercase endpoint.protocolType}}:</span>
-              <span class='tertiary'>{{endpoint.port}} &nbsp;&nbsp;&nbsp;</span>
-            {{/each}}
-          </div>
-        {{/if}}
-      </div>
-      <!--  Column three Large view-->
-      <div class='block frost-flex-1 last-col'>
-        <div>
-          <span class='tertiary'>Created:</span>
-          <span class='tertiary list-value inner'>{{model.formatedCreated}}</span>
-        </div>
-        {{#if model.formatedEnrollmentTime}}
-          <div>
-            <span class='tertiary'>Enrolled:</span>
-            <span class='tertiary list-value inner'>{{model.formatedEnrollmentTime}}</span>
-          </div>
-        {{/if}}
-      </div>
-
-    </div>
-
-  {{/if}}
 </div>

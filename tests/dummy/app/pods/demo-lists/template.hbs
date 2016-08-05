@@ -4,7 +4,10 @@ class='frost-flex-1'
 onSelect=(action 'selected')
 records=listItems
 selections=selectedItems
-item=(component 'frost-list-item-binding' primaryId='id' detailLevel=activeDetailLevel)
+item=(component 'frost-list-item-binding' primaryId='id' secondaryId='label' detailLevel=activeDetailLevel)
+firstBody=(component 'column-two')
+secondBody=(component 'column-three')
+thirdBody=(component 'column-four')
 }}
 
 <div class="actions">

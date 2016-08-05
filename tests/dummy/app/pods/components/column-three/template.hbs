@@ -1,0 +1,32 @@
+<div class = "columns">
+  <div class='row'>
+    Sup
+    <span class="cell progress frost-progress">
+      {{#if (not model.isStageStatus)}}
+        <span class="state">
+          {{#if (eq model.iconValidateState "processing")}}
+          {{else if (eq model.iconValidateState "failed")}}
+          {{/if}}
+      </span>
+        <span class="state">
+          {{#if (eq model.iconShallowState "processing")}}
+          {{else if (eq model.iconShallowState "failed")}}
+          {{/if}}
+        </span>
+      <span class="state">
+        {{#if (eq model.iconNsiState "processing")}}
+        {{else if (eq model.iconNsiState "failed")}}
+        {{/if}}
+      </span>
+      {{/if}}
+    </span>
+    <div class='tertiary small right-justified column2'><b>{{model.displayState}}</b></div>
+  </div>
+{{#if (not model.isStageStatus)}}
+  <div class='row'>
+    <span class='tertiary small description'>{{model.validateState}}</span>
+    {{#if model.shallowState}}<span class='tertiary small description'>, {{model.shallowState}}</span>{{/if}}
+    {{#if model.deepDiscoveryState}}<span class='tertiary small description'>, {{model.deepDiscoveryState}}</span>{{/if}}
+  </div>
+{{/if}}
+</div>
