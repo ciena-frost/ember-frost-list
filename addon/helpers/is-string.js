@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
-export function isString(params/*, hash*/) {
-  return params;
+export function isString (params) {
+  return typeof params[0] === 'string'
 }
 
-export default Ember.Helper.helper(isString);
+export default Ember.Helper.helper(isString)

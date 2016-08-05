@@ -23,9 +23,11 @@
         </div>
         <div class="block column">
           {{#if primaryId}}
-          <div class="row">
-            <div class='primary'>{{get model primaryId}}</div>
-          </div>
+            {{#if (is-string primaryId)}}
+            <div class="row">
+              <div class='primary'>{{get model primaryId}}</div>
+            </div>
+            {{/if}}
           {{/if}}
           {{#if secondaryId}}
           <div class='tertiary'>{{get model secondaryId}}</div>
