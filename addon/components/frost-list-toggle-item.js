@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'
 const {Component, ViewUtils} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-toggle-item'
@@ -8,13 +8,13 @@ export default Component.extend({
   classNameBinds: ['active'],
   layout,
 
-  //currently not used
+  //  currently not used
   @computed('shouldExpand', 'showDetail')
-  active(shouldExpand, showDetail) {
+  active (shouldExpand, showDetail) {
     return shouldExpand === showDetail
   },
 
-  click(e) {
+  click (e) {
     if (!ViewUtils.isSimpleClick(e)) {
       return true
     }
@@ -25,6 +25,6 @@ export default Component.extend({
     e.target.value = this.get('shouldExpand')
 
     const onClick = this.get('onClick')
-    if(onClick && typeof onClick === 'function') onClick(e)
+    if (onClick && typeof onClick === 'function') onClick(e)
   }
-});
+})

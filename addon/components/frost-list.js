@@ -27,7 +27,7 @@ const FrostList = Component.extend(SlotsMixin, {
 
   // Normalize the data - TODO when the API improves this can be removed
   @computed('records.[]')
-  _records(records) {
+  _records (records) {
     if (Ember.isEmpty(records)) {
       return []
     }

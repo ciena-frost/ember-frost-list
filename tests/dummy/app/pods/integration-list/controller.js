@@ -59,7 +59,7 @@ export default Ember.Controller.extend({
       }
     },
 
-    sortHandler(sortItems) {
+    sortHandler (sortItems) {
       console.log('sort handler')
       let temp = []
       sortItems.map(function (item) {
