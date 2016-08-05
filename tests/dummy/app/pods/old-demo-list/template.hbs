@@ -1,11 +1,13 @@
 
-{{frost-list
+{{#frost-list
 class='frost-flex-1'
 onSelect=(action 'selected')
 records=listItems
 selections=selectedItems
-item=(component 'frost-list-item-binding' model=record detailLevel=activeDetailLevel)
+as |record|
 }}
+  {{component componentPath model=record detailLevel=activeDetailLevel}}
+{{/frost-list}}
 
 <div class="actions">
   {{frost-button priority='primary' size='small' text='Update selected' onClick=(action 'updateHandler') disabled=isButtonActive.updateButton}}

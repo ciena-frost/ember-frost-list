@@ -9,9 +9,13 @@
   idForFirstItem=idForFirstItem
   firstReached=loadPrevious
   lastReached=loadNext
-  as |item index|
+  as |record index|
   }}
-    {{yield item index}}
+  {{#if hasBlock}}
+    {{yield record index}}
+  {{else}}
+    {{component item model=record index=index}}
+  {{/if}}
   {{/vertical-collection}}
 </div>
 <div class='border-bottom'></div>
