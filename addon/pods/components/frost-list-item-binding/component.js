@@ -1,5 +1,5 @@
 import layout from './template'
-import FrostListItem from '../frost-list-item/component'
+import FrostListItem from '../../../components/frost-list-item'
 import Ember from 'ember'
 export default FrostListItem.extend({
   layout,
