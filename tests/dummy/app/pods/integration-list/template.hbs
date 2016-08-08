@@ -1,0 +1,13 @@
+{{#frost-list
+componentPath
+class='frost-flex-1'
+records=sortedItems
+selections=selectedItems
+onSelect=(action 'selectHandler')
+}}
+  {{#block-slot 'header' as |control|}}
+    {{control.sort sortableProperties=sortAttributes sortParams=querySortOrder onChange=(action 'sortHandler')}}
+    {{control.expansion}}
+  {{/block-slot}}
+{{/frost-list}}
+

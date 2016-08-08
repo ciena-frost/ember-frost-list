@@ -1,6 +1,10 @@
 @import "bower_components/bourbon/app/assets/stylesheets/bourbon";
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
 @import 'addon/pods/components/frost-list-item-binding/styles';
+$frost-list-header-height: 60px;
+$frost-list-content-border-top: 1px;
+$frost-list-content-border-bottom: 1px;
+
 @mixin linear-gradient($pos, $g1, $g2: null,
                        $g3: null, $g4: null,
                        $g5: null, $g6: null,
@@ -41,47 +45,79 @@
 }
 
 .frost-list {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    height: calc(100vh - #{$frost-list-header-height});
+
+    .border-top {
+      height: $frost-list-content-border-top;
+      min-height: 1px;
+      margin-right: 15px;
+      background-color: $frost-color-lgrey-1;
+    }
+    .container {
+      height: calc(100% - #{$frost-list-content-border-top + $frost-list-content-border-bottom});
+      border-right: 1px solid $frost-color-lgrey-1;
+      border-left: 1px solid $frost-color-lgrey-1;
+      background-color: $frost-color-white;
+
+      vertical-collection {
+        border-bottom: 1px solid $frost-color-lgrey-1
+      }
+    }
+    .border-bottom {
+      height: $frost-list-content-border-bottom;
+      min-height: 1px;
+      margin-right: 15px;
+      background-color: $frost-color-lgrey-1;
+    }
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: $frost-list-header-height;
+
+    .frost-list-toggle {
+      display: flex;
+      position: relative;
+      flex-direction: row;
+      align-items: center;
+      margin: 0 15px 0 0;
+      font-size: $frost-font-s;
+      cursor: pointer;
+
+      .frost-list-toggle-item {
+        height: 25px;
+        line-height: 25px;
+        padding: 0 10px 0 10px;
+        color: $frost-color-blue-1;
+
+        &:hover {
+          background-color: rgba($frost-color-blue-1, 0.05);
+        }
+
+        &:nth-child(n + 2) {
+          &::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 93px;
+            width: 1px;
+            height: 16px;
+            background-color: $frost-color-lgrey-2;
+          }
+        }
+      }
+    }
+  }
 }
 
-.frost-list .container::before,
-.frost-list .container::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	width: 1px;
-	height: 100%;
-	background-color: $frost-color-lgrey-1;
-}
-
-.frost-list .container::before {
-	left: 0;
-}
-
-.frost-list .container::after {
-  right: 0;
-}
-
-.frost-list .border-top {
-	height: 1px;
-  min-height: 1px;
-	margin-right: 15px;
-	background-color: $frost-color-lgrey-1;
-}
-
-.frost-list .container {
-	border-right: 1px solid $frost-color-lgrey-1;
-	border-left: 1px solid $frost-color-lgrey-1;
-	background-color: $frost-color-white;
-}
-
-.frost-list .border-bottom {
-	height: 1px;
-  min-height: 1px;
-	margin-right: 15px;
-	background-color: $frost-color-lgrey-1;
-}
+//TODO remove entire frost-list-item styles when new list-item component available
 
 .frost-list-item {
 	display: flex;
@@ -173,13 +209,13 @@
 }
 
 .frost-list .vertical-item > div:not(.is-selected) {
-	padding: 1px 2px 2px 2px;
+	padding: 0px 2px 1px 2px;
 	border-top: 1px solid $frost-color-lgrey-1;
 }
 
 .frost-list .vertical-item > div.is-selected {
-	padding: 0;
-	border: 2px solid $frost-color-blue-3;
+  padding: 0 1px 1px 1px;
+	border: 1px solid $frost-color-blue-3;
 }
 
 .frost-list-item .badge {
@@ -192,6 +228,7 @@
 }
 .is-selected + .is-selected {
 	div.is-selected {
+    padding-top: 1px;
 		border-top: none;
 	}
 }

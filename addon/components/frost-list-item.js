@@ -1,22 +1,48 @@
-/* global $ */
 import Ember from 'ember'
-import _ from 'lodash/lodash'
-import FrostList from '../frost-list/component'
+const {Component, $} = Ember
+import computed, {readOnly} from 'ember-computed-decorators'
+import {PropTypes} from 'ember-prop-types'
+import _ from 'lodash'
+import FrostList from './frost-list'
 
-export default Ember.Component.extend({
-  classNameBindings: ['isSelected', 'frost-list-item'],
+export default Component.extend({
 
-  initContext: Ember.on('init', function () {
-    this.set('_frostList', this.nearestOfType(FrostList))
-  }),
+  // == Dependencies ==========================================================
 
-  isSelected: Ember.computed('model.isSelected', function () {
+  // == Properties ============================================================
+  classNameBindings: [
+    'isSelected',
+    'frost-list-item',
+    'showDetail:is-expanded:is-collapsed'
+  ],
+
+  propTypes: {
+    showDetail: PropTypes.bool
+  },
+
+  // == Computed Properties =====================================================
+  @readOnly
+  @computed('model.isSelected')
+  isSelected (isSelected) {
     // TODO: Find a better solution for binding the className to the parent
-    let modelIsSelect = this.get('model.isSelected')
-    modelIsSelect ? $(this.get('element')).parent().addClass('is-selected')
-    : $(this.get('element')).parent().removeClass('is-selected')
-    return modelIsSelect
-  }),
+    isSelected ? $(this.get('element')).parent().addClass('is-selected')
+      : $(this.get('element')).parent().removeClass('is-selected')
+    return isSelected
+  },
+
+  // == Functions ==============================================================
+  init () {
+    this._super(...arguments)
+    this.set('_frostList', this.nearestOfType(FrostList))
+  },
+
+  getDefaultProps () {
+    return {
+      showDetail: false
+    }
+  },
+
+  // == Event ==============================================================
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
@@ -51,4 +77,7 @@ export default Ember.Component.extend({
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
     }
   })
+
+  // == Actions ================================================================
+
 })
