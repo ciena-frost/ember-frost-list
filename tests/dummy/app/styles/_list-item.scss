@@ -1,14 +1,1 @@
-@import 'node_modules/ember-frost-core/addon/styles/frost-theme';
-
-.frost-list {
-  .frost-list-item {
-    &.is-expanded {
-      height: 60px;
-    }
-
-    &.is-collapsed {
-      height: 45px;
-    }
-  }
-}
 

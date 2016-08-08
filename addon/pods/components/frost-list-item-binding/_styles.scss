@@ -14,7 +14,9 @@
     //height: 125px;
   }
 
-
+  &.is-expanded {
+    min-height: 90px;
+  }
   // TODO Don't need a terse/medium/large style
 
   .row { // TODO Add to the list item pattern (or more globally as frost-row, frost-column)

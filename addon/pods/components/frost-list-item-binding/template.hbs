@@ -60,15 +60,15 @@
 
     <!--  Column Two -->
     <div class='block frost-flex-1'>
-      {{component firstBody  model=model}}
+      {{component firstBody  model=model isExpanded=isExpanded}}
     </div>
     <!--  Column Three -->
     <div class='block frost-flex-1'>
-      {{component secondBody model=model}}
+      {{component secondBody model=model isExpanded=isExpanded}}
     </div>
     <!--  Column Four -->
     <div class='block frost-flex-1 last-col'>
-      {{component thirdBody model=model}}      
+      {{component thirdBody model=model isExpanded=isExpanded}}      
     </div>
   </div>
 </div>
