@@ -7,19 +7,7 @@
           {{frost-list-selection-indicator isSelected=isSelected}}
         </div>
         <div class='ne-icon'>
-          <svg class="frost-svg" viewBox="0 0 25 25" style="width:40px; height:40px; fill:  #7B7F7F !important;">
-            <g>
-              <rect x="2" y="4" width="22" height="20" rx="2" ry="2" style="fill:grey;stroke:black;opacity:0.5" ></rect>
-              <text x="3" y="18" font-family="Verdana" font-size="6" style="text-align: center;"> {{model.resourceType}} </text>
-            </g>
-          </svg>
-          <!--   <svg class="frost-svg" style="width:50px; height:50px; fill:  #7B7F7F !important;">
-               {frost-node-svg
-               x=15 y=15
-               type=model.resourceType
-               size='LARGE'
-               onSelect=(action 'itemSelected')}}
-           </svg> -->
+          {{component svg}}
         </div>
         <div class="block column">
           {{#if primaryId}}
