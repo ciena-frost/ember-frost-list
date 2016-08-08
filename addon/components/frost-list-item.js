@@ -13,13 +13,15 @@ export default Component.extend({
   classNameBindings: [
     'isSelected',
     'frost-list-item',
-    'showDetail:is-expanded',
     'isExpanded:is-expanded'
   ],
 
   propTypes: {
     showDetail: PropTypes.bool
   },
+  showDetailObserver: Ember.observer('showDetail', function () { // TODO: Do this without an observer
+    this.set('isExpanded', this.get('showDetail'))
+  }),
   isExpanded: false,
   // == Computed Properties =====================================================
   @readOnly
