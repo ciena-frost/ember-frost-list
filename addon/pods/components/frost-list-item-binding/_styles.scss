@@ -21,7 +21,13 @@
     @include display(flex);
     @include flex-direction(row);
   }
-
+  .expand-cheveron {
+    margin: auto 0;
+    padding-left: 5px;
+    & > svg{
+      min-width: 25px;      
+    }
+  }
   .select-checkbox {
     min-width: 50px;
   }
