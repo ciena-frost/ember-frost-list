@@ -13,13 +13,14 @@ export default Component.extend({
   classNameBindings: [
     'isSelected',
     'frost-list-item',
-    'showDetail:is-expanded:is-collapsed'
+    'showDetail:is-expanded',
+    'isExpanded:is-expanded'
   ],
 
   propTypes: {
     showDetail: PropTypes.bool
   },
-
+  isExpanded: false,
   // == Computed Properties =====================================================
   @readOnly
   @computed('model.isSelected')

@@ -51,7 +51,7 @@
     "eslint": "^2.9.0",
     "eslint-config-frost-standard": "^2.0.0",
     "loader.js": "^4.0.0",
-    "smoke-and-mirrors": "0.5.2",
+    "smoke-and-mirrors": "0.5.4",
     "svg4everybody": "2.0.3"
   },
   "keywords": [
@@ -69,5 +69,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "ember-frost-icon-pack": {
+    "name": "list",
+    "path": "svgs/"
   }
 }
