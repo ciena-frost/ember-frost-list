@@ -48,7 +48,7 @@ vertical-collection {
 }
 .vertical-item {
   will-change: min-height;
-  height: unset !important;
+  height: unset !important; // Don’t set height. Used to ignore `alwaysUseDefaultHeight=true`, which fixes issue where you expand an item , scroll out of its context then back up. And collapsing the item would still leave a big space from the `min-height`(size of the previously expanded item) set by smoke-and-mirrors
 }
 .frost-list {
   display: flex;
