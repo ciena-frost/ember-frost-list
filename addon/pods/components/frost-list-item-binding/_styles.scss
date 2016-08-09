@@ -27,13 +27,6 @@
     @include flex-direction(column);
   }
 }
-.list-valueOnly {
-  color: $frost-color-grey-1;
-  float: right;
-  width: 100%;
-  padding-top: 2.5px;
-  padding-bottom: 2.5px;
-}
 
 .frost-list-item .secondary {
   font-weight: normal;
