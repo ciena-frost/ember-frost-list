@@ -20,11 +20,17 @@
       }
     }
   }
-  .expand-collapse-cheveron {
+  .collapsed-cheveron {
     margin: auto 0;
     padding-left: 5px;
     & > svg{
       width: 25px;      
+    }
+  }
+  .expanded-cheveron {
+    margin-top: 10.5px; 
+    & > svg{
+      width: 30px;      
     }
   }
   .select-checkbox {
