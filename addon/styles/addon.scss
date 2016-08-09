@@ -43,7 +43,12 @@ $frost-list-content-border-bottom: 1px;
   background-image: -webkit-linear-gradient($pos-degree $full); // Safari 5.1+, Chrome
   background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
 }
-
+vertical-collection {
+  transform: translateZ(0);
+}
+.vertical-item {
+  will-change: min-height;
+}
 .frost-list {
   display: flex;
   flex-direction: column;
