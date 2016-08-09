@@ -3,7 +3,7 @@
     <!--  Column One -->
     <div class="block start frost-flex-1">
       <div class="row">
-        <div class='expand-collapse-cheveron' {{action "expand" bubbles=false}}>
+        <div class='expand-collapse-cheveron' {{action "expand"}}>
           {{#if model.isExpanded}}
           <svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 25 25" enable-background="new 0 0 25 25" xml:space="preserve">
             <switch>
@@ -33,42 +33,23 @@
         <div class='select-checkbox'>
           {{frost-list-selection-indicator isSelected=isSelected}}
         </div>
-        <div class='ne-icon'>
-          {{component svg model=model}}
-        </div>
-        <div class="block column">
-          {{#if primaryId}}
-            {{#if (is-string primaryId)}}
-            <div class="row">
-              <div class='primary'>{{get model primaryId}}</div>
-            </div>
-            {{else}}
-              {{component primaryId model=model}}
-            {{/if}}
-          {{/if}}
-          {{#if secondaryId}}
-            {{#if (is-string secondaryId)}}
-                <div class='tertiary'>{{get model secondaryId}}</div>
-            {{else}}
-              {{component secondaryId model=model}}            
-            {{/if}}
-          {{/if}}
-        </div>
+        {{component firstColumn class='first-column' model=model isExpanded=model.isExpanded svg=svg primaryId=primaryId secondaryId=secondaryId}}
       </div>
+      
     </div>
 
 
     <!--  Column Two -->
     <div class='block frost-flex-1'>
-      {{component firstBody  model=model isExpanded=model.isExpanded}}
+      {{component secondColumn  model=model isExpanded=model.isExpanded}}
     </div>
     <!--  Column Three -->
     <div class='block frost-flex-1'>
-      {{component secondBody model=model isExpanded=model.isExpanded}}
+      {{component thirdColumn model=model isExpanded=model.isExpanded}}
     </div>
     <!--  Column Four -->
     <div class='block frost-flex-1 last-col'>
-      {{component thirdBody model=model isExpanded=model.isExpanded}}      
+      {{component fourthColumn model=model isExpanded=model.isExpanded}}      
     </div>
   </div>
 </div>

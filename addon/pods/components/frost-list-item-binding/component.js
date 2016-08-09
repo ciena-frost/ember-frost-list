@@ -3,6 +3,6 @@ import FrostListItem from '../../../components/frost-list-item'
 import Ember from 'ember'
 export default FrostListItem.extend({
   layout,
-  classNames: ['frost-list-item']// TODO Move frost-list-item to FrostListItem component
-
+  classNames: ['frost-list-item'], // TODO Move frost-list-item to FrostListItem component
+  firstColumn: 'frost-list-item-first-column'
 })

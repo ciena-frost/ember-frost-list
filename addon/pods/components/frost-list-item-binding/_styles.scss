@@ -13,12 +13,18 @@
   .row { // TODO Add to the list item pattern (or more globally as frost-row, frost-column)
     @include display(flex);
     @include flex-direction(row);
+    .first-column{
+      width: calc(100% - 80px);
+      .ne-icon{
+        float: left;
+      }
+    }
   }
   .expand-collapse-cheveron {
     margin: auto 0;
     padding-left: 5px;
     & > svg{
-      min-width: 25px;      
+      width: 25px;      
     }
   }
   .select-checkbox {
