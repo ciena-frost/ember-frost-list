@@ -48,6 +48,7 @@ vertical-collection {
 }
 .vertical-item {
   will-change: min-height;
+  height: unset !important;
 }
 .frost-list {
   display: flex;
