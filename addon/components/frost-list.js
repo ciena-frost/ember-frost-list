@@ -65,7 +65,13 @@ const FrostList = Component.extend(SlotsMixin, {
       scrollPosition: 0
     }
   },
-
+  showDetailObserver: Ember.observer('showDetail', function () { // TODO: Do this without an observer
+    let records = this.get('records.[]')
+    let showDetail = this.get('showDetail')
+    records = records.map(function (record) {
+      record.set('isExpanded', showDetail)
+    })
+  }),
   /**
    Iterates over elements of collection and returning all elements
    which are presented between two boundary objects in array.
@@ -114,7 +120,6 @@ const FrostList = Component.extend(SlotsMixin, {
   // == Events ================================================================
 
   // == Actions ===============================================================
-
 })
 
 FrostList.reopenClass({

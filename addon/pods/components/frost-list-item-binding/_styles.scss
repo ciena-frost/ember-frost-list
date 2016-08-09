@@ -3,7 +3,10 @@
   padding: 5px 15px 0 5px;
 
   &.is-expanded {
-    min-height: 90px;
+    min-height: 90px !important;
+  }
+  &.is-collapsed {
+    min-height: 45px !important;
   }
   // TODO Don't need a terse/medium/large style
 

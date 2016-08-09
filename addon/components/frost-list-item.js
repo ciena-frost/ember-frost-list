@@ -13,16 +13,12 @@ export default Component.extend({
   classNameBindings: [
     'isSelected',
     'frost-list-item',
-    'isExpanded:is-expanded'
+    'model.isExpanded:is-expanded:is-collapsed'
   ],
 
   propTypes: {
     showDetail: PropTypes.bool
   },
-  showDetailObserver: Ember.observer('showDetail', function () { // TODO: Do this without an observer
-    this.set('isExpanded', this.get('showDetail'))
-  }),
-  isExpanded: false,
   // == Computed Properties =====================================================
   @readOnly
   @computed('model.isSelected')
@@ -79,8 +75,13 @@ export default Component.extend({
       }
       this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
     }
-  })
+  }),
 
   // == Actions ================================================================
-
+  actions: {
+    expand () {
+      let expand = this.get('model.isExpanded')
+      this.set('model.isExpanded', !expand)
+    }
+  }
 })

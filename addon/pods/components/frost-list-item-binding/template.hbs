@@ -4,7 +4,7 @@
     <div class="block start frost-flex-1">
       <div class="row">
         <div class='expand-collapse-cheveron' {{action "expand" bubbles=false}}>
-          {{#if isExpanded}}
+          {{#if model.isExpanded}}
           <svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 25 25" enable-background="new 0 0 25 25" xml:space="preserve">
             <switch>
               <foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1">
@@ -60,15 +60,15 @@
 
     <!--  Column Two -->
     <div class='block frost-flex-1'>
-      {{component firstBody  model=model isExpanded=isExpanded}}
+      {{component firstBody  model=model isExpanded=model.isExpanded}}
     </div>
     <!--  Column Three -->
     <div class='block frost-flex-1'>
-      {{component secondBody model=model isExpanded=isExpanded}}
+      {{component secondBody model=model isExpanded=model.isExpanded}}
     </div>
     <!--  Column Four -->
     <div class='block frost-flex-1 last-col'>
-      {{component thirdBody model=model isExpanded=isExpanded}}      
+      {{component thirdBody model=model isExpanded=model.isExpanded}}      
     </div>
   </div>
 </div>
