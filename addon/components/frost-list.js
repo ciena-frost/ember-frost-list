@@ -18,6 +18,7 @@ const FrostList = Component.extend(SlotsMixin, {
   propTypes: {
     alwaysUseDefaultHeight: PropTypes.bool,
     defaultHeight: PropTypes.number,
+    hook: PropTypes.string,
     scrollPosition: PropTypes.number,
     showDetail: PropTypes.bool,
     size: PropTypes.string

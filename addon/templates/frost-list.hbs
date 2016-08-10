@@ -23,7 +23,13 @@
       lastReached=loadNext
       as |item index|
       }}
-        {{component recordComponent model=item showDetail=showDetail}}
+        {{component
+          recordComponent
+          model=item
+          showDetail=showDetail
+          hook=(concat hook '-item')
+          hookQualifiers=(hash index=index)
+        }}
       {{/vertical-collection}}
     </div>
     <div class='border-bottom'></div>

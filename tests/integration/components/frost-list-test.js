@@ -8,8 +8,11 @@ import {
   it
 }
 from 'ember-mocha'
+import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
 import setupMirage from '../../helpers/mirage-integration'
+import {beforeEach} from 'mocha'
+import {$hook, initialize} from 'ember-hook'
 
 describeComponent(
   'frost-list',
@@ -20,18 +23,23 @@ describeComponent(
     }
   },
   function () {
+    beforeEach(function () {
+      initialize()
+    })
+
     it('renders frost-list-item', function () {
       var list = Ember.A()
       list.addObject(Ember.Object.create(server.create('listItem', {
         'dimension': 'custom'
       })))
+      list.addObject(Ember.Object.create(server.create('listItem', {
+        'dimension': 'custom'
+      })))
 
       this.set('model', list)
-      this.set('end', false)
       this.set('items', Ember.A())
-      this.on('yEndReached', function () {
-        this.set('end', true)
-      })
+
+      this.set('componentPath', 'frost-list-item')
 
       this.on('selected', function (attrs) {
         if (attrs.isSelected) {
@@ -42,41 +50,28 @@ describeComponent(
       })
 
       this.render(hbs `
-        {{#frost-list
-          class='frost-flex-1'
+        {{frost-list
+          componentPath
+          hook='my-list'
+          class='frost-list'
           onSelect=(action 'selected')
           records=model
           selections=items
-          as |record|
         }}
-          {{#if (eq record.record-type 'custom')}}
-            <div class="frost-list-item terse frost-list-user">
-              <div class='icon'>
-                {{frost-icon icon='frost/info'}}
-              </div>
-              <div class='block frost-flex-1'>
-                <div class='primary name'>Glanzer, Steven</div>
-                <div class='tertiary'>
-                  <span class='label'>Email:</span>sglanzer@gmail.com</div>
-              </div>
-              <div class='block frost-flex-1'>
-                <div class='secondary'>Application access</div>
-                <div class='tertiary'>None</div>
-              </div>
-              <div class='block frost-flex-1'>
-                <div class='secondary'>API keys</div>
-                <div class='tertiary'>None</div>
-              </div>
-              <div class='block frost-flex-1'>
-                <div class='secondary'>Enabled</div>
-              </div>
-            </div>
-          {{/if}}
-        {{/frost-list}}
       `)
 
-      assert.lengthOf(this.$('.frost-list'), 1)
-      expect(this.$()).to.have.length(1)
+      const self = this
+      const $localHook = $hook
+
+      return wait().then(() => {
+        const listHook = $localHook('my-list')
+        // ember-hook qualifiers currently doesn't work with component helper
+        //  const listHookItem = $localHook('my-list-item', {index: 1})
+        expect(listHook.hasClass('frost-list'))
+          .to.be.true
+
+        assert.equal(self.$().find('vertical-item').length, 2)
+      })
     })
 
 //    it('renders frost-list-item and can be unselected', function () {
