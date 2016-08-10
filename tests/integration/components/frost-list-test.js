@@ -64,12 +64,12 @@ describeComponent(
       const $localHook = $hook
 
       return wait().then(() => {
-        const listHook = $localHook('my-list')
         // ember-hook qualifiers currently doesn't work with component helper
-        //  const listHookItem = $localHook('my-list-item', {index: 1})
-        expect(listHook.hasClass('frost-list'))
-          .to.be.true
-
+        // {{frost-list}} will work, but {{component 'frost-list'}} doesn't
+        expect($localHook('my-list').hasClass('frost-list')).to.be.true
+        expect($localHook('my-list-item-0').hasClass('frost-list-item')).to.be.true
+        expect($hook('my-list-item-0')).to.have.length(1)
+        expect($hook('my-list-item-1')).to.have.length(1)
         assert.equal(self.$().find('vertical-item').length, 2)
       })
     })

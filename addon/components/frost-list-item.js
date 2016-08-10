@@ -10,9 +10,9 @@ export default Component.extend({
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
+  classNames: ['frost-list-item'],
   classNameBindings: [
     'isSelected',
-    'frost-list-item',
     'showDetail:is-expanded:is-collapsed'
   ],
 
