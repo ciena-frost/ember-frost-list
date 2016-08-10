@@ -2,7 +2,7 @@
 
 <div class="header">
   {{#yield-slot 'header' (block-params (hash
-  expansion=(component 'frost-list-toggle' showDetail=showDetail onClick=(action (mut showDetail) value="target.value"))
+  expansion=(component 'frost-list-toggle' hook=(concat hook '-toggle') showDetail=showDetail onClick=(action (mut showDetail) value="target.value"))
   sort=(component 'frost-sort')
   ))}}
     {{yield}}
