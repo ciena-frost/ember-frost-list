@@ -61,7 +61,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "^1.0.1",
-    "ember-cli-sass": "^5.2.0",
+    "ember-cli-sass": "5.4.0",
     "ember-block-slots": "^1.0.0",
     "ember-frost-sort": "^2.1.1",
     "ember-prop-types": "^2.1.0",
