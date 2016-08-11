@@ -7,6 +7,9 @@
     height: unset;
     min-height: 90px !important;
   }
+  .min-width{
+    min-width: 0;
+  }
   // &.is-collapsed {
   //   min-height: 45px !important;
   // }
@@ -63,4 +66,35 @@
 .frost-list-item .last {
   @include display(flex);
   @include align-items(flex-end);
+}
+
+.frost-list-item .block {
+  &.first-col {
+    min-width: 35%;
+    max-width: 35%;    
+    > div {
+      width: 100%;
+    }
+  }
+  &.second-col{
+    min-width: 25%;
+    max-width: 25%; 
+    > div {
+      width: 100%;
+    }
+  }
+  &.third-col {
+    min-width: 25%;
+    max-width: 25%;    
+    > div {
+      width: 100%;
+    }
+  }
+  &.fourth-col {
+    min-width: 15%;
+    max-width: 15%;    
+    > div {
+      width: 100%;
+    } 
+  }
 }

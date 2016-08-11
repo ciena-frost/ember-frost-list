@@ -1,7 +1,6 @@
-<div class='frost-flex-1'>
-  <div class='frost-flex-1 no-overflow-all row'>
+  <div class='frost-flex-1 no-overflow-all row min-width'>
     <!--  Column One -->
-    <div class="block start frost-flex-1">
+    <div class="block start frost-flex-1 first-col">
       <div class="row">
           {{#if model.isExpanded}}
             <div class='expanded-cheveron' {{action "expand" bubbles=false}}>
@@ -42,11 +41,11 @@
 
 
     <!--  Column Two -->
-    <div class='block frost-flex-1'>
+    <div class='block frost-flex-1 second-col'>
       {{component secondColumn  model=model isExpanded=model.isExpanded}}
     </div>
     <!--  Column Three -->
-    <div class='block frost-flex-1'>
+    <div class='block frost-flex-1 third-col'>
       {{component thirdColumn model=model isExpanded=model.isExpanded}}
     </div>
     <!--  Column Four -->
@@ -54,4 +53,3 @@
       {{component fourthColumn model=model isExpanded=model.isExpanded}}      
     </div>
   </div>
-</div>
