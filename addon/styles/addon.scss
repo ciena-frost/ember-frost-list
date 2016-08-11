@@ -1,6 +1,6 @@
 @import "bower_components/bourbon/app/assets/stylesheets/bourbon";
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
-@import 'addon/pods/components/frost-list-item-binding/styles';
+@import 'frost-list-item-binding';
 $frost-list-header-height: 60px;
 $frost-list-content-border-top: 1px;
 $frost-list-content-border-bottom: 1px;

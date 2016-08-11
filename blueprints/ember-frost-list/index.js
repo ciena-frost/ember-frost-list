@@ -8,6 +8,10 @@ module.exports = {
         {name: 'ember-block-slots', target: '>=0.12.4 <2.0.0'},
         {name: 'ember-prop-types', target: '^2.0.0'}
       ]
+    }).then(() => {
+      return this.addBowerPackagesToProject([
+          {name: 'bourbon'}
+      ])
     })
   },
 
