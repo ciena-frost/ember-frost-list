@@ -71,6 +71,18 @@ const FrostList = Component.extend(SlotsMixin, {
     records = records.map(function (record) {
       record.set('isExpanded', showDetail)
     })
+    // if (!showDetail) {
+    //   let element = this.get('element')
+    //   let children = Array.prototype.slice.call(element.getElementsByTagName('vertical-collection')[0].childNodes)
+    //   children = children.filter(function (val){
+    //     return val.tagName === 'VERTICAL-ITEM'
+    //   })
+    //   let context = this
+    //   children.forEach(function(val){
+    //     val.style.minHeight = context.get('defaultHeight') + 'px'
+    //   })
+    // }
+    this.rerender()
   }),
   /**
    Iterates over elements of collection and returning all elements

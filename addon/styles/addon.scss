@@ -176,10 +176,6 @@ vertical-collection {
 	min-width: 0;
 	padding: 5px 15px 0 10px;
 	margin: 5px 0;
-  // width: 200px;
-  &.expanded{
-    width: 100%;
-  }
 }
 
 .frost-list-item .block ~ .block {
