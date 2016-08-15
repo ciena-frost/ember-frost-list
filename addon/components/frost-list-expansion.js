@@ -1,8 +1,8 @@
 import Ember from 'ember'
 const {Component} = Ember
-import layout from '../templates/frost-list-toggle'
+import layout from '../templates/frost-list-expansion'
 
 export default Component.extend({
-  classNames: ['frost-list-toggle'],
+  classNames: ['frost-list-expansion'],
   layout
 })
