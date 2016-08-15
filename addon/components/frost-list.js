@@ -71,7 +71,6 @@ const FrostList = Component.extend(SlotsMixin, {
     records = records.map(function (record) {
       record.set('isExpanded', showDetail)
     })
-    this.rerender()
   }),
   /**
    Iterates over elements of collection and returning all elements
