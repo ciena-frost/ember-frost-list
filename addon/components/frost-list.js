@@ -59,7 +59,7 @@ const FrostList = Component.extend(SlotsMixin, {
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
       alwaysUseDefaultHeight: false,
-      defaultHeight: 45,
+      defaultHeight: 50,
       idForFirstItem: null,
       key: '@identity',
       scrollPosition: 0
@@ -71,17 +71,6 @@ const FrostList = Component.extend(SlotsMixin, {
     records = records.map(function (record) {
       record.set('isExpanded', showDetail)
     })
-    // if (!showDetail) {
-    //   let element = this.get('element')
-    //   let children = Array.prototype.slice.call(element.getElementsByTagName('vertical-collection')[0].childNodes)
-    //   children = children.filter(function (val){
-    //     return val.tagName === 'VERTICAL-ITEM'
-    //   })
-    //   let context = this
-    //   children.forEach(function(val){
-    //     val.style.minHeight = context.get('defaultHeight') + 'px'
-    //   })
-    // }
     this.rerender()
   }),
   /**
