@@ -1,31 +1,41 @@
 import Ember from 'ember'
 import config from '../../config/environment'
 import _ from 'lodash'
+import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
+import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 
 const {computed} = Ember
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(FrostListSelectionMixin,FrostListExpansionMixin, {
   // the path of custom list-item component
   componentPath: computed({
     get () {
       if (config.isFrostGuideDirectory) {
         return 'user-list-item'
       } else {
-        return 'infinite-scroll/user-list-item'
+        return 'integration-list/user-list-item'
       }
     }
   }),
 
   queryParams: {
-    querySortOrder: {
+    activeSorting: {
       refreshModel: true
     }
   },
 
   // sort related properties
-  querySortOrder: [{value: 'label', direction: 'asc'}],
-  sortOrder: ['id:asc'],
-  sortAttributes: [
+  activeSorting: [{value: 'label', direction: 'asc'}],
+
+  activeSortingString: Ember.computed('activeSorting', function () {
+    let activeSorting = this.get('activeSorting')
+    if(!activeSorting) return []
+    return activeSorting.map((sortProperty) => {
+      return `${sortProperty.value}${sortProperty.direction}`
+    })
+  }),
+
+  sortableProperties: [
     {
       value: 'label',
       label: 'Label'
@@ -38,29 +48,13 @@ export default Ember.Controller.extend({
 
   // data model
   listItems: computed.alias('model'),
-  sortedItems: Ember.computed.sort('listItems', 'sortOrder'),
+  sortedItems: Ember.computed.sort('listItems', 'activeSortingString'),
 
   // list item selection
-  selectedItems: [],
+
 
   actions: {
-    selectHandler (attrs) {
-      if (attrs.isSelected) {
-        if (attrs.isShiftSelect) {
-          _.each(attrs.record, (record) => {
-            this.get('selectedItems').addObject(record)
-          })
-        } else {
-          if ((!attrs.isTargetSelectionIndicator && !attrs.isCtrlSelect)) this.set('selectedItems', [])
-          this.get('selectedItems').addObject(attrs.record)
-        }
-      } else {
-        this.get('selectedItems').removeObject(attrs.record)
-      }
-    },
-
-    sortHandler (sortItems) {
-      console.log('sort handler')
+    sortItems (sortItems) {
       let temp = []
       sortItems.map(function (item) {
         temp.push({
@@ -68,10 +62,7 @@ export default Ember.Controller.extend({
           direction: item.direction
         })
       })
-      this.set('sortOrder', sortItems.map(function (sortProperty) {
-        return `${sortProperty.value}${sortProperty.direction}`
-      }))
-      this.set('querySortOrder', temp)
+      this.set('activeSorting', temp)
     }
   }
 })
