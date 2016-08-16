@@ -1,1 +1,1 @@
-export { default } from 'ember-frost-list/pods/components/frost-list-item-binding/component'
+export { default } from 'ember-frost-list/components/frost-list-item-binding'

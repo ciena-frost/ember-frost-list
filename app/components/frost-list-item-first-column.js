@@ -1,1 +1,1 @@
-export { default } from 'ember-frost-list/components/frost-list-item-first-column';
+export { default } from 'ember-frost-list/components/frost-list-item-first-column'
