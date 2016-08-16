@@ -1,6 +1,5 @@
 import layout from '../templates/frost-list-item-binding'
 import FrostListItem from './frost-list-item'
-import Ember from 'ember'
 export default FrostListItem.extend({
   layout,
   classNames: ['frost-list-item'], // TODO Move frost-list-item to FrostListItem component

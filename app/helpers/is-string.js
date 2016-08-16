@@ -1,1 +1,1 @@
-export { default, isString } from 'ember-frost-list/helpers/is-string';
+export { default, isString } from 'ember-frost-list/helpers/is-string'
