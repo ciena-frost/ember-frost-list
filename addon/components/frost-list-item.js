@@ -17,20 +17,20 @@ export default Component.extend({
   ],
 
   // == Computed Properties =====================================================
-  //@readOnly
-  //@computed('model.isSelected')
-  //isSelected (isSelected) {
-  //  // TODO: Find a better solution for binding the className to the parent
-  //  isSelected ? $(this.get('element')).parent().addClass('is-selected')
-  //    : $(this.get('element')).parent().removeClass('is-selected')
-  //  return isSelected
-  //},
-  //
-  //@readOnly
-  //@computed('model.isExpanded')
-  //isExpanded (isExpanded) {
-  //  return isExpanded
-  //},
+  @readOnly
+  @computed('model.isSelected')
+  isSelected (isSelected) {
+    // TODO: Find a better solution for binding the className to the parent
+    isSelected ? $(this.get('element')).parent().addClass('is-selected')
+      : $(this.get('element')).parent().removeClass('is-selected')
+    return isSelected
+  },
+
+  @readOnly
+  @computed('model.isExpanded')
+  isExpanded (isExpanded) {
+    return isExpanded
+  },
 
   // == Functions ==============================================================
   initContext: on('init', function () {

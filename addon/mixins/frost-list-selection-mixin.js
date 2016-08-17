@@ -1,11 +1,10 @@
 import Ember from 'ember'
-const {Mixin} = Ember
+const {Mixin, on} = Ember
 
 export default Mixin.create({
-  init () {
-    this._super(...arguments)
+  initListSelectionMixin: on('init', function() {
     this.set('selectedItems', Ember.Object.create())
-  },
+  }),
 
   updateSelectedItemsHash (selections, attrs) {
     let _selections = selections
@@ -32,28 +31,8 @@ export default Mixin.create({
     return _selections
   },
 
-  mapSelectedItemsToSource (records, selections) {
-    //records.map((record) => {
-    //  record.set('isSelected', selections.getWithDefault(record.id, false))
-    //})
-  },
-
-  //mappedRecords: Ember.computed('listItems.[]', 'selectedItems', 'expandedItems', 'hello', function() {
-  //  debugger;
-  //  let listItems = this.get('listItems')
-  //  let selectedItems = this.get('selectedItems')
-  //  let expandedItems = this.get('expandedItems')
-  //  return listItems.map((item) => {
-  //    let newItem = Ember.assign(Ember.Object.create(), item)
-  //    newItem.set('isSelected', selectedItems.getWithDefault(newItem.id, false))
-  //    newItem.set('isExpanded', expandedItems.getWithDefault(newItem.id, false))
-  //    return newItem
-  //  })
-  //}),
-
-
-  wrappedRecords: Ember.computed('listItems.[]', function() {
-    let listItems = this.get('listItems')
+  wrappedRecords: Ember.computed('_listItems.[]', function() {
+    let listItems = this.get('_listItems')
     let wrapper = []
     return listItems.map((item) => {
       return wrapper.pushObject(Ember.Object.create({
@@ -63,7 +42,7 @@ export default Mixin.create({
     })
   }),
 
-  mappedRecords: Ember.computed('wrappedRecords', 'selectedItems', 'expandedItems', 'hello', function() {
+  mappedRecords: Ember.computed('wrappedRecords.[]', 'selectedItems', 'expandedItems', function() {
     let listItems = this.get('wrappedRecords')
     const selectedItems = this.get('selectedItems')
     const expandedItems = this.get('expandedItems')
@@ -74,15 +53,11 @@ export default Mixin.create({
     })
   }),
 
-  hello: false,
-
   actions: {
     selectItem (attrs) {
       let selectedItems = this.get('selectedItems')
-      this.toggleProperty('hello')
       this.set('selectedItems', this.updateSelectedItemsHash(selectedItems, attrs))
-      //let records = this.get('listItems')
-      //this.mapSelectedItemsToSource(records, selectedItems)
+      this.notifyPropertyChange('selectedItems');
     }
   }
 

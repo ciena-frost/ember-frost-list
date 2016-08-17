@@ -1,21 +1,27 @@
 import Ember from 'ember'
-const {Mixin} = Ember
+const {
+  computed,
+  Mixin,
+  on
+} = Ember
 
 export default Mixin.create({
 
-  init () {
-    this._super(...arguments)
-    //this.set('activeSorting',this.get('listConfig.sorting.active'))
-  },
+  initListSortingMixin: on('init', function() {
+    this.set('queryParams', ['listConfig.sorting.active'])
+    Ember.defineProperty(this, 'sortableProperties', computed.alias('listConfig.sorting.properties'))
+    Ember.defineProperty(this, 'activeSorting', computed.alias('listConfig.sorting.active'))
+  }),
+
+  sortedItems: Ember.computed.sort('mappedRecords', 'activeSortingString'),
 
   activeSortingString: Ember.computed('activeSorting', function () {
     let activeSorting = this.get('activeSorting')
     if(!activeSorting) return []
     return activeSorting.map((sortProperty) => {
-      return `${sortProperty.value}${sortProperty.direction}`
+      return `record.${sortProperty.value}${sortProperty.direction}`
     })
   }),
-
 
   actions: {
     sortItems (sortItems) {

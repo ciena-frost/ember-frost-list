@@ -1,52 +1,33 @@
 import Ember from 'ember'
-const {Mixin} = Ember
+const {
+  Mixin,
+  on
+} = Ember
 
 export default Mixin.create({
 
-  init () {
-    this._super(...arguments)
+  initListExpansionMixin: on('init', function() {
     this.set('expandedItems', Ember.Object.create())
-  },
+  }),
 
   actions: {
-    //collapseItems () {
-    //  let records = this.get('listItems')
-    //
-    //  records.map((record) => {
-    //    record.set('isExpanded', false)
-    //  })
-    //},
-    //
-    //expandItems () {
-    //  let records = this.get('listItems')
-    //  records.map((record) => {
-    //    record.set('isExpanded', true)
-    //  })
-    //},
-
     collapseItems () {
-      let records = this.get('listItems')
-
+      let records = this.get('_listItems')
       let expandedItems = this.get('expandedItems')
       records.map((record) => {
         expandedItems.set(record.id, false)
       })
-      this.toggleProperty('hello')
-
+      this.notifyPropertyChange('expandedItems');
     },
 
     expandItems () {
-      let records = this.get('listItems')
-
+      let records = this.get('_listItems')
       let expandedItems = this.get('expandedItems')
       records.map((record) => {
         expandedItems.set(record.id, true)
       })
-      this.toggleProperty('hello')
-
+      this.notifyPropertyChange('expandedItems');
     },
-
-
 
     collapseItem() {
 
