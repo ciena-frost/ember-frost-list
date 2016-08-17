@@ -1,5 +1,5 @@
 import Ember from 'ember'
-const {Component} = Ember
+const {Component, on} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list'
 import {PropTypes} from 'ember-prop-types'
@@ -13,42 +13,24 @@ const FrostList = Component.extend(SlotsMixin, {
   // == Properties ============================================================
   classNames: ['frost-list'],
   layout: layout,
-  records: Ember.computed.alias('model'), // TODO Log deprecation of model as an attribute
 
   propTypes: {
     alwaysUseDefaultHeight: PropTypes.bool,
     defaultHeight: PropTypes.number,
     hook: PropTypes.string,
     scrollPosition: PropTypes.number,
-    showDetail: PropTypes.bool,
     size: PropTypes.string
   },
 
   // == Computed Properties =====================================================
 
-  // Normalize the data - TODO when the API improves this can be removed
-  @computed('records.[]')
+  // Normalize Ember recordArray to JS array if necessary
+  @computed('items.[]')
   _records (records) {
     if (Ember.isEmpty(records)) {
       return []
     }
     return records.map(function (record) {
-      if (_.isString(record.get('record-type'))) {
-        return record
-      }
-      record.set('record-type', record.get('dimension'))
-      return record
-    })
-  },
-
-  @computed('_records.[]', 'selections.[]')
-  mappedRecords (_records, selections) {
-    return _records.map((record) => {
-      if (_.includes(selections, record)) {
-        record.set('isSelected', true)
-      } else {
-        record.set('isSelected', false)
-      }
       return record
     })
   },
@@ -56,7 +38,6 @@ const FrostList = Component.extend(SlotsMixin, {
   // == Functions ==============================================================
   getDefaultProps () {
     return {
-      showDetail: false,
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
       alwaysUseDefaultHeight: false,
@@ -65,6 +46,19 @@ const FrostList = Component.extend(SlotsMixin, {
       key: '@identity',
       scrollPosition: 0
     }
+  },
+
+  checkExpansionValidity(expansion) {
+    return typeof expansion.onCollapse === 'function' && typeof expansion.onCollapseAll === 'function' &&
+      typeof expansion.onExpand === 'function' && typeof expansion.onExpandAll === 'function'
+  },
+
+  checkSelectionValidity(selection) {
+    return typeof selection.onSelect === 'function'
+  },
+
+  checkSortingValidity(sorting) {
+    return Array.isArray(sorting.activeSorting) && Array.isArray(sorting.sortableProperties) && typeof sorting.onSort === 'function'
   },
 
   /**
@@ -82,18 +76,18 @@ const FrostList = Component.extend(SlotsMixin, {
    @returns {Array} resultArray
    */
   _findElementsInBetween (array, firstElement, lastElement) {
-    let loopKey = 0  //
+    let loopKey = 0
     let resultArray = []
     if (firstElement && lastElement) {
-      _.each(array, (record) => {
-        if (record.id === firstElement.id || record.id === lastElement.id) {
-          resultArray.pushObject(record)
+      for (let i=0; i < array.length; i++) {
+        if (array[i].id === firstElement.id || array[i].id === lastElement.id) {
+          resultArray.pushObject(array[i])
           loopKey = loopKey + 1
         } else {
-          if (loopKey === 1) resultArray.pushObject(record)
-          else if (loopKey === 2) return
+          if (loopKey === 1) resultArray.pushObject(array[i])
+          else if (loopKey === 2) break
         }
-      })
+      }
       return resultArray
     } else {
       return [lastElement]
@@ -101,19 +95,32 @@ const FrostList = Component.extend(SlotsMixin, {
   },
 
   onShiftSelect (attrs) {
-    let mappedRecords = this.get('mappedRecords')
+    let records = this.get('_records')
     let firstElement = this.get('persistedClickState.clickedRecord')
     let secondElement = attrs.secondClickedRecord
-    this.get('onSelect')({
-      record: this._findElementsInBetween(mappedRecords, firstElement, secondElement),
-      isSelected: true,
-      isShiftSelect: true,
-      isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
+    this.get('selection.onSelect')({
+      records: this._findElementsInBetween(records, firstElement, secondElement),
+      selectDesc: {
+        isSelected: true,
+        isShiftSelect: true,
+        isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
+      }
     })
-  }
+  },
 
   // == Events ================================================================
 
+  initContext: on('init', function () {
+    const sorting = this.sorting
+    const expansion = this.expansion
+    const selection = this.selection
+    if(expansion && typeof expansion === 'object')
+      Ember.assert('expansion hash is invalid', this.checkExpansionValidity(expansion))
+    if(selection && typeof selection === 'object')
+      Ember.assert('selection hash is invalid', this.checkSelectionValidity(selection))
+    if(sorting && typeof sorting === 'object')
+      Ember.assert('sorting hash is invalid', this.checkSortingValidity(sorting))
+  })
   // == Actions ===============================================================
 
 })

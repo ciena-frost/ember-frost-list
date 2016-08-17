@@ -1,5 +1,5 @@
 import Ember from 'ember'
-const {Component, $} = Ember
+const {Component,on,$} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {PropTypes} from 'ember-prop-types'
 import _ from 'lodash'
@@ -13,34 +13,29 @@ export default Component.extend({
   classNames: ['frost-list-item'],
   classNameBindings: [
     'isSelected',
-    'showDetail:is-expanded:is-collapsed'
+    'isExpanded'
   ],
 
-  propTypes: {
-    showDetail: PropTypes.bool
-  },
-
   // == Computed Properties =====================================================
-  @readOnly
-  @computed('model.isSelected')
-  isSelected (isSelected) {
-    // TODO: Find a better solution for binding the className to the parent
-    isSelected ? $(this.get('element')).parent().addClass('is-selected')
-      : $(this.get('element')).parent().removeClass('is-selected')
-    return isSelected
-  },
+  //@readOnly
+  //@computed('model.isSelected')
+  //isSelected (isSelected) {
+  //  // TODO: Find a better solution for binding the className to the parent
+  //  isSelected ? $(this.get('element')).parent().addClass('is-selected')
+  //    : $(this.get('element')).parent().removeClass('is-selected')
+  //  return isSelected
+  //},
+  //
+  //@readOnly
+  //@computed('model.isExpanded')
+  //isExpanded (isExpanded) {
+  //  return isExpanded
+  //},
 
   // == Functions ==============================================================
-  init () {
-    this._super(...arguments)
+  initContext: on('init', function () {
     this.set('_frostList', this.nearestOfType(FrostList))
-  },
-
-  getDefaultProps () {
-    return {
-      showDetail: false
-    }
-  },
+  }),
 
   // == Event ==============================================================
   onclick: Ember.on('click', function (event) {
@@ -51,9 +46,9 @@ export default Component.extend({
     event.preventDefault()
     event.stopPropagation()
 
-    if (_.isFunction(this.get('_frostList.onSelect'))) {
+    if (_.isFunction(this.get('_frostList.selection.onSelect'))) {
       let isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
-      if (event.shiftKey && (!this.get('_frostList.persistedClickState.isSelected')) && !this.get('isSelected')) {
+      if (event.shiftKey && this.get('_frostList.persistedClickState.isSelected') && !this.get('isSelected')) {
         this.get('_frostList.onShiftSelect').call(this.get('_frostList'), {
           secondClickedRecord: this.get('model'),
           isTargetSelectionIndicator: isTargetSelectionIndicator
@@ -64,17 +59,19 @@ export default Component.extend({
           document.selection.empty()
         }
       } else {
-        this.get('_frostList.onSelect')({
-          record: this.get('model'),
-          isSelected: !this.get('model.isSelected'),
-          isTargetSelectionIndicator: isTargetSelectionIndicator,
-          isShiftSelect: false,
-          isCtrlSelect: (event.metaKey || event.ctrlKey) &&
+        this.get('_frostList.selection.onSelect')({
+          records: [this.get('model')],
+          selectDesc: {
+            isSelected: !this.get('model.isSelected'),
+            isTargetSelectionIndicator: isTargetSelectionIndicator,
+            isShiftSelect: false,
+            isCtrlSelect: (event.metaKey || event.ctrlKey) &&
             (!this.get('_frostList.persistedClickState.isSelected')) &&
             !this.get('isSelected')
+          }
         })
       }
-      this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: this.get('isSelected')})
+      this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: !this.get('isSelected')})
     }
   })
 

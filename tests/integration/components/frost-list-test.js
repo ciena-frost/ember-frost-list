@@ -29,12 +29,8 @@ describeComponent(
 
     it('renders frost-list-item', function () {
       var list = Ember.A()
-      list.addObject(Ember.Object.create(server.create('listItem', {
-        'dimension': 'custom'
-      })))
-      list.addObject(Ember.Object.create(server.create('listItem', {
-        'dimension': 'custom'
-      })))
+      list.addObject(Ember.Object.create(server.create('listItem')))
+      list.addObject(Ember.Object.create(server.create('listItem')))
 
       this.set('model', list)
       this.set('items', Ember.A())

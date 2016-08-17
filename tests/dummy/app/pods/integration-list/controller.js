@@ -1,12 +1,11 @@
 import Ember from 'ember'
 import config from '../../config/environment'
 import _ from 'lodash'
-import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
-import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
+import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 
 const {computed} = Ember
 
-export default Ember.Controller.extend(FrostListSelectionMixin,FrostListExpansionMixin, {
+export default Ember.Controller.extend(FrostListMixin, {
   // the path of custom list-item component
   componentPath: computed({
     get () {
@@ -18,22 +17,44 @@ export default Ember.Controller.extend(FrostListSelectionMixin,FrostListExpansio
     }
   }),
 
-  queryParams: {
-    activeSorting: {
-      refreshModel: true
+
+  listItems: Ember.computed.alias('model'),
+
+  //// This is what I want in my Mixin, but obviously I can't use `this` here
+  //lists: Ember.computed.alias(this.listConfig.items),
+  //
+  //// This is my Config object
+  //listConfig: {
+  //  items: 'model'
+  //},
+
+
+  listConfig: {
+    items: 'model',
+    sorting: {
+      active: [{value: 'label', direction: ':desc'}],
+
+      properties: [
+        {
+          value: 'label',
+          label: 'Label'
+        },
+        {
+          value: 'id',
+          label: 'Id'
+        }
+      ],
+      sort() {
+
+      }
     }
   },
 
-  // sort related properties
-  activeSorting: [{value: 'label', direction: 'asc'}],
 
-  activeSortingString: Ember.computed('activeSorting', function () {
-    let activeSorting = this.get('activeSorting')
-    if(!activeSorting) return []
-    return activeSorting.map((sortProperty) => {
-      return `${sortProperty.value}${sortProperty.direction}`
-    })
-  }),
+  // sort related properties and actions
+  queryParams: ['activeSorting'],
+
+  activeSorting: [{value: 'label', direction: ':desc'}],
 
   sortableProperties: [
     {
@@ -46,23 +67,6 @@ export default Ember.Controller.extend(FrostListSelectionMixin,FrostListExpansio
     }
   ],
 
-  // data model
-  listItems: computed.alias('model'),
-  sortedItems: Ember.computed.sort('listItems', 'activeSortingString'),
 
-  // list item selection
-
-
-  actions: {
-    sortItems (sortItems) {
-      let temp = []
-      sortItems.map(function (item) {
-        temp.push({
-          value: item.value,
-          direction: item.direction
-        })
-      })
-      this.set('activeSorting', temp)
-    }
-  }
+  sortedItems: Ember.computed.sort('mappedRecords', 'activeSortingString')
 })

@@ -1,35 +1,19 @@
-{{!--
-{{#frost-list componentPath
-class='frost-flex-1'
-records=sortedItems
-selections=selectedItems
-expansions=expandedItems
-onSelect=(action 'selectHandler')
-onCollapse=(action 'collapseHandler')
-onExpand=(action 'expandHandler')
-}}
-  {{#block-slot 'header' as |control|}}
-    {{control.sort sortableProperties=sortAttributes sortParams=querySortOrder onChange=(action 'sortHandler')}}
-    {{control.expansion}}
-  {{/block-slot}}
-{{/frost-list}}
---}}
-
 {{frost-list componentPath
 class='frost-flex-1'
-records=sortedItems
+items=mappedRecords
 expansion=(hash
-   expandedItems=expandedItems
-   onCollapse=(action 'collapseItem')
-   onCollapseAll=(action 'collapseItems')
-   onExpand=(action 'expandItem')
-   onExpandAll=(action 'expandItems')
+  expandedItems=expandedItems
+  onCollapse=(action 'collapseItem')
+  onCollapseAll=(action 'collapseItems')
+  onExpand=(action 'expandItem')
+  onExpandAll=(action 'expandItems')
 )
 selection=(hash
-   onSelect=(action 'selectItem')
+  selectedItems=selectedItems
+  onSelect=(action 'selectItem')
 )
 sorting=(hash
-   activeSorting=activeSorting
-   sortableProperties=sortableProperties
-   onSort=(action 'sortItems')
+  activeSorting=activeSorting
+  sortableProperties=sortableProperties
+  onSort=(action 'sortItems')
 )}}

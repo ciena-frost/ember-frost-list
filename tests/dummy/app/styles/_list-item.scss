@@ -2,12 +2,10 @@
 
 .frost-list {
   .frost-list-item {
+    height: 45px;
+
     &.is-expanded {
       height: 60px;
-    }
-
-    &.is-collapsed {
-      height: 45px;
     }
   }
 }
