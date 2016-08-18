@@ -26,7 +26,6 @@ const FrostList = Component.extend(SlotsMixin, {
   // Normalize Ember recordArray to JS array if necessary
   @computed('items.[]')
   _records (records) {
-    debugger;
     if (Ember.isEmpty(records)) {
       return []
     }
