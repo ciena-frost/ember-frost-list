@@ -70,7 +70,8 @@
 }
 
 .frost-list .container {
-	border-right: 1px solid $frost-color-lgrey-1;
+  height: calc(100vh - 2px);
+  border-right: 1px solid $frost-color-lgrey-1;
 	border-left: 1px solid $frost-color-lgrey-1;
 	background-color: $frost-color-white;
 }
