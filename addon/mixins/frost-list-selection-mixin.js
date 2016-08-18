@@ -57,10 +57,10 @@ export default Mixin.create({
 
   // == Actions ================================================================
   actions: {
-    selectItem (attrs) {
-      let selectedItems = this.get('selectedItems')
-      this.set('selectedItems', this.updateSelectedItemsHash(selectedItems, attrs))
-      this.notifyPropertyChange('selectedItems')
+    selectItem (attrs, context) {
+      let selectedItems = context.get('selectedItems')
+      context.set('selectedItems', context.updateSelectedItemsHash(selectedItems, attrs))
+      context.notifyPropertyChange('selectedItems')
     }
   }
 })

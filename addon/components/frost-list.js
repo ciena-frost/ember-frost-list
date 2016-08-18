@@ -122,6 +122,7 @@ const FrostList = Component.extend(SlotsMixin, {
       Ember.assert('selection hash is invalid', this.checkSelectionValidity(selection))
     }
     if (sorting && typeof sorting === 'object') {
+      debugger;
       Ember.assert('sorting hash is invalid', this.checkSortingValidity(sorting))
     }
   })

@@ -68,7 +68,7 @@ export default Component.extend({
             (!this.get('_frostList.persistedClickState.isSelected')) &&
             !this.get('isSelected')
           }
-        })
+        }, this.get('_frostList.selection.onSelect.context'))
       }
       this.set('_frostList.persistedClickState', {
         clickedRecord: this.get('model'),
