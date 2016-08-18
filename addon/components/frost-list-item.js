@@ -1,7 +1,6 @@
 import Ember from 'ember'
-const {Component,on,$} = Ember
+const {Component, on, $} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
-import {PropTypes} from 'ember-prop-types'
 import _ from 'lodash'
 import FrostList from './frost-list'
 
@@ -71,7 +70,10 @@ export default Component.extend({
           }
         })
       }
-      this.set('_frostList.persistedClickState', {clickedRecord: this.get('model'), isSelected: !this.get('isSelected')})
+      this.set('_frostList.persistedClickState', {
+        clickedRecord: this.get('model'),
+        isSelected: !this.get('isSelected')
+      })
     }
   })
 

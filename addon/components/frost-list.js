@@ -4,7 +4,6 @@ import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list'
 import {PropTypes} from 'ember-prop-types'
 import SlotsMixin from 'ember-block-slots'
-import _ from 'lodash'
 
 const FrostList = Component.extend(SlotsMixin, {
 
@@ -27,6 +26,7 @@ const FrostList = Component.extend(SlotsMixin, {
   // Normalize Ember recordArray to JS array if necessary
   @computed('items.[]')
   _records (records) {
+    debugger;
     if (Ember.isEmpty(records)) {
       return []
     }
@@ -48,17 +48,19 @@ const FrostList = Component.extend(SlotsMixin, {
     }
   },
 
-  checkExpansionValidity(expansion) {
+  checkExpansionValidity (expansion) {
     return typeof expansion.onCollapse === 'function' && typeof expansion.onCollapseAll === 'function' &&
       typeof expansion.onExpand === 'function' && typeof expansion.onExpandAll === 'function'
   },
 
-  checkSelectionValidity(selection) {
+  checkSelectionValidity (selection) {
     return typeof selection.onSelect === 'function'
   },
 
-  checkSortingValidity(sorting) {
-    return Array.isArray(sorting.activeSorting) && Array.isArray(sorting.sortableProperties) && typeof sorting.onSort === 'function'
+  checkSortingValidity (sorting) {
+    return Array.isArray(sorting.activeSorting) &&
+           Array.isArray(sorting.sortableProperties) &&
+           typeof sorting.onSort === 'function'
   },
 
   /**
@@ -79,7 +81,7 @@ const FrostList = Component.extend(SlotsMixin, {
     let loopKey = 0
     let resultArray = []
     if (firstElement && lastElement) {
-      for (let i=0; i < array.length; i++) {
+      for (let i = 0; i < array.length; i++) {
         if (array[i].id === firstElement.id || array[i].id === lastElement.id) {
           resultArray.pushObject(array[i])
           loopKey = loopKey + 1
@@ -114,12 +116,15 @@ const FrostList = Component.extend(SlotsMixin, {
     const sorting = this.sorting
     const expansion = this.expansion
     const selection = this.selection
-    if(expansion && typeof expansion === 'object')
+    if (expansion && typeof expansion === 'object') {
       Ember.assert('expansion hash is invalid', this.checkExpansionValidity(expansion))
-    if(selection && typeof selection === 'object')
+    }
+    if (selection && typeof selection === 'object') {
       Ember.assert('selection hash is invalid', this.checkSelectionValidity(selection))
-    if(sorting && typeof sorting === 'object')
+    }
+    if (sorting && typeof sorting === 'object') {
       Ember.assert('sorting hash is invalid', this.checkSortingValidity(sorting))
+    }
   })
   // == Actions ===============================================================
 

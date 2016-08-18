@@ -5,8 +5,7 @@ import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansio
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {
-
-  initListMixin: on('init', function() {
+  initListMixin: on('init', function () {
     Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.listConfig.items))
   })
 })

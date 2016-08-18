@@ -1,16 +1,19 @@
 import Ember from 'ember'
 const {Mixin, on} = Ember
+import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
-  initListSelectionMixin: on('init', function() {
+  // == Event =================================================================
+  initListSelectionMixin: on('init', function () {
     this.set('selectedItems', Ember.Object.create())
   }),
 
+  // == Functions ==============================================================
   updateSelectedItemsHash (selections, attrs) {
     let _selections = selections
     if (attrs.selectDesc.isSelected) {
       if (attrs.selectDesc.isShiftSelect) {
-        _.forEach(attrs.records, (record) => {
+        attrs.records.forEach((record) => {
           _selections.set(record.id, true)
         })
       } else {
@@ -19,20 +22,21 @@ export default Mixin.create({
             _selections.set(key, false)
           })
         }
-        _.forEach(attrs.records, (record) => {
+        attrs.records.forEach((record) => {
           _selections.set(record.id, true)
         })
       }
     } else {
-      _.forEach(attrs.records, (record) => {
+      attrs.records.forEach((record) => {
         _selections.set(record.id, false)
       })
     }
     return _selections
   },
 
-  wrappedRecords: Ember.computed('_listItems.[]', function() {
-    let listItems = this.get('_listItems')
+  // == Computed Properties ====================================================
+  @computed('_listItems.[]')
+  wrappedRecords (listItems) {
     let wrapper = []
     return listItems.map((item) => {
       return wrapper.pushObject(Ember.Object.create({
@@ -40,25 +44,23 @@ export default Mixin.create({
         record: item
       }))
     })
-  }),
+  },
 
-  mappedRecords: Ember.computed('wrappedRecords.[]', 'selectedItems', 'expandedItems', function() {
-    let listItems = this.get('wrappedRecords')
-    const selectedItems = this.get('selectedItems')
-    const expandedItems = this.get('expandedItems')
+  @computed('wrappedRecords.[]', 'selectedItems', 'expandedItems')
+  mappedRecords (listItems, selectedItems, expandedItems) {
     return listItems.map((item) => {
       item.set('isSelected', selectedItems.getWithDefault(item.id, false))
       item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
       return item
     })
-  }),
+  },
 
+  // == Actions ================================================================
   actions: {
     selectItem (attrs) {
       let selectedItems = this.get('selectedItems')
       this.set('selectedItems', this.updateSelectedItemsHash(selectedItems, attrs))
-      this.notifyPropertyChange('selectedItems');
+      this.notifyPropertyChange('selectedItems')
     }
   }
-
 })

@@ -5,11 +5,12 @@ const {
 } = Ember
 
 export default Mixin.create({
-
-  initListExpansionMixin: on('init', function() {
+  // == Event =================================================================
+  initListExpansionMixin: on('init', function () {
     this.set('expandedItems', Ember.Object.create())
   }),
 
+  // == Actions ================================================================
   actions: {
     collapseItems () {
       let records = this.get('_listItems')
@@ -17,7 +18,7 @@ export default Mixin.create({
       records.map((record) => {
         expandedItems.set(record.id, false)
       })
-      this.notifyPropertyChange('expandedItems');
+      this.notifyPropertyChange('expandedItems')
     },
 
     expandItems () {
@@ -26,14 +27,14 @@ export default Mixin.create({
       records.map((record) => {
         expandedItems.set(record.id, true)
       })
-      this.notifyPropertyChange('expandedItems');
+      this.notifyPropertyChange('expandedItems')
     },
 
-    collapseItem() {
+    collapseItem () {
 
     },
 
-    expandItem() {
+    expandItem () {
 
     }
   }
