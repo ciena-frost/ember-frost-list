@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-list",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
@@ -42,6 +42,7 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-hook": "1.2.1",
+    "ember-get-config": "0.1.7",
     "ember-load-initializers": "0.5.1",
     "ember-lodash": "0.0.10",
     "ember-one-way-controls": "0.8.2",

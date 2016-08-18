@@ -48,7 +48,6 @@ describeComponent(
       const $localHook = $hook
 
       return wait().then(() => {
-        debugger;
         // ember-hook qualifiers currently doesn't work with component helper
         // {{frost-list}} will work, but {{component 'frost-list'}} doesn't
         expect($localHook('my-list')).to.have.length(1)

@@ -1,6 +1,5 @@
 import Ember from 'ember'
 const {Mixin, on} = Ember
-import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
   // == Event =================================================================
@@ -35,25 +34,6 @@ export default Mixin.create({
   },
 
   // == Computed Properties ====================================================
-  @computed('_listItems.[]')
-  wrappedRecords (listItems) {
-    let wrapper = []
-    return listItems.map((item) => {
-      return wrapper.pushObject(Ember.Object.create({
-        id: item.id,
-        record: item
-      }))
-    })
-  },
-
-  @computed('wrappedRecords.[]', 'selectedItems', 'expandedItems')
-  mappedRecords (listItems, selectedItems, expandedItems) {
-    return listItems.map((item) => {
-      item.set('isSelected', selectedItems.getWithDefault(item.id, false))
-      item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
-      return item
-    })
-  },
 
   // == Actions ================================================================
   actions: {
