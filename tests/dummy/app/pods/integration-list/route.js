@@ -3,13 +3,10 @@ import Ember from 'ember'
 export default Ember.Route.extend({
 
   queryParams: {
-    activeSorting: {
+    'listConfig.sorting.active': {
+      as: 'sortOrder',
       replace: true
     }
-  },
-
-  beforeModel() {
-    console.log('before model hook')
   },
 
   _fetch () {
@@ -20,6 +17,7 @@ export default Ember.Route.extend({
     return this._fetch()
   },
 
+  // for dummy example display only
   deactivate () {
     this.store.unloadAll('list-item')
   }

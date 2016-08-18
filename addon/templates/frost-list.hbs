@@ -15,7 +15,6 @@
     }}
   {{/if}}
 </div>
-{{log records}}
 <div class="frost-list-content">
     <div class='border-top'></div>
     <div class='container'>
@@ -33,7 +32,6 @@
         {{#if hasBlock}}
           {{yield item index}}
         {{else}}
-          123
           {{component
           recordComponent
           model=item
