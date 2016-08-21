@@ -48,8 +48,8 @@ const FrostList = Component.extend(SlotsMixin, {
   },
 
   checkExpansionValidity (expansion) {
-    return typeof expansion.onCollapse === 'function' && typeof expansion.onCollapseAll === 'function' &&
-      typeof expansion.onExpand === 'function' && typeof expansion.onExpandAll === 'function'
+    return typeof expansion.onCollapseAll === 'function' && typeof expansion.onCollapseAll === 'function' &&
+      typeof expansion.onExpandAll === 'function' && typeof expansion.onExpandAll === 'function'
   },
 
   checkSelectionValidity (selection) {
@@ -99,7 +99,7 @@ const FrostList = Component.extend(SlotsMixin, {
     let records = this.get('_records')
     let firstElement = this.get('persistedClickState.clickedRecord')
     let secondElement = attrs.secondClickedRecord
-    this.get('selection.onSelect')({
+    this.get('selection.onSelect').call(this.get('selection.onSelect.context'), {
       records: this._findElementsInBetween(records, firstElement, secondElement),
       selectDesc: {
         isSelected: true,
