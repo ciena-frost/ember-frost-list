@@ -99,7 +99,7 @@ const FrostList = Component.extend(SlotsMixin, {
     let records = this.get('_records')
     let firstElement = this.get('persistedClickState.clickedRecord')
     let secondElement = attrs.secondClickedRecord
-    this.get('selection.onSelect').call(this.get('selection.onSelect.context'), {
+    this.get('selection.onSelect')({
       records: this._findElementsInBetween(records, firstElement, secondElement),
       selectDesc: {
         isSelected: true,

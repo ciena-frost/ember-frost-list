@@ -4,11 +4,7 @@ import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selectio
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 import computed from 'ember-computed-decorators'
-
-function createClosureAction (func) {
-  func.context = this
-  return func
-}
+import {createClosureAction} from 'ember-frost-list/utils/utils'
 
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {
   initListMixin: on('init', function () {
@@ -16,15 +12,7 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
 
     // create closures
     Ember.defineProperty(this, '_selectItem', undefined,
-      (function () {
-        this.actions.selectItem.context = this
-        return this.actions.selectItem
-        //return (attrs) => {
-        //  let selectedItems = this.get('selectedItems')
-        //  this.set('selectedItems', this.updateSelectedItemsHash(selectedItems, attrs))
-        //  this.notifyPropertyChange('selectedItems')
-        //}
-      }).call(this)
+      createClosureAction.call(this, this.actions.selectItem)
     )
 
     Ember.defineProperty(this, '_collapseItems', undefined,
@@ -44,14 +32,7 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     )
 
     Ember.defineProperty(this, '_sortItems', undefined,
-      (function () {
-        return (sortItems) => {
-          let activeSorting = sortItems.map(function (item) {
-            return {value: item.value, direction: item.direction}
-          })
-          this.set('activeSorting', activeSorting)
-        }
-      }).call(this)
+      createClosureAction.call(this, this.actions.sortItems)
     )
   }),
 
