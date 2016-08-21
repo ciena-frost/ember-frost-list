@@ -58,7 +58,8 @@ export default Component.extend({
           document.selection.empty()
         }
       } else {
-        this.get('_frostList.selection.onSelect')({
+        debugger;
+        this.get('_frostList.selection.onSelect').call(this.get('_frostList.selection.onSelect.context'), {
           records: [this.get('model')],
           selectDesc: {
             isSelected: !this.get('model.isSelected'),
@@ -68,7 +69,7 @@ export default Component.extend({
             (!this.get('_frostList.persistedClickState.isSelected')) &&
             !this.get('isSelected')
           }
-        }, this.get('_frostList.selection.onSelect.context'))
+        })
       }
       this.set('_frostList.persistedClickState', {
         clickedRecord: this.get('model'),

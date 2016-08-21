@@ -4,20 +4,16 @@ import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selectio
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 
-//function parseFunction(source) {
-//
-//}
-//
-//let newFun = parseFunction(this.actions.selectItem.toString)
-//this.actions.selectItem.context = this
-//return this.actions.selectItem
-
+function createClosureAction (func) {
+  func.context = this
+  return func
+}
 
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {
   initListMixin: on('init', function () {
     Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.listConfig.items))
 
-
+    // create closures
     Ember.defineProperty(this, '_selectItem', undefined,
       (function () {
         this.actions.selectItem.context = this
@@ -28,6 +24,22 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
         //  this.notifyPropertyChange('selectedItems')
         //}
       }).call(this)
+    )
+
+    Ember.defineProperty(this, '_collapseItems', undefined,
+      createClosureAction.call(this, this.actions.collapseItems)
+    )
+
+    Ember.defineProperty(this, '_expandItems', undefined,
+      createClosureAction.call(this, this.actions.expandItems)
+    )
+
+    Ember.defineProperty(this, '_collapseItem', undefined,
+      createClosureAction.call(this, this.actions.collapseItem)
+    )
+
+    Ember.defineProperty(this, '_expandItem', undefined,
+      createClosureAction.call(this, this.actions.expandItem)
     )
 
     Ember.defineProperty(this, '_sortItems', undefined,
@@ -42,19 +54,22 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     )
   }),
 
-  wrapperObj: Ember.computed(function () {
-    return Ember.Object.create({
+  wrapperObj: Ember.computed('activeSorting', 'sortableProperties', function () {
+    let activeSorting = this.get('activeSorting')
+    let sortableProperties = this.get('sortableProperties')
+    return {
       expansion: {
-
+        onCollapseAll: this._collapseItems,
+        onExpandAll: this._expandItems
       },
       selection: {
         onSelect: this._selectItem
       },
-      sorting: Ember.Object.create({
-        activeSorting: this.activeSorting,
-        sortableProperties: this.sortableProperties,
+      sorting: {
+        activeSorting: activeSorting,
+        sortableProperties: sortableProperties,
         onSort: this._sortItems
-      })
-    })
+      }
+    }
   })
 })
