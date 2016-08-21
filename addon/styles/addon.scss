@@ -48,7 +48,7 @@ $frost-list-content-border-bottom: 1px;
   flex-direction: column;
 
   &-content {
-    height: calc(100% - #{$frost-list-header-height});
+    flex: 1;
 
     .border-top {
       height: $frost-list-content-border-top;

@@ -1,20 +1,22 @@
-<div class="frost-list-header">
-  {{#if sorting}}
-    {{frost-sort
+{{#if _hasHeader}}
+  <div class="frost-list-header">
+    {{#if sorting}}
+      {{frost-sort
       hook=(concat hook '-sort')
       sortableProperties=sorting.sortableProperties
       sortParams=sorting.activeSorting
       onChange=sorting.onSort
-    }}
-  {{/if}}
-  {{#if expansion}}
-    {{frost-list-expansion
+      }}
+    {{/if}}
+    {{#if expansion}}
+      {{frost-list-expansion
       hook=(concat hook '-enpansion')
       onCollapseAll=expansion.onCollapseAll
       onExpandAll=expansion.onExpandAll
-    }}
-  {{/if}}
-</div>
+      }}
+    {{/if}}
+  </div>
+{{/if}}
 <div class="frost-list-content">
     <div class='border-top'></div>
     <div class='container'>

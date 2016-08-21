@@ -34,6 +34,11 @@ const FrostList = Component.extend(SlotsMixin, {
     })
   },
 
+  @computed('sorting', 'expansion')
+  _hasHeader (sorting, expansion) {
+    return !!(sorting || expansion)
+  },
+
   // == Functions ==============================================================
   getDefaultProps () {
     return {
