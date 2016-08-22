@@ -4,7 +4,7 @@ import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selectio
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 import computed from 'ember-computed-decorators'
-import {createClosureAction} from 'ember-frost-list/utils/utils'
+import createActionClosure from 'ember-frost-list/utils/action-closure'
 
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {
   initListMixin: on('init', function () {
@@ -12,32 +12,32 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
 
     // create closures
     Ember.defineProperty(this, '_selectItem', undefined,
-      createClosureAction.call(this, this.actions.selectItem)
+      createActionClosure.call(this, this.actions.selectItem)
     )
 
     Ember.defineProperty(this, '_collapseItems', undefined,
-      createClosureAction.call(this, this.actions.collapseItems)
+      createActionClosure.call(this, this.actions.collapseItems)
     )
 
     Ember.defineProperty(this, '_expandItems', undefined,
-      createClosureAction.call(this, this.actions.expandItems)
+      createActionClosure.call(this, this.actions.expandItems)
     )
 
     Ember.defineProperty(this, '_collapseItem', undefined,
-      createClosureAction.call(this, this.actions.collapseItem)
+      createActionClosure.call(this, this.actions.collapseItem)
     )
 
     Ember.defineProperty(this, '_expandItem', undefined,
-      createClosureAction.call(this, this.actions.expandItem)
+      createActionClosure.call(this, this.actions.expandItem)
     )
 
     Ember.defineProperty(this, '_sortItems', undefined,
-      createClosureAction.call(this, this.actions.sortItems)
+      createActionClosure.call(this, this.actions.sortItems)
     )
   }),
 
   @computed('_listItems.[]')
-  wrappedRecords (listItems) {
+  listItems (listItems) {
     let wrapper = []
     return listItems.map((item) => {
       return wrapper.pushObject(Ember.Object.create({
@@ -47,8 +47,8 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     })
   },
 
-  @computed('wrappedRecords.[]', 'selectedItems', 'expandedItems')
-  mappedRecords (listItems, selectedItems, expandedItems) {
+  @computed('listItems.[]', 'selectedItems', 'expandedItems')
+  StatefulListItems (listItems, selectedItems, expandedItems) {
     return listItems.map((item) => {
       item.set('isSelected', selectedItems.getWithDefault(item.id, false))
       item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
@@ -56,10 +56,13 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     })
   },
 
-  wrapperObj: Ember.computed('activeSorting', 'sortableProperties', function () {
+  listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', function () {
     let activeSorting = this.get('activeSorting')
     let sortableProperties = this.get('sortableProperties')
+    let sortedItems = this.get('sortedItems')
     return {
+      _items: sortedItems,
+      component: this.get('listConfig.component'),
       expansion: {
         onCollapseAll: this._collapseItems,
         onExpandAll: this._expandItems

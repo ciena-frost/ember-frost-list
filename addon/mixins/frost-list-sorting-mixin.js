@@ -14,7 +14,7 @@ export default Mixin.create({
   }),
 
   // == Computed Properties ====================================================
-  sortedItems: Ember.computed.sort('mappedRecords', 'activeSortingString'),
+  sortedItems: Ember.computed.sort('StatefulListItems', 'activeSortingString'),
 
   @computed('activeSorting')
   activeSortingString (activeSorting) {
