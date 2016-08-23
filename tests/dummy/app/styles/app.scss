@@ -51,3 +51,38 @@
     }
   }
 }
+
+.examples {
+  display: flex;
+  flex-direction: column;
+
+  &-demo {
+    .frost-list {
+      height: 400px;
+    }
+  }
+
+  &-source {
+
+    .content {
+      display: flex;
+      flex-direction: row;
+
+      .examples-source-controller {
+        flex: 1;
+        margin-right: 30px;
+      }
+
+      .examples-source-template {
+        flex: 1;
+        margin-right: 30px;
+      }
+
+      .examples-source-route{
+        flex: 1;
+        margin-right: 30px;
+      }
+
+    }
+  }
+}

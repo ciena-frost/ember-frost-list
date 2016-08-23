@@ -1,5 +1,12 @@
-{{frost-list-wrapper componentPath
-  class='frost-flex-1'
-  items=sortedItems
-  params=wrapperObj
+{{frost-list 'user-list-item'
+  items=StatefulListItems
+  expansion=(hash
+    onCollapse=(action 'collapseItem')
+    onCollapseAll=(action 'collapseItems')
+    onExpand=(action 'expandItem')
+    onExpandAll=(action 'expandItems')
+  )
+  selection=(hash
+    onSelect=(action 'selectItem')
+  )
 }}

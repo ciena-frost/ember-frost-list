@@ -1,18 +1,137 @@
-{{frost-list-wrapper componentPath
-  class='frost-flex-1'
-  items=sortedItems
-  expansion=(hash
-    onCollapse=(action 'collapseItem')
-    onCollapseAll=(action 'collapseItems')
-    onExpand=(action 'expandItem')
-    onExpandAll=(action 'expandItems')
-)
-  selection=(hash
-    onSelect=(action 'selectItem')
-  )
-  sorting=(hash
-    activeSorting=activeSorting
-    sortableProperties=sortableProperties
-    onSort=(action 'sortItems')
-  )
-}}
+<div class="examples">
+    <div class="examples-controls">
+        <h3> Controls selection</h3>
+      {{controls-selection onRender=(action 'renderDemo')}}
+    </div>
+
+  <hr/>
+
+    <div class="examples-demo">
+        <h3> Demo</h3>
+        {{#if renderDemo}}
+          {{#if __useMixin}}
+            {{#if __useHash}}
+              {{frost-list
+              class='frost-flex-1'
+              items=sortedItems
+              config=listMixinConfig
+              }}
+            {{else}}
+              {{#if (eq computedTemplateCase 'case2')}}
+                {{frost-list componentPath
+                class='frost-flex-1'
+                items=sortedItems
+                expansion=(hash
+                  onCollapse=(action 'collapseItem')
+                  onCollapseAll=(action 'collapseItems')
+                  onExpand=(action 'expandItem')
+                  onExpandAll=(action 'expandItems')
+                )
+                selection=(hash
+                  onSelect=(action 'selectItem')
+                )
+                sorting=(hash
+                  activeSorting=activeSorting
+                  sortableProperties=sortableProperties
+                  onSort=(action 'sortItems')
+                )
+                }}
+              {{/if}}
+
+              {{#if (eq computedTemplateCase 'case3')}}
+                {{frost-list componentPath
+                class='frost-flex-1'
+                items=StatefulListItems
+                expansion=(hash
+                  onCollapse=(action 'collapseItem')
+                  onCollapseAll=(action 'collapseItems')
+                  onExpand=(action 'expandItem')
+                  onExpandAll=(action 'expandItems')
+                )
+                selection=(hash
+                  onSelect=(action 'selectItem')
+                )
+                }}
+              {{/if}}
+
+              {{#if (eq computedTemplateCase 'case4')}}
+                {{frost-list componentPath
+                class='frost-flex-1'
+                items=sortedItems
+                selection=(hash
+                  onSelect=(action 'selectItem')
+                )
+                sorting=(hash
+                  activeSorting=activeSorting
+                  sortableProperties=sortableProperties
+                  onSort=(action 'sortItems')
+                )
+                }}
+              {{/if}}
+
+              {{#if (eq computedTemplateCase 'case5')}}
+                {{frost-list componentPath
+                class='frost-flex-1'
+                items=sortedItems
+                selection=(hash
+                  onSelect=(action 'selectItem')
+                )
+                }}
+              {{/if}}
+            {{/if}}
+
+          {{else}}
+            {{frost-list componentPath
+              class='frost-flex-1'
+              items=sortedItems
+              config=listMixinConfig
+            }}
+          {{/if}}
+        {{/if}}
+    </div>
+
+    <hr/>
+    <div class="examples-source">
+        <div class="header">
+            <h3>Source</h3>
+        </div>
+
+        <div class="content">
+            <div class="examples-source-controller">
+                <div>Controller</div>
+              {{#if renderDemo}}
+                {{#if __useMixin}}
+                  {{code-snippet name="controller-use-mixin.js"}}
+                {{else}}
+                  {{code-snippet name="controller-no-mixin.js"}}
+                {{/if}}
+              {{/if}}
+            </div>
+
+            <div class="examples-source-template">
+                <div>Template</div>
+              {{#if renderDemo}}
+                {{#if (eq computedTemplateCase 'case1')}}
+                  {{code-snippet name="case1.hbs"}}
+                {{/if}}
+                {{#if (eq computedTemplateCase 'case2')}}
+                  {{code-snippet name="case2.hbs"}}
+                {{/if}}
+                {{#if (eq computedTemplateCase 'case3')}}
+                  {{code-snippet name="case3.hbs"}}
+                {{/if}}
+                {{#if (eq computedTemplateCase 'case4')}}
+                  {{code-snippet name="case4.hbs"}}
+                {{/if}}
+                {{#if (eq computedTemplateCase 'case5')}}
+                  {{code-snippet name="case5.hbs"}}
+                {{/if}}
+              {{/if}}
+            </div>
+            <div class="examples-source-route">
+                <div>Route</div>
+              {{code-snippet name="lists-mixin-hash-hbs.hbs"}}
+            </div>
+        </div>
+    </div>
+</div>

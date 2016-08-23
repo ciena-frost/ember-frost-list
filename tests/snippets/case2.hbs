@@ -1,0 +1,17 @@
+{{frost-list 'user-list-item'
+  items=sortedItems
+  expansion=(hash
+    onCollapse=(action 'collapseItem')
+    onCollapseAll=(action 'collapseItems')
+    onExpand=(action 'expandItem')
+    onExpandAll=(action 'expandItems')
+  )
+  selection=(hash
+    onSelect=(action 'selectItem')
+  )
+  sorting=(hash
+    activeSorting=activeSorting
+    sortableProperties=sortableProperties
+    onSort=(action 'sortItems')
+  )
+}}

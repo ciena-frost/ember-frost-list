@@ -1,11 +1,8 @@
 import Ember from 'ember'
-const {Component, on} = Ember
-import computed from 'ember-computed-decorators'
+const {Component} = Ember
 import layout from '../templates/frost-list'
-import {PropTypes} from 'ember-prop-types'
-import SlotsMixin from 'ember-block-slots'
 
-const FrostListWrapper =  Component.extend({
+const FrostListWrapper = Component.extend({
   layout,
 
   initContext: Ember.on('init', function () {
@@ -38,7 +35,7 @@ const FrostListWrapper =  Component.extend({
     }
 
     if (config) {
-      if(config.component) {
+      if (config.component) {
         this.set('recordComponent', config.component)
       }
 
@@ -57,5 +54,3 @@ FrostListWrapper.reopenClass({
 })
 
 export default FrostListWrapper
-
-

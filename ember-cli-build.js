@@ -13,7 +13,12 @@ module.exports = function (defaults) {
     },
     babel: {
       optional: ['es7.decorators']
-    }
+    },
+
+    snippetPaths: ['snippets', 'tests/snippets'],
+    snippetSearchPaths: [
+      'tests/dummy'
+    ]
   })
 
   /*

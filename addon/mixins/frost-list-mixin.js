@@ -3,7 +3,6 @@ const {Mixin, on} = Ember
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
-import computed from 'ember-computed-decorators'
 import createActionClosure from 'ember-frost-list/utils/action-closure'
 
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {

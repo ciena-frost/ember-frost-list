@@ -5,7 +5,6 @@ const {
 } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
-
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListExpansionMixin: on('init', function () {

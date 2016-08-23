@@ -1,0 +1,39 @@
+{{frost-select
+  data=data1
+  disabled=isSelectDisabled_1
+  onChange=(action 'onChangeHandler1')
+}}
+
+{{frost-select
+  data=data2
+  disabled=isSelectDisabled_2
+  onChange=(action 'onChangeHandler2')
+}}
+
+{{data2.key}}
+
+{{#if showCheckbox}}
+  {{frost-checkbox
+  checked=isSelectionChecked
+  label='selection'
+  disabled = true
+  }}
+  {{frost-checkbox
+  checked=isExpansionChecked
+  label='expansion'
+  onInput=(action (mut isExpansionChecked) value='value')
+  }}
+  {{frost-checkbox
+  checked=isSortingChecked
+  label='sorting'
+  onInput=(action (mut isSortingChecked) value='value')
+  }}
+{{/if}}
+
+{{frost-button
+priority='primary'
+size='medium'
+text='Render'
+disabled=isButtonDisabled
+onClick=(action 'clickHandler')
+}}

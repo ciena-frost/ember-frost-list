@@ -14,10 +14,6 @@ module.exports = function (environment) {
       }
     },
 
-    emberHook: {
-      enabled: environment === 'development' || environment === 'test'
-    },
-
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

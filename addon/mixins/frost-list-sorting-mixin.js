@@ -6,7 +6,6 @@ const {
 import computed from 'ember-computed-decorators'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
-
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListSortingMixin: on('init', function () {
