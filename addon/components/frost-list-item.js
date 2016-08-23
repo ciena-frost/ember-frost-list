@@ -2,7 +2,7 @@ import Ember from 'ember'
 const {Component, on, $} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import _ from 'lodash'
-import FrostList from './frost-list'
+import FrostList from './frost-list-core'
 
 export default Component.extend({
 

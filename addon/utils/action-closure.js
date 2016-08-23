@@ -1,8 +1,9 @@
-//export function createClosureAction (method) {
-//  let context = this
-//  return function wrapperFunc () {
-//    method.apply(context, arguments)
-//  }
-//}
+export function create (method) {
+  let context = this
+  return function wrapperFunc () {
+    method.apply(context, arguments)
+  }
+}
 
-//rename createActionClosure
+export default create
+
