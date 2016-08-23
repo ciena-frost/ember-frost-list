@@ -30,7 +30,6 @@ describeComponent(
     it('renders frost-list-item', function () {
       var list = Ember.A()
       list.addObject(Ember.Object.create(server.create('listItem')))
-      list.addObject(Ember.Object.create(server.create('listItem')))
 
       this.set('model', list)
       this.set('items', Ember.A())
@@ -44,6 +43,7 @@ describeComponent(
         }}
       `)
 
+      // Array function is not working here for some reason.
       const self = this
       const $localHook = $hook
 
@@ -51,10 +51,9 @@ describeComponent(
         // ember-hook qualifiers currently doesn't work with component helper
         // {{frost-list}} will work, but {{component 'frost-list'}} doesn't
         expect($localHook('my-list')).to.have.length(1)
-        expect($localHook('my-list-item-0')).to.have.length(1)
-        expect($hook('my-list-item-0')).to.have.length(1)
-        expect($hook('my-list-item-1')).to.have.length(1)
-        assert.equal(self.$().find('vertical-item').length, 2)
+        expect($localHook('my-list-core-item-0')).to.have.length(1)
+        expect($hook('my-list-core-item-0')).to.have.length(1)
+        assert.equal(self.$().find('vertical-item').length, 1)
       })
     })
   }

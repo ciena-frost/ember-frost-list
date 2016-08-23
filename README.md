@@ -1,3 +1,5 @@
+###  README is temporary outdated, check dummy app for a live demo with source code generating. 
+
 [ci-img]: https://travis-ci.org/ciena-frost/ember-frost-list.svg "Build Status"
 [ci-url]: https://travis-ci.org/ciena-frost/ember-frost-list
  

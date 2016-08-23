@@ -3,8 +3,8 @@
     {{#if sorting}}
       {{frost-sort
       hook=(concat hook '-sort')
-      sortableProperties=sorting.sortableProperties
-      sortParams=sorting.activeSorting
+      properties=sorting.sortableProperties
+      sortOrder=sorting.activeSorting
       onChange=sorting.onSort
       }}
     {{/if}}

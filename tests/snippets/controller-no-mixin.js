@@ -1,7 +1,5 @@
 import Ember from 'ember'
 const { on } = Ember
-import config from '../../config/environment'
-import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 import computed from 'ember-computed-decorators'
 
 export default Ember.Controller.extend({
@@ -27,7 +25,6 @@ export default Ember.Controller.extend({
       return item
     })
   },
-
 
   // == Event =================================================================
   initListSelectionMixin: on('init', function () {
@@ -75,7 +72,11 @@ export default Ember.Controller.extend({
     }
   ],
 
-  activeSorting:[{value: 'label', direction: ':desc'}],
+  activeSorting: [
+    {
+      value: 'label', direction: ':desc'
+    }
+  ],
 
   @computed('activeSorting')
   activeSortingString (activeSorting) {

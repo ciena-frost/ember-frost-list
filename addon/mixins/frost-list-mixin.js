@@ -33,12 +33,12 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     )
   }),
 
-  listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', function () {
+  listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', 'sortedItems.[]', function () {
     let activeSorting = this.get('activeSorting')
     let sortableProperties = this.get('sortableProperties')
     let sortedItems = this.get('sortedItems')
     return {
-      _items: sortedItems,
+      items: sortedItems,
       component: this.get('listConfig.component'),
       expansion: {
         onCollapseAll: this._collapseItems,

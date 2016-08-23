@@ -6,29 +6,7 @@ const FrostListWrapper = Component.extend({
   layout,
 
   initContext: Ember.on('init', function () {
-    const model = this.get('items')
-    const expansion = this.get('expansion')
-
     const config = this.get('config')
-
-    if (!model) {
-      Ember.assert('Not receiving <items>. Consumer mush pass items/model to frost-list')
-    } else {
-      if (!(Array.isArray(model) || Array.isArray(model.content))) {
-        Ember.assert(`Expecting <items> to be array or Ember.recordArray, got items:${model}`)
-      }
-
-      model.forEach((item) => {
-        if (typeof item.isSelected === 'undefined') {
-          Ember.assert('isSelected property must be declared for each record in collection')
-        }
-        if (expansion && typeof expansion === 'object') {
-          if (typeof item.isExpanded === 'undefined') {
-            Ember.assert('isExpanded property must be declared for each record in collection')
-          }
-        }
-      })
-    }
 
     if (config && (this.selection || this.expansion || this.sorting)) {
       Ember.assert('Consumer should not provide config hash and selection/expansion/sorting at the same time.')
@@ -41,8 +19,18 @@ const FrostListWrapper = Component.extend({
 
       const keys = Object.keys(config)
       keys.forEach((key) => {
-        Ember.defineProperty(this, key, undefined, config[key])
+        Ember.defineProperty(this, key, Ember.computed.readOnly(`config.${key}`))
       })
+    }
+
+    const model = this.get('items')
+
+    if (!model) {
+      Ember.assert('Not receiving <items>. Consumer mush pass items/model to frost-list')
+    } else {
+      if (!(Array.isArray(model) || Array.isArray(model.content))) {
+        Ember.assert(`Expecting <items> to be array or Ember.recordArray, got items:${model}`)
+      }
     }
   })
 })

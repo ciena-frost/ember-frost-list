@@ -3,9 +3,8 @@ const {Component, on} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import {PropTypes} from 'ember-prop-types'
-import SlotsMixin from 'ember-block-slots'
 
-const FrostList = Component.extend(SlotsMixin, {
+const FrostList = Component.extend({
 
   // == Dependencies ==========================================================
 

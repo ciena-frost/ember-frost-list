@@ -82,7 +82,11 @@ export default Ember.Controller.extend({
     }
   ],
 
-  activeSorting:[{ value: 'label', direction: ':desc'}],
+  activeSorting: [
+    {
+      value: 'label', direction: ':desc'
+    }
+  ],
 
   @computed('activeSorting')
   activeSortingString (activeSorting) {
