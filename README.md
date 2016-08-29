@@ -1,5 +1,3 @@
-###  README is temporary outdated, check dummy app for a live demo with source code generating. 
-
 [ci-img]: https://travis-ci.org/ciena-frost/ember-frost-list.svg "Build Status"
 [ci-url]: https://travis-ci.org/ciena-frost/ember-frost-list
  
@@ -12,7 +10,7 @@
 [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
  
 # ember-frost-list
-`ember-frost-list` is an ember addon that built on top of [smoke-and-miror](https://github.com/runspired/smoke-and-mirrors) which focuses on high performance list rendering. This component itself provides features such as list selection control, infinite scroll and list sorting. Consumer can take advantage of these features with simply providing the corresponding actions/functions 
+`ember-frost-list` is an ember addon that built on top of [smoke-and-miror](https://github.com/runspired/smoke-and-mirrors) which focuses on high performance list rendering. This component itself provides features such as list selection control, list sorting, infinite scroll and list item expansion control. Consumer can take advantage of these features by providing associated actions/callback functions and required properties, or much simpler by mix the mixin into your component and let it handle everything. 
  
  * [Installation](#Installation)
  * [API](#API)
@@ -26,55 +24,98 @@ ember install ember-frost-list
 
 ## API
 
-## Basic usage
-| parameters type | Attribute | Type | Value | Description |
+### Data driven pattern
+| parameters type | Attribute | Type | value | Description |
 |---------| --------- | ---- | ----- | ----------- |
-| `Positional param` | `N/A` | `string` | | path for user provided list-item component which describes each row/item in the list|
-| `Attribute` | `records` | `array` | | data model used for rendering list |
-| `Attribute` | `selections` | `array` | | array of currently selected items in list |
-| `Attribute` | `defaultHeight` | `number` | | default height for each list item, set to 45px if not provided |
-| `Attribute` | `onSelect` | `<action-name>` | | triggers associated user action when item in list gets selected |
+| `Positional param` | `N/A` | `string` | | Required: path for user provided list-item component which describes each row/item in the list. |
+| `Attribute` | `items` | `array` | | Required: data model used for rendering list. |
+| `Attribute` | `config` | `<property name>` | listMixinConfig | Required: Reserved property provided by frost-list-mixin to config the list based on the user provided listConfig hash in controller |
+| `Attribute` | `defaultHeight` | `number` | | default height for each list item, set to 45px if not provided. |
+
+### Customization pattern
+| parameters type | Attribute | Type | value | Description |
+|---------| --------- | ---- | ----- | ----------- |
+| `Positional param` | `N/A` | `string` | | Required: path for user provided list-item component which describes each row/item in the list. |
+| `Attribute` | `items` | `array` | | Required: data model used for rendering list. |
+| `Attribute` | `defaultHeight` | `number` | | default height for each list item, set to 45px if not provided. |
+| `Attribute` | `selection` | `hash` | | Required: A hash wrapper created on the fly when component be rendered which must contain its only required properties. |
+| `Sub Attribute` | `onSelect` | `action closure` | | Required: callback functions user provided to handle list item selection. |
+| `Attribute` | `expansion` | `hash` | | A hash wrapper created on the fly when component be rendered which must contain its only required properties. |
+| `Sub Attribute` | `onCollapse` | `action closure` | | callback functions user provided to handle single list item collapsing. |
+| `Sub Attribute` | `onExpandAll` | `action closure` | | callback functions user provided to handle all list items collapsing. |
+| `Sub Attribute` | `onExpand` | `action closure` | | callback functions user provided to handle single list item expansion. |
+| `Sub Attribute` | `onCollapseAll` | `action closure` | | callback functions user provided to handle all list items expansion. |
+| `Attribute` | `sorting` | `hash` | | A hash wrapper created on the fly when component be rendered which must contain its only required properties. |
+| `Sub Attribute` | `activeSorting` | `array` | | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}] |
+| `Sub Attribute` | `sortableProperties` | `array` | | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}] |
+| `Sub Attribute` | `onSort` | `action closure` | | callback functions user provided to handle sorting.  |
 
 ### Infinite scroll
 | parameters type | Attribute | Type | Description |
 |---------| --------- | ---- | ----------- |
-| `Attribute` | `loadPrevious` | `<action-name>` | triggers associated user action when scroll reaches upper boundary |
-| `Attribute` | `loadNext` | `<action-name>` | triggers associated user action when scroll reaches lower boundary |
+| `Attribute` | `loadPrevious` | `action closure` | triggers associated user action when scroll reaches upper boundary. |
+| `Attribute` | `loadNext` | `action closure` | triggers associated user action when scroll reaches lower boundary. |
 
 ## Examples
-### Basic list
-In order to follow the data down action up patten, `ember-frost-list` holds no state or information of current selected list items. When an item selection event emits, The user provided actions will be called and attrs will be provided to consumer as first param of the function with all useful information that describe the current select event
+### Data driven pattern (must use with mixin)
+By mix the mixin into your component, config your list with simply provide `listConfig` hash in controller and pass the `listMixinConfig` which generated by the mixin to your list. By default mixin will provide you all the methods you need to handle selection/sorting/expansion. If you don't like any default methods provided by mixin, you can just override it in controller's actions hash with the correct key name.
 
 In template
 ```handlebars
 {{frost-list
-  componentPath
-  records=listItems
-  selections=selectedItems
-  onSelect=(action 'selected')
+  items=sortedItems
+  config=listMixinConfig
 }}
 ```
 In controller
 ```javascript
-componentPath: 'user-list-item',
-listItems: Ember.computed.alias('model'),
-selectedItems: [],
-actions: {
-  selected (attrs) {
-    if (attrs.isSelected) {
-      if (attrs.isShiftSelect) {
-        _.each(attrs.record, (record) => {
-          this.get('selectedItems').addObject(record)
-        })
-      } else {
-        if ((!attrs.isTargetSelectionIndicator && !attrs.isCtrlSelect)) this.set('selectedItems', [])
-        this.get('selectedItems').addObject(attrs.record)
-      }
-    } else {
-      this.get('selectedItems').removeObject(attrs.record)
+import Ember from 'ember'
+import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
+export default Ember.ClassName.extend(FrostListMixin, {
+  listConfig: {
+    // property name of input model
+    items: 'model',
+    
+    // configuration of sorting. `Active` is the default sort which must be provided, where `properties` is the array of sortable attributes
+    sorting: {
+      active: [{value: 'label', direction: ':desc'}],
+      properties: [
+        {
+          value: 'label',
+          label: 'Label'
+        },
+        {
+          value: 'id',
+          label: 'Id'
+        }
+      ]
     }
   }
-}
+})
+```
+
+### Customization pattern (optional use with mixin)
+In this API pattern, consumer will have the ability to provide expansion, selection or sorting hash to the list by needs. The list component will render associated modules based on the hashes it receives. Note that `selection` hash is mandatory, whereas `expansion` and `sorting` is optional. 
+
+In template
+```handlebars
+{{frost-list 'user-list-item'
+  items=sortedItems
+  expansion=(hash
+    onCollapse=(action 'collapseItem')
+    onCollapseAll=(action 'collapseItems')
+    onExpand=(action 'expandItem')
+    onExpandAll=(action 'expandItems')
+  )
+  selection=(hash
+    onSelect=(action 'selectItem')
+  )
+  sorting=(hash
+    activeSorting=activeSorting
+    sortableProperties=sortableProperties
+    onSort=(action 'sortItems')
+  )
+}}
 ```
 
 ### Infinite scroll
@@ -82,20 +123,15 @@ Implementing infinite scroll is straightforward. When scroll bar hits either upp
 
 In template
 ```handlebars
-{{frost-list
-  componentPath
-  records=listItems
-  selections=selectedItems
-  loadPrevious=(action 'loadPrevious')
+{{frost-list 'user-list-item'
+  items=items
   loadNext=(action 'loadNext')
   onSelect=(action 'selected')
 }}
 ```
 In controller
 ```javascript
-componentPath: 'user-list-item',
-listItems: Ember.computed.alias('model'),
-selectedItems: [],
+items: Ember.computed.alias('model'),
 actions: {
   _loadNext () {
     // data retrieval/backend API call goes here
@@ -105,22 +141,6 @@ actions: {
     // data retrieval/backend API call goes here
   },
 }
-```
-
-### integrated with sort and list item expansion/collapse control
-`ember-frost-list` uses `ember-block-slots` for multiple section yielding. A hash/object will be yielded back to the consumer which contains two contextual components named expansion and sort. The first is used for list item expand/collapse control and the second is obvious used for list sorting. Take a look at [ember-block-slots](https://github.com/ciena-blueplanet/ember-block-slots) and [ember-frost-sort](https://github.com/ciena-frost/ember-frost-sort) for detail usage.
-```handlebars
-{{#frost-list
-componentPath
-records=sortedItems
-selections=selectedItems
-onSelect=(action 'selectHandler')
-}}
-  {{#block-slot 'header' as |control|}}
-    {{control.sort sortableProperties=sortAttributes sortParams=querySortOrder onChange=(action 'sortHandler')}}
-    {{control.expansion}}
-  {{/block-slot}}
-{{/frost-list}}
 ```
 
 ## Development
