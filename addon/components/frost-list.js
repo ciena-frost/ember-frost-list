@@ -5,6 +5,8 @@ import layout from '../templates/frost-list'
 const FrostListWrapper = Component.extend({
   layout,
 
+  // FIXME: code is too complex (was overly complex before adding eslint rule)
+  /* eslint-disable complexity */
   initContext: Ember.on('init', function () {
     const config = this.get('config')
 
@@ -33,6 +35,7 @@ const FrostListWrapper = Component.extend({
       }
     }
   })
+  /* eslint-enable complexity */
 })
 
 FrostListWrapper.reopenClass({

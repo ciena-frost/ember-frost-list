@@ -14,6 +14,9 @@ export default Ember.Controller.extend(FrostListMixin, {
       }
     }
   }),
+
+  // FIXME: code is too complex (was overly complex before adding eslint rule)
+  /* eslint-disable complexity */
   @computed('__useMixin', '__useHash', '__selection', '__sorting', '__expansion')
   computedTemplateCase (__useMixin, __useHash, __selection, __sorting, __expansion) {
     if (!__useMixin) {
@@ -37,6 +40,7 @@ export default Ember.Controller.extend(FrostListMixin, {
       }
     }
   },
+  /* eslint-enable complexity */
 
   listConfig: {
     items: 'model',
