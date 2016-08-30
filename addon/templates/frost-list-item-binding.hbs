@@ -1,0 +1,55 @@
+  <div class='frost-flex-1 no-overflow-all row min-width'>
+    <!--  Column One -->
+    <div class="block start frost-flex-1 first-col">
+      <div class="row">
+          {{#if model.isExpanded}}
+            <div class='expanded-cheveron' {{action "expand" bubbles=false}}>
+              <svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 25 25" enable-background="new 0 0 25 25" xml:space="preserve">
+                <switch>
+                  <foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1">
+                    <i:pgfRef xlink:href="#adobe_illustrator_pgf">
+                    </i:pgfRef>
+                  </foreignObject>
+                  <g i:extraneous="self">
+                    <polygon fill="#7B7F7F" points="12.5,16.9 5.3,9.6 6.7,8.1 12.5,13.9 18.3,8.2 19.7,9.5   "/>
+                  </g>
+                </switch>
+              </svg>
+            </div>
+          {{else}}
+            <div class='collapsed-cheveron' {{action "expand" bubbles=false}}>          
+              <svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 25 25" enable-background="new 0 0 25 25" xml:space="preserve">
+                <switch>
+                  <foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1">
+                    <i:pgfRef xlink:href="#adobe_illustrator_pgf">
+                    </i:pgfRef>
+                  </foreignObject>
+                  <g i:extraneous="self">
+                    <polygon fill="#BABCBE" points="16.9,12.5 9.6,19.7 8.1,18.3 13.9,12.5 8.2,6.7 9.5,5.3   "/>
+                  </g>
+                </switch>
+              </svg>
+            </div>
+          {{/if}}
+        <div class='select-checkbox'>
+          {{frost-list-selection-indicator isSelected=isSelected}}
+        </div>
+        {{component firstColumn class='first-column' model=model isExpanded=model.isExpanded svg=svg primaryId=primaryId secondaryId=secondaryId}}
+      </div>
+      
+    </div>
+
+
+    <!--  Column Two -->
+    <div class='block frost-flex-1 second-col'>
+      {{component secondColumn  model=model isExpanded=model.isExpanded}}
+    </div>
+    <!--  Column Three -->
+    <div class='block frost-flex-1 third-col'>
+      {{component thirdColumn model=model isExpanded=model.isExpanded}}
+    </div>
+    <!--  Column Four -->
+    <div class='block frost-flex-1 last-col'>
+      {{component fourthColumn model=model isExpanded=model.isExpanded}}      
+    </div>
+  </div>

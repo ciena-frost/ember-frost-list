@@ -1,4 +1,6 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
+@import 'list-item';
+
 
 .dummy-notification-container {
   position: fixed;
@@ -19,7 +21,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
   .demo {
     margin-top: 20px;
     .frost-button {
@@ -39,6 +40,7 @@
     .dummy-list {
       display: flex;
       flex-direction: column;
+      width: 80%;
 
       .actions {
         margin-top: 30px;

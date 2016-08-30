@@ -1,0 +1,21 @@
+<div class='ne-icon'>
+  {{component svg model=model}}
+</div>
+<div class="block column">
+  {{#if primaryId}}
+    {{#if (is-string primaryId)}}
+    <div class="row">
+      <div class='primary'>{{get model primaryId}}</div>
+    </div>
+    {{else}}
+      {{component primaryId model=model}}
+    {{/if}}
+  {{/if}}
+  {{#if secondaryId}}
+    {{#if (is-string secondaryId)}}
+        <div class='tertiary'>{{get model secondaryId}}</div>
+    {{else}}
+      {{component secondaryId model=model}}            
+    {{/if}}
+  {{/if}}
+</div>

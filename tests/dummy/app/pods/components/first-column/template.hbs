@@ -1,0 +1,33 @@
+<div class='ne-icon'>
+  {{component svg model=model}}
+</div>
+<div class="block column">
+  {{#if primaryId}}
+    {{#if (is-string primaryId)}}
+    <div class="row">
+      <div class='primary'>{{get model primaryId}}</div>
+    </div>
+    {{else}}
+      {{component primaryId model=model}}
+    {{/if}}
+  {{/if}}
+  {{#if secondaryId}}
+    {{#if (is-string secondaryId)}}
+        <div class='tertiary'>{{get model secondaryId}}</div>
+    {{else}}
+      {{component secondaryId model=model}}            
+    {{/if}}
+  {{/if}}
+</div>
+
+{{#if isExpanded}}
+      <div class="block start frost-flex-1">
+        {{!-- <div class='tertiary list-value'> {{#if model.projectID}}{{model.projectID}}{{else}}none{{/if}}</div>--}}
+        <div class='first-col'>
+            <div>Extra stuff</div>
+            <div>Extra stuff</div>
+            <div>Extra stuff</div>
+            <div>Extra stuff</div>
+        </div>
+      </div>
+{{/if}}

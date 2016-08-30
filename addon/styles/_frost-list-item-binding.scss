@@ -1,0 +1,100 @@
+
+.frost-list-item {
+  padding: 5px 15px 0 5px;
+  height: 50px;
+  overflow: hidden;
+  &.is-expanded {
+    height: unset;
+    min-height: 90px !important;
+  }
+  .min-width{
+    min-width: 0;
+  }
+  // &.is-collapsed {
+  //   min-height: 45px !important;
+  // }
+  // TODO Don't need a terse/medium/large style
+
+  .row { // TODO Add to the list item pattern (or more globally as frost-row, frost-column)
+    @include display(flex);
+    @include flex-direction(row);
+    .first-column{
+      width: calc(100% - 80px);
+      .ne-icon{
+        float: left;
+      }
+    }
+  }
+  .collapsed-cheveron {
+    margin: auto 0;
+    padding-left: 5px;
+    & > svg{
+      width: 25px;      
+    }
+  }
+  .expanded-cheveron {
+    margin-top: 10.5px; 
+    & > svg{
+      width: 30px;      
+    }
+  }
+  .select-checkbox {
+    min-width: 50px;
+  }
+
+  .column {
+    @include display(flex);
+    @include flex-direction(column);
+  }
+}
+
+.frost-list-item .secondary {
+  font-weight: normal;
+  font-size: $frost-font-s;
+}
+
+.frost-list-item .last-col {
+  padding: 0px 5px;
+  align-items: flex-end;
+}
+
+.frost-list-item .small {
+  font-weight: normal;
+  font-size: $frost-font-xs;
+}
+
+.frost-list-item .last {
+  @include display(flex);
+  @include align-items(flex-end);
+}
+
+.frost-list-item .block {
+  &.first-col {
+    min-width: 35%;
+    max-width: 35%;    
+    > div {
+      width: 100%;
+    }
+  }
+  &.second-col{
+    min-width: 25%;
+    max-width: 25%; 
+    > div {
+      width: 100%;
+    }
+  }
+  &.third-col {
+    min-width: 25%;
+    max-width: 25%;    
+    > div {
+      width: 100%;
+    }
+  }
+  &.fourth-col {
+    min-width: 15%;
+    max-width: 15%;    
+    > div {
+      width: 100%;
+    } 
+  }
+}

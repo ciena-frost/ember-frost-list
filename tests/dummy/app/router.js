@@ -11,6 +11,8 @@ Router.map(function () {
   })
   this.route('demo-lists')
   this.route('infinite-scroll')
+  this.route('old-demo-list')
+  this.route('integration-list')
 })
 
 export default Router

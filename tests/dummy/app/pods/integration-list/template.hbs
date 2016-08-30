@@ -1,0 +1,14 @@
+{{#frost-list
+item=(component 'frost-list-item-binding' primaryId='id' secondaryId=(component 'secondary-component') svg=(component 'list-item-svg') detailLevel=activeDetailLevel firstColumn=(component 'first-column') secondColumn=(component 'column-two') thirdColumn=(component 'column-three') fourthColumn=(component 'column-four'))
+class='frost-flex-1'
+records=sortedItems
+selections=selectedItems
+alwaysUseDefaultHeight=false
+onSelect=(action 'selectHandler')
+}}
+  {{#block-slot 'header' as |control|}}
+    {{control.sort sortableProperties=sortAttributes sortParams=querySortOrder onChange=(action 'sortHandler')}}
+    {{control.expansion}}
+  {{/block-slot}}
+{{/frost-list}}
+

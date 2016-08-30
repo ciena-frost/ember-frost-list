@@ -1,0 +1,29 @@
+<div class='tertiary'>
+  <div class='frost-flex-1 no-overflow-all'>
+    {{#if model.resourceType}}
+      <div class='tertiary small'>
+        {{model.resourceType}}
+      </div>
+    {{else}}
+      <div class='tertiary small'>
+        Unknown type
+      </div>
+    {{/if}}
+    {{#if model.profileName}}
+      <div class='tertiary small'>
+        {{model.profileName}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+{{#if isExpanded}}
+      <div class="block start frost-flex-1">
+        {{!-- <div class='tertiary list-value'> {{#if model.projectID}}{{model.projectID}}{{else}}none{{/if}}</div>--}}
+        <div class='first-col'>
+            <div>Extra stuff</div>
+            <div>Extra stuff</div>
+            <div>Extra stuff</div>
+            <div>Extra stuff</div>
+        </div>
+      </div>
+{{/if}}
