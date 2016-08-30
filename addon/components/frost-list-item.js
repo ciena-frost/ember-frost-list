@@ -37,6 +37,9 @@ export default Component.extend({
   }),
 
   // == Event ==============================================================
+
+  // FIXME: code is too complex (was overly complex before adding eslint rule)
+  /* eslint-disable complexity */
   onclick: Ember.on('click', function (event) {
     if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
       return true
@@ -76,6 +79,7 @@ export default Component.extend({
       })
     }
   })
+  /* eslint-enable complexity */
 
   // == Actions ================================================================
 

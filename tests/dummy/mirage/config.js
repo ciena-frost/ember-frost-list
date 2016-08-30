@@ -5,7 +5,7 @@ export default function () {
     this.namespace = config.mirageNamespace
   }
 
-  this.get('/list-items', function (db) {
+  this.get('/list-items', function ({db}) {
     return {
       data: db.listItems.map((attrs) => {
         return {
@@ -17,7 +17,7 @@ export default function () {
     }
   })
 
-  this.get('/list-items', function (db, {queryParams: qp}) {
+  this.get('/list-items', function ({db}, {queryParams: qp}) {
     if (qp.pageSize) {
       return {
         data: db.listItems.slice(qp.start, +qp.start + +qp.pageSize).map((attrs) => {
@@ -41,7 +41,7 @@ export default function () {
     }
   })
 
-  this.del('/list-items/:id', function (db, request) {
+  this.del('/list-items/:id', function ({db}, request) {
     let ret = db['listItems'].find(request.params.id)
     db['listItems'].remove(request.params.id)
     return {
@@ -53,7 +53,7 @@ export default function () {
     }
   })
 
-  this.get('/list-items/:id', function (db, request) {
+  this.get('/list-items/:id', function ({db}, request) {
     let ret = db['listItems'].find(request.params.id)
     return {
       data: {
@@ -64,7 +64,7 @@ export default function () {
     }
   })
 
-  this.patch('/list-items/:id', function (db, request) {
+  this.patch('/list-items/:id', function ({db}, request) {
     let attrs = JSON.parse(request.requestBody)
     let item = db['listItems'].update(request.params.id, attrs)
     return {

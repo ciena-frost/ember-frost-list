@@ -66,6 +66,8 @@ const FrostList = Component.extend({
            typeof sorting.onSort === 'function'
   },
 
+  // FIXME: code is too complex (was overly complex before adding eslint rule)
+  /* eslint-disable complexity */
   /**
    Iterates over elements of collection and returning all elements
    which are presented between two boundary objects in array.
@@ -98,6 +100,7 @@ const FrostList = Component.extend({
       return [lastElement]
     }
   },
+  /* eslint-enabled complexity */
 
   onShiftSelect (attrs) {
     let records = this.get('_records')
