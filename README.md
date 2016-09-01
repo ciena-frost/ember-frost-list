@@ -60,7 +60,7 @@ ember install ember-frost-list
 | `Sub Attribute`    | `onCollapseAll`      | `action closure` |       | callback functions user provided to handle all list items expansion. |
 | `Attribute`        | `sorting`            | `hash`           |       | A hash wrapper created on the fly when component be rendered which must contain its only required properties. |
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}] |
-| `Sub Attribute`    | `sortableProperties` | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}] |
+| `Sub Attribute`    | `properties` | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}] |
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  |
 
 ### Infinite scroll
@@ -141,7 +141,7 @@ In template
   )
   sorting=(hash
     activeSorting=activeSorting
-    sortableProperties=sortableProperties
+    properties=sortableProperties
     onSort=(action 'sortItems')
   )
 }}

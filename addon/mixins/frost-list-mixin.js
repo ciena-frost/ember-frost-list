@@ -49,7 +49,7 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
       },
       sorting: {
         activeSorting: activeSorting,
-        sortableProperties: sortableProperties,
+        properties: sortableProperties,
         onSort: this._sortItems
       }
     }

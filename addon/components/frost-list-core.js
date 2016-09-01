@@ -2,9 +2,9 @@ import Ember from 'ember'
 const {Component, on} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
-import {PropTypes} from 'ember-prop-types'
+import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
-const FrostList = Component.extend({
+const FrostList = Component.extend(PropTypeMixin, {
 
   // == Dependencies ==========================================================
 
@@ -51,9 +51,10 @@ const FrostList = Component.extend({
     }
   },
 
+  // TODO Add validation check for collapseItem/expandItem when feature landed
   checkExpansionValidity (expansion) {
-    return typeof expansion.onCollapseAll === 'function' && typeof expansion.onCollapseAll === 'function' &&
-      typeof expansion.onExpandAll === 'function' && typeof expansion.onExpandAll === 'function'
+    return typeof expansion.onCollapseAll === 'function' &&
+      typeof expansion.onExpandAll === 'function'
   },
 
   checkSelectionValidity (selection) {
@@ -62,7 +63,7 @@ const FrostList = Component.extend({
 
   checkSortingValidity (sorting) {
     return Array.isArray(sorting.activeSorting) &&
-           Array.isArray(sorting.sortableProperties) &&
+           Array.isArray(sorting.properties) &&
            typeof sorting.onSort === 'function'
   },
 
