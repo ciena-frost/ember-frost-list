@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
   },
 
   @computed('listItems.[]', 'selectedItems', 'expandedItems')
-  StatefulListItems (listItems, selectedItems, expandedItems) {
+  statefulListItems (listItems, selectedItems, expandedItems) {
     return listItems.map((item) => {
       item.set('isSelected', selectedItems.getWithDefault(item.id, false))
       item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
@@ -59,7 +59,7 @@ export default Ember.Controller.extend({
     return _selections
   },
 
-  sortedItems: Ember.computed.sort('StatefulListItems', 'activeSortingString'),
+  sortedItems: Ember.computed.sort('statefulListItems', 'activeSortingString'),
 
   sortableProperties: [
     {

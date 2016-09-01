@@ -71,6 +71,9 @@ export default Ember.Controller.extend(FrostListMixin, {
 
   actions: {
     renderDemo (attrs) {
+      this.set('selectedItems', [])
+      this.set('expandedItems', [])
+
       this.set('renderDemo', true)
       this.set('__useMixin', attrs.useMixin)
       this.set('__useHash', attrs.useHash)

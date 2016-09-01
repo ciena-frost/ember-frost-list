@@ -28,11 +28,11 @@ export default Ember.Component.extend({
 
   data2: [
     {
-      label: 'Hash',
+      label: 'Use config',
       value: true
     },
     {
-      label: 'No hash',
+      label: 'No config',
       value: false
     }
   ],

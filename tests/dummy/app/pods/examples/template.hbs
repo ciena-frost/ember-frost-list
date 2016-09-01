@@ -40,7 +40,7 @@
               {{#if (eq computedTemplateCase 'case3')}}
                 {{frost-list componentPath
                 class='frost-flex-1'
-                items=StatefulListItems
+                items=statefulListItems
                 expansion=(hash
                   onCollapse=(action 'collapseItem')
                   onCollapseAll=(action 'collapseItems')
@@ -100,7 +100,15 @@
                 <div>Controller</div>
               {{#if renderDemo}}
                 {{#if __useMixin}}
-                  {{code-snippet name="controller-use-mixin.js"}}
+                  {{#if __useHash}}
+                    {{code-snippet name="controller-use-mixin.js"}}
+                  {{else}}
+                    {{#if __sorting}}
+                      {{code-snippet name="controller-use-mixin-no-config.js"}}
+                    {{else}}
+                      {{code-snippet name="controller-use-mixin-no-sorting.js"}}
+                    {{/if}}
+                  {{/if}}
                 {{else}}
                   {{code-snippet name="controller-no-mixin.js"}}
                 {{/if}}
@@ -127,10 +135,10 @@
                 {{/if}}
               {{/if}}
             </div>
-            <div class="examples-source-route">
-                <div>Route</div>
-              {{code-snippet name="lists-mixin-hash-hbs.hbs"}}
-            </div>
+          {{!--
+               <div class="examples-source-route">
+               </div>
+          --}}
         </div>
     </div>
 </div>

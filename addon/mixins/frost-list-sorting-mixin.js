@@ -15,7 +15,7 @@ export default Mixin.create(FrostListCoreMixin, {
   }),
 
   // == Computed Properties ====================================================
-  sortedItems: Ember.computed.sort('StatefulListItems', 'activeSortingString'),
+  sortedItems: Ember.computed.sort('statefulListItems', 'activeSortingString'),
 
   @computed('activeSorting')
   activeSortingString (activeSorting) {

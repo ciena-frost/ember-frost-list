@@ -1,20 +1,33 @@
 import Ember from 'ember'
-const {Component} = Ember
+const {
+  Component,
+  isPresent,
+  Logger,
+} = Ember
 import layout from '../templates/frost-list'
+import PropTypeMixin,{PropTypes} from 'ember-prop-types'
 
-const FrostListWrapper = Component.extend({
+const FrostListWrapper = Component.extend(PropTypeMixin, {
   layout,
+  propTypes: {
+    config: PropTypes.object,
+    items: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.EmberObject
+    ])
+  },
 
   // FIXME: code is too complex (was overly complex before adding eslint rule)
   /* eslint-disable complexity */
   initContext: Ember.on('init', function () {
     const config = this.get('config')
 
-    if (config && (this.selection || this.expansion || this.sorting)) {
-      Ember.assert('Consumer should not provide config hash and selection/expansion/sorting at the same time.')
-    }
-
-    if (config) {
+    if (!isPresent(config)) {
+      return
+    } else {
+      if (this.selection || this.expansion || this.sorting) {
+        Logger.error('Consumer should not provide config hash and selection/expansion/sorting at the same time.')
+      }
       if (config.component) {
         this.set('recordComponent', config.component)
       }
@@ -23,16 +36,6 @@ const FrostListWrapper = Component.extend({
       keys.forEach((key) => {
         Ember.defineProperty(this, key, Ember.computed.readOnly(`config.${key}`))
       })
-    }
-
-    const model = this.get('items')
-
-    if (!model) {
-      Ember.assert('Not receiving <items>. Consumer mush pass items/model to frost-list')
-    } else {
-      if (!(Array.isArray(model) || Array.isArray(model.content))) {
-        Ember.assert(`Expecting <items> to be array or Ember.recordArray, got items:${model}`)
-      }
     }
   })
   /* eslint-enable complexity */

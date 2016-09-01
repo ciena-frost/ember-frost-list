@@ -6,7 +6,6 @@ import
 export default Ember.Controller.extend(FrostListMixin, {
   // config hash used for list mixin
   listConfig: {
-    component: 'user-list-component',
     items: 'model',
     sorting: {
       active: [{value: 'label', direction: ':desc'}],
