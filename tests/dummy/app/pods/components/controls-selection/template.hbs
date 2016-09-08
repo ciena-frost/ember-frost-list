@@ -1,16 +1,16 @@
 {{frost-select
-  data=data1
-  disabled=isSelectDisabled_1
-  onChange=(action 'onChangeHandler1')
+  data=apiOptions
+  disabled=selectionState.isApiSelectDisabled
+  selectedValue=selectionState.apiSelectionValue
+  onChange=(action 'onSelectChangeHandler')
 }}
 
 {{frost-select
-  data=data2
-  disabled=isSelectDisabled_2
-  onChange=(action 'onChangeHandler2')
+  data=mixinOptions
+  disabled=selectionState.isMixinSelectDisabled
+  selectedValue=selectionState.mixinSelectionValue
+  onChange=(action 'onSelectChangeHandler')
 }}
-
-{{data2.key}}
 
 {{#if showCheckbox}}
   {{frost-checkbox
@@ -31,9 +31,9 @@
 {{/if}}
 
 {{frost-button
-priority='primary'
-size='medium'
-text='Render'
-disabled=isButtonDisabled
-onClick=(action 'clickHandler')
+  priority='primary'
+  size='medium'
+  text='Render'
+  disabled=isButtonDisabled
+  onClick=(action 'clickHandler')
 }}

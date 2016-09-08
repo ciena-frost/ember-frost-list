@@ -1,75 +1,63 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  // selections
-  isSelectDisabled_1: false,
-  isSelectDisabled_2: true,
 
   // checkbox
 
-  showCheckbox: false,
+  showCheckbox: Ember.computed('selectionState.apiSelectionValue', function () {
+    return this.get('selectionState.apiSelectionValue') === 'Full API'
+  }),
+
+  isButtonDisabled: Ember.computed('selectionState.apiSelectionValue', 'selectionState.mixinSelectionValue', function () {
+    return !(this.get('selectionState.apiSelectionValue') && this.get('selectionState.mixinSelectionValue'))
+  }),
 
   isSelectionChecked: true,
   isSortingChecked: false,
   isExpansionChecked: false,
 
-  isButtonDisabled: true,
-
-  data1: [
+  apiOptions: [
     {
-      label: 'Use Mixin',
-      value: true
+      label: 'Data driven',
+      value: 'Data driven'
     },
     {
-      label: 'No Mixin',
-      value: false
+      label: 'Full API',
+      value: 'Full API'
     }
   ],
 
-  data2: [
+  preSelectedValue: false,
+
+
+  mixinOptions: [
     {
-      label: 'Use config',
-      value: true
+      label: 'Use Mixin',
+      value: 'Use Mixin'
     },
     {
-      label: 'No config',
-      value: false
+      label: 'No Mixin',
+      value: 'No Mixin'
     }
   ],
 
   actions: {
-    onChangeHandler1 (attrs) {
-      if (attrs[0]) {
-        this.set('isSelectDisabled_2', false)
-      } else {
-        this.set('isSelectDisabled_2', true)
-        this.set('showCheckbox', false)
+    onSelectChangeHandler (attrs) {
+      const onChange = this.get('onChange')
+      if (onChange && typeof onChange === 'function') {
+        onChange(attrs)
       }
-      this.set('isButtonDisabled', false)
-      this.set('selectValue_1', attrs[0])
-    },
-
-    onChangeHandler2 (attrs) {
-      if (attrs[0]) {
-        this.set('showCheckbox', false)
-      } else {
-        this.set('showCheckbox', true)
-
-        this.set('isSelectionChecked', true)
-        this.set('isSortingChecked', false)
-        this.set('isExpansionChecked', false)
-      }
-      this.set('selectValue_2', attrs[0])
     },
 
     clickHandler () {
-      this.get('onRender')({
-        useMixin: this.get('selectValue_1'),
-        useHash: this.get('selectValue_2'),
-        selection: this.get('isSelectionChecked'),
-        sorting: this.get('isSortingChecked'),
-        expansion: this.get('isExpansionChecked')
-      })
+      const onRender = this.get('onRender')
+      if (onRender && typeof onRender == 'function') {
+        onRender({
+          selection: this.get('isSelectionChecked'),
+          sorting: this.get('isSortingChecked'),
+          expansion: this.get('isExpansionChecked')
+        })
+      }
     }
   }
 
