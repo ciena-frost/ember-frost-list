@@ -1,5 +1,9 @@
 import Ember from 'ember'
-const {Component, on, $} = Ember
+const {
+  Component,
+  on,
+  $
+} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import _ from 'lodash'
 import FrostList from './frost-list-core'
@@ -48,34 +52,17 @@ export default Component.extend({
     event.preventDefault()
     event.stopPropagation()
 
-    if (_.isFunction(this.get('_frostList.selection.onSelect'))) {
-      let isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
-      if (event.shiftKey && this.get('_frostList.persistedClickState.isSelected') && !this.get('isSelected')) {
-        this.get('_frostList.onShiftSelect').call(this.get('_frostList'), {
-          secondClickedRecord: this.get('model'),
+    const onSelect = this.get('onSelect')
+
+    if(onSelect && typeof onSelect === 'function') {
+      const isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
+
+      onSelect(event, {
+        record: this.get('model'),
+        selectDesc: {
+          isSelected: !this.get('model.isSelected'),
           isTargetSelectionIndicator: isTargetSelectionIndicator
-        })
-        if (window.getSelection) {
-          window.getSelection().removeAllRanges()
-        } else if (document.selection) {  // IE
-          document.selection.empty()
         }
-      } else {
-        this.get('_frostList.selection.onSelect')({
-          records: [this.get('model')],
-          selectDesc: {
-            isSelected: !this.get('model.isSelected'),
-            isTargetSelectionIndicator: isTargetSelectionIndicator,
-            isShiftSelect: false,
-            isCtrlSelect: (event.metaKey || event.ctrlKey) &&
-            (!this.get('_frostList.persistedClickState.isSelected')) &&
-            !this.get('isSelected')
-          }
-        })
-      }
-      this.set('_frostList.persistedClickState', {
-        clickedRecord: this.get('model'),
-        isSelected: !this.get('isSelected')
       })
     }
   })

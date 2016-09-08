@@ -1,8 +1,12 @@
 import Ember from 'ember'
-const {Component, on} = Ember
+const {
+  Component,
+  on
+} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
+
 
 const FrostList = Component.extend(PropTypeMixin, {
 
@@ -107,7 +111,7 @@ const FrostList = Component.extend(PropTypeMixin, {
     let records = this.get('_records')
     let firstElement = this.get('persistedClickState.clickedRecord')
     let secondElement = attrs.secondClickedRecord
-    this.get('selection.onSelect')({
+    this.get('onSelect')({
       records: this._findElementsInBetween(records, firstElement, secondElement),
       selectDesc: {
         isSelected: true,
@@ -117,30 +121,56 @@ const FrostList = Component.extend(PropTypeMixin, {
     })
   },
 
+  buildRangeSelectedItemsArray (records, firstElement, secondElement) {
+    return this._findElementsInBetween(records, firstElement, secondElement)
+  },
+
   // == Events ================================================================
 
   initContext: on('init', function () {
-    const sorting = this.sorting
-    const expansion = this.expansion
-    const selection = this.selection
-    if (expansion && typeof expansion === 'object') {
-      Ember.assert('expansion hash is invalid', this.checkExpansionValidity(expansion))
-    }
-    if (selection && typeof selection === 'object') {
-      Ember.assert('selection hash is invalid', this.checkSelectionValidity(selection))
-    }
-    if (sorting && typeof sorting === 'object') {
-      Ember.assert('sorting hash is invalid', this.checkSortingValidity(sorting))
-    }
-  })
+    //const sorting = this.sorting
+    //const expansion = this.expansion
+    //const selection = this.selection
+    //if (expansion && typeof expansion === 'object') {
+    //  Ember.assert('expansion hash is invalid', this.checkExpansionValidity(expansion))
+    //}
+    //if (selection && typeof selection === 'object') {
+    //  Ember.assert('selection hash is invalid', this.checkSelectionValidity(selection))
+    //}
+    //if (sorting && typeof sorting === 'object') {
+    //  Ember.assert('sorting hash is invalid', this.checkSortingValidity(sorting))
+    //}
+  }),
   // == Actions ===============================================================
 
-})
+  actions: {
+    selectItem(event, attrs) {
+      const onSelect = this.get('onSelect')
 
-FrostList.reopenClass({
-  positionalParams: [
-    'recordComponent'
-  ]
+      if (onSelect && typeof onSelect === 'function') {
+        let selectedItems = []
+        let selectDesc = attrs.selectDesc
+
+        if (event.shiftKey && this.get('persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
+          selectedItems = this.buildRangeSelectedItemsArray(this.get('_records'), this.get('persistedClickState.clickedRecord'), attrs.record)
+          selectDesc.isShiftSelect = true
+        } else {
+          selectedItems = [attrs.record]
+          selectDesc.isShiftSelect = false
+        }
+
+        onSelect({
+          records: selectedItems,
+          selectDesc: selectDesc
+        })
+      }
+
+      this.set('persistedClickState', {
+        clickedRecord: attrs.record,
+        isSelected: attrs.selectDesc.isSelected
+      })
+    }
+  }
 })
 
 export default FrostList

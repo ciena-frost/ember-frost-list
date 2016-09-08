@@ -1,7 +1,27 @@
-{{frost-list-core recordComponent
-  items=items
-  hook=(concat hook '-core')
-  selection=selection
-  sorting=sorting
-  expansion=expansion
-}}
+{{#if config}}
+  {{frost-list-core
+    hook=hook
+    items=config.items
+    onSelect=config.selection.onSelect
+    item=(component config.component
+    )
+    expansion=(component 'frost-list-expansion'
+      onCollapseAll=config.expansion.onCollapseAll
+      onExpandAll=config.expansion.onExpandAll
+    )
+    sorting=(component 'frost-sort'
+      sortOrder=config.sorting.activeSorting
+      properties=config.sorting.properties
+      onChange=config.sorting.onSort
+    )
+  }}
+{{else}}
+  {{frost-list-core
+    hook=hook
+    items=items
+    onSelect=onSelect
+    item=item
+    expansion=expansion
+    sorting=sorting
+  }}
+{{/if}}
