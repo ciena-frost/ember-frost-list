@@ -1,10 +1,11 @@
 import Ember from 'ember'
 import config from '../../config/environment'
 import _ from 'lodash'
+import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 
 const {computed} = Ember
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(FrostListMixin, {
 
   itemsInList: Ember.computed('listItems.content.[]', function () {
     return this.get('listItems.content.length')
@@ -28,6 +29,33 @@ export default Ember.Controller.extend({
       }
     }
   }),
+
+  listConfig: {
+    items: 'model',
+    component: Ember.computed({
+      get () {
+        if (config.isFrostGuideDirectory) {
+          return 'user-list-item'
+        } else {
+          return 'examples/user-list-item'
+        }
+      }
+    }),
+    sorting: {
+      active: [{value: 'label', direction: ':desc'}],
+
+      properties: [
+        {
+          value: 'label',
+          label: 'Label'
+        },
+        {
+          value: 'id',
+          label: 'Id'
+        }
+      ]
+    }
+  },
 
   alwaysUseDefaultHeight: true,
   selectedItems: Ember.A(),
@@ -83,20 +111,6 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    selected (attrs) {
-      if (attrs.isSelected) {
-        if (attrs.isShiftSelect) {
-          _.each(attrs.record, (record) => {
-            this.get('selectedItems').addObject(record)
-          })
-        } else {
-          if ((!attrs.isTargetSelectionIndicator && !attrs.isCtrlSelect)) this.set('selectedItems', [])
-          this.get('selectedItems').addObject(attrs.record)
-        }
-      } else {
-        this.get('selectedItems').removeObject(attrs.record)
-      }
-    },
 
     loadPrevious () {
       Ember.run.debounce(this, this._loadPrevious, 50)
