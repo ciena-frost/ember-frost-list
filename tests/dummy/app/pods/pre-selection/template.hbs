@@ -1,17 +1,20 @@
-{{frost-list
-items=statefulListItems
-onSelect=(action 'selectItem')
-item=(component componentPath
-  onCollapse=(action 'collapseItem')
-  onExpand=(action 'expandItem')
-)
-expansion=(component 'frost-list-expansion'
-  onCollapseAll=(action 'collapseItems')
-  onExpandAll=(action 'expandItems')
-)
-sorting=(component 'frost-sort'
-  sortOrder=activeSorting
-  properties=sortableProperties
-  onChange=(action 'sortItems')
-)
-}}
+<h3>Pre-selection</h3>
+
+<div class="preselection">
+    <div class="preselection-demo">
+      {{frost-list
+        items=statefulListItems
+        onSelect=(action 'selectItem')
+        item=(component componentPath
+          onCollapse=(action 'collapseItem')
+          onExpand=(action 'expandItem')
+        )
+      }}
+    </div>
+
+    <div class="preselection-source">
+        <div>Route</div>
+      {{code-snippet name="pre-selection-route.js"}}
+    </div>
+
+</div>
