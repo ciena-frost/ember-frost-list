@@ -4,12 +4,10 @@ const {run} = Ember
 import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import {
-  afterEach,
   beforeEach,
   describe,
   it
 } from 'mocha'
-import sinon from 'sinon'
 
 describeComponent(
   'frost-list-core',

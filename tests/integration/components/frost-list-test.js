@@ -13,7 +13,6 @@ import hbs from 'htmlbars-inline-precompile'
 import setupMirage from '../../helpers/mirage-integration'
 import {beforeEach} from 'mocha'
 import {$hook, initialize} from 'ember-hook'
-import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 
 describeComponent(
   'frost-list',
@@ -29,7 +28,6 @@ describeComponent(
     })
 
     it('renders frost-list-item', function () {
-      debugger;
       var list = Ember.A()
       list.addObject(Ember.Object.create(server.create('listItem')))
 

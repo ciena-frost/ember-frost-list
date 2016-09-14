@@ -127,7 +127,7 @@ const FrostList = Component.extend(PropTypeMixin, {
   // == Actions ===============================================================
 
   actions: {
-    selectItem(event, attrs) {
+    selectItem (event, attrs) {
       const onSelect = this.get('onSelect')
 
       if (onSelect && typeof onSelect === 'function') {
@@ -135,7 +135,11 @@ const FrostList = Component.extend(PropTypeMixin, {
         let selectDesc = attrs.selectDesc
 
         if (event.shiftKey && this.get('persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
-          selectedItems = this.buildRangeSelectedItemsArray(this.get('_records'), this.get('persistedClickState.clickedRecord'), attrs.record)
+          selectedItems = this.buildRangeSelectedItemsArray(
+            this.get('_records'),
+            this.get('persistedClickState.clickedRecord'),
+            attrs.record
+          )
           selectDesc.isShiftSelect = true
         } else {
           selectedItems = [attrs.record]

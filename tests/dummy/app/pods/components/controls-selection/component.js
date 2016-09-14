@@ -7,7 +7,8 @@ export default Ember.Component.extend({
     'selectionState.apiSelectionValue',
     'selectionState.mixinSelectionValue',
     function () {
-      return this.get('selectionState.apiSelectionValue') === 'Full API' && this.get('selectionState.mixinSelectionValue') !== 'No Mixin'
+      return this.get('selectionState.apiSelectionValue') === 'Full API' &&
+             this.get('selectionState.mixinSelectionValue') !== 'No Mixin'
     }
   ),
 

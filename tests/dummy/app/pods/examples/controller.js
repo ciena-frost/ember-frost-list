@@ -19,7 +19,6 @@ export default Ember.Controller.extend(FrostListMixin, {
   /* eslint-disable complexity */
   @computed('__dataDriven', '__useMixin', '__selection', '__sorting', '__expansion')
   computedTemplateCase (__dataDriven, __useMixin, __selection, __sorting, __expansion) {
-
     if (__dataDriven) {
       return 'case1'
     } else {
@@ -36,7 +35,6 @@ export default Ember.Controller.extend(FrostListMixin, {
         if (!__expansion && !__sorting) {
           return 'case5'
         }
-
       } else {
         return 'case6'
       }
@@ -79,7 +77,8 @@ export default Ember.Controller.extend(FrostListMixin, {
   },
 
   actions: {
-    changeSelection(attrs) {
+    /* eslint-disable complexity */
+    changeSelection (attrs) {
       let selectedValue = attrs[0]
       if (selectedValue === 'Data driven' || selectedValue === 'Full API') {
         if (selectedValue === 'Data driven') {
@@ -89,12 +88,13 @@ export default Ember.Controller.extend(FrostListMixin, {
           this.set('selectionState.isMixinSelectDisabled', false)
         }
         this.set('selectionState.apiSelectionValue', selectedValue)
-      } else if (selectedValue === 'Use Mixin' ) {
+      } else if (selectedValue === 'Use Mixin') {
         this.set('selectionState.mixinSelectionValue', selectedValue)
       } else if (selectedValue === 'No Mixin') {
         this.set('selectionState.mixinSelectionValue', selectedValue)
       }
     },
+    /* eslint-enable complexity */
 
     renderDemo (attrs) {
       this.set('selectedItems', Ember.Object.create())
@@ -102,7 +102,7 @@ export default Ember.Controller.extend(FrostListMixin, {
 
       this.set('renderDemo', true)
 
-      this.set('__dataDriven', this.get('selectionState.apiSelectionValue') === 'Data driven' )
+      this.set('__dataDriven', this.get('selectionState.apiSelectionValue') === 'Data driven')
       this.set('__useMixin', this.get('selectionState.mixinSelectionValue') === 'Use Mixin')
       this.set('__selection', attrs.selection)
       this.set('__sorting', attrs.sorting)
