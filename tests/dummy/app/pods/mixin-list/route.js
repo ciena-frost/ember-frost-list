@@ -15,10 +15,5 @@ export default Ember.Route.extend({
 
   model () {
     return this._fetch()
-  },
-
-  // for dummy example display only
-  deactivate () {
-    this.store.unloadAll('list-item')
   }
 })

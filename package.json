@@ -63,7 +63,7 @@
     "lodash-es": "4.15.0",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
-    "smoke-and-mirrors": "0.5.2",
+    "smoke-and-mirrors": "0.5.4",
     "svg4everybody": "2.1.0"
   },
   "keywords": [

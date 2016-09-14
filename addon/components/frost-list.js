@@ -2,10 +2,10 @@ import Ember from 'ember'
 const {
   Component,
   isPresent,
-  Logger,
+  Logger
 } = Ember
 import layout from '../templates/frost-list'
-import PropTypeMixin,{PropTypes} from 'ember-prop-types'
+import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
 export default Component.extend(PropTypeMixin, {
   tagName: '',
@@ -13,13 +13,29 @@ export default Component.extend(PropTypeMixin, {
   propTypes: {
     config: PropTypes.object,
     expansion: PropTypes.object,
+    hook: PropTypes.string,
     item: PropTypes.object,
     items: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.EmberObject
     ]),
     sorting: PropTypes.object,
-    onSelect: PropTypes.function
+    onSelect: PropTypes.func,
+
+    // proxy properties for smoke-and-mirror
+    alwaysUseDefaultHeight: PropTypes.bool,
+    defaultHeight: PropTypes.number,
+    scrollPosition: PropTypes.number,
+    size: PropTypes.string
+  },
+
+  getDefaultProps () {
+    return {
+      //  Optional attrs for smoke-and-mirror vertical-collection
+      //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
+      alwaysUseDefaultHeight: false,
+      defaultHeight: 45
+    }
   },
 
   // FIXME: code is too complex (was overly complex before adding eslint rule)

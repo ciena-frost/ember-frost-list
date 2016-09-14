@@ -1,12 +1,8 @@
 import Ember from 'ember'
-const {
-  Component,
-  on
-} = Ember
+const {Component} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
-
 
 const FrostList = Component.extend(PropTypeMixin, {
 
@@ -42,13 +38,14 @@ const FrostList = Component.extend(PropTypeMixin, {
     return !!(sorting || expansion)
   },
 
+  alwaysUseDefaultHeight: false,
+  defaultHeight: 45,
+
   // == Functions ==============================================================
   getDefaultProps () {
     return {
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
-      alwaysUseDefaultHeight: false,
-      defaultHeight: 45,
       idForFirstItem: null,
       key: '@identity',
       scrollPosition: 0
@@ -127,20 +124,6 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   // == Events ================================================================
 
-  initContext: on('init', function () {
-    //const sorting = this.sorting
-    //const expansion = this.expansion
-    //const selection = this.selection
-    //if (expansion && typeof expansion === 'object') {
-    //  Ember.assert('expansion hash is invalid', this.checkExpansionValidity(expansion))
-    //}
-    //if (selection && typeof selection === 'object') {
-    //  Ember.assert('selection hash is invalid', this.checkSelectionValidity(selection))
-    //}
-    //if (sorting && typeof sorting === 'object') {
-    //  Ember.assert('sorting hash is invalid', this.checkSortingValidity(sorting))
-    //}
-  }),
   // == Actions ===============================================================
 
   actions: {

@@ -11,11 +11,13 @@ Router.map(function () {
   })
 
   this.route('demo')
-  this.route('demo-lists')
+  this.route('documents', function () {
+    this.route('overview', {path: '/'})
+  })
   this.route('infinite-scroll')
-  this.route('integration-list')
   this.route('mixin-list')
-  this.route('lists-demo')
+  this.route('pre-selection')
+  this.route('qp-binding')
 })
 
 export default Router

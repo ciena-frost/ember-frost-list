@@ -3,14 +3,21 @@ import Ember from 'ember'
 export default Ember.Component.extend({
 
   // checkbox
+  showCheckbox: Ember.computed(
+    'selectionState.apiSelectionValue',
+    'selectionState.mixinSelectionValue',
+    function () {
+      return this.get('selectionState.apiSelectionValue') === 'Full API' && this.get('selectionState.mixinSelectionValue') !== 'No Mixin'
+    }
+  ),
 
-  showCheckbox: Ember.computed('selectionState.apiSelectionValue', function () {
-    return this.get('selectionState.apiSelectionValue') === 'Full API'
-  }),
-
-  isButtonDisabled: Ember.computed('selectionState.apiSelectionValue', 'selectionState.mixinSelectionValue', function () {
-    return !(this.get('selectionState.apiSelectionValue') && this.get('selectionState.mixinSelectionValue'))
-  }),
+  isButtonDisabled: Ember.computed(
+    'selectionState.apiSelectionValue',
+    'selectionState.mixinSelectionValue',
+    function () {
+      return !(this.get('selectionState.apiSelectionValue') && this.get('selectionState.mixinSelectionValue'))
+    }
+  ),
 
   isSelectionChecked: true,
   isSortingChecked: false,
@@ -28,7 +35,6 @@ export default Ember.Component.extend({
   ],
 
   preSelectedValue: false,
-
 
   mixinOptions: [
     {
@@ -51,7 +57,7 @@ export default Ember.Component.extend({
 
     clickHandler () {
       const onRender = this.get('onRender')
-      if (onRender && typeof onRender == 'function') {
+      if (onRender && typeof onRender === 'function') {
         onRender({
           selection: this.get('isSelectionChecked'),
           sorting: this.get('isSortingChecked'),

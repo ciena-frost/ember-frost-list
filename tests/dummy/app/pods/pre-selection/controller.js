@@ -10,7 +10,7 @@ export default Ember.Controller.extend(FrostListMixin, {
       if (config.isFrostGuideDirectory) {
         return 'user-list-item'
       } else {
-        return 'integration-list/user-list-item'
+        return 'pre-selection/user-list-item'
       }
     }
   }),

@@ -13,6 +13,7 @@ import hbs from 'htmlbars-inline-precompile'
 import setupMirage from '../../helpers/mirage-integration'
 import {beforeEach} from 'mocha'
 import {$hook, initialize} from 'ember-hook'
+import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 
 describeComponent(
   'frost-list',
@@ -28,6 +29,7 @@ describeComponent(
     })
 
     it('renders frost-list-item', function () {
+      debugger;
       var list = Ember.A()
       list.addObject(Ember.Object.create(server.create('listItem')))
 
@@ -37,6 +39,7 @@ describeComponent(
       this.render(hbs `
         {{frost-list
           'frost-list-item'
+            item=(component 'frost-list-item')
           hook='my-list'
           class='frost-list'
           items=model
@@ -51,8 +54,8 @@ describeComponent(
         // ember-hook qualifiers currently doesn't work with component helper
         // {{frost-list}} will work, but {{component 'frost-list'}} doesn't
         expect($localHook('my-list')).to.have.length(1)
-        expect($localHook('my-list-core-item-0')).to.have.length(1)
-        expect($hook('my-list-core-item-0')).to.have.length(1)
+        expect($localHook('my-list-item-0')).to.have.length(1)
+        expect($hook('my-list-item-0')).to.have.length(1)
         assert.equal(self.$().find('vertical-item').length, 1)
       })
     })

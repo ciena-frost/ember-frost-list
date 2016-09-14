@@ -18,6 +18,15 @@ export default Ember.Controller.extend(FrostListMixin, {
   // config hash used for list mixin
   listConfig: {
     items: 'model',
+    component: Ember.computed({
+      get () {
+        if (config.isFrostGuideDirectory) {
+          return 'user-list-item'
+        } else {
+          return 'examples/user-list-item'
+        }
+      }
+    }),
     sorting: {
       active: [{value: 'label', direction: ':desc'}],
 
@@ -33,4 +42,6 @@ export default Ember.Controller.extend(FrostListMixin, {
       ]
     }
   }
+
+
 })

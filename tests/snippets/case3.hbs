@@ -1,12 +1,12 @@
-{{frost-list 'user-list-item'
+{{frost-list
   items=statefulListItems
-  expansion=(hash
+  onSelect=(action 'selectItem')
+  item=(component 'user-list-item'
     onCollapse=(action 'collapseItem')
-    onCollapseAll=(action 'collapseItems')
     onExpand=(action 'expandItem')
-    onExpandAll=(action 'expandItems')
   )
-  selection=(hash
-    onSelect=(action 'selectItem')
+  expansion=(component 'frost-list-expansion'
+    onCollapseAll=(action 'collapseItems')
+    onExpandAll=(action 'expandItems')
   )
 }}

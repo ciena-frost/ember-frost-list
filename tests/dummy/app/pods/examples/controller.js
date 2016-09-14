@@ -17,14 +17,13 @@ export default Ember.Controller.extend(FrostListMixin, {
 
   // FIXME: code is too complex (was overly complex before adding eslint rule)
   /* eslint-disable complexity */
-  @computed('__useMixin', '__useHash', '__selection', '__sorting', '__expansion')
-  computedTemplateCase (__useMixin, __useHash, __selection, __sorting, __expansion) {
-    if (!__useMixin) {
-      return 'case2'
+  @computed('__dataDriven', '__useMixin', '__selection', '__sorting', '__expansion')
+  computedTemplateCase (__dataDriven, __useMixin, __selection, __sorting, __expansion) {
+
+    if (__dataDriven) {
+      return 'case1'
     } else {
-      if (__useHash) {
-        return 'case1'
-      } else {
+      if (__useMixin) {
         if (__expansion && __sorting) {
           return 'case2'
         }
@@ -37,6 +36,9 @@ export default Ember.Controller.extend(FrostListMixin, {
         if (!__expansion && !__sorting) {
           return 'case5'
         }
+
+      } else {
+        return 'case6'
       }
     }
   },
@@ -69,14 +71,39 @@ export default Ember.Controller.extend(FrostListMixin, {
     }
   },
 
+  selectionState: {
+    isApiSelectDisabled: false,
+    isMixinSelectDisabled: true,
+    apiSelectionValue: '',
+    mixinSelectionValue: ''
+  },
+
   actions: {
+    changeSelection(attrs) {
+      let selectedValue = attrs[0]
+      if (selectedValue === 'Data driven' || selectedValue === 'Full API') {
+        if (selectedValue === 'Data driven') {
+          this.set('selectionState.mixinSelectionValue', 'Use Mixin')
+          this.set('selectionState.isMixinSelectDisabled', true)
+        } else {
+          this.set('selectionState.isMixinSelectDisabled', false)
+        }
+        this.set('selectionState.apiSelectionValue', selectedValue)
+      } else if (selectedValue === 'Use Mixin' ) {
+        this.set('selectionState.mixinSelectionValue', selectedValue)
+      } else if (selectedValue === 'No Mixin') {
+        this.set('selectionState.mixinSelectionValue', selectedValue)
+      }
+    },
+
     renderDemo (attrs) {
-      this.set('selectedItems', [])
-      this.set('expandedItems', [])
+      this.set('selectedItems', Ember.Object.create())
+      this.set('expandedItems', Ember.Object.create())
 
       this.set('renderDemo', true)
-      this.set('__useMixin', attrs.useMixin)
-      this.set('__useHash', attrs.useHash)
+
+      this.set('__dataDriven', this.get('selectionState.apiSelectionValue') === 'Data driven' )
+      this.set('__useMixin', this.get('selectionState.mixinSelectionValue') === 'Use Mixin')
       this.set('__selection', attrs.selection)
       this.set('__sorting', attrs.sorting)
       this.set('__expansion', attrs.expansion)

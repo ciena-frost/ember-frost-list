@@ -1,11 +1,13 @@
-{{frost-list 'user-list-item'
+{{frost-list
   items=sortedItems
-  selection=(hash
-    onSelect=(action 'selectItem')
+  onSelect=(action 'selectItem')
+  item=(component 'user-list-item'
+    onCollapse=(action 'collapseItem')
+    onExpand=(action 'expandItem')
   )
-  sorting=(hash
-    activeSorting=activeSorting
-    properties=sortableProperties
-    onSort=(action 'sortItems')
+  sorting=(component 'frost-sort'
+    sortOrder=activeSorting
+    properties=sortableProperties
+    onChange=(action 'sortItems')
   )
 }}

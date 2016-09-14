@@ -5,7 +5,6 @@ const {
   $
 } = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
-import _ from 'lodash'
 import FrostList from './frost-list-core'
 
 export default Component.extend({
@@ -54,7 +53,7 @@ export default Component.extend({
 
     const onSelect = this.get('onSelect')
 
-    if(onSelect && typeof onSelect === 'function') {
+    if (onSelect && typeof onSelect === 'function') {
       const isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
 
       onSelect(event, {

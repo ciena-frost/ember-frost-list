@@ -130,5 +130,4 @@ export default Ember.Controller.extend({
       this.set('activeSorting', activeSorting)
     }
   }
-
 })

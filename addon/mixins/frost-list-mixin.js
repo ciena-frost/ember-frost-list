@@ -7,7 +7,6 @@ import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selectio
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 import createActionClosure from 'ember-frost-list/utils/action-closure'
-import FrostListExpansion from 'ember-frost-list/components/frost-list-expansion'
 
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {
   initListMixin: on('init', function () {

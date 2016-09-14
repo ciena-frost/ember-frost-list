@@ -1,5 +1,17 @@
-{{frost-list componentPath
-  class='frost-flex-1'
-  items=sortedItems
-  config=listMixinConfig
+{{frost-list
+items=sortedItems
+onSelect=(action 'selectItem')
+item=(component componentPath
+  onCollapse=(action 'collapseItem')
+  onExpand=(action 'expandItem')
+)
+expansion=(component 'frost-list-expansion'
+  onCollapseAll=(action 'collapseItems')
+  onExpandAll=(action 'expandItems')
+)
+sorting=(component 'frost-sort'
+  sortOrder=activeSorting
+  properties=sortableProperties
+  onChange=(action 'sortItems')
+)
 }}

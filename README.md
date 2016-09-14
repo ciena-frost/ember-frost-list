@@ -40,7 +40,6 @@ Detailed API and example usage can be found in the sample application in tests/d
 | parameters type    | Attribute       | Type              | value           | Description     |
 | ------------------ | --------------- | ----------------- | --------------- | --------------- |
 | `Attribute`        | `config`        | `Object`          |                 | Required: config object which will setup the list based on the user provided listConfig hash in controller. A reserved property listMixinConfig provided by frost-list-mixin should be assigned to config attribute. |
-| `Attribute`        | `defaultHeight` | `number`          |                 | default height for each list item, set to 45px if not provided. |
 
 ### Customization pattern
 
