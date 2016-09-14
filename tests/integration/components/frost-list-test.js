@@ -36,8 +36,7 @@ describeComponent(
 
       this.render(hbs `
         {{frost-list
-          'frost-list-item'
-            item=(component 'frost-list-item')
+          item=(component 'frost-list-item')
           hook='my-list'
           class='frost-list'
           items=model
