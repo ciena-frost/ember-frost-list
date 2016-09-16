@@ -1,7 +1,5 @@
 import Ember from 'ember'
-import
-  FrostListMixin
-  from 'ember-frost-list/mixins/frost-list-mixin'
+import {FrostListMixin} from 'ember-frost-list'
 
 export default Ember.Controller.extend(FrostListMixin, {
   // config hash used for list mixin

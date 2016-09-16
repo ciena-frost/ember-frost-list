@@ -2,7 +2,7 @@ import Ember from 'ember'
 
 export default Ember.Route.extend({
   model () {
-    return this.get('store').query('list-item', {pageSize: 10, start: 0})
+    return this.get('store').query('list-item', {pageSize: 20, start: 0})
   },
 
   setupController (controller, model) {
