@@ -90,7 +90,7 @@ In controller
 
 ```javascript
 import Ember from 'ember'
-import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
+import {FrostListMixin} from 'ember-frost-list'
 
 export default Ember.ClassName.extend(FrostListMixin, {
   listConfig: {
@@ -163,7 +163,7 @@ In template
 {{frost-list 'user-list-item'
   items=items
   loadNext=(action 'loadNext')
-  onSelect=(action 'selected')
+  loadPrevious=(action 'loadPrevious')
 }}
 ```
 
@@ -172,11 +172,11 @@ In controller
 ```javascript
 items: Ember.computed.alias('model'),
 actions: {
-  _loadNext () {
+  loadNext () {
     // data retrieval/backend API call goes here
   },
 
-  _loadPrevious () {
+  loadPrevious () {
     // data retrieval/backend API call goes here
   },
 }
@@ -213,7 +213,7 @@ execute the test suite and output code coverage.
 [cov-img]: https://coveralls.io/repos/github/ciena-frost/ember-frost-list/badge.svg?branch=master "Code Coverage"
 [cov-url]: https://coveralls.io/github/ciena-frost/ember-frost-list
 
-[ember-img]: https://img.shields.io/badge/ember-1.12.2+-orange.svg "Ember 1.12.2+"
+[ember-img]: https://img.shields.io/badge/ember-2.0.0+-orange.svg "Ember 2.0.0+"
 
 [npm-img]: https://img.shields.io/npm/v/ember-frost-list.svg "NPM Version"
 [npm-url]: https://www.npmjs.com/package/ember-frost-list

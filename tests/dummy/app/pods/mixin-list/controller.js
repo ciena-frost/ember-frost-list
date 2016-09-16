@@ -1,6 +1,6 @@
 import Ember from 'ember'
 import config from '../../config/environment'
-import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
+import {FrostListMixin} from 'ember-frost-list'
 const {computed} = Ember
 
 export default Ember.Controller.extend(FrostListMixin, {

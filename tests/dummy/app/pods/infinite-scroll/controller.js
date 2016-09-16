@@ -1,8 +1,7 @@
 import Ember from 'ember'
 import config from '../../config/environment'
 import _ from 'lodash'
-import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
-
+import {FrostListMixin} from 'ember-frost-list'
 const {computed} = Ember
 
 export default Ember.Controller.extend(FrostListMixin, {
@@ -73,7 +72,7 @@ export default Ember.Controller.extend(FrostListMixin, {
     return this.get('model.items')
   }),
 
-  _loadNext () {
+  fetchNext () {
     let lastOffset = this.get('model.lastOffset')
     this.store.query('list-item', {
       pageSize: 100,
@@ -87,7 +86,7 @@ export default Ember.Controller.extend(FrostListMixin, {
     })
   },
 
-  _loadPrevious () {
+  fetchPrevious () {
     let firstOffset = this.get('model.firstOffset')
     if (firstOffset <= 0) {
       return
@@ -111,51 +110,12 @@ export default Ember.Controller.extend(FrostListMixin, {
   },
 
   actions: {
-
     loadPrevious () {
-      Ember.run.debounce(this, this._loadPrevious, 50)
+      Ember.run.debounce(this, this.fetchPrevious, 50)
     },
 
     loadNext () {
-      Ember.run.debounce(this, this._loadNext, 50)
-    },
-
-    updateHandler () {
-      let selectedItems = this.get('selectedItems')
-      _.each(selectedItems, (item) => {
-        item.set('label', 'updated label')
-        item.save()
-          .then(
-            (/* success */) => {
-            },
-            (/* fail */) => {
-            }
-          )
-      })
-    },
-
-    deleteHandler () {
-      let selectedItems = this.get('selectedItems')
-      _.each(selectedItems, (item) => {
-        item.destroyRecord().then(
-          (/* success */) => {
-          },
-          (/* fail */) => {
-          }
-        )
-      })
-    },
-
-    fetchNext () {
-      let lastOffset = this.get('model.lastOffset')
-      this.set('currentPageSize', 100)
-      this.set('currentOffset', lastOffset)
-      this.store.query('list-item', {
-        pageSize: 100,
-        start: lastOffset
-      }).then(() => {
-        this.set('model.lastOffset', lastOffset + 100)
-      })
+      Ember.run.debounce(this, this.fetchNext, 50)
     }
   }
 })
