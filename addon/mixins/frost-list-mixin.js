@@ -34,6 +34,14 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     Ember.defineProperty(this, '_sortItems', undefined,
       createActionClosure.call(this, this.actions.sortItems)
     )
+
+    Ember.defineProperty(this, '_loadNext', undefined,
+      createActionClosure.call(this, this.actions.loadNext)
+    )
+
+    Ember.defineProperty(this, '_loadPrevious', undefined,
+      createActionClosure.call(this, this.actions.loadPrevious)
+    )
   }),
 
   listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', 'sortedItems.[]', function () {
@@ -54,6 +62,10 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
         activeSorting: activeSorting,
         properties: sortableProperties,
         onSort: this._sortItems
+      },
+      infiniteScroll: {
+        loadNext: this._loadNext,
+        loadPrevious: this._loadPrevious
       }
     }
   })

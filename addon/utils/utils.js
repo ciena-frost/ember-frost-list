@@ -8,7 +8,7 @@ export function updateSelectedItemsHash (selections, attrs) {
     } else {
       if ((!attrs.selectDesc.isTargetSelectionIndicator && !attrs.selectDesc.isCtrlSelect)) {
         Object.keys(_selections).forEach((key) => {
-          _selections.set(key, false)
+          delete _selections[key]
         })
       }
       attrs.records.forEach((record) => {
@@ -17,7 +17,7 @@ export function updateSelectedItemsHash (selections, attrs) {
     }
   } else {
     attrs.records.forEach((record) => {
-      _selections.set(record.id, false)
+      delete _selections[record.id]
     })
   }
   return _selections
