@@ -36,11 +36,11 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     )
 
     Ember.defineProperty(this, '_loadNext', undefined,
-      createActionClosure.call(this, this.actions.loadNext)
+      createActionClosure.call(this, this.actions.loadNext || function () {})
     )
 
     Ember.defineProperty(this, '_loadPrevious', undefined,
-      createActionClosure.call(this, this.actions.loadPrevious)
+      createActionClosure.call(this, this.actions.loadPrevious || function () {})
     )
   }),
 

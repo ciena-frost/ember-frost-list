@@ -8,6 +8,11 @@ export default Mixin.create({
   }),
 
   @computed('_listItems.[]')
+  filteredItems (listItems) {
+    return listItems
+  },
+
+  @computed('filteredItems.[]')
   listItems (listItems) {
     let wrapper = []
     return listItems.map((item) => {
