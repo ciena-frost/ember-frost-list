@@ -1,0 +1,39 @@
+{{frost-select
+  data=apiOptions
+  disabled=selectionState.isApiSelectDisabled
+  selectedValue=selectionState.apiSelectionValue
+  onChange=(action 'onSelectChangeHandler')
+}}
+
+{{frost-select
+  data=mixinOptions
+  disabled=selectionState.isMixinSelectDisabled
+  selectedValue=selectionState.mixinSelectionValue
+  onChange=(action 'onSelectChangeHandler')
+}}
+
+{{#if showCheckbox}}
+  {{frost-checkbox
+  checked=isSelectionChecked
+  label='selection'
+  disabled = true
+  }}
+  {{frost-checkbox
+  checked=isExpansionChecked
+  label='expansion'
+  onInput=(action (mut isExpansionChecked) value='value')
+  }}
+  {{frost-checkbox
+  checked=isSortingChecked
+  label='sorting'
+  onInput=(action (mut isSortingChecked) value='value')
+  }}
+{{/if}}
+
+{{frost-button
+  priority='primary'
+  size='medium'
+  text='Render'
+  disabled=isButtonDisabled
+  onClick=(action 'clickHandler')
+}}

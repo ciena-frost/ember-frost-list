@@ -1,0 +1,8 @@
+{{frost-list
+  items=statefulListItems
+  onSelect=(action 'selectItem')
+  item=(component 'user-list-item'
+    onCollapse=(action 'collapseItem')
+    onExpand=(action 'expandItem')
+  )
+}}

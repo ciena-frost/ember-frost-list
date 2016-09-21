@@ -1,0 +1,38 @@
+{{#if _hasHeader}}
+    <div class="frost-list-header">
+      {{#if sorting}}
+        {{component sorting}}
+      {{/if}}
+      {{#if expansion}}
+        {{component expansion}}
+      {{/if}}
+    </div>
+{{/if}}
+<div class="frost-list-content">
+    <div class='frost-list-content-border-top'></div>
+    <div class='container'>
+      {{#vertical-collection
+        content=_records
+        scrollPosition=scrollPosition
+        defaultHeight=defaultHeight
+        alwaysUseDefaultHeight=alwaysUseDefaultHeight
+        key=key
+        idForFirstItem=idForFirstItem
+        firstReached=loadPrevious
+        lastReached=loadNext
+        as |record index|
+      }}
+        {{#if hasBlock}}
+          {{yield record index}}
+        {{else}}
+          {{component item
+            model=record
+            hook=(concat hook '-item-' index)
+            hookQualifiers=(hash index=index)
+            onSelect=(action 'selectItem')
+          }}
+        {{/if}}
+      {{/vertical-collection}}
+    </div>
+    <div class='frost-list-content-border-bottom'></div>
+</div>

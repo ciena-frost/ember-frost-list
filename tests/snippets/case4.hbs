@@ -1,0 +1,13 @@
+{{frost-list
+  items=sortedItems
+  onSelect=(action 'selectItem')
+  item=(component 'user-list-item'
+    onCollapse=(action 'collapseItem')
+    onExpand=(action 'expandItem')
+  )
+  sorting=(component 'frost-sort'
+    sortOrder=activeSorting
+    properties=sortableProperties
+    onChange=(action 'sortItems')
+  )
+}}

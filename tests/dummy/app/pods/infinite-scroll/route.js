@@ -2,6 +2,10 @@ import Ember from 'ember'
 
 export default Ember.Route.extend({
 
+  beforeModel () {
+    this.store.unloadAll('list-item')
+  },
+
   _fetch () {
     this.controllerFor('infinite-scroll').set('currentOffset', 0)
     this.controllerFor('infinite-scroll').set('currentPageSize', 0)
@@ -20,9 +24,5 @@ export default Ember.Route.extend({
 
   model () {
     return this._fetch()
-  },
-
-  deactivate () {
-    this.store.unloadAll('list-item')
   }
 })

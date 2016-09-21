@@ -1,0 +1,35 @@
+{{#if config}}
+  {{frost-list-core
+    hook=hook
+    items=config.items
+    onSelect=config.selection.onSelect
+    item=(component config.component
+    )
+    expansion=(component 'frost-list-expansion'
+      onCollapseAll=config.expansion.onCollapseAll
+      onExpandAll=config.expansion.onExpandAll
+    )
+    sorting=(component 'frost-sort'
+      sortOrder=config.sorting.activeSorting
+      properties=config.sorting.properties
+      onChange=config.sorting.onSort
+    )
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    defaultHeight=defaultHeight
+    loadPrevious=config.infiniteScroll.loadPrevious
+    loadNext=config.infiniteScroll.loadNext
+  }}
+{{else}}
+  {{frost-list-core
+    hook=hook
+    items=items
+    onSelect=onSelect
+    item=item
+    expansion=expansion
+    sorting=sorting
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    defaultHeight=defaultHeight
+    loadPrevious=loadPrevious
+    loadNext=loadNext
+  }}
+{{/if}}

@@ -10,7 +10,15 @@ module.exports = function (defaults) {
     sassOptions: {
       includePaths: [
       ]
-    }
+    },
+    babel: {
+      optional: ['es7.decorators']
+    },
+
+    snippetPaths: ['snippets', 'tests/snippets'],
+    snippetSearchPaths: [
+      'tests/dummy'
+    ]
   })
 
   /*
