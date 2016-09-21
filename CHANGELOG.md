@@ -1,3 +1,18 @@
+# 1.0.0
+
+* **Removed** internal record state management. 
+* **Removed** small/medium/large detail level support. 
+* **Removed** support for list block format rendering.
+* **Updated**  user interface to support new component driven API and data driven API.
+* **Updated** css to serve new template layout. 
+* **Updated** to `smoke-and-mirror: 0.5.4`. 
+* **Added**  a bunch of Mixins to support common list operation.
+* **Added**  list expand/collapse control component.
+* **Added**  live demo with source code generating.
+* **Added**  hook for testing.
+* **Added**  README
+* **Fixed**  content shifting when item gets selected. 
+
 # 0.7.8
 No CHANGELOG section found in Pull Request description.
 Use a `# CHANGELOG` section in your Pull Request description to auto-populate the `CHANGELOG.md`
