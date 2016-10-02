@@ -1,3 +1,7 @@
+# 2.0.0
+
+* Updated to ember-frost-sort 3.0, technically not directly breaking, but an upstream major
+
 # 1.0.0
 
 * **Removed** internal record state management. 
