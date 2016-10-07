@@ -59,7 +59,7 @@ export default Ember.Controller.extend({
     return _selections
   },
 
-  sortedItems: Ember.computed.sort('statefulListItems', 'activeSortingString'),
+  sortedItems: Ember.computed.sort('filteredItems', 'activeSortingString'),
 
   sortableProperties: [
     {
