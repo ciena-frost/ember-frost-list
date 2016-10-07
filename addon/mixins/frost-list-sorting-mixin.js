@@ -15,13 +15,13 @@ export default Mixin.create(FrostListCoreMixin, {
   }),
 
   // == Computed Properties ====================================================
-  sortedItems: Ember.computed.sort('statefulListItems', 'activeSortingString'),
+  sortedItems: Ember.computed.sort('filteredItems', 'activeSortingString'),
 
   @computed('activeSorting')
   activeSortingString (activeSorting) {
     if (!activeSorting) return []
     return activeSorting.map((sortProperty) => {
-      return `record.${sortProperty.value}${sortProperty.direction}`
+      return `${sortProperty.value}${sortProperty.direction}`
     })
   },
 

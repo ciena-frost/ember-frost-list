@@ -4,7 +4,7 @@ import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
   initListCoreMixin: on('init', function () {
-    Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.listConfig.items))
+    Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.get('listConfig.items')))
   }),
 
   @computed('_listItems.[]')
@@ -12,7 +12,7 @@ export default Mixin.create({
     return listItems
   },
 
-  @computed('filteredItems.[]')
+  @computed('sortedItems.[]')
   listItems (listItems) {
     let wrapper = []
     return listItems.map((item) => {
