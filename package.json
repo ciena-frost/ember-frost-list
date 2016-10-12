@@ -42,6 +42,7 @@
     "ember-computed-decorators": "0.2.2",
     "ember-concurrency": "0.7.8",
     "ember-data": "^2.4.0",
+    "ember-data-factory-guy": "2.8.0",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
     "ember-frost-core": "0.25.3",
