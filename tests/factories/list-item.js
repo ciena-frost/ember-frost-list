@@ -9,7 +9,7 @@ let type = null
 FactoryGuy.define('list-item', {
   sequences: {
     dimension: (num) => {
-      let items = ['Local', 'LDAP', 'RADIUS']
+      let items = ['NC', 'SERVICE', 'custom']
       type = items[num % items.length]
       return type
     },
@@ -20,12 +20,7 @@ FactoryGuy.define('list-item', {
         '4-Node OPS'
       ]
       return items[num % items.length]
-    }
-  },
-
-  default: {
-    dimension: FactoryGuy.generate('dimension'),
-    label: FactoryGuy.generate('label'),
+    },
     'meta-data': () => {
       if (type === 'NC') {
         return {
@@ -57,5 +52,11 @@ FactoryGuy.define('list-item', {
         return {}
       }
     }
+  },
+
+  default: {
+    dimension: FactoryGuy.generate('dimension'),
+    label: FactoryGuy.generate('label'),
+    'meta-data': FactoryGuy.generate('meta-data')
   }
 })
