@@ -1,8 +1,4 @@
 import FactoryGuy from 'ember-data-factory-guy'
-import {
-  faker
-}
-from 'ember-cli-mirage'
 
 let type = null
 
@@ -31,7 +27,7 @@ FactoryGuy.define('list-item', {
           State: 'Normal'
         }
       } else if (type === 'SERVICE') {
-        if (faker.random.number({
+        if (faker.random.number({ // eslint-disable-line
           min: 0,
           max: 1
         })) {
