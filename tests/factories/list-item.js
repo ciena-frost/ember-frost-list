@@ -17,7 +17,7 @@ FactoryGuy.define('list-item', {
       ]
       return items[num % items.length]
     },
-    'meta-data': () => {
+    metaData: () => {
       if (type === 'NC') {
         return {
           Type: '6500',
@@ -53,6 +53,6 @@ FactoryGuy.define('list-item', {
   default: {
     dimension: FactoryGuy.generate('dimension'),
     label: FactoryGuy.generate('label'),
-    'meta-data': FactoryGuy.generate('meta-data')
+    metaData: FactoryGuy.generate('metaData')
   }
 })
