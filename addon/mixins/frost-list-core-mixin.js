@@ -7,12 +7,12 @@ export default Mixin.create({
     Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.get('listConfig.items')))
   }),
 
-  @computed('_listItems.[]')
-  filteredItems (listItems) {
-    return listItems
-  },
+  //@computed('_listItems.[]')
+  //filteredItems (listItems) {
+  //  return listItems
+  //},
 
-  @computed('sortedItems.[]')
+  @computed('_listItems.[]')
   listItems (listItems) {
     let wrapper = []
     return listItems.map((item) => {

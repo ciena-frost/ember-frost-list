@@ -9,21 +9,21 @@ import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListSortingMixin: on('init', function () {
-    this.set('queryParams', ['listConfig.sorting.active'])
+    //this.set('queryParams', ['listConfig.sorting.active'])
     Ember.defineProperty(this, 'sortableProperties', Ember.computed.alias('listConfig.sorting.properties'))
     Ember.defineProperty(this, 'activeSorting', Ember.computed.alias('listConfig.sorting.active'))
   }),
 
   // == Computed Properties ====================================================
-  sortedItems: Ember.computed.sort('filteredItems', 'activeSortingString'),
+  //sortedItems: Ember.computed.sort('filteredItems', 'activeSortingString'),
 
-  @computed('activeSorting')
-  activeSortingString (activeSorting) {
-    if (!activeSorting) return []
-    return activeSorting.map((sortProperty) => {
-      return `${sortProperty.value}${sortProperty.direction}`
-    })
-  },
+  //@computed('activeSorting')
+  //activeSortingString (activeSorting) {
+  //  if (!activeSorting) return []
+  //  return activeSorting.map((sortProperty) => {
+  //    return `${sortProperty.value}${sortProperty.direction}`
+  //  })
+  //},
 
   // == Actions ================================================================
   actions: {
