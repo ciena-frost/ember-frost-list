@@ -11,7 +11,7 @@ import {
 
 describeComponent(
   'frost-list-core',
-  'Unit: FrostListCore',
+  'Unit: FrostListCoreComponent',
   {
     unit: true
   },
