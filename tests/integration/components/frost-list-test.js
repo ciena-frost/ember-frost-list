@@ -1,8 +1,14 @@
 import Ember from 'ember'
+const {A} = Ember
 import {
-  expect, assert
+  expect,
+  assert
 }
 from 'chai'
+import {
+  make,
+  manualSetup
+} from 'ember-data-factory-guy'
 import {
   describeComponent,
   it
@@ -10,16 +16,18 @@ import {
 from 'ember-mocha'
 import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
-import setupMirage from '../../helpers/mirage-integration'
 import {beforeEach} from 'mocha'
-import {$hook, initialize} from 'ember-hook'
+import {
+  $hook,
+  initialize
+} from 'ember-hook'
 
 describeComponent(
   'frost-list',
   'Integration: FrostListComponent', {
     integration: true,
     setup: function () {
-      setupMirage(this.container)
+      manualSetup(this.container)
     }
   },
   function () {
@@ -28,11 +36,11 @@ describeComponent(
     })
 
     it('renders frost-list-item', function () {
-      var list = Ember.A()
-      list.addObject(Ember.Object.create(server.create('listItem')))
+      let list = A()
+      list.addObject(make('list-item'))
 
       this.set('model', list)
-      this.set('items', Ember.A())
+      this.set('items', A())
 
       this.render(hbs `
         {{frost-list

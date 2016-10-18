@@ -26,6 +26,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.factoryGuy = true
   }
 
   if (environment === 'test') {
@@ -43,10 +44,7 @@ module.exports = function (environment) {
   if (environment === 'production') {
     ENV.baseURL = '/ember-frost-list'
     ENV.isDemo = true
-    ENV.mirageNamespace = 'https://ciena-frost.github.io'
-    ENV['ember-cli-mirage'] = {
-      enabled: true
-    }
+    ENV.factoryGuy = true
   }
 
   return ENV
