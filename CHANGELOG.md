@@ -1,3 +1,15 @@
+# 2.0.1
+
+* **Added** factory-guy mocking layer with factories
+* **Updated** tests to use factory-guy instead of mirage
+* **Removed** mirage mocking layer
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-frost/ember-frost-list/59)
+<!-- Reviewable:end -->
+
+
 # 2.0.0
 
 * Updated to ember-frost-sort 3.0, technically not directly breaking, but an upstream major
