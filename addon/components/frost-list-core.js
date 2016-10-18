@@ -1,5 +1,9 @@
 import Ember from 'ember'
-const {Component} = Ember
+const {
+  Component,
+  get,
+  set
+} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
@@ -102,21 +106,6 @@ const FrostList = Component.extend(PropTypeMixin, {
       return [lastElement]
     }
   },
-  /* eslint-enabled complexity */
-
-  // onShiftSelect (attrs) {
-  //   let records = this.get('_records')
-  //   let firstElement = this.get('persistedClickState.clickedRecord')
-  //   let secondElement = attrs.secondClickedRecord
-  //   this.get('onSelect')({
-  //     records: this._findElementsInBetween(records, firstElement, secondElement),
-  //     selectDesc: {
-  //       isSelected: true,
-  //       isShiftSelect: true,
-  //       isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
-  //     }
-  //   })
-  // },
 
   buildRangeSelectedItemsArray (records, firstElement, secondElement) {
     return this._findElementsInBetween(records, firstElement, secondElement)
@@ -128,16 +117,16 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   actions: {
     selectItem (event, attrs) {
-      const onSelect = this.get('onSelect')
+      const onSelect = get(this, 'onSelect')
 
       if (onSelect && typeof onSelect === 'function') {
         let selectedItems = []
         let selectDesc = attrs.selectDesc
 
-        if (event.shiftKey && this.get('persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
+        if (event.shiftKey && get(this, 'persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
           selectedItems = this.buildRangeSelectedItemsArray(
-            this.get('_records'),
-            this.get('persistedClickState.clickedRecord'),
+            get(this, '_records'),
+            get(this, 'persistedClickState.clickedRecord'),
             attrs.record
           )
           selectDesc.isShiftSelect = true
@@ -152,7 +141,7 @@ const FrostList = Component.extend(PropTypeMixin, {
         })
       }
 
-      this.set('persistedClickState', {
+      set(this, 'persistedClickState', {
         clickedRecord: attrs.record,
         isSelected: attrs.selectDesc.isSelected
       })
