@@ -30,24 +30,29 @@ describeComponent(
       expect(component.classNames).to.include('frost-list-core')
     })
 
-    it('sets default properties value correct', function () {
-      expect(component.get('alwaysUseDefaultHeight'),
-      'alwaysUseDefaultHeight: false'
+    it('sets default properties value correctly', function () {
+      expect(
+        component.get('alwaysUseDefaultHeight'),
+        'alwaysUseDefaultHeight: false'
       ).to.be.false
 
-      expect(component.get('defaultHeight'),
+      expect(
+        component.get('defaultHeight'),
         'defaultHeight: 45'
       ).to.eql(45)
 
-      expect(component.get('idForFirstItem'),
+      expect(
+        component.get('idForFirstItem'),
         'idForFirstItem: null'
       ).to.be.null
 
-      expect(component.get('key'),
+      expect(
+        component.get('key'),
         'key: @identity'
       ).to.eql('@identity')
 
-      expect(component.get('scrollPosition'),
+      expect(
+        component.get('scrollPosition'),
         'scrollPosition: 0'
       ).to.eql(0)
     })
@@ -83,20 +88,35 @@ describeComponent(
     describe('"_records" computed property', function () {
       it('is set correctly', function () {
         const items = [1, 2, 3, 4]
+
         run(() => { component.set('items', items) })
-        expect(component.get('_records')).to.eql(items)
+
+        expect(
+          component.get('_records'),
+          'item arrays are identical'
+        ).to.eql(items)
       })
 
-      it('is set correctly when items is undefined', function () {
+      it('is set correctly when items is undefined or null', function () {
         const items = undefined
+
         run(() => { component.set('items', items) })
-        expect(component.get('_records')).to.eql([])
+
+        expect(
+          component.get('_records'),
+          '_records is set to an empty array'
+        ).to.eql([])
       })
 
       it('is set correctly when items is null', function () {
         const items = null
+
         run(() => { component.set('items', items) })
-        expect(component.get('_records')).to.eql([])
+
+        expect(
+          component.get('_records'),
+          '_records is set to an empty array'
+        ).to.eql([])
       })
     })
 
@@ -119,9 +139,7 @@ describeComponent(
       it('is set to "true" when "sorting" is set', function () {
         const sorting = {sortProperty: 'sortProperty'}
 
-        run(() => {
-          component.set('sorting', sorting)
-        })
+        run(() => component.set('sorting', sorting))
 
         expect(
           component.get('_hasHeader'),
@@ -132,9 +150,7 @@ describeComponent(
       it('is set to "true" when "expansion" is set', function () {
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => {
-          component.set('expansion', expansion)
-        })
+        run(() => component.set('expansion', expansion))
 
         expect(
           component.get('_hasHeader'),
@@ -142,7 +158,7 @@ describeComponent(
         ).to.be.true
       })
 
-      it('is set to "false" when both "sorting" and "expansion" are NOT set', function () {
+      it('is set to "false" when "sorting" and "expansion" are NOT set', function () {
         expect(
           component.get('_hasHeader'),
           '_hasHeader: "false"'
@@ -209,38 +225,38 @@ describeComponent(
     })
 
     describe('"checkSortingValidity" function', function () {
-      let selection = {}
+      let sorting = {}
 
-      it('returns "false" when "sorting" is NOT set Properly', function () {
+      it('returns "false" when "sorting" is NOT set properly', function () {
         expect(
-          component.checkSortingValidity(selection),
+          component.checkSortingValidity(sorting),
           'isSortingValid: "false"'
         ).to.be.false
       })
 
       it('returns "false" when "activeSorting" and "properties" are missing in "sorting"', function () {
-        Object.defineProperty(selection, 'onSort', {value: function () {}})
+        Object.defineProperty(sorting, 'onSort', {value: function () {}})
 
         expect(
-          component.checkSortingValidity(selection),
+          component.checkSortingValidity(sorting),
           'isSortingValid: "false"'
         ).to.be.false
       })
 
       it('returns "false" when "activeSorting" is missing in "sorting"', function () {
-        Object.defineProperty(selection, 'properties', {value: []})
+        Object.defineProperty(sorting, 'properties', {value: []})
 
         expect(
-          component.checkSortingValidity(selection),
+          component.checkSortingValidity(sorting),
           'isSortingValid: "false"'
         ).to.be.false
       })
 
-      it('returns "true" when "selection" is set properly', function () {
-        Object.defineProperty(selection, 'activeSorting', {value: []})
+      it('returns "true" when "sorting" is set properly', function () {
+        Object.defineProperty(sorting, 'activeSorting', {value: []})
 
         expect(
-          component.checkSortingValidity(selection),
+          component.checkSortingValidity(sorting),
           'isSortingValid: "true"'
         ).to.be.true
       })
