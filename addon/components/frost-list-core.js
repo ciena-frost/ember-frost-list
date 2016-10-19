@@ -2,7 +2,8 @@ import Ember from 'ember'
 const {
   Component,
   get,
-  set
+  set,
+  typeOf
 } = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
@@ -58,18 +59,18 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   // TODO Add validation check for collapseItem/expandItem when feature landed
   checkExpansionValidity (expansion) {
-    return typeof expansion.onCollapseAll === 'function' &&
-      typeof expansion.onExpandAll === 'function'
+    return typeOf(expansion.onCollapseAll) === 'function' &&
+      typeOf(expansion.onExpandAll) === 'function'
   },
 
   checkSelectionValidity (selection) {
-    return typeof selection.onSelect === 'function'
+    return typeOf(selection.onSelect) === 'function'
   },
 
   checkSortingValidity (sorting) {
     return Array.isArray(sorting.activeSorting) &&
            Array.isArray(sorting.properties) &&
-           typeof sorting.onSort === 'function'
+           typeOf(sorting.onSort) === 'function'
   },
 
   // FIXME: code is too complex (was overly complex before adding eslint rule)
@@ -119,7 +120,7 @@ const FrostList = Component.extend(PropTypeMixin, {
     selectItem (event, attrs) {
       const onSelect = get(this, 'onSelect')
 
-      if (onSelect && typeof onSelect === 'function') {
+      if (onSelect && typeOf(onSelect) === 'function') {
         let selectedItems = []
         let selectDesc = attrs.selectDesc
 
