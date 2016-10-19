@@ -1,3 +1,8 @@
+# 2.0.4
+
+* **Added** rootURL to router.js
+
+
 # 2.0.3
 
 * **Updated** baseURL to rootURL to try to fix the path issue with the demo app on gh pages
