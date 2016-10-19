@@ -1,3 +1,8 @@
+# 2.0.2
+
+* **Updated** factory-guy to run off my fork and branch to isolate changes to allow use in production environment.
+
+
 # 2.0.1
 
 * **Added** factory-guy mocking layer with factories
