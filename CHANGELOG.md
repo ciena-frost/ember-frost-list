@@ -1,3 +1,8 @@
+# 2.0.3
+
+* **Updated** baseURL to rootURL to try to fix the path issue with the demo app on gh pages
+
+
 # 2.0.2
 
 * **Updated** factory-guy to run off my fork and branch to isolate changes to allow use in production environment.
