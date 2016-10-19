@@ -30,7 +30,7 @@ describeComponent(
       expect(component.classNames).to.include('frost-list-core')
     })
 
-    it('sets default properties value correctly', function () {
+    it('sets default property values correctly', function () {
       expect(
         component.get('alwaysUseDefaultHeight'),
         'alwaysUseDefaultHeight: false'
@@ -235,7 +235,7 @@ describeComponent(
       })
 
       it('returns "false" when "activeSorting" and "properties" are missing in "sorting"', function () {
-        Object.defineProperty(sorting, 'onSort', {value: function () {}})
+        sorting.onSort = function () {}
 
         expect(
           component.checkSortingValidity(sorting),
@@ -244,7 +244,7 @@ describeComponent(
       })
 
       it('returns "false" when "activeSorting" is missing in "sorting"', function () {
-        Object.defineProperty(sorting, 'properties', {value: []})
+        sorting.properties = []
 
         expect(
           component.checkSortingValidity(sorting),
@@ -253,7 +253,7 @@ describeComponent(
       })
 
       it('returns "true" when "sorting" is set properly', function () {
-        Object.defineProperty(sorting, 'activeSorting', {value: []})
+        sorting.activeSorting = []
 
         expect(
           component.checkSortingValidity(sorting),
