@@ -43,7 +43,6 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     ENV.baseURL = '/ember-frost-list'
-    ENV.isDemo = true
     ENV.factoryGuy = true
   }
 
