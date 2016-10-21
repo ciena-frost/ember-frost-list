@@ -24,7 +24,8 @@ import {
 
 describeComponent(
   'frost-list',
-  'Integration: FrostListComponent', {
+  'Integration: FrostListComponent',
+  {
     integration: true,
     setup: function () {
       manualSetup(this.container)
@@ -42,7 +43,7 @@ describeComponent(
       this.set('model', list)
       this.set('items', A())
 
-      this.render(hbs `
+      this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
           hook='my-list'

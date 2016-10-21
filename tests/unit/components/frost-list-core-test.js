@@ -225,7 +225,7 @@ describeComponent(
     })
 
     describe('"checkSortingValidity" function', function () {
-      let sorting = {}
+      const sorting = {}
 
       it('returns "false" when "sorting" is NOT set properly', function () {
         expect(

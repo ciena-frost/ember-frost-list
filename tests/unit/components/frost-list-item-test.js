@@ -47,11 +47,7 @@ describeComponent(
 
     describe('"isExpanded" computed property', function () {
       it('is set correctly', function () {
-        let model = {
-          isExpanded: true
-        }
-
-        run(() => { component.set('model', model) })
+        run(() => { component.set('model', { isExpanded: true }) })
 
         expect(
           component.get('isExpanded'),
