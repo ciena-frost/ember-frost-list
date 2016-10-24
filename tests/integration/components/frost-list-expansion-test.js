@@ -34,15 +34,15 @@ describeComponent(
       ).to.be.length(1)
     })
 
-    it('fires onExpandAll closure action', function () {
+    it('fires onCollapseAll closure action', function () {
       const externalActionSpy = sinon.spy()
 
-      this.on('externalActionSpy', externalActionSpy)
+      this.on('externalAction', externalActionSpy)
 
       this.render(hbs`
         {{frost-list-expansion
-          onCollapseAll=(action 'externalActionSpy')
-          onExpandAll=(action 'externalActionSpy')
+          onCollapseAll=(action 'externalAction')
+          onExpandAll=(action 'externalAction')
         }}
       `)
 
@@ -50,7 +50,7 @@ describeComponent(
 
       expect(
         externalActionSpy.called,
-        'onExpandAll is fired'
+        'onCollapseAll is fired'
       ).to.be.true
     })
   }
