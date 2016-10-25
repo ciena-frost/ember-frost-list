@@ -1,3 +1,13 @@
+# 2.0.5
+
+* **Updated** the language in some paragraphs in the README to enhance readability.
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-frost/ember-frost-list/66)
+<!-- Reviewable:end -->
+
+
 # 2.0.4
 
 * **Added** rootURL to router.js
