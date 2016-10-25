@@ -1,3 +1,40 @@
+# 2.0.5
+
+* **Updated** the language in some paragraphs in the README to enhance readability.
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-frost/ember-frost-list/66)
+<!-- Reviewable:end -->
+
+
+# 2.0.4
+
+* **Added** rootURL to router.js
+
+
+# 2.0.3
+
+* **Updated** baseURL to rootURL to try to fix the path issue with the demo app on gh pages
+
+
+# 2.0.2
+
+* **Updated** factory-guy to run off my fork and branch to isolate changes to allow use in production environment.
+
+
+# 2.0.1
+
+* **Added** factory-guy mocking layer with factories
+* **Updated** tests to use factory-guy instead of mirage
+* **Removed** mirage mocking layer
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-frost/ember-frost-list/59)
+<!-- Reviewable:end -->
+
+
 # 2.0.0
 
 * Updated to ember-frost-sort 3.0, technically not directly breaking, but an upstream major
