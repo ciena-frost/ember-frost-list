@@ -86,18 +86,16 @@ describeComponent(
     })
 
     describe('"_records" computed property', function () {
-      it('is set correctly', function () {
-        const items = [1, 2, 3, 4]
-
-        run(() => { component.set('items', items) })
+      it('normalizes an Ember.A to JavaScript Array', function () {
+        run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
 
         expect(
           component.get('_records'),
           'item arrays are identical'
-        ).to.eql(items)
+        ).to.eql([1, 2, 3, 4])
       })
 
-      it('is set correctly when items is undefined or null', function () {
+      it('is set correctly when items is undefined', function () {
         const items = undefined
 
         run(() => { component.set('items', items) })
