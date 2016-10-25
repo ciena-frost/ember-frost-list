@@ -1,9 +1,9 @@
 # ember-frost-list
 
-`ember-frost-list` is an ember addon that built on top of
-[smoke-and-mirror](https://github.com/runspired/smoke-and-mirrors) which focuses
-on high performance list rendering. This component itself provides user the ability
-to effortlessly handle common list operation such as selection control, list
+`ember-frost-list` is an ember addon built on top of
+[smoke-and-mirrors](https://github.com/runspired/smoke-and-mirrors) which focuses
+on high performance list rendering. This component provides the ability
+to effortlessly handle list operations such as selection control, list
 sorting, list item expansion control and infinite scroll.
 
 ###### Dependencies
