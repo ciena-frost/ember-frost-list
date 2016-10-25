@@ -43,6 +43,21 @@ describeComponent(
       ).to.be.true
     })
 
+    it('sets "is-expanded" class when model.isSelected=true', function () {
+      this.set('model', { isExpanded: true })
+
+      this.render(hbs`
+        {{frost-list-item
+          model=model
+        }}
+      `)
+
+      expect(
+        this.$('.frost-list-item').hasClass('is-expanded'),
+        'is-selected class set'
+      ).to.be.true
+    })
+
     it('fires onSelect closure action', function () {
       const externalActionSpy = sinon.spy()
 
