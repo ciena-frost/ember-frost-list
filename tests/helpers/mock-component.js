@@ -6,16 +6,16 @@ const {
 } = Ember
 
 export function registerMockComponent (context, name = 'mock-component', opts = {}) {
-  let owner = getOwner(context)
-  let options = assign({ tagName: 'dummy' }, opts)
-  let mockComponent = Component.extend(options)
+  const owner = getOwner(context)
+  const options = assign({ tagName: 'dummy' }, opts)
+  const mockComponent = Component.extend(options)
 
   unregisterMockComponent(context)
   owner.register(`component:${name}`, mockComponent)
 }
 
 export function unregisterMockComponent (context, name = 'mock-component') {
-  let owner = getOwner(context)
+  const owner = getOwner(context)
 
   if (owner.resolveRegistration(`component:${name}`)) {
     owner.unregister(`component:${name}`)
