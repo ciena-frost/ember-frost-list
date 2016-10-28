@@ -3,7 +3,6 @@ import {
   $hook,
   initialize
 } from 'ember-hook'
-import Ember from 'ember'
 import {
   describeComponent,
   it
@@ -21,7 +20,7 @@ describeComponent(
   function () {
     beforeEach(function () {
       initialize()
-    }) 
+    })
 
     it('renders', function () {
       const targetObject = {
