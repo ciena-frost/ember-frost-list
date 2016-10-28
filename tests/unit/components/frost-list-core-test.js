@@ -85,37 +85,13 @@ describeComponent(
       ).to.be.true
     })
 
-    describe('"_records" computed property', function () {
-      it('normalizes an Ember.A to JavaScript Array', function () {
-        run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
+    it('"_records" computed property', function () {
+      run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
 
-        expect(
-          component.get('_records'),
-          'item arrays are identical'
-        ).to.eql([1, 2, 3, 4])
-      })
-
-      it('is set correctly when items is undefined', function () {
-        const items = undefined
-
-        run(() => { component.set('items', items) })
-
-        expect(
-          component.get('_records'),
-          '_records is set to an empty array'
-        ).to.eql([])
-      })
-
-      it('is set correctly when items is null', function () {
-        const items = null
-
-        run(() => { component.set('items', items) })
-
-        expect(
-          component.get('_records'),
-          '_records is set to an empty array'
-        ).to.eql([])
-      })
+      expect(
+        component.get('_records'),
+        'item arrays are identical'
+      ).to.eql(Ember.A([1, 2, 3, 4]))
     })
 
     describe('"_hasHeader" computed property', function () {
@@ -223,9 +199,9 @@ describeComponent(
     })
 
     describe('"checkSortingValidity" function', function () {
-      const sorting = {}
-
       it('returns "false" when "sorting" is NOT set properly', function () {
+        const sorting = {}
+
         expect(
           component.checkSortingValidity(sorting),
           'isSortingValid: "false"'

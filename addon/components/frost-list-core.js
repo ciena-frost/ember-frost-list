@@ -5,7 +5,7 @@ const {
   set,
   typeOf
 } = Ember
-import computed from 'ember-computed-decorators'
+import computed, {readOnly} from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
@@ -27,15 +27,10 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   // == Computed Properties =====================================================
 
-  // Normalize Ember recordArray to JS array if necessary
+  @readOnly
   @computed('items.[]')
   _records (records) {
-    if (Ember.isEmpty(records)) {
-      return []
-    }
-    return records.map(function (record) {
-      return record
-    })
+    return records
   },
 
   @computed('sorting', 'expansion')
