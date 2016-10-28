@@ -233,7 +233,9 @@ describeComponent(
       })
 
       it('returns "false" when "activeSorting" and "properties" are missing in "sorting"', function () {
-        sorting.onSort = function () {}
+        const sorting = {
+          onSort: function () {}
+        }
 
         expect(
           component.checkSortingValidity(sorting),
@@ -242,7 +244,10 @@ describeComponent(
       })
 
       it('returns "false" when "activeSorting" is missing in "sorting"', function () {
-        sorting.properties = []
+        const sorting = {
+          onSort: function () {},
+          properties: []
+        }
 
         expect(
           component.checkSortingValidity(sorting),
@@ -251,7 +256,11 @@ describeComponent(
       })
 
       it('returns "true" when "sorting" is set properly', function () {
-        sorting.activeSorting = []
+        const sorting = {
+          onSort: function () {},
+          properties: [],
+          activeSorting: []
+        }
 
         expect(
           component.checkSortingValidity(sorting),
