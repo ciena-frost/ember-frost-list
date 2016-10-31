@@ -3,7 +3,6 @@ import {
   $hook,
   initialize
 } from 'ember-hook'
-import Ember from 'ember'
 import {
   describeComponent,
   it
@@ -21,24 +20,18 @@ describeComponent(
   function () {
     beforeEach(function () {
       initialize()
-    }) 
+    })
 
-    it('renders', function () {
-      const targetObject = {
-        onCollapseAll: sinon.spy(),
-        onExpandAll: sinon.spy()
-      }
-
+    it('renders with default class', function () {
       this.render(hbs`
         {{frost-list-expansion
-          targetObject=targetObject
           onCollapseAll='onCollapseAll'
           onExpandAll='onExpandAll'
         }}
       `)
 
       expect(
-        this.$(),
+        this.$('.frost-list-expansion'),
         'class frost-list-expansion is set'
       ).to.be.length(1)
     })
