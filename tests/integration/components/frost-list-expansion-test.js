@@ -21,15 +21,6 @@ describeComponent(
     beforeEach(function () {
       initialize()
     })
-<<<<<<< HEAD
-=======
-
-    it('renders', function () {
-      const targetObject = {
-        onCollapseAll: sinon.spy(),
-        onExpandAll: sinon.spy()
-      }
->>>>>>> Michael/listTest
 
     it('renders with default class', function () {
       this.render(hbs`
