@@ -40,29 +40,29 @@ describeComponent(
       let list = A()
       list.addObject(make('list-item'))
 
-      this.set('model', list)
-      // this.set('items', A())
+      this.set('items', list)
 
       this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
-          hook='my-list'
-          class='frost-list'
-          items=model
+          items=items
         }}
       `)
 
-      // Array function is not working here for some reason.
-      const self = this
-      const $localHook = $hook
-
       return wait().then(() => {
-        // ember-hook qualifiers currently doesn't work with component helper
-        // {{frost-list}} will work, but {{component 'frost-list'}} doesn't
-        expect($localHook('my-list')).to.have.length(1)
-        expect($localHook('my-list-item-0')).to.have.length(1)
-        expect($hook('my-list-item-0')).to.have.length(1)
-        assert.equal(self.$().find('vertical-item').length, 1)
+        expect(
+          this.$('.frost-list'),
+        ).to.have.length(1)
+
+        expect(
+          this.$('.vertical-item'),
+          'one vertical item is created'
+        ).to.have.length(1)
+
+        expect(
+          this.$('.frost-list-item'),
+          'one list item is created'
+        ).to.have.length(1)
       })
     })
 
