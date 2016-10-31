@@ -48,7 +48,7 @@ describeComponent(
         }}
       `)
 
-      this.$($hook('collapse')).trigger('click')
+      this.$($hook('-collapse-all')).trigger('click')
 
       expect(
         collapseAllSpy.called,
@@ -68,7 +68,7 @@ describeComponent(
         }}
       `)
 
-      this.$($hook('expand')).trigger('click')
+      this.$($hook('-expand-all')).trigger('click')
 
       expect(
         expandAllSpy.called,

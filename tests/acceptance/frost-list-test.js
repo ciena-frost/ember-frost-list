@@ -67,7 +67,7 @@ describe('Acceptance: FrostList', function () {
       ).to.be.false
     })
 
-    click(hook('expand'))
+    click(hook('-expand-all'))
 
     andThen(function () {
       expect(
@@ -75,7 +75,7 @@ describe('Acceptance: FrostList', function () {
       ).to.be.true
     })
 
-    click(hook('collapse'))
+    click(hook('-collapse-all'))
 
     andThen(function () {
       expect(
