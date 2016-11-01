@@ -44,7 +44,7 @@ describe('FrostListCoreMixin', function () {
     ).to.be.ok
   })
 
-  it('filteredItems computed property', function () {
+  it('filteredItems computed property is correctly set', function () {
     // console.log(controller)
     // console.log(controller.model)
     // console.log(controller._listItems)
@@ -54,7 +54,8 @@ describe('FrostListCoreMixin', function () {
       'listConfig.item is identical to filteredItems'
     ).to.eql(testItems)
   })
-  it('listItems computed property', function () {
+
+  it('listItems computed property is correctly set', function () {
     expect(
       controller.get('listItems')[0].id,
       'listItems[0].id is set to 1'
