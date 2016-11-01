@@ -45,10 +45,6 @@ describe('FrostListCoreMixin', function () {
   })
 
   it('filteredItems computed property is correctly set', function () {
-    // console.log(controller)
-    // console.log(controller.model)
-    // console.log(controller._listItems)
-    // console.log(controller.get('listItems'))
     expect(
       controller.get('filteredItems'),
       'listConfig.item is identical to filteredItems'
