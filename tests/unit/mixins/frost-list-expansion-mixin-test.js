@@ -48,10 +48,8 @@ describe('FrostListExpansionMixin', function () {
     records.map((record) => {
       expandedItems.set(record.id, true)
     })
-
     subject.collapseItems()
 
-    console.log(subject.get('expandedItems'))
     expect(
       subject.get('expandedItems.1'),
       '"expandedItems.1" set to false'
@@ -71,7 +69,6 @@ describe('FrostListExpansionMixin', function () {
     })
     subject.expandItems()
 
-    console.log(subject.get('expandedItems'))
     expect(
       subject.get('expandedItems.1'),
       '"expandedItems.1" set to true'
