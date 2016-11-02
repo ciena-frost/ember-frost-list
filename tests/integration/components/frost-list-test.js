@@ -52,6 +52,7 @@ describeComponent(
       return wait().then(() => {
         expect(
           this.$('.frost-list'),
+          'class "frost-list" is set'
         ).to.have.length(1)
 
         expect(

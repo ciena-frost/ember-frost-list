@@ -75,5 +75,25 @@ describeComponent(
         'onExpandAll is fired'
       ).to.be.true
     })
+
+    it('concatenates the hook property', function () {
+      this.render(hbs`
+        {{frost-list-expansion
+          hook='my-list'
+          onCollapseAll='onCollapseAll'
+          onExpandAll='onExpandAll'
+        }}
+      `)
+
+      expect(
+        $hook('my-list-collapse-all').text().trim(),
+        '-collapse-all hook is set correctly'
+      ).to.equal('Collapse all')
+
+      expect(
+        $hook('my-list-expand-all').text().trim(),
+        '-expand-all hook is set correctly'
+      ).to.equal('Expand all')
+    })
   }
 )

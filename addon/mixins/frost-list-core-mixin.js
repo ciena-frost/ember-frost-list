@@ -4,7 +4,7 @@ import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
   initListCoreMixin: on('init', function () {
-    Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.listConfig.items))
+    this.set('_listItems', Ember.computed.alias(this.listConfig.items))
   }),
 
   @computed('_listItems.[]')
