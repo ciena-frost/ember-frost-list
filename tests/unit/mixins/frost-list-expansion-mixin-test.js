@@ -9,6 +9,7 @@ const {run} = Ember
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import createActionClosure from 'ember-frost-list/utils/action-closure'
+import sinon from 'sinon'
 
 describe('FrostListExpansionMixin', function () {
   const testItems = [
@@ -43,11 +44,12 @@ describe('FrostListExpansionMixin', function () {
   })
 
   it('collapseItems function sets id to false', function () {
-    let records = subject.get('_listItems')
-    let expandedItems = subject.get('expandedItems')
+    const records = subject.get('_listItems')
+    const expandedItems = subject.get('expandedItems')
     records.map((record) => {
       expandedItems.set(record.id, true)
     })
+
     subject.collapseItems()
 
     expect(
@@ -62,11 +64,12 @@ describe('FrostListExpansionMixin', function () {
   })
 
   it('expandItems function sets id to true', function () {
-    let records = subject.get('_listItems')
-    let expandedItems = subject.get('expandedItems')
+    const records = subject.get('_listItems')
+    const expandedItems = subject.get('expandedItems')
     records.map((record) => {
       expandedItems.set(record.id, false)
     })
+
     subject.expandItems()
 
     expect(
@@ -77,6 +80,18 @@ describe('FrostListExpansionMixin', function () {
     expect(
       subject.get('expandedItems.2'),
       '"expandedItems.2" set to true'
+    ).to.be.true
+  })
+
+  it('notifyPropertyChange() is fireed', function () {
+    const spy = sinon.spy(subject, 'notifyPropertyChange')
+
+    subject.collapseItems()
+    subject.expandItems()
+
+    expect(
+      spy.calledTwice,
+      'notifyPropertyChange function is called'
     ).to.be.true
   })
 })
