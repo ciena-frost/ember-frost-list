@@ -5,22 +5,22 @@ import {
   it
 } from 'mocha'
 import Ember from 'ember'
-const {run} = Ember
+const {
+  Object,
+  run
+} = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 describe('FrostListCoreMixin', function () {
   const testItems = [
     {
       id: '1'
-    },
-    {
-      id: '2'
     }
   ]
   let subject
 
   beforeEach(function () {
-    let testObject = Ember.Object.extend(FrostListCoreMixin)
+    let testObject = Object.extend(FrostListCoreMixin)
     subject = testObject.create({
       listConfig: {
         items: 'model'
@@ -50,18 +50,13 @@ describe('FrostListCoreMixin', function () {
       subject.get('listItems')[0].id,
       'listItems[0].id is set to "1"'
     ).to.eql('1')
-
-    expect(
-      subject.get('listItems')[1].id,
-      'listItems[1].id is set to "2"'
-    ).to.eql('2')
   })
 
   describe('statefulListItems computed property', function () {
     it('sets default to false for "isSelected" and "isExpanded"', function () {
       run(() => {
-        subject.set('selectedItems', Ember.Object.create())
-        subject.set('expandedItems', Ember.Object.create())
+        subject.set('selectedItems', Object.create())
+        subject.set('expandedItems', Object.create())
       })
 
       expect(
@@ -77,8 +72,8 @@ describe('FrostListCoreMixin', function () {
 
     it('sets "isSelected" correctly when it already has a value', function () {
       run(() => {
-        subject.set('selectedItems', Ember.Object.create({ 1: true }))
-        subject.set('expandedItems', Ember.Object.create())
+        subject.set('selectedItems', Object.create({ 1: true }))
+        subject.set('expandedItems', Object.create())
       })
 
       expect(
@@ -89,8 +84,8 @@ describe('FrostListCoreMixin', function () {
 
     it('sets "isExpanded" correctly when it already has a value', function () {
       run(() => {
-        subject.set('selectedItems', Ember.Object.create())
-        subject.set('expandedItems', Ember.Object.create({ 1: true, 2: true }))
+        subject.set('selectedItems', Object.create())
+        subject.set('expandedItems', Object.create({ 1: true }))
       })
 
       expect(
