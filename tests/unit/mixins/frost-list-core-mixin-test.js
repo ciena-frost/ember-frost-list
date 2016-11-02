@@ -32,7 +32,7 @@ describe('FrostListCoreMixin', function () {
     })
   })
 
-  it('works', function () {
+  it('successfully mixed', function () {
     expect(
       subject
     ).to.be.ok
