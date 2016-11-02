@@ -9,8 +9,6 @@ const {run} = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 describe('FrostListCoreMixin', function () {
-  let testObject
-  let subject
   const testItems = [
     {
       id: '1'
@@ -19,8 +17,10 @@ describe('FrostListCoreMixin', function () {
       id: '2'
     }
   ]
+  let subject
+
   beforeEach(function () {
-    testObject = Ember.Object.extend(FrostListCoreMixin)
+    let testObject = Ember.Object.extend(FrostListCoreMixin)
     subject = testObject.create({
       listConfig: {
         items: 'model'
@@ -48,12 +48,55 @@ describe('FrostListCoreMixin', function () {
   it('listItems computed property is correctly set', function () {
     expect(
       subject.get('listItems')[0].id,
-      'listItems[0].id is set to 1'
+      'listItems[0].id is set to "1"'
     ).to.eql('1')
 
     expect(
       subject.get('listItems')[1].id,
-      'listItems[1].id is set to 2'
+      'listItems[1].id is set to "2"'
     ).to.eql('2')
+  })
+
+  describe('statefulListItems computed property', function () {
+    it('sets default to false for "isSelected" and "isExpanded"', function () {
+      run(() => {
+        subject.set('selectedItems', Ember.Object.create())
+        subject.set('expandedItems', Ember.Object.create())
+      })
+
+      expect(
+        subject.get('statefulListItems')[0].isExpanded,
+        'statefulListItems.isExpanded defaults to false'
+      ).to.be.false
+
+      expect(
+        subject.get('statefulListItems')[0].isSelected,
+        'statefulListItems.isSelected defaults to false'
+      ).to.be.false
+    })
+
+    it('sets "isSelected" correctly when it already has a value', function () {
+      run(() => {
+        subject.set('selectedItems', Ember.Object.create({ 1: true }))
+        subject.set('expandedItems', Ember.Object.create())
+      })
+
+      expect(
+        subject.get('statefulListItems')[0].isSelected,
+        'statefulListItems.isSelected is set correctly when it has a value already'
+      ).to.be.true
+    })
+
+    it('sets "isExpanded" correctly when it already has a value', function () {
+      run(() => {
+        subject.set('selectedItems', Ember.Object.create())
+        subject.set('expandedItems', Ember.Object.create({ 1: true, 2: true }))
+      })
+
+      expect(
+        subject.get('statefulListItems')[0].isExpanded,
+        'statefulListItems.isExpanded is set correctly when it has a value already'
+      ).to.be.true
+    })
   })
 })
