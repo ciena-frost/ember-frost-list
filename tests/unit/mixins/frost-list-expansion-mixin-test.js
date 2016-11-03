@@ -38,35 +38,49 @@ describe('FrostListExpansionMixin', function () {
     ).to.be.ok
   })
 
-  it('collapseItems function sets id to false', function () {
-    subject.set('expandedItems', Object.create({ 1: true }))
-    subject.send('collapseItems')
+  describe('collapseItems()', function () {
+    it('collapseItems function sets id to false', function () {
+      subject.set('expandedItems', Object.create({ 1: true }))
+      subject.send('collapseItems')
 
-    expect(
-      subject.get('expandedItems.1'),
-      '"expandedItems.1" set to false'
-    ).to.be.false
+      expect(
+        subject.get('expandedItems.1'),
+        'expandedItems is updated'
+      ).to.be.false
+    })
+
+    it('notifyPropertyChange() is called with correct parameter', function () {
+      const collapseItemsSpy = sinon.spy(subject, 'notifyPropertyChange')
+
+      subject.send('collapseItems')
+
+      expect(
+        collapseItemsSpy.calledWith('expandedItems'),
+        'notifyPropertyChange function is called with expandedItems'
+      ).to.be.true
+    })
   })
 
-  it('expandItems function sets id to true', function () {
-    subject.set('expandedItems', Object.create({ 1: false }))
-    subject.send('expandItems')
+  describe('expandItems()', function () {
+    it('expandItems function sets id to true', function () {
+      subject.set('expandedItems', Object.create({ 1: false }))
+      subject.send('expandItems')
 
-    expect(
-      subject.get('expandedItems.1'),
-      '"expandedItems.1" set to true'
-    ).to.be.true
-  })
+      expect(
+        subject.get('expandedItems.1'),
+        'expandedItems is updated'
+      ).to.be.true
+    })
 
-  it('notifyPropertyChange() is fired', function () {
-    const spy = sinon.spy(subject, 'notifyPropertyChange')
+    it('notifyPropertyChange() is called with correct parameter', function () {
+      const expandItemsSpy = sinon.spy(subject, 'notifyPropertyChange')
 
-    subject.send('collapseItems')
-    subject.send('expandItems')
+      subject.send('expandItems')
 
-    expect(
-      spy.calledTwice,
-      'notifyPropertyChange function is called twice'
-    ).to.be.true
+      expect(
+        expandItemsSpy.calledWith('expandedItems'),
+        'notifyPropertyChange function is called with expandedItems'
+      ).to.be.true
+    })
   })
 })

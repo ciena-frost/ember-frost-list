@@ -44,7 +44,8 @@ describe('Unit: FrostListSelectionMixin', function () {
 
       subject.send('selectItem', {})
       expect(
-        subject.get('selectedItems')
+        subject.get('selectedItems'),
+        'selectedItems is updated'
       ).to.eql({ 1: true })
 
       utils.updateSelectedItemsHash.restore()
@@ -59,7 +60,8 @@ describe('Unit: FrostListSelectionMixin', function () {
       subject.send('selectItem', {})
 
       expect(
-        updateSelectedItemsHashSpy.calledWith({ 1: true }, {})
+        updateSelectedItemsHashSpy.calledWith({ 1: true }, {}),
+        'updateSelectedItemsHash() is called with correct parameter'
       ).to.be.true
 
       utils.updateSelectedItemsHash.restore()
@@ -71,7 +73,8 @@ describe('Unit: FrostListSelectionMixin', function () {
 
       subject.send('selectItem', {})
       expect(
-        notifyPropertyChangeSpy.calledWith('selectedItems')
+        notifyPropertyChangeSpy.calledWith('selectedItems'),
+        'notifyPropertyChange() is called with correct parameter'
       ).to.be.true
 
       utils.updateSelectedItemsHash.restore()
