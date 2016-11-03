@@ -33,8 +33,8 @@ export default Component.extend(PropTypeMixin, {
     return {
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
-      alwaysUseDefaultHeight: false,
-      defaultHeight: 45
+      alwaysUseDefaultHeight: false
+      //defaultHeight: 45
     }
   },
 

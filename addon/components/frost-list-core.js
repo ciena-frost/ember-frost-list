@@ -39,7 +39,7 @@ const FrostList = Component.extend(PropTypeMixin, {
   },
 
   alwaysUseDefaultHeight: false,
-  defaultHeight: 45,
+  //defaultHeight: 45,
 
   // == Functions ==============================================================
   getDefaultProps () {
