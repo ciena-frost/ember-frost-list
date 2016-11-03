@@ -1,17 +1,16 @@
 import { expect } from 'chai'
-import {
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
 import Ember from 'ember'
 const {
   Controller,
   Object,
   run
 } = Ember
+import {
+  beforeEach,
+  describe,
+  it
+} from 'mocha'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
-import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import sinon from 'sinon'
 
 describe('FrostListExpansionMixin', function () {
@@ -23,19 +22,17 @@ describe('FrostListExpansionMixin', function () {
   let subject
 
   beforeEach(function () {
-    let testObject = Controller.extend(FrostListExpansionMixin, FrostListCoreMixin)
+    let testObject = Controller.extend(FrostListExpansionMixin)
     subject = testObject.create({
       listConfig: {
         items: 'model'
       }
     })
 
-    run(() => {
-      subject.set('model', testItems)
-    })
+    run(() => subject.set('model', testItems))
   })
 
-  it('works', function () {
+  it('successfully mixed', function () {
     expect(
       subject
     ).to.be.ok
@@ -69,7 +66,7 @@ describe('FrostListExpansionMixin', function () {
 
     expect(
       spy.calledTwice,
-      'notifyPropertyChange function is called'
+      'notifyPropertyChange function is called twice'
     ).to.be.true
   })
 })
