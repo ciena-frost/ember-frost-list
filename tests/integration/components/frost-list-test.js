@@ -1,9 +1,6 @@
 import Ember from 'ember'
 const {A} = Ember
-import {
-  expect,
-  assert
-}
+import {expect}
 from 'chai'
 import {
   make,
@@ -46,6 +43,57 @@ describeComponent(
         {{frost-list
           item=(component 'frost-list-item')
           items=items
+        }}
+      `)
+
+      return wait().then(() => {
+        expect(
+          this.$('.frost-list'),
+          'class "frost-list" is set'
+        ).to.have.length(1)
+
+        expect(
+          this.$('.vertical-item'),
+          'one vertical item is created'
+        ).to.have.length(1)
+
+        expect(
+          this.$('.frost-list-item'),
+          'one list item is created'
+        ).to.have.length(1)
+      })
+    })
+
+    it('renders frost-list-item from "config" property', function () {
+      let list = A()
+      list.addObject(make('list-item'))
+
+      const testConfig = {
+        items: list,
+        component: 'frost-list-item',
+        expansion: {
+          onCollapseAll: 'collapseItems',
+          onExpandAll: 'expandItems'
+        },
+        selection: {
+          onSelect: 'selectItem'
+        },
+        sorting: {
+          activeSorting: [],
+          properties: [],
+          onSort: 'sortItems'
+        },
+        infiniteScroll: {
+          loadNext: 'loadNext',
+          loadPrevious: 'loadPrevious'
+        }
+      }
+
+      this.set('testConfig', testConfig)
+
+      this.render(hbs`
+        {{frost-list
+          config=testConfig
         }}
       `)
 
