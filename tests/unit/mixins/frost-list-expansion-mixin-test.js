@@ -10,6 +10,7 @@ import {
   describe,
   it
 } from 'mocha'
+import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import sinon from 'sinon'
 
@@ -36,6 +37,20 @@ describe('Unit: FrostListExpansionMixin', function () {
     expect(
       subject
     ).to.be.ok
+  })
+
+  it('creates "expandedItems" as an empty Ember.Object', function () {
+    expect(
+      subject.get('expandedItems'),
+      'expandedItems: Ember.Object.create()'
+    ).to.eql(Object.create())
+  })
+
+  it('has the expect Mixins', function () {
+    expect(
+      FrostListCoreMixin.detect(subject),
+      'FrostListCoreMixin Mixin is present'
+    ).to.be.true
   })
 
   describe('collapseItems()', function () {
