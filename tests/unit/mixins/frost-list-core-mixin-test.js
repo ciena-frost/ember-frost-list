@@ -38,6 +38,13 @@ describe('FrostListCoreMixin', function () {
     ).to.be.ok
   })
 
+  it('sets up "_listItems" as a computed alias to listConfig.items', function () {
+    expect(
+      subject.get('_listItems'),
+      '_listItems is setup'
+    ).to.eql(testItems)
+  })
+
   it('filteredItems computed property is correctly set', function () {
     expect(
       subject.get('filteredItems'),
