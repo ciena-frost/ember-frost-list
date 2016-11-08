@@ -11,7 +11,7 @@ const {
 } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
-describe('FrostListCoreMixin', function () {
+describe('Unit: FrostListCoreMixin', function () {
   const testItems = [
     {
       id: '1'

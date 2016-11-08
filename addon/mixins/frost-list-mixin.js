@@ -48,6 +48,26 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
     let activeSorting = this.get('activeSorting')
     let sortableProperties = this.get('sortableProperties')
     let sortedItems = this.get('sortedItems')
+// console.log("returnedObject: ", {
+//       items: sortedItems,
+//       component: this.get('listConfig.component'),
+//       expansion: {
+//         onCollapseAll: this._collapseItems,
+//         onExpandAll: this._expandItems
+//       },
+//       selection: {
+//         onSelect: this._selectItem
+//       },
+//       sorting: {
+//         activeSorting: activeSorting,
+//         properties: sortableProperties,
+//         onSort: this._sortItems
+//       },
+//       infiniteScroll: {
+//         loadNext: this._loadNext,
+//         loadPrevious: this._loadPrevious
+//       }
+//     })
     return {
       items: sortedItems,
       component: this.get('listConfig.component'),

@@ -13,7 +13,7 @@ import {
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import sinon from 'sinon'
 
-describe('FrostListExpansionMixin', function () {
+describe('Unit: FrostListExpansionMixin', function () {
   const testItems = [
     {
       id: '1'
