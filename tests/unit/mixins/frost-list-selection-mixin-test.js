@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { Controller, run } = Ember
+const { Controller, Object, run } = Ember
+import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import * as utils from 'ember-frost-list/utils/utils'
 import {
@@ -36,6 +37,20 @@ describe('Unit: FrostListSelectionMixin', function () {
     expect(
       subject
     ).to.be.ok
+  })
+
+  it('sets up "selectedItems" with an empty object', function () {
+    expect(
+      subject.get('selectedItems'),
+      'selectedItems: Ember.Object.create()'
+    ).to.eql(Object.create())
+  })
+
+  it('has the expect Mixins', function () {
+    expect(
+      FrostListCoreMixin.detect(subject),
+      'FrostListCoreMixin Mixin is present'
+    ).to.be.true
   })
 
   describe('"selectedItem()" action', function () {
