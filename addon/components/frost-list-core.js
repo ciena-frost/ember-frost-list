@@ -22,15 +22,12 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   // == Computed Properties =====================================================
 
-  // Normalize Ember recordArray to JS array if necessary
   @computed('items.[]')
   _records (records) {
     if (Ember.isEmpty(records)) {
       return []
     }
-    return records.map(function (record) {
-      return record
-    })
+    return records
   },
 
   @computed('sorting', 'expansion')
@@ -39,7 +36,6 @@ const FrostList = Component.extend(PropTypeMixin, {
   },
 
   alwaysUseDefaultHeight: false,
-  //defaultHeight: 45,
 
   // == Functions ==============================================================
   getDefaultProps () {

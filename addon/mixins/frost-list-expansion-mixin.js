@@ -17,7 +17,7 @@ export default Mixin.create(FrostListCoreMixin, {
       let records = this.get('_listItems')
       let expandedItems = this.get('expandedItems')
       records.map((record) => {
-        expandedItems.set(record.id, false)
+        delete expandedItems[record.id]
       })
       this.notifyPropertyChange('expandedItems')
     },

@@ -1,6 +1,7 @@
 import Ember from 'ember'
 const { on } = Ember
 import computed from 'ember-computed-decorators'
+import {normalizeSort, listDefaultSort} from 'ember-frost-list/utils/utils'
 
 export default Ember.Controller.extend({
 
@@ -59,8 +60,6 @@ export default Ember.Controller.extend({
     return _selections
   },
 
-  sortedItems: Ember.computed.sort('filteredItems', 'activeSortingString'),
-
   sortableProperties: [
     {
       value: 'label',
@@ -77,14 +76,6 @@ export default Ember.Controller.extend({
       value: 'label', direction: ':desc'
     }
   ],
-
-  @computed('activeSorting')
-  activeSortingString (activeSorting) {
-    if (!activeSorting) return []
-    return activeSorting.map((sortProperty) => {
-      return `record.${sortProperty.value}${sortProperty.direction}`
-    })
-  },
 
   // == Computed Properties ===================================
 
@@ -123,11 +114,13 @@ export default Ember.Controller.extend({
 
     },
 
-    sortItems (sortItems) {
-      let activeSorting = sortItems.map(function (item) {
+    sortItems (sortProperties) {
+      let filteredSortProperties = sortProperties.map(function (item) {
         return {value: item.value, direction: item.direction}
       })
-      this.set('activeSorting', activeSorting)
+      let normalizedSortProperties = normalizeSort(filteredSortProperties)
+      const dataKey = this.get('listConfig.items')
+      this.set(dataKey, listDefaultSort(this.get(dataKey), normalizedSortProperties))
     }
   }
 })
