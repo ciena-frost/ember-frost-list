@@ -1,7 +1,7 @@
 import Ember from 'ember'
 const { on } = Ember
 import computed from 'ember-computed-decorators'
-import {normalizeSort, listDefaultSort} from 'ember-frost-list/utils/utils'
+import {normalizeSort, defaultSort} from 'ember-frost-list/utils/utils'
 
 export default Ember.Controller.extend({
 
@@ -120,7 +120,7 @@ export default Ember.Controller.extend({
       })
       let normalizedSortProperties = normalizeSort(filteredSortProperties)
       const dataKey = this.get('listConfig.items')
-      this.set(dataKey, listDefaultSort(this.get(dataKey), normalizedSortProperties))
+      this.set(dataKey, defaultSort(this.get(dataKey), normalizedSortProperties))
     }
   }
 })

@@ -30,13 +30,14 @@ export function normalizeSort (sort) {
     return []
   }
   return sort.map(function (item) {
-    let key = item.value
-    let direction = item.direction === ':desc' ? '-' : ''
-    return `${direction}${key}`
+    const direction = item.direction === ':desc' ? '-' : ''
+    return `${direction}${item.value}`
   })
 }
 
-export function listDefaultSort (items, sortProperties) {
+// Use Ember.Compare for default list sorting.
+// http://emberjs.com/api/classes/Ember.Comparable.html#method_compare
+export function defaultSort (items, sortProperties) {
   if (!Ember.isPresent(sortProperties)) {
     return
   }
@@ -53,6 +54,7 @@ export function listDefaultSort (items, sortProperties) {
     return resultArray
   })
 
+  // slice is used to create a copy of the array so that the sort isn't applied to the original data in store
   return Ember.A(items.slice().sort((itemA, itemB) => {
     for (let i = 0; i < normalizedSortProperties.length; i++) {
       let [prop, direction] = normalizedSortProperties[i]
