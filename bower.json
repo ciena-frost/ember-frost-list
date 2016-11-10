@@ -1,7 +1,7 @@
 {
   "name": "ember-frost-list",
   "dependencies": {
-    "ember": "2.8.0",
+    "ember": "~2.8.0",
     "ember-cli-shims": "0.1.0",
     "ember-mocha": "~0.8.11",
     "Faker": "^3.1.0",
