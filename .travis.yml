@@ -45,7 +45,7 @@ install:
 - bower install
 script:
 - npm run lint
-- ember try:one $EMBER_TRY_SCENARIO --- ember test
+- ember try:one $EMBER_TRY_SCENARIO --- ember tva --push-var='false' --msg-on=$EMBER_TRY_SCENARIO
 after_success:
 - .travis/publish-coverage.sh
 before_deploy:
