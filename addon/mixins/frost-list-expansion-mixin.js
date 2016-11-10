@@ -1,14 +1,15 @@
 import Ember from 'ember'
 const {
   Mixin,
-  on
+  on,
+  set
 } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListExpansionMixin: on('init', function () {
-    this.set('expandedItems', Ember.Object.create())
+    set(this, 'expandedItems', Ember.Object.create())
   }),
 
   // == Actions ================================================================

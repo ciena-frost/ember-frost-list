@@ -1,10 +1,16 @@
 import Ember from 'ember'
-const {Mixin, on} = Ember
+const {
+  Mixin,
+  on,
+  defineProperty,
+  computed: {alias}
+} = Ember
 import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
+  //TODO replace defineProperty when there's a public method available
   initListCoreMixin: on('init', function () {
-    Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.get('listConfig.items')))
+    defineProperty(this, '_listItems', alias(this.get('listConfig.items')))
   }),
 
   @computed('_listItems.[]')

@@ -1,16 +1,19 @@
 import Ember from 'ember'
 const {
   Mixin,
-  on
+  on,
+  defineProperty,
+  computed: {alias}
 } = Ember
 import {normalizeSort, defaultSort} from 'ember-frost-list/utils/utils'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
+  //TODO replace defineProperty when there's a public method available
   initListSortingMixin: on('init', function () {
-    Ember.defineProperty(this, 'sortableProperties', Ember.computed.alias('listConfig.sorting.properties'))
-    Ember.defineProperty(this, 'activeSorting', Ember.computed.alias('listConfig.sorting.active'))
+    defineProperty(this, 'sortableProperties', alias('listConfig.sorting.properties'))
+    defineProperty(this, 'activeSorting', alias('listConfig.sorting.active'))
   }),
 
   // == Actions ================================================================
