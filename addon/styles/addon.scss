@@ -65,6 +65,10 @@ $frost-list-content-border-bottom: 1px;
       vertical-collection {
         border-bottom: 1px solid $frost-color-lgrey-1
       }
+
+      vertical-item {
+        min-height: 45px;
+      }
     }
     &-border-bottom {
       height: $frost-list-content-border-bottom;
