@@ -1,7 +1,9 @@
 import Ember from 'ember'
 const {
   Mixin,
+  get,
   on,
+  set,
   defineProperty,
   computed: {alias}
 } = Ember
@@ -20,11 +22,11 @@ export default Mixin.create(FrostListCoreMixin, {
   actions: {
     sortItems (sortProperties) {
       const normalizedSortProperties = normalizeSort(sortProperties)
-      const customSortMethod = this.get('listConfig.sorting.client')
+      const customSortMethod = get(this, 'listConfig.sorting.client')
       const sortMethod = typeof customSortMethod === 'function' ? customSortMethod : defaultSort
-      const dataKey = this.get('listConfig.items')
+      const dataKey = get(this, 'listConfig.items')
 
-      this.set(dataKey, sortMethod.call(this, this.get(dataKey), normalizedSortProperties))
+      set(this, dataKey, sortMethod.call(this, get(this, dataKey), normalizedSortProperties))
     }
   }
 })

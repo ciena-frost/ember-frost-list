@@ -1,6 +1,7 @@
 import Ember from 'ember'
 const {
   Mixin,
+  get,
   on,
   set
 } = Ember
@@ -47,23 +48,23 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
 
   listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', 'statefulListItems.[]', function () {
     return {
-      items: this.get('statefulListItems'),
-      component: this.get('listConfig.component'),
+      items: get(this, 'statefulListItems'),
+      component: get(this, 'listConfig.component'),
       expansion: {
-        onCollapseAll: this.get('_collapseItems'),
-        onExpandAll: this.get('_expandItems')
+        onCollapseAll: get(this, '_collapseItems'),
+        onExpandAll: get(this, '_expandItems')
       },
       selection: {
-        onSelect: this.get('_selectItem')
+        onSelect: get(this, '_selectItem')
       },
       sorting: {
-        activeSorting: this.get('activeSorting'),
-        properties: this.get('sortableProperties'),
-        onSort: this.get('_sortItems')
+        activeSorting: get(this, 'activeSorting'),
+        properties: get(this, 'sortableProperties'),
+        onSort: get(this, '_sortItems')
       },
       infiniteScroll: {
-        loadNext: this.get('_loadNext'),
-        loadPrevious: this.get('_loadPrevious')
+        loadNext: get(this, '_loadNext'),
+        loadPrevious: get(this, '_loadPrevious')
       }
     }
   })
