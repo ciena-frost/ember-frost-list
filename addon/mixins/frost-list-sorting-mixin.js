@@ -12,7 +12,7 @@ import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
-  //TODO replace defineProperty when there's a public method available
+  // TODO replace defineProperty when there's a public method available
   initListSortingMixin: on('init', function () {
     defineProperty(this, 'sortableProperties', alias('listConfig.sorting.properties'))
     defineProperty(this, 'activeSorting', alias('listConfig.sorting.active'))
