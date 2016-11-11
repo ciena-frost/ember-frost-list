@@ -1,3 +1,16 @@
+# 3.0.0
+
+* Upgraded ember to 2.8
+* Removed sortedItems property from sort Mixin.
+* Removed filteredItems property from core Mixin.
+* Removed defaultHeight property in frost-list-core component.
+* Redesigned sort Mixin.
+* Updated dummy app based on addon changes.
+* Updated dependencies.
+
+
+
+
 # 2.0.5
 
 * **Updated** the language in some paragraphs in the README to enhance readability.

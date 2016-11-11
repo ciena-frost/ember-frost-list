@@ -1,6 +1,7 @@
 import Ember from 'ember'
 const {
   Mixin,
+  get,
   on,
   set
 } = Ember
@@ -15,17 +16,17 @@ export default Mixin.create(FrostListCoreMixin, {
   // == Actions ================================================================
   actions: {
     collapseItems () {
-      let records = this.get('_listItems')
-      let expandedItems = this.get('expandedItems')
+      let records = get(this, '_listItems')
+      let expandedItems = get(this, 'expandedItems')
       records.map((record) => {
-        expandedItems.set(record.id, false)
+        delete expandedItems[record.id]
       })
       this.notifyPropertyChange('expandedItems')
     },
 
     expandItems () {
-      let records = this.get('_listItems')
-      let expandedItems = this.get('expandedItems')
+      let records = get(this, '_listItems')
+      let expandedItems = get(this, 'expandedItems')
       records.map((record) => {
         expandedItems.set(record.id, true)
       })

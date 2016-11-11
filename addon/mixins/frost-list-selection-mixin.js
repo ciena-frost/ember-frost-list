@@ -1,6 +1,7 @@
 import Ember from 'ember'
 const {
   Mixin,
+  get,
   on,
   set
 } = Ember
@@ -16,7 +17,7 @@ export default Mixin.create(FrostListCoreMixin, {
   // == Actions ================================================================
   actions: {
     selectItem (attrs) {
-      let selectedItems = this.get('selectedItems')
+      let selectedItems = get(this, 'selectedItems')
       set(this, 'selectedItems', updateSelectedItemsHash(selectedItems, attrs))
       this.notifyPropertyChange('selectedItems')
     }

@@ -27,9 +27,11 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   // == Computed Properties =====================================================
 
-  @readOnly
   @computed('items.[]')
   _records (records) {
+    if (Ember.isEmpty(records)) {
+      return []
+    }
     return records
   },
 
@@ -39,7 +41,6 @@ const FrostList = Component.extend(PropTypeMixin, {
   },
 
   alwaysUseDefaultHeight: false,
-  defaultHeight: 45,
 
   // == Functions ==============================================================
   getDefaultProps () {
@@ -101,6 +102,21 @@ const FrostList = Component.extend(PropTypeMixin, {
     } else {
       return [lastElement]
     }
+  },
+  /* eslint-enabled complexity */
+
+  onShiftSelect (attrs) {
+    let records = get(this, '_records')
+    let firstElement = get(this, 'persistedClickState.clickedRecord')
+    let secondElement = attrs.secondClickedRecord
+    get(this, 'onSelect')({
+      records: this._findElementsInBetween(records, firstElement, secondElement),
+      selectDesc: {
+        isSelected: true,
+        isShiftSelect: true,
+        isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
+      }
+    })
   },
 
   buildRangeSelectedItemsArray (records, firstElement, secondElement) {

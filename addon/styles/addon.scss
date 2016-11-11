@@ -56,7 +56,7 @@ $frost-list-content-border-bottom: 1px;
       margin-right: 15px;
       background-color: $frost-color-lgrey-1;
     }
-    .container {
+    &-container {
       height: calc(100% - #{$frost-list-content-border-top + $frost-list-content-border-bottom});
       border-right: 1px solid $frost-color-lgrey-1;
       border-left: 1px solid $frost-color-lgrey-1;
@@ -64,6 +64,10 @@ $frost-list-content-border-bottom: 1px;
 
       vertical-collection {
         border-bottom: 1px solid $frost-color-lgrey-1
+      }
+
+      .vertical-item {
+        min-height: 45px;
       }
     }
     &-border-bottom {

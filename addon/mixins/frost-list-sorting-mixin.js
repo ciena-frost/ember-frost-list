@@ -1,38 +1,38 @@
 import Ember from 'ember'
 const {
   Mixin,
+  get,
   on,
-  set
+  set,
+  defineProperty,
+  computed: {alias}
 } = Ember
-import computed from 'ember-computed-decorators'
+import {normalizeSort, defaultSort} from 'ember-frost-list/utils/utils'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListSortingMixin: on('init', function () {
-    set(this, 'queryParams', ['listConfig.sorting.active'])
-    Ember.defineProperty(this, 'sortableProperties', Ember.computed.alias('listConfig.sorting.properties'))
-    Ember.defineProperty(this, 'activeSorting', Ember.computed.alias('listConfig.sorting.active'))
+    defineProperty(this, 'sortableProperties', alias('listConfig.sorting.properties'))
+    defineProperty(this, 'activeSorting', alias('listConfig.sorting.active'))
   }),
-
-  // == Computed Properties ====================================================
-  sortedItems: Ember.computed.sort('statefulListItems', 'activeSortingString'),
-
-  @computed('activeSorting')
-  activeSortingString (activeSorting) {
-    if (!activeSorting) return []
-    return activeSorting.map((sortProperty) => {
-      return `record.${sortProperty.value}${sortProperty.direction}`
-    })
-  },
 
   // == Actions ================================================================
   actions: {
-    sortItems (sortItems) {
-      let activeSorting = sortItems.map(function (item) {
-        return {value: item.value, direction: item.direction}
-      })
-      set(this, 'activeSorting', activeSorting)
+    sortItems (sortProperties) {
+      const normalizedSortProperties = normalizeSort(sortProperties)
+      const customSortMethod = get(this, 'listConfig.sorting.client')
+      let sortMethod
+      if (customSortMethod) {
+        if (typeof customSortMethod !== 'function') {
+          Ember.assert(`Expect custom sort method to be function, received ${typeof customSortMethod}.`)
+        }
+        sortMethod = customSortMethod
+      } else {
+        sortMethod = defaultSort
+      }
+      const dataKey = get(this, 'listConfig.items')
+      set(this, dataKey, sortMethod.call(this, get(this, dataKey), normalizedSortProperties))
     }
   }
 })

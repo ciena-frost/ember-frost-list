@@ -1,3 +1,4 @@
+<div style="width: 250px; display: inline-block">
 {{frost-select
   data=apiOptions
   disabled=selectionState.isApiSelectDisabled
@@ -5,13 +6,16 @@
   selectedValue=selectionState.apiSelectionValue
   onChange=(action 'onSelectChangeHandler')
 }}
+</div>
 
+<div style="width: 250px; display: inline-block">
 {{frost-select
   data=mixinOptions
   disabled=selectionState.isMixinSelectDisabled
   selectedValue=selectionState.mixinSelectionValue
   onChange=(action 'onSelectChangeHandler')
 }}
+</div>
 
 {{#if showCheckbox}}
   {{frost-checkbox

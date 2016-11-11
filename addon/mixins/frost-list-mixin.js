@@ -1,7 +1,9 @@
 import Ember from 'ember'
 const {
   Mixin,
-  on
+  get,
+  on,
+  set
 } = Ember
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
@@ -11,81 +13,58 @@ import createActionClosure from 'ember-frost-list/utils/action-closure'
 export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, FrostListSortingMixin, {
   initListMixin: on('init', function () {
     // create closures
-    Ember.defineProperty(this, '_selectItem', undefined,
+    set(this, '_selectItem',
       createActionClosure.call(this, this.actions.selectItem)
     )
 
-    Ember.defineProperty(this, '_collapseItems', undefined,
+    set(this, '_collapseItems',
       createActionClosure.call(this, this.actions.collapseItems)
     )
 
-    Ember.defineProperty(this, '_expandItems', undefined,
+    set(this, '_expandItems',
       createActionClosure.call(this, this.actions.expandItems)
     )
 
-    Ember.defineProperty(this, '_collapseItem', undefined,
+    set(this, '_collapseItem',
       createActionClosure.call(this, this.actions.collapseItem)
     )
 
-    Ember.defineProperty(this, '_expandItem', undefined,
+    set(this, '_expandItem',
       createActionClosure.call(this, this.actions.expandItem)
     )
 
-    Ember.defineProperty(this, '_sortItems', undefined,
+    set(this, '_sortItems',
       createActionClosure.call(this, this.actions.sortItems)
     )
 
-    Ember.defineProperty(this, '_loadNext', undefined,
+    set(this, '_loadNext',
       createActionClosure.call(this, this.actions.loadNext || function () {})
     )
 
-    Ember.defineProperty(this, '_loadPrevious', undefined,
+    set(this, '_loadPrevious',
       createActionClosure.call(this, this.actions.loadPrevious || function () {})
     )
   }),
 
-  listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', 'sortedItems.[]', function () {
-    let activeSorting = this.get('activeSorting')
-    let sortableProperties = this.get('sortableProperties')
-    let sortedItems = this.get('sortedItems')
-// console.log("returnedObject: ", {
-//       items: sortedItems,
-//       component: this.get('listConfig.component'),
-//       expansion: {
-//         onCollapseAll: this._collapseItems,
-//         onExpandAll: this._expandItems
-//       },
-//       selection: {
-//         onSelect: this._selectItem
-//       },
-//       sorting: {
-//         activeSorting: activeSorting,
-//         properties: sortableProperties,
-//         onSort: this._sortItems
-//       },
-//       infiniteScroll: {
-//         loadNext: this._loadNext,
-//         loadPrevious: this._loadPrevious
-//       }
-//     })
+  listMixinConfig: Ember.computed('activeSorting', 'sortableProperties', 'statefulListItems.[]', function () {
     return {
-      items: sortedItems,
-      component: this.get('listConfig.component'),
+      items: get(this, 'statefulListItems'),
+      component: get(this, 'listConfig.component'),
       expansion: {
-        onCollapseAll: this._collapseItems,
-        onExpandAll: this._expandItems
+        onCollapseAll: get(this, '_collapseItems'),
+        onExpandAll: get(this, '_expandItems')
       },
       selection: {
-        onSelect: this._selectItem
+        onSelect: get(this, '_selectItem')
       },
       sorting: {
-        activeSorting: activeSorting,
-        properties: sortableProperties,
-        onSort: this._sortItems
+        activeSorting: get(this, 'activeSorting'),
+        properties: get(this, 'sortableProperties'),
+        onSort: get(this, '_sortItems')
       },
       infiniteScroll: {
-        loadNext: this._loadNext,
-        loadPrevious: this._loadPrevious
+        loadNext: get(this, '_loadNext'),
+        loadPrevious: get(this, '_loadPrevious')
       }
     }
   })
