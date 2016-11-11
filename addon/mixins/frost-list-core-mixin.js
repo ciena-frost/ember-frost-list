@@ -9,7 +9,6 @@ const {
 import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
-  // TODO replace defineProperty when there's a public method available
   initListCoreMixin: on('init', function () {
     defineProperty(this, '_listItems', alias(get(this, 'listConfig.items')))
   }),

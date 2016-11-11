@@ -25,7 +25,6 @@
         {{component item
           model=record
           hook=(concat hook '-item-' index)
-          hookQualifiers=(hash index=index)
           onSelect=(action 'selectItem')
         }}
       {{/vertical-collection}}
