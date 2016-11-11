@@ -55,13 +55,16 @@ describe('Unit: FrostListExpansionMixin', function () {
 
   describe('collapseItems()', function () {
     it('collapseItems function sets id to false', function () {
-      subject.set('expandedItems', Object.create({ 1: true }))
+      subject.set('expandedItems', Object.create({
+        1: true,
+        2: false
+      }))
       subject.send('collapseItems')
 
       expect(
         subject.get('expandedItems.1'),
         'expandedItems is updated'
-      ).to.be.false
+      ).to.be.undefined
     })
 
     it('notifyPropertyChange() is called with correct parameter', function () {

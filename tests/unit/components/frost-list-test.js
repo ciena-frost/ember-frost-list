@@ -24,11 +24,6 @@ describeComponent(
         component.get('alwaysUseDefaultHeight'),
         'alwaysUseDefaultHeight: false'
       ).to.be.false
-
-      expect(
-        component.get('defaultHeight'),
-        'defaultHeight: 45'
-      ).to.eql(45)
     })
 
     it('has the expected Mixins', function () {

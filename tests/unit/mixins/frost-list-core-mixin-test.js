@@ -45,13 +45,6 @@ describe('Unit: FrostListCoreMixin', function () {
     ).to.eql(testItems)
   })
 
-  it('filteredItems computed property is correctly set', function () {
-    expect(
-      subject.get('filteredItems'),
-      'listConfig.item is identical to filteredItems'
-    ).to.eql(testItems)
-  })
-
   it('listItems computed property is correctly set', function () {
     expect(
       subject.get('listItems')[0].id,

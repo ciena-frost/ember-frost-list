@@ -63,7 +63,7 @@ describe('Unit: FrostListMixin', function () {
     const listMixinConfigDependentKeys = [
       'activeSorting',
       'sortableProperties',
-      'sortedItems.[]'
+      'statefulListItems.[]'
     ]
 
     expect(
