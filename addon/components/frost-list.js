@@ -1,6 +1,7 @@
 import Ember from 'ember'
 const {
   Component,
+  get,
   isPresent,
   Logger
 } = Ember
@@ -33,15 +34,14 @@ export default Component.extend(PropTypeMixin, {
     return {
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
-      alwaysUseDefaultHeight: false,
-      defaultHeight: 45
+      alwaysUseDefaultHeight: false
     }
   },
 
   // FIXME: code is too complex (was overly complex before adding eslint rule)
   /* eslint-disable complexity */
   initContext: Ember.on('init', function () {
-    const config = this.get('config')
+    const config = get(this, 'config')
 
     if (!isPresent(config)) {
       return

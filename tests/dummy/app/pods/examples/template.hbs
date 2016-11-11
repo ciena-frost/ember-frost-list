@@ -20,7 +20,7 @@
           {{/if}}
           {{#if (eq computedTemplateCase 'case2')}}
             {{frost-list
-              items=sortedItems
+              items=statefulListItems
               onSelect=(action 'selectItem')
               item=(component componentPath
                 onCollapse=(action 'collapseItem')
@@ -53,7 +53,7 @@
           {{/if}}
           {{#if (eq computedTemplateCase 'case4')}}
             {{frost-list
-              items=sortedItems
+              items=statefulListItems
               onSelect=(action 'selectItem')
               item=(component componentPath
                 onCollapse=(action 'collapseItem')
@@ -78,7 +78,7 @@
           {{/if}}
           {{#if (eq computedTemplateCase 'case6')}}
             {{frost-list
-              items=sortedItems
+              items=statefulListItems
               onSelect=(action 'selectItem')
               item=(component componentPath
                 onCollapse=(action 'collapseItem')

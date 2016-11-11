@@ -35,10 +35,6 @@ describeComponent(
       'alwaysUseDefaultHeight: false'
       ).to.be.false
 
-      expect(component.get('defaultHeight'),
-        'defaultHeight: 45'
-      ).to.eql(45)
-
       expect(component.get('idForFirstItem'),
         'idForFirstItem: null'
       ).to.be.null

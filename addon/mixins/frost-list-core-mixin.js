@@ -1,18 +1,19 @@
 import Ember from 'ember'
-const {Mixin, on} = Ember
+const {
+  Mixin,
+  get,
+  on,
+  defineProperty,
+  computed: {alias}
+} = Ember
 import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
   initListCoreMixin: on('init', function () {
-    Ember.defineProperty(this, '_listItems', Ember.computed.alias(this.listConfig.items))
+    defineProperty(this, '_listItems', alias(get(this, 'listConfig.items')))
   }),
 
   @computed('_listItems.[]')
-  filteredItems (listItems) {
-    return listItems
-  },
-
-  @computed('filteredItems.[]')
   listItems (listItems) {
     let wrapper = []
     return listItems.map((item) => {

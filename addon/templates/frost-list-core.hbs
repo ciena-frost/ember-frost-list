@@ -10,7 +10,7 @@
 {{/if}}
 <div class="frost-list-content">
     <div class='frost-list-content-border-top'></div>
-    <div class='container'>
+    <div class='frost-list-content-container'>
       {{#vertical-collection
         content=_records
         scrollPosition=scrollPosition
@@ -22,16 +22,11 @@
         lastReached=loadNext
         as |record index|
       }}
-        {{#if hasBlock}}
-          {{yield record index}}
-        {{else}}
-          {{component item
-            model=record
-            hook=(concat hook '-item-' index)
-            hookQualifiers=(hash index=index)
-            onSelect=(action 'selectItem')
-          }}
-        {{/if}}
+        {{component item
+          model=record
+          hook=(concat hook '-item-' index)
+          onSelect=(action 'selectItem')
+        }}
       {{/vertical-collection}}
     </div>
     <div class='frost-list-content-border-bottom'></div>
