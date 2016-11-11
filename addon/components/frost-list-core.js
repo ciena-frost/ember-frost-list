@@ -5,7 +5,7 @@ const {
   set,
   typeOf
 } = Ember
-import computed, {readOnly} from 'ember-computed-decorators'
+import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
@@ -19,7 +19,6 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   propTypes: {
     alwaysUseDefaultHeight: PropTypes.bool,
-    defaultHeight: PropTypes.number,
     hook: PropTypes.string,
     scrollPosition: PropTypes.number,
     size: PropTypes.string

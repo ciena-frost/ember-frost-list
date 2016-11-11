@@ -25,7 +25,6 @@ export default Component.extend(PropTypeMixin, {
 
     // proxy properties for smoke-and-mirror
     alwaysUseDefaultHeight: PropTypes.bool,
-    defaultHeight: PropTypes.number,
     scrollPosition: PropTypes.number,
     size: PropTypes.string
   },
