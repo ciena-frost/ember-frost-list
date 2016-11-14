@@ -1,6 +1,10 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { Controller, Object, run } = Ember
+const {
+  Controller,
+  Object,
+  run
+} = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import * as utils from 'ember-frost-list/utils/utils'
