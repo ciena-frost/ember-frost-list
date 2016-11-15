@@ -33,28 +33,6 @@ describe('Acceptance: FrostList', function () {
     mockTeardown()
   })
 
-  it('can visit /', function () {
-    let queryListItems = buildList('list-item', 30)
-    mockQuery('list-item', {pageSize: 30, start: 0}).returns({ json: queryListItems })
-
-    visit('/')
-
-    andThen(function () {
-      expect(currentPath()).to.equal('examples')
-    })
-  })
-
-  it('can visit /qp-binding', function () {
-    let queryBinding = buildList('list-item', 20)
-    mockQuery('list-item', {pageSize: 20, start: 0}).returns({ json: queryBinding })
-
-    visit('/qp-binding')
-
-    andThen(function () {
-      expect(currentPath()).to.equal('qp-binding')
-    })
-  })
-
   it('can expand and collapse', function () {
     let queryBinding = buildList('list-item', 20)
     mockQuery('list-item', {pageSize: 20, start: 0}).returns({ json: queryBinding })
