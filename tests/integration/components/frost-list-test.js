@@ -133,7 +133,6 @@ describeComponent(
         {{frost-list
           item=(component 'frost-list-item')
           hook='my-list'
-          class='frost-list'
           items=items
         }}
       `)
