@@ -19,10 +19,6 @@ describe('Unit: FrostListSortingMixin', function () {
     {
       id: '1',
       isSelected: false
-    },
-    {
-      id: '2',
-      isSelected: false
     }
   ]
   let subject
@@ -96,18 +92,18 @@ describe('Unit: FrostListSortingMixin', function () {
 
       expect(
         mixin.get('model'),
-        'items sorted by "id" in decs order'
+        'items sorted by "id" in desc order'
       ).to.eql(resultItems)
     })
 
-    it('calls user sort', function () {
+    it('calls the user defined sort', function () {
       run(() => mixin.set('listConfig.sorting.client', sinon.spy()))
 
       mixin.send('sortItems', sortProperties)
 
       expect(
         mixin.get('listConfig.sorting.client').called,
-        'user sort is fired'
+        'user defined sort is fired'
       ).to.be.true
     })
   })
