@@ -4,7 +4,6 @@ const {run} = Ember
 import {describeComponent} from 'ember-mocha'
 import {
   beforeEach,
-  describe,
   it
 } from 'mocha'
 
@@ -36,12 +35,12 @@ describeComponent(
 
       expect(
         component.isSelected._dependentKeys,
-        'Dependent keys are correct for _records computed property'
+        'Dependent keys are correct for isSelected computed property'
       ).to.eql(isSelectedDependentKeys)
 
       expect(
         component.isExpanded._dependentKeys,
-        'Dependent keys are correct for _hasHeader computed property'
+        'Dependent keys are correct for isExpanded computed property'
       ).to.eql(isExpandedDependentKeys)
     })
 
@@ -50,7 +49,7 @@ describeComponent(
 
       expect(
         component.get('isExpanded'),
-        'isExpanded: "true"'
+        'isExpanded: true'
       ).to.be.true
     })
 
@@ -59,7 +58,7 @@ describeComponent(
 
       expect(
         component.get('isSelected'),
-        'isSelected: "true"'
+        'isSelected: true'
       ).to.be.true
     })
   }
