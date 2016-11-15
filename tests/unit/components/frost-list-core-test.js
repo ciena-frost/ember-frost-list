@@ -155,7 +155,7 @@ describeComponent(
 
         expect(
           component.checkExpansionValidity(expansion),
-          'isExpansionValid: "false"'
+          'isExpansionValid: false'
         ).to.be.false
       })
 
@@ -166,7 +166,7 @@ describeComponent(
 
         expect(
           component.checkExpansionValidity(expansion),
-          'isExpansionValid: "false"'
+          'isExpansionValid: false'
         ).to.be.false
       })
     })
@@ -179,7 +179,7 @@ describeComponent(
 
         expect(
           component.checkSelectionValidity(selection),
-          'isSelectionValid: "true"'
+          'isSelectionValid: true'
         ).to.be.true
       })
 
@@ -188,7 +188,7 @@ describeComponent(
 
         expect(
           component.checkSelectionValidity(selection),
-          'isSelectionValid: "true"'
+          'isSelectionValid: true'
         ).to.be.false
       })
     })
@@ -199,7 +199,7 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: "false"'
+          'isSortingValid: false'
         ).to.be.false
       })
 
@@ -210,7 +210,7 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: "false"'
+          'isSortingValid: false'
         ).to.be.false
       })
 
@@ -222,7 +222,7 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: "false"'
+          'isSortingValid: false'
         ).to.be.false
       })
 
@@ -235,7 +235,7 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: "true"'
+          'isSortingValid: true'
         ).to.be.true
       })
     })
