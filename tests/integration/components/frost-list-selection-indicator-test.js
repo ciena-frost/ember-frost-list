@@ -12,7 +12,7 @@ describeComponent(
     integration: true
   },
   function () {
-    it('"selected" class is not set by default', function () {
+    it('"selected" class is NOT set by default', function () {
       this.render(hbs`
         {{frost-list-selection-indicator}}
       `)
