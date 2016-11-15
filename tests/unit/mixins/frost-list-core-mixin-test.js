@@ -48,8 +48,15 @@ describe('Unit: FrostListCoreMixin', function () {
   it('listItems computed property is correctly set', function () {
     expect(
       subject.get('listItems')[0].id,
-      'listItems[0].id is set to "1"'
+      'listItems[0].id is set to 1'
     ).to.eql('1')
+
+    expect(
+      subject.get('listItems')[0].record,
+      'listItems[0].record is set to the item object'
+    ).to.eql({
+      id: '1'
+    })
   })
 
   describe('statefulListItems computed property', function () {
