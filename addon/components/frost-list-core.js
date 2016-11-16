@@ -102,6 +102,7 @@ const FrostList = Component.extend(PropTypeMixin, {
       return [lastElement]
     }
   },
+  /* eslint-enabled complexity */
 
   buildRangeSelectedItemsArray (records, firstElement, secondElement) {
     return this._findElementsInBetween(records, firstElement, secondElement)
