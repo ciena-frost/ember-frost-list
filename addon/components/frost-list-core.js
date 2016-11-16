@@ -20,8 +20,7 @@ const FrostList = Component.extend(PropTypeMixin, {
   propTypes: {
     alwaysUseDefaultHeight: PropTypes.bool,
     hook: PropTypes.string,
-    scrollPosition: PropTypes.number,
-    size: PropTypes.string
+    scrollPosition: PropTypes.number
   },
 
   // == Computed Properties =====================================================
