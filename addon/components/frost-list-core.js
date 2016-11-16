@@ -103,21 +103,6 @@ const FrostList = Component.extend(PropTypeMixin, {
       return [lastElement]
     }
   },
-  /* eslint-enabled complexity */
-
-  onShiftSelect (attrs) {
-    let records = get(this, '_records')
-    let firstElement = get(this, 'persistedClickState.clickedRecord')
-    let secondElement = attrs.secondClickedRecord
-    get(this, 'onSelect')({
-      records: this._findElementsInBetween(records, firstElement, secondElement),
-      selectDesc: {
-        isSelected: true,
-        isShiftSelect: true,
-        isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
-      }
-    })
-  },
 
   buildRangeSelectedItemsArray (records, firstElement, secondElement) {
     return this._findElementsInBetween(records, firstElement, secondElement)
