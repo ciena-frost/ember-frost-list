@@ -1,6 +1,9 @@
 import {expect} from 'chai'
 import Ember from 'ember'
-const {run} = Ember
+const {
+  A,
+  run
+} = Ember
 import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import {
@@ -8,6 +11,7 @@ import {
   describe,
   it
 } from 'mocha'
+import sinon from 'sinon'
 
 describeComponent(
   'frost-list-core',
@@ -266,6 +270,143 @@ describeComponent(
           result[0].id,
           'result: {id: 6}'
         ).to.eql(6)
+      })
+    })
+
+    describe('"selectItem" action', function () {
+      const testItems = A([
+        {
+          id: '1'
+        },
+        {
+          id: '2'
+        },
+        {
+          id: '3'
+        }
+      ])
+
+      it('updates persistedClickState with correct object', function () {
+        const persistedClickState = {
+          clickedRecord: {
+            id: '1'
+          },
+          isSelected: true
+        }
+
+        const updatedPersistedClickState = {
+          clickedRecord: {
+            id: '3'
+          },
+          isSelected: true
+        }
+        const morkAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '3'
+          }
+        }
+        run(() => component.set('persistedClickState', persistedClickState))
+        component.send('selectItem', {}, morkAttrs)
+
+        expect(
+          component.get('persistedClickState'),
+          'persistedClickState is updated'
+        ).to.eql(updatedPersistedClickState)
+      })
+
+      it('triggers shiftKey selection', function () {
+        const morkEvent = {
+          shiftKey: true
+        }
+
+        const morkAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '3'
+          }
+        }
+
+        const morkPersistedClickState = {
+          isSelected: true,
+          clickedRecord: {
+            id: '1'
+          }
+        }
+        const resultObejct = {
+          records: [
+            {
+              id: '1'
+            },
+            {
+              id: '2'
+            },
+            {
+              id: '3'
+            }
+          ],
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false,
+            isShiftSelect: true
+          }
+        }
+        run(() => {
+          component.set('onSelect', sinon.spy())
+          component.set('_records', testItems)
+          component.set('persistedClickState', morkPersistedClickState)
+        })
+        component.send('selectItem', morkEvent, morkAttrs)
+
+        expect(
+          component.get('onSelect').calledWith(resultObejct),
+          'calls onSelect() with the correct object'
+        ).to.be.true
+      })
+
+      it('triggers single item selection', function () {
+        const morkEvent = {
+          shiftKey: false
+        }
+
+        const morkAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '1'
+          }
+        }
+
+        const resultObejct = {
+          records: [
+            {
+              id: '1'
+            }
+          ],
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false,
+            isShiftSelect: false
+          }
+        }
+        run(() => {
+          component.set('onSelect', sinon.spy())
+          component.set('_records', testItems)
+        })
+        component.send('selectItem', morkEvent, morkAttrs)
+
+        expect(
+          component.get('onSelect').calledWith(resultObejct),
+          'calls onSelect() with the correct object'
+        ).to.be.true
       })
     })
   }
