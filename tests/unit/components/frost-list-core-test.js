@@ -300,7 +300,7 @@ describeComponent(
           },
           isSelected: true
         }
-        const morkAttrs = {
+        const mockAttrs = {
           selectDesc: {
             isSelected: true,
             isTargetSelectionIndicator: false
@@ -311,7 +311,7 @@ describeComponent(
         }
         run(() => component.set('persistedClickState', persistedClickState))
 
-        component.send('selectItem', {}, morkAttrs)
+        component.send('selectItem', {}, mockAttrs)
 
         expect(
           component.get('persistedClickState'),
@@ -320,11 +320,11 @@ describeComponent(
       })
 
       it('triggers shiftKey selection', function () {
-        const morkEvent = {
+        const mockEvent = {
           shiftKey: true
         }
 
-        const morkAttrs = {
+        const mockAttrs = {
           selectDesc: {
             isSelected: true,
             isTargetSelectionIndicator: false
@@ -334,13 +334,13 @@ describeComponent(
           }
         }
 
-        const morkPersistedClickState = {
+        const mockPersistedClickState = {
           isSelected: true,
           clickedRecord: {
             id: '1'
           }
         }
-        const resultObejct = {
+        const resultObject = {
           records: [
             {
               id: '1'
@@ -361,23 +361,23 @@ describeComponent(
         run(() => {
           component.set('onSelect', sinon.spy())
           component.set('_records', testItems)
-          component.set('persistedClickState', morkPersistedClickState)
+          component.set('persistedClickState', mockPersistedClickState)
         })
 
-        component.send('selectItem', morkEvent, morkAttrs)
+        component.send('selectItem', mockEvent, mockAttrs)
 
         expect(
-          component.get('onSelect').calledWith(resultObejct),
+          component.get('onSelect').calledWith(resultObject),
           'calls onSelect() with the correct object'
         ).to.be.true
       })
 
       it('triggers single item selection', function () {
-        const morkEvent = {
+        const mockEvent = {
           shiftKey: false
         }
 
-        const morkAttrs = {
+        const mockAttrs = {
           selectDesc: {
             isSelected: true,
             isTargetSelectionIndicator: false
@@ -387,7 +387,7 @@ describeComponent(
           }
         }
 
-        const resultObejct = {
+        const resultObject = {
           records: [
             {
               id: '1'
@@ -404,10 +404,10 @@ describeComponent(
           component.set('_records', testItems)
         })
 
-        component.send('selectItem', morkEvent, morkAttrs)
+        component.send('selectItem', mockEvent, mockAttrs)
 
         expect(
-          component.get('onSelect').calledWith(resultObejct),
+          component.get('onSelect').calledWith(resultObject),
           'calls onSelect() with the correct object'
         ).to.be.true
       })
