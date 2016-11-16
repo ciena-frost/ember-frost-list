@@ -1,4 +1,3 @@
-import Ember from 'ember'
 import {
   describe,
   it,
@@ -7,8 +6,6 @@ import {
 } from 'mocha'
 import { expect } from 'chai'
 import {
-  mockCreate,
-  mockFindAll,
   buildList,
   mockQuery,
   mockSetup,
