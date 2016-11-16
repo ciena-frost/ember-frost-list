@@ -310,6 +310,7 @@ describeComponent(
           }
         }
         run(() => component.set('persistedClickState', persistedClickState))
+
         component.send('selectItem', {}, morkAttrs)
 
         expect(
@@ -362,6 +363,7 @@ describeComponent(
           component.set('_records', testItems)
           component.set('persistedClickState', morkPersistedClickState)
         })
+
         component.send('selectItem', morkEvent, morkAttrs)
 
         expect(
@@ -401,6 +403,7 @@ describeComponent(
           component.set('onSelect', sinon.spy())
           component.set('_records', testItems)
         })
+
         component.send('selectItem', morkEvent, morkAttrs)
 
         expect(
