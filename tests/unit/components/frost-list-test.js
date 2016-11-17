@@ -5,6 +5,7 @@ import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import {
   beforeEach,
+  describe,
   it
 } from 'mocha'
 import sinon from 'sinon'
@@ -36,20 +37,75 @@ describeComponent(
       ).to.eql(true)
     })
 
-    it('InitContext() errors when config is set with item, expansion or sorting', function () {
-      const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+    describe('InitContext()', function () {
+      it('errors when config is set with item', function () {
+        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
 
-      run(() => {
-        component.set('config', {})
-        component.set('expansion', {})
+        run(() => {
+          component.set('config', {})
+          component.set('item', {})
+        })
+
+        component.initContext()
+
+        expect(
+          EmberLoggerSpy.called,
+          'Logger.error is called'
+        ).to.eql(true)
+
+        Ember.Logger.error.restore()
       })
 
-      component.initContext()
+      it('errors when config is set with expansion', function () {
+        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
 
-      expect(
-        EmberLoggerSpy.called,
-        'Logger.error is called'
-      ).to.eql(true)
+        run(() => {
+          component.set('config', {})
+          component.set('expansion', {})
+        })
+
+        component.initContext()
+
+        expect(
+          EmberLoggerSpy.called,
+          'Logger.error is called'
+        ).to.eql(true)
+
+        Ember.Logger.error.restore()
+      })
+
+      it('errors when config is set with sorting', function () {
+        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+
+        run(() => {
+          component.set('config', {})
+          component.set('sorting', {})
+        })
+
+        component.initContext()
+
+        expect(
+          EmberLoggerSpy.called,
+          'Logger.error is called'
+        ).to.eql(true)
+
+        Ember.Logger.error.restore()
+      })
+
+      it('does not error when config is set by itself', function () {
+        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+
+        run(() => component.set('config', {}))
+
+        component.initContext()
+
+        expect(
+          EmberLoggerSpy.called,
+          'Logger.error is not called'
+        ).to.eql(false)
+
+        Ember.Logger.error.restore()
+      })
     })
   }
 )
