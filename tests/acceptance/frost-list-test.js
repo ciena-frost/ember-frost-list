@@ -33,7 +33,7 @@ describe('Acceptance: FrostList', function () {
     mockTeardown()
   })
 
-  it('can expand and collapse', function () {
+  it('can expand and collapse rows', function () {
     let queryBinding = buildList('list-item', 20)
     mockQuery('list-item', {pageSize: 20, start: 0}).returns({ json: queryBinding })
 
