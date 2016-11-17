@@ -53,7 +53,7 @@ describeComponent(
       expect(
         collapseAllSpy.called,
         'onCollapseAll is fired'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('fires onExpandAll closure action', function () {
@@ -73,7 +73,7 @@ describeComponent(
       expect(
         expandAllSpy.called,
         'onExpandAll is fired'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('concatenates the hook property', function () {

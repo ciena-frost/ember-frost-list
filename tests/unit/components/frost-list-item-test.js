@@ -50,7 +50,7 @@ describeComponent(
       expect(
         component.get('isExpanded'),
         'isExpanded: true'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('"isSelected" computed property', function () {
@@ -59,7 +59,7 @@ describeComponent(
       expect(
         component.get('isSelected'),
         'isSelected: true'
-      ).to.be.true
+      ).to.eql(true)
     })
   }
 )

@@ -20,12 +20,12 @@ describeComponent(
       expect(
         this.$('.frost-list-item').hasClass('is-selected'),
         'class "is-selected" not set'
-      ).to.be.false
+      ).to.eql(false)
 
       expect(
         this.$('.frost-list-item').hasClass('is-expanded'),
         'class "is-expanded" not set'
-      ).to.be.false
+      ).to.eql(false)
     })
 
     it('sets "is-selected" class when model.isSelected=true', function () {
@@ -40,7 +40,7 @@ describeComponent(
       expect(
         this.$('.frost-list-item').hasClass('is-selected'),
         'is-selected class set'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('sets "is-expanded" class when model.isSelected=true', function () {
@@ -55,7 +55,7 @@ describeComponent(
       expect(
         this.$('.frost-list-item').hasClass('is-expanded'),
         'is-selected class set'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('fires onSelect closure action', function () {
@@ -81,7 +81,7 @@ describeComponent(
       expect(
         externalActionSpy.args[0][1].record.isSelected,
         '"record" property is passed'
-      ).to.be.true
+      ).to.eql(true)
 
       expect(
         externalActionSpy.args[0][1].selectDesc,

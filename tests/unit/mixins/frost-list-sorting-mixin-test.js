@@ -46,7 +46,7 @@ describe('Unit: FrostListSortingMixin', function () {
     expect(
       FrostListCoreMixin.detect(subject),
       'FrostListCoreMixin Mixin is present'
-    ).to.be.true
+    ).to.eql(true)
   })
 
   describe('sortItems() action', function () {
@@ -104,7 +104,7 @@ describe('Unit: FrostListSortingMixin', function () {
       expect(
         mixin.get('listConfig.sorting.client').called,
         'user defined sort is fired'
-      ).to.be.true
+      ).to.eql(true)
     })
   })
 })

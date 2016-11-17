@@ -23,14 +23,14 @@ describeComponent(
       expect(
         component.get('alwaysUseDefaultHeight'),
         'alwaysUseDefaultHeight: false'
-      ).to.be.false
+      ).to.eql(false)
     })
 
     it('has the expected Mixins', function () {
       expect(
         PropTypeMixin.detect(component),
         'PropTypeMixin Mixin is present'
-      ).to.be.true
+      ).to.eql(true)
     })
   }
 )

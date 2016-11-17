@@ -69,12 +69,12 @@ describe('Unit: FrostListCoreMixin', function () {
       expect(
         subject.get('statefulListItems')[0].isExpanded,
         'statefulListItems.isExpanded defaults to false'
-      ).to.be.false
+      ).to.eql(false)
 
       expect(
         subject.get('statefulListItems')[0].isSelected,
         'statefulListItems.isSelected defaults to false'
-      ).to.be.false
+      ).to.eql(false)
     })
 
     it('sets "isSelected" correctly when it already has a value', function () {
@@ -86,7 +86,7 @@ describe('Unit: FrostListCoreMixin', function () {
       expect(
         subject.get('statefulListItems')[0].isSelected,
         'statefulListItems.isSelected is set correctly when it has a value already'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('sets "isExpanded" correctly when it already has a value', function () {
@@ -98,7 +98,7 @@ describe('Unit: FrostListCoreMixin', function () {
       expect(
         subject.get('statefulListItems')[0].isExpanded,
         'statefulListItems.isExpanded is set correctly when it has a value already'
-      ).to.be.true
+      ).to.eql(true)
     })
   })
 })

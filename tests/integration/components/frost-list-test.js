@@ -141,12 +141,12 @@ describeComponent(
         expect(
           this.$($hook('my-list-item-0')).hasClass('is-selected'),
           'pre selected item is selected'
-        ).to.be.true
+        ).to.eql(true)
 
         expect(
           this.$($hook('my-list-item-1')).hasClass('is-selected'),
           'item is not pre selected'
-        ).to.be.false
+        ).to.eql(false)
 
         expect(
           this.$().find('vertical-item'),

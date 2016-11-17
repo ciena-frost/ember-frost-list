@@ -50,7 +50,7 @@ describe('Unit: FrostListExpansionMixin', function () {
     expect(
       FrostListCoreMixin.detect(subject),
       'FrostListCoreMixin Mixin is present'
-    ).to.be.true
+    ).to.eql(true)
   })
 
   describe('collapseItems()', function () {
@@ -63,7 +63,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       expect(
         subject.get('expandedItems.1'),
         'expandedItems is updated'
-      ).to.be.undefined
+      ).to.eql(undefined)
     })
 
     it('notifyPropertyChange() is called with correct parameter', function () {
@@ -74,7 +74,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       expect(
         collapseItemsSpy.calledWith('expandedItems'),
         'notifyPropertyChange function is called with expandedItems'
-      ).to.be.true
+      ).to.eql(true)
     })
   })
 
@@ -86,7 +86,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       expect(
         subject.get('expandedItems.1'),
         'expandedItems is updated'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('notifyPropertyChange() is called with correct parameter', function () {
@@ -97,7 +97,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       expect(
         expandItemsSpy.calledWith('expandedItems'),
         'notifyPropertyChange function is called with expandedItems'
-      ).to.be.true
+      ).to.eql(true)
     })
   })
 })

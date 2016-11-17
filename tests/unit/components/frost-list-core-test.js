@@ -38,12 +38,12 @@ describeComponent(
       expect(
         component.get('alwaysUseDefaultHeight'),
         'alwaysUseDefaultHeight: false'
-      ).to.be.false
+      ).to.eql(false)
 
       expect(
         component.get('idForFirstItem'),
         'idForFirstItem: null'
-      ).to.be.null
+      ).to.eql(null)
 
       expect(
         component.get('key'),
@@ -81,7 +81,7 @@ describeComponent(
       expect(
         PropTypeMixin.detect(component),
         'PropTypeMixin Mixin is present'
-      ).to.be.true
+      ).to.eql(true)
     })
 
     it('"_records" computed property', function () {
@@ -106,7 +106,7 @@ describeComponent(
         expect(
           component.get('_hasHeader'),
           '_hasHeader: "true"'
-        ).to.be.true
+        ).to.eql(true)
       })
 
       it('is set to "true" when "sorting" is set', function () {
@@ -117,7 +117,7 @@ describeComponent(
         expect(
           component.get('_hasHeader'),
           '_hasHeader: "true"'
-        ).to.be.true
+        ).to.eql(true)
       })
 
       it('is set to "true" when "expansion" is set', function () {
@@ -128,14 +128,14 @@ describeComponent(
         expect(
           component.get('_hasHeader'),
           '_hasHeader: "true"'
-        ).to.be.true
+        ).to.eql(true)
       })
 
       it('is set to "false" when "sorting" and "expansion" are NOT set', function () {
         expect(
           component.get('_hasHeader'),
           '_hasHeader: "false"'
-        ).to.be.false
+        ).to.eql(false)
       })
     })
 
@@ -149,7 +149,7 @@ describeComponent(
         expect(
           component.checkExpansionValidity(expansion),
           'isExpansionValid: "true"'
-        ).to.be.true
+        ).to.eql(true)
       })
 
       it('returns "false" when "onExpandAll" function is missing in "expansion"', function () {
@@ -160,7 +160,7 @@ describeComponent(
         expect(
           component.checkExpansionValidity(expansion),
           'isExpansionValid: false'
-        ).to.be.false
+        ).to.eql(false)
       })
 
       it('returns "false" when "onCollapseAll" function is missing in "expansion"', function () {
@@ -171,7 +171,7 @@ describeComponent(
         expect(
           component.checkExpansionValidity(expansion),
           'isExpansionValid: false'
-        ).to.be.false
+        ).to.eql(false)
       })
     })
 
@@ -184,7 +184,7 @@ describeComponent(
         expect(
           component.checkSelectionValidity(selection),
           'isSelectionValid: true'
-        ).to.be.true
+        ).to.eql(true)
       })
 
       it('returns "false" when "onSelect" function is missing in "selection"', function () {
@@ -193,7 +193,7 @@ describeComponent(
         expect(
           component.checkSelectionValidity(selection),
           'isSelectionValid: true'
-        ).to.be.false
+        ).to.eql(false)
       })
     })
 
@@ -204,7 +204,7 @@ describeComponent(
         expect(
           component.checkSortingValidity(sorting),
           'isSortingValid: false'
-        ).to.be.false
+        ).to.eql(false)
       })
 
       it('returns "false" when "activeSorting" and "properties" are missing in "sorting"', function () {
@@ -215,7 +215,7 @@ describeComponent(
         expect(
           component.checkSortingValidity(sorting),
           'isSortingValid: false'
-        ).to.be.false
+        ).to.eql(false)
       })
 
       it('returns "false" when "activeSorting" is missing in "sorting"', function () {
@@ -227,7 +227,7 @@ describeComponent(
         expect(
           component.checkSortingValidity(sorting),
           'isSortingValid: false'
-        ).to.be.false
+        ).to.eql(false)
       })
 
       it('returns "true" when "sorting" is set properly', function () {
@@ -240,7 +240,7 @@ describeComponent(
         expect(
           component.checkSortingValidity(sorting),
           'isSortingValid: true'
-        ).to.be.true
+        ).to.eql(true)
       })
     })
 
@@ -369,7 +369,7 @@ describeComponent(
         expect(
           component.get('onSelect').calledWith(resultObject),
           'calls onSelect() with the correct object'
-        ).to.be.true
+        ).to.eql(true)
       })
 
       it('triggers single item selection', function () {
@@ -409,7 +409,7 @@ describeComponent(
         expect(
           component.get('onSelect').calledWith(resultObject),
           'calls onSelect() with the correct object'
-        ).to.be.true
+        ).to.eql(true)
       })
     })
   }

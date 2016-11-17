@@ -54,7 +54,7 @@ describe('Unit: FrostListSelectionMixin', function () {
     expect(
       FrostListCoreMixin.detect(subject),
       'FrostListCoreMixin Mixin is present'
-    ).to.be.true
+    ).to.eql(true)
   })
 
   describe('"selectedItem()" action', function () {
@@ -81,7 +81,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       expect(
         updateSelectedItemsHashSpy.calledWith({ 1: true }, {}),
         'updateSelectedItemsHash() is called with correct parameter'
-      ).to.be.true
+      ).to.eql(true)
 
       utils.updateSelectedItemsHash.restore()
     })
@@ -94,7 +94,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       expect(
         notifyPropertyChangeSpy.calledWith('selectedItems'),
         'notifyPropertyChange() is called with correct parameter'
-      ).to.be.true
+      ).to.eql(true)
 
       utils.updateSelectedItemsHash.restore()
     })

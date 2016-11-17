@@ -46,17 +46,17 @@ describe('Unit: FrostListMixin', function () {
     expect(
       FrostListSelectionMixin.detect(subject),
       'FrostListSelectionMixin Mixin is present'
-    ).to.be.true
+    ).to.eql(true)
 
     expect(
       FrostListExpansionMixin.detect(subject),
       'FrostListExpansionMixin Mixin is present'
-    ).to.be.true
+    ).to.eql(true)
 
     expect(
       FrostListSortingMixin.detect(subject),
       'FrostListSortingMixin Mixin is present'
-    ).to.be.true
+    ).to.eql(true)
   })
 
   it('sets dependent keys correctly', function () {
