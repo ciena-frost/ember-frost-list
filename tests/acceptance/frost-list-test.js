@@ -39,7 +39,7 @@ describe('Acceptance: FrostList', function () {
     andThen(function () {
       expect(
         $hook('-item-0').hasClass('is-expanded')
-      ).to.be.false
+      ).to.eql(false)
     })
 
     click(hook('-expand-all'))
@@ -47,7 +47,7 @@ describe('Acceptance: FrostList', function () {
     andThen(function () {
       expect(
         $hook('-item-0').hasClass('is-expanded')
-      ).to.be.true
+      ).to.eql(true)
     })
 
     click(hook('-collapse-all'))
@@ -55,7 +55,7 @@ describe('Acceptance: FrostList', function () {
     andThen(function () {
       expect(
         $hook('-item-0').hasClass('is-expanded')
-      ).to.be.false
+      ).to.eql(false)
     })
   })
 })
