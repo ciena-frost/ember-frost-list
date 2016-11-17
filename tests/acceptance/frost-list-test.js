@@ -4,7 +4,7 @@ import {
   beforeEach,
   afterEach
 } from 'mocha'
-import { expect } from 'chai'
+import {expect} from 'chai'
 import {
   buildList,
   mockQuery,
@@ -13,7 +13,10 @@ import {
 } from 'ember-data-factory-guy'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
-import { hook, $hook } from 'ember-hook'
+import {
+  hook,
+  $hook
+} from 'ember-hook'
 
 describe('Acceptance: FrostList', function () {
   let application
