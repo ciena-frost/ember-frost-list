@@ -4,6 +4,7 @@ const {run} = Ember
 import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import {
+  afterEach,
   beforeEach,
   describe,
   it

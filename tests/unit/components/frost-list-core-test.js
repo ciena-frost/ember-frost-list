@@ -7,6 +7,7 @@ const {
 import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import {
+  afterEach,
   beforeEach,
   describe,
   it
@@ -20,10 +21,15 @@ describeComponent(
     unit: true
   },
   function () {
-    let component
+    let component, sandbox
 
     beforeEach(function () {
       component = this.subject()
+      sandbox = sinon.sandbox.create()
+    })
+
+    afterEach(function () {
+      sandbox.restore()
     })
 
     it('includes className frost-list', function () {
@@ -359,7 +365,7 @@ describeComponent(
           }
         }
         run(() => {
-          component.set('onSelect', sinon.spy())
+          component.set('onSelect', sandbox.spy())
           component.set('_records', testItems)
           component.set('persistedClickState', mockPersistedClickState)
         })
@@ -400,7 +406,7 @@ describeComponent(
           }
         }
         run(() => {
-          component.set('onSelect', sinon.spy())
+          component.set('onSelect', sandbox.spy())
           component.set('_records', testItems)
         })
 

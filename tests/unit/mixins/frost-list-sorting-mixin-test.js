@@ -6,6 +6,7 @@ const {
   run
 } = Ember
 import {
+  afterEach,
   beforeEach,
   describe,
   it
@@ -15,6 +16,8 @@ import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 
 describe('Unit: FrostListSortingMixin', function () {
+  let sandbox
+
   const testItems = [
     {
       id: '1',
@@ -24,6 +27,7 @@ describe('Unit: FrostListSortingMixin', function () {
   let subject
 
   beforeEach(function () {
+    sandbox = sinon.sandbox.create()
     let testObject = Controller.extend(FrostListSortingMixin)
     subject = testObject.create({
       listConfig: {
@@ -34,6 +38,10 @@ describe('Unit: FrostListSortingMixin', function () {
     run(() => {
       subject.set('model', testItems)
     })
+  })
+
+  afterEach(function () {
+    sandbox.restore()
   })
 
   it('successfully mixed', function () {
@@ -97,7 +105,7 @@ describe('Unit: FrostListSortingMixin', function () {
     })
 
     it('calls the user defined sort', function () {
-      run(() => mixin.set('listConfig.sorting.client', sinon.spy()))
+      run(() => mixin.set('listConfig.sorting.client', sandbox.spy()))
 
       mixin.send('sortItems', sortProperties)
 

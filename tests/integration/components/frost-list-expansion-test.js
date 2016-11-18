@@ -1,14 +1,17 @@
-import { expect } from 'chai'
+import {expect} from 'chai'
 import {
   $hook,
-  initialize
+  initialize as initializeHook
 } from 'ember-hook'
 import {
   describeComponent,
   it
 } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
-import { beforeEach } from 'mocha'
+import {
+  afterEach,
+  beforeEach
+} from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -18,8 +21,15 @@ describeComponent(
     integration: true
   },
   function () {
+    let sandbox
+
     beforeEach(function () {
-      initialize()
+      initializeHook()
+      sandbox = sinon.sandbox.create()
+    })
+
+    afterEach(function () {
+      sandbox.restore()
     })
 
     it('renders with default class', function () {
@@ -37,7 +47,7 @@ describeComponent(
     })
 
     it('fires onCollapseAll closure action', function () {
-      const collapseAllSpy = sinon.spy()
+      const collapseAllSpy = sandbox.spy()
 
       this.on('collapseAllAction', collapseAllSpy)
 
@@ -57,7 +67,7 @@ describeComponent(
     })
 
     it('fires onExpandAll closure action', function () {
-      const expandAllSpy = sinon.spy()
+      const expandAllSpy = sandbox.spy()
 
       this.on('expandAllAction', expandAllSpy)
 

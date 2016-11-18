@@ -6,6 +6,7 @@ const {
   run
 } = Ember
 import {
+  afterEach,
   beforeEach,
   describe,
   it
@@ -15,6 +16,8 @@ import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansio
 import sinon from 'sinon'
 
 describe('Unit: FrostListExpansionMixin', function () {
+  let sandbox
+
   const testItems = [
     {
       id: '1'
@@ -23,6 +26,7 @@ describe('Unit: FrostListExpansionMixin', function () {
   let subject
 
   beforeEach(function () {
+    sandbox = sinon.sandbox.create()
     let testObject = Controller.extend(FrostListExpansionMixin)
     subject = testObject.create({
       listConfig: {
@@ -31,6 +35,10 @@ describe('Unit: FrostListExpansionMixin', function () {
     })
 
     run(() => subject.set('model', testItems))
+  })
+
+  afterEach(function () {
+    sandbox.restore()
   })
 
   it('successfully mixed', function () {
@@ -67,7 +75,7 @@ describe('Unit: FrostListExpansionMixin', function () {
     })
 
     it('notifyPropertyChange() is called with correct parameter', function () {
-      const collapseItemsSpy = sinon.spy(subject, 'notifyPropertyChange')
+      const collapseItemsSpy = sandbox.spy(subject, 'notifyPropertyChange')
 
       subject.send('collapseItems')
 
@@ -90,7 +98,7 @@ describe('Unit: FrostListExpansionMixin', function () {
     })
 
     it('notifyPropertyChange() is called with correct parameter', function () {
-      const expandItemsSpy = sinon.spy(subject, 'notifyPropertyChange')
+      const expandItemsSpy = sandbox.spy(subject, 'notifyPropertyChange')
 
       subject.send('expandItems')
 

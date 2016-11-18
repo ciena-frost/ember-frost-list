@@ -9,6 +9,7 @@ import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import * as utils from 'ember-frost-list/utils/utils'
 import {
+  afterEach,
   beforeEach,
   describe,
   it
@@ -16,6 +17,8 @@ import {
 import sinon from 'sinon'
 
 describe('Unit: FrostListSelectionMixin', function () {
+  let sandbox
+
   const testItems = [
     {
       id: '1',
@@ -25,6 +28,7 @@ describe('Unit: FrostListSelectionMixin', function () {
   let subject
 
   beforeEach(function () {
+    sandbox = sinon.sandbox.create()
     let testObject = Controller.extend(FrostListSelectionMixin)
     subject = testObject.create({
       listConfig: {
@@ -35,6 +39,10 @@ describe('Unit: FrostListSelectionMixin', function () {
     run(() => {
       subject.set('model', testItems)
     })
+  })
+
+  afterEach(function () {
+    sandbox.restore()
   })
 
   it('successfully mixed', function () {
@@ -59,20 +67,18 @@ describe('Unit: FrostListSelectionMixin', function () {
 
   describe('"selectedItem()" action', function () {
     it('udpates selectedItems', function () {
-      sinon.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
+      sandbox.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
 
       subject.send('selectItem', {})
       expect(
         subject.get('selectedItems'),
         'selectedItems is updated'
       ).to.eql({ 1: true })
-
-      utils.updateSelectedItemsHash.restore()
     })
 
     it('calls "updateSelectedItemsHash()" with correct parameters', function () {
       const updateSelectedItemsHashSpy =
-        sinon.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
+        sandbox.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
 
       run(() => subject.set('selectedItems', { 1: true }))
 
@@ -82,21 +88,17 @@ describe('Unit: FrostListSelectionMixin', function () {
         updateSelectedItemsHashSpy.calledWith({ 1: true }, {}),
         'updateSelectedItemsHash() is called with correct parameter'
       ).to.eql(true)
-
-      utils.updateSelectedItemsHash.restore()
     })
 
     it('calls "notifyPropertyChange" with correct parameter', function () {
-      const notifyPropertyChangeSpy = sinon.spy(subject, 'notifyPropertyChange')
-      sinon.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
+      const notifyPropertyChangeSpy = sandbox.spy(subject, 'notifyPropertyChange')
+      sandbox.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
 
       subject.send('selectItem', {})
       expect(
         notifyPropertyChangeSpy.calledWith('selectedItems'),
         'notifyPropertyChange() is called with correct parameter'
       ).to.eql(true)
-
-      utils.updateSelectedItemsHash.restore()
     })
   })
 })

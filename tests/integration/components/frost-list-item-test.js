@@ -3,6 +3,10 @@ import {
   describeComponent,
   it
 } from 'ember-mocha'
+import {
+  afterEach,
+  beforeEach
+} from 'mocha'
 import hbs from 'htmlbars-inline-precompile'
 import sinon from 'sinon'
 
@@ -13,6 +17,16 @@ describeComponent(
     integration: true
   },
   function () {
+    let sandbox
+
+    beforeEach(function () {
+      sandbox = sinon.sandbox.create()
+    })
+
+    afterEach(function () {
+      sandbox.restore()
+    })
+
     it('default state has no class "is-selected" and "is-expanded"', function () {
       this.render(hbs`
         {{frost-list-item}}
@@ -59,7 +73,7 @@ describeComponent(
     })
 
     it('fires onSelect closure action', function () {
-      const externalActionSpy = sinon.spy()
+      const externalActionSpy = sandbox.spy()
 
       this.on('externalAction', externalActionSpy)
       this.set('model', { isSelected: true })
