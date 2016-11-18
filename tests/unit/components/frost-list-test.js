@@ -17,10 +17,15 @@ describeComponent(
     unit: true
   },
   function () {
-    let component
+    let component, sandbox
 
     beforeEach(function () {
       component = this.subject()
+      sandbox = sinon.sandbox.create()
+    })
+
+    afterEach(function () {
+      sandbox.restore()
     })
 
     it('sets default properties value correctly', function () {
@@ -39,7 +44,7 @@ describeComponent(
 
     describe('InitContext()', function () {
       it('errors when config is set with item', function () {
-        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
           component.set('config', {})
@@ -52,12 +57,10 @@ describeComponent(
           EmberLoggerSpy.called,
           'Logger.error is called'
         ).to.eql(true)
-
-        Ember.Logger.error.restore()
       })
 
       it('errors when config is set with expansion', function () {
-        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
           component.set('config', {})
@@ -70,12 +73,10 @@ describeComponent(
           EmberLoggerSpy.called,
           'Logger.error is called'
         ).to.eql(true)
-
-        Ember.Logger.error.restore()
       })
 
       it('errors when config is set with sorting', function () {
-        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
           component.set('config', {})
@@ -88,12 +89,10 @@ describeComponent(
           EmberLoggerSpy.called,
           'Logger.error is called'
         ).to.eql(true)
-
-        Ember.Logger.error.restore()
       })
 
       it('does not error when config is set by itself', function () {
-        const EmberLoggerSpy = sinon.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => component.set('config', {}))
 
@@ -103,8 +102,6 @@ describeComponent(
           EmberLoggerSpy.called,
           'Logger.error is not called'
         ).to.eql(false)
-
-        Ember.Logger.error.restore()
       })
     })
   }
