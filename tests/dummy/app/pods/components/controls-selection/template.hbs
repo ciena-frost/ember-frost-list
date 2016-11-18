@@ -2,7 +2,6 @@
 {{frost-select
   data=apiOptions
   disabled=selectionState.isApiSelectDisabled
-  hook='apiState'
   selectedValue=selectionState.apiSelectionValue
   onChange=(action 'onSelectChangeHandler')
 }}
@@ -36,7 +35,6 @@
 {{/if}}
 
 {{frost-button
-  hook='renderButton'
   priority='primary'
   size='medium'
   text='Render'
