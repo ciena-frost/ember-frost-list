@@ -1,23 +1,21 @@
 import Ember from 'ember'
 const {
   Mixin,
-  get,
-  on,
-  set
+  on
 } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListExpansionMixin: on('init', function () {
-    set(this, 'expandedItems', Ember.Object.create())
+    this.set('expandedItems', Ember.Object.create())
   }),
 
   // == Actions ================================================================
   actions: {
     collapseItems () {
-      let records = get(this, '_listItems')
-      let expandedItems = get(this, 'expandedItems')
+      let records = this.get('_listItems')
+      let expandedItems = this.get('expandedItems')
       records.map((record) => {
         delete expandedItems[record.id]
       })
@@ -25,8 +23,8 @@ export default Mixin.create(FrostListCoreMixin, {
     },
 
     expandItems () {
-      let records = get(this, '_listItems')
-      let expandedItems = get(this, 'expandedItems')
+      let records = this.get('_listItems')
+      let expandedItems = this.get('expandedItems')
       records.map((record) => {
         expandedItems.set(record.id, true)
       })

@@ -1,8 +1,6 @@
 import Ember from 'ember'
 const {
   Component,
-  get,
-  set,
   typeOf
 } = Ember
 import computed from 'ember-computed-decorators'
@@ -114,16 +112,16 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   actions: {
     selectItem (event, attrs) {
-      const onSelect = get(this, 'onSelect')
+      const onSelect = this.get('onSelect')
 
       if (onSelect && typeOf(onSelect) === 'function') {
         let selectedItems = []
         let selectDesc = attrs.selectDesc
 
-        if (event.shiftKey && get(this, 'persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
+        if (event.shiftKey && this.get('persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
           selectedItems = this.buildRangeSelectedItemsArray(
-            get(this, '_records'),
-            get(this, 'persistedClickState.clickedRecord'),
+            this.get('_records'),
+            this.get('persistedClickState.clickedRecord'),
             attrs.record
           )
           selectDesc.isShiftSelect = true
@@ -138,7 +136,7 @@ const FrostList = Component.extend(PropTypeMixin, {
         })
       }
 
-      set(this, 'persistedClickState', {
+      this.set('persistedClickState', {
         clickedRecord: attrs.record,
         isSelected: attrs.selectDesc.isSelected
       })

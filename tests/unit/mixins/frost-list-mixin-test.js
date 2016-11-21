@@ -9,8 +9,7 @@ const {
   A,
   Controller,
   on,
-  run,
-  set
+  run
 } = Ember
 import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
@@ -89,14 +88,14 @@ describe('Unit: FrostListMixin', function () {
         }
       },
       initListMixin: on('init', function () {
-        set(this, '_selectItem', '_selectItem')
-        set(this, '_collapseItems', '_collapseItems')
-        set(this, '_expandItems', '_expandItems')
-        set(this, '_collapseItem', '_collapseItem')
-        set(this, '_expandItem', '_expandItem')
-        set(this, '_sortItems', '_sortItems')
-        set(this, '_loadNext', '_loadNext')
-        set(this, '_loadPrevious', '_loadPrevious')
+        this.set('_selectItem', '_selectItem')
+        this.set('_collapseItems', '_collapseItems')
+        this.set('_expandItems', '_expandItems')
+        this.set('_collapseItem', '_collapseItem')
+        this.set('_expandItem', '_expandItem')
+        this.set('_sortItems', '_sortItems')
+        this.set('_loadNext', '_loadNext')
+        this.set('_loadPrevious', '_loadPrevious')
       })
     })
 
