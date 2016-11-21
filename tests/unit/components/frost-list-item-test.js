@@ -45,7 +45,7 @@ describeComponent(
     })
 
     it('"isExpanded" computed property', function () {
-      run(() => { component.set('model', { isExpanded: true }) })
+      run(() => component.set('model', { isExpanded: true }))
 
       expect(
         component.get('isExpanded'),
@@ -54,7 +54,7 @@ describeComponent(
     })
 
     it('"isSelected" computed property', function () {
-      run(() => { component.set('model', { isSelected: true }) })
+      run(() => component.set('model', { isSelected: true }))
 
       expect(
         component.get('isSelected'),

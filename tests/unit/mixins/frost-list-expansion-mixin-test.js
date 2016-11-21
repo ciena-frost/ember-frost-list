@@ -88,7 +88,7 @@ describe('Unit: FrostListExpansionMixin', function () {
 
   describe('expandItems()', function () {
     it('expandItems function sets id to true', function () {
-      subject.set('expandedItems', Object.create({ 1: false }))
+      subject.set('expandedItems', Object.create())
       subject.send('expandItems')
 
       expect(

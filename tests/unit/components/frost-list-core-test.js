@@ -90,13 +90,24 @@ describeComponent(
       ).to.eql(true)
     })
 
-    it('"_records" computed property', function () {
-      run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
+    describe('"_records" computed property', function () {
+      it('is set correctly when items is not empty', function () {
+        run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
 
-      expect(
-        component.get('_records'),
-        'item arrays are identical'
-      ).to.eql(Ember.A([1, 2, 3, 4]))
+        expect(
+          component.get('_records'),
+          'item arrays are identical'
+        ).to.eql(Ember.A([1, 2, 3, 4]))
+      })
+
+      it('is set correctly when items is empty', function () {
+        run(() => { component.set('items', undefined) })
+
+        expect(
+          component.get('_records'),
+          '_records is set to an empty array'
+        ).to.eql([])
+      })
     })
 
     describe('"_hasHeader" computed property', function () {
@@ -146,7 +157,7 @@ describeComponent(
     })
 
     describe('"checkExpansionValidity" function', function () {
-      it('returns "true" when expansion is set Properly', function () {
+      it('returns "true" when expansion is set properly', function () {
         const expansion = {
           onCollapseAll: function () {},
           onExpandAll: function () {}
