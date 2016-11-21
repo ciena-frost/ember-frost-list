@@ -71,87 +71,103 @@ describe('Unit: FrostListMixin', function () {
     ).to.eql(listMixinConfigDependentKeys)
   })
 
-  it('"listMixinConfig" computed property returns correct object structure', function () {
-    let list = A()
-    list.addObject({
-      id: '1',
-      isExpanded: false
+  describe('"listMixinConfig" computed property', function () {
+    let listMixinConfig
+
+    beforeEach(function () {
+      let list = A()
+      list.addObject({
+        id: '1',
+        isExpanded: false
+      })
+
+      const mixinTestObject = Controller.extend(FrostListMixin)
+      const mixin = mixinTestObject.create({
+        listConfig: {
+          items: 'model',
+          sorting: {
+            active: [],
+            properties: []
+          }
+        },
+        initListMixin: on('init', function () {
+          this.set('_selectItem', '_selectItem')
+          this.set('_collapseItems', '_collapseItems')
+          this.set('_expandItems', '_expandItems')
+          this.set('_collapseItem', '_collapseItem')
+          this.set('_expandItem', '_expandItem')
+          this.set('_sortItems', '_sortItems')
+          this.set('_loadNext', '_loadNext')
+          this.set('_loadPrevious', '_loadPrevious')
+        })
+      })
+
+      run(() => {
+        mixin.set('model', list)
+        mixin.set('listConfig.component', 'my-list-item')
+        mixin.set('activeSorting', [])
+        mixin.set('properties', [])
+      })
+
+      listMixinConfig = mixin.get('listMixinConfig')
     })
 
-    const mixinTestObject = Controller.extend(FrostListMixin)
-    const mixin = mixinTestObject.create({
-      listConfig: {
-        items: 'model',
-        sorting: {
-          active: [],
-          properties: []
-        }
-      },
-      initListMixin: on('init', function () {
-        this.set('_selectItem', '_selectItem')
-        this.set('_collapseItems', '_collapseItems')
-        this.set('_expandItems', '_expandItems')
-        this.set('_collapseItem', '_collapseItem')
-        this.set('_expandItem', '_expandItem')
-        this.set('_sortItems', '_sortItems')
-        this.set('_loadNext', '_loadNext')
-        this.set('_loadPrevious', '_loadPrevious')
-      })
+    it('has "items" property', function () {
+      expect(
+        listMixinConfig,
+        '"items" property exists'
+      ).to.have.property('items')
     })
 
-    run(() => {
-      mixin.set('model', list)
-      mixin.set('listConfig.component', 'my-list-item')
-      mixin.set('activeSorting', [])
-      mixin.set('properties', [])
+    it('has component" property', function () {
+      expect(
+        listMixinConfig,
+        '"component" property exists'
+      ).to.have.property('component', 'my-list-item')
     })
 
-    const listMixinConfig = mixin.get('listMixinConfig')
+    it('has "expansion" property with correct structure', function () {
+      expect(
+        listMixinConfig,
+        '"expansion" property exists and has correct structure'
+      ).to.have.property('expansion')
+        .that.deep.equals({
+          onCollapseAll: '_collapseItems',
+          onExpandAll: '_expandItems'
+        })
+    })
 
-    expect(
-      listMixinConfig,
-      '"items" property exists'
-    ).to.have.property('items')
+    it('has "selection" propery with correct structure', function () {
+      expect(
+        listMixinConfig,
+        '"selection" propery exists and has correct structure'
+        ).to.have.property('selection')
+          .that.deep.equals({
+            onSelect: '_selectItem'
+          })
+    })
 
-    expect(
-      listMixinConfig,
-      '"component" property exists'
-    ).to.have.property('component', 'my-list-item')
+    it('has "sorting" propery with correct structure', function () {
+      expect(
+        listMixinConfig,
+        '"sorting" propery exists and has correct structure'
+        ).to.have.property('sorting')
+          .that.deep.equals({
+            activeSorting: [],
+            properties: [],
+            onSort: '_sortItems'
+          })
+    })
 
-    expect(
-      listMixinConfig,
-      '"expansion" property exists and has correct structure'
-    ).to.have.property('expansion')
-      .that.deep.equals({
-        onCollapseAll: '_collapseItems',
-        onExpandAll: '_expandItems'
-      })
-
-    expect(
-    listMixinConfig,
-    '"selection" propery exists and has correct structure'
-    ).to.have.property('selection')
-      .that.deep.equals({
-        onSelect: '_selectItem'
-      })
-
-    expect(
-    listMixinConfig,
-    '"sorting" propery exists and has correct structure'
-    ).to.have.property('sorting')
-      .that.deep.equals({
-        activeSorting: [],
-        properties: [],
-        onSort: '_sortItems'
-      })
-
-    expect(
-    listMixinConfig,
-    '"infiniteScroll" propery exists and has correct structure'
-    ).to.have.property('infiniteScroll')
-      .that.deep.equals({
-        loadNext: '_loadNext',
-        loadPrevious: '_loadPrevious'
-      })
+    it('has "infiniteScroll" propery with correct structure', function () {
+      expect(
+        listMixinConfig,
+        '"infiniteScroll" propery exists and has correct structure'
+        ).to.have.property('infiniteScroll')
+          .that.deep.equals({
+            loadNext: '_loadNext',
+            loadPrevious: '_loadPrevious'
+          })
+    })
   })
 })
