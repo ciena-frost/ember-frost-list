@@ -70,6 +70,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       sandbox.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
 
       subject.send('selectItem', {})
+
       expect(
         subject.get('selectedItems'),
         'selectedItems is updated'
@@ -95,6 +96,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       sandbox.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
 
       subject.send('selectItem', {})
+
       expect(
         notifyPropertyChangeSpy.calledWith('selectedItems'),
         'notifyPropertyChange() is called with correct parameter'
