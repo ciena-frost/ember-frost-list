@@ -114,5 +114,16 @@ describe('Unit: FrostListSortingMixin', function () {
         'user defined sort is fired'
       ).to.eql(true)
     })
+
+    it('throws assertion error', function () {
+      run(() => mixin.set('listConfig.sorting.client', 'test'))
+
+      expect(
+        () => {
+          mixin.send('sortItems', sortProperties)
+        },
+        'assertion thrown when custom sort method is not a function'
+      ).to.throw(/custom sort method to be function/)
+    })
   })
 })
