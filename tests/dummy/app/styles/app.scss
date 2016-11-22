@@ -1,6 +1,6 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
 @import 'list-item';
-
+@import 'pagination-list-item';
 
 .dummy-notification-container {
   position: fixed;
@@ -42,10 +42,10 @@
     flex-direction: row;
 
     .frost-list {
+      position: relative;
       height: 70vh;
       width: 70vh;
     }
-
 
     .info-section {
       margin-left: 30px;

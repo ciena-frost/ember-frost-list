@@ -16,6 +16,7 @@ Router.map(function () {
     this.route('overview', {path: '/'})
   })
   this.route('infinite-scroll')
+  this.route('pagination')
   this.route('mixin-list')
   this.route('pre-selection')
   this.route('qp-binding')

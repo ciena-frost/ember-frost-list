@@ -1,0 +1,19 @@
+<h3>Pagination</h3>
+
+<div class="dummy-infinite-scroll">
+  {{frost-list
+    infinite=false
+    item=(component 'pagination/list-item'
+      onCollapse=(action 'collapseItem')
+      onExpand=(action 'expandItem')
+    )
+    items=statefulListItems
+    pagination=(hash
+      itemsPerPage=itemsPerPage
+      page=page
+      total=total
+      onChange=(action 'changePage')
+    )
+    onSelect=(action 'selectItem')
+  }}
+</div>

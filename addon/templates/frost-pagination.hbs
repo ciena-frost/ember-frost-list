@@ -1,0 +1,34 @@
+<div class="button-bar left">
+  {{frost-button
+    disabled=leftButtonsDisabled
+    icon="frost/double-chevron-left"
+    onClick=(action '_onChange' 0)
+    priority="tertiary"
+    size="small"
+  }}
+
+  {{frost-button
+    disabled=leftButtonsDisabled
+    icon="frost/chevron-left"
+    onClick=(action '_onChange' (sub page 1))
+    priority="tertiary"
+    size="small"
+  }}
+</div>
+<span class="text">{{paginationText}}</span>
+<div class="button-bar right">
+  {{frost-button
+    disabled=rightButtonsDisabled
+    icon="frost/chevron-left"
+    onClick=(action '_onChange' (add page 1))
+    priority="tertiary"
+    size="small"
+  }}
+  {{frost-button
+    disabled=rightButtonsDisabled
+    icon="frost/double-chevron-left"
+    onClick=(action '_onChange' (floor (div (sub total 1) itemsPerPage)))
+    priority="tertiary"
+    size="small"
+  }}
+</div>

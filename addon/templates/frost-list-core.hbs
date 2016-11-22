@@ -1,16 +1,27 @@
 {{#if _hasHeader}}
-    <div class="frost-list-header">
-      {{#if sorting}}
-        {{component sorting}}
+  <div class="frost-list-header">
+    {{#if sorting}}
+      {{component sorting}}
+    {{/if}}
+    <div class='frost-list-header-end'>
+      {{#if (not infinite)}}
+        {{frost-pagination
+          itemsPerPage=pagination.itemsPerPage
+          page=pagination.page
+          total=pagination.total
+          onChange=pagination.onChange
+        }}
       {{/if}}
       {{#if expansion}}
         {{component expansion}}
       {{/if}}
     </div>
+  </div>
 {{/if}}
-<div class="frost-list-content">
-    <div class='frost-list-content-border-top'></div>
-    <div class='frost-list-content-container'>
+{{#if infinite}}
+  <div class="frost-list-infinite-content">
+    <div class='frost-list-infinite-content-border-top'></div>
+    <div class='frost-list-infinite-content-container'>
       {{#vertical-collection
         content=_records
         scrollPosition=scrollPosition
@@ -29,5 +40,22 @@
         }}
       {{/vertical-collection}}
     </div>
-    <div class='frost-list-content-border-bottom'></div>
-</div>
+    <div class='frost-list-infinite-content-border-bottom'></div>
+  </div>
+{{else}}
+  <div class='frost-list-finite-content'>
+    <div class='frost-list-finite-content-border-top'></div>
+    <div class='frost-list-finite-content-container'>
+      {{#frost-scroll}}
+        {{#each _records as |record index|}}
+          {{component item
+            model=record
+            hook=(concat hook '-item-' index)
+            onSelect=(action 'selectItem')
+          }}
+        {{/each}}
+      {{/frost-scroll}}
+    </div>
+    <div class='frost-list-finite-content-border-bottom'></div>
+  </div>
+{{/if}}
