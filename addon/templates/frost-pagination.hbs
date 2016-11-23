@@ -4,6 +4,7 @@
   {{frost-button
     class='frost-pagination-button'
     disabled=_isLeftDisabled
+    hook=(concat hook '-first-page')
     icon='double-chevron-left'
     onClick=(action onChange 0)
     priority='tertiary'
@@ -12,6 +13,7 @@
   {{frost-button
     class='frost-pagination-button'
     disabled=_isLeftDisabled
+    hook=(concat hook '-previous-page')
     icon='chevron-left'
     onClick=(action onChange (sub page 1))
     priority='tertiary'
@@ -27,6 +29,7 @@
   {{frost-button
     class='frost-pagination-button'
     disabled=_isRightDisabled
+    hook=(concat hook '-next-page')
     icon='chevron-left'
     priority='tertiary'
     size='small'
@@ -35,6 +38,7 @@
   {{frost-button
     class='frost-pagination-button'
     disabled=_isRightDisabled
+    hook=(concat hook '-last-page')
     icon='double-chevron-left'
     priority='tertiary'
     size='small'

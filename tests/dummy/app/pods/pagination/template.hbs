@@ -2,6 +2,7 @@
 
 <div class="dummy-infinite-scroll">
   {{frost-list
+    hook='paged-list'
     infinite=false
     item=(component 'pagination/list-item'
       onCollapse=(action 'collapseItem')

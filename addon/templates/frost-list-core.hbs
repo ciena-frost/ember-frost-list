@@ -6,6 +6,7 @@
     <div class='frost-list-header-end'>
       {{#if (and (not infinite) pagination)}}
         {{frost-pagination
+          hook=(concat hook '-pagination')
           itemsPerPage=pagination.itemsPerPage
           page=pagination.page
           total=pagination.total
