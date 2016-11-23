@@ -1,7 +1,7 @@
 /**
  * frost-pagination
  *
- * << < page of total > >>
+ * << < x to y of total > >>
  *
  * Standard pagination control.  Primarily intended for usage
  * with frost-list in a finite (infinite=false) scenario.
