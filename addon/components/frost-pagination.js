@@ -3,9 +3,8 @@
  *
  * << < page of total > >>
  *
- * Standard pagination control that also handles the reset of scroll position
- * when changing pages.  Primarily intended for usage with frost-list in a
- * finite (infinite=false) scenario.
+ * Standard pagination control.  Primarily intended for usage
+ * with frost-list in a finite (infinite=false) scenario.
  *
  * Usage in frost-list:
  *
@@ -89,7 +88,7 @@ export default Component.extend(PropTypeMixin, {
   @computed('_offset', '_end', 'total')
   _paginationText (_offset, _end, total) {
     return total === 0 ? '0 results found' : `${_offset} to ${_end} of ${total}`
-  },
+  }
 
   // == Functions =============================================================
 
@@ -98,16 +97,5 @@ export default Component.extend(PropTypeMixin, {
   // == DOM Events ============================================================
 
   // == Actions ===============================================================
-
-  actions: {
-    _onChange (page) {
-      this.onChange(page)
-      var scrollbar = Ember.$('.frost-scroll')[0]
-      if (scrollbar) {
-        scrollbar.scrollTop = 0
-        window.Ps.update(scrollbar)
-      }
-    }
-  }
 
 })

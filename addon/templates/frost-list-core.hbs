@@ -9,7 +9,7 @@
           itemsPerPage=pagination.itemsPerPage
           page=pagination.page
           total=pagination.total
-          onChange=pagination.onChange
+          onChange=(action '_onPageChange')
         }}
       {{/if}}
       {{#if expansion}}
