@@ -23,7 +23,18 @@ describeComponent(
       //   {{/frost-pagination}}
       // `);
 
-      this.render(hbs`{{frost-pagination}}`)
+      this.set('actions', {
+        onChange: function () {
+          console.log('foo')
+        }
+      })
+
+      this.render(hbs`{{frost-pagination
+        itemsPerPage=10
+        page=0
+        total=100
+        onChange=(action 'onChange')
+      }}`)
       expect(this.$()).to.have.length(1)
     })
   }

@@ -11,7 +11,7 @@ import {
 describe('FloorHelper', function () {
   // Replace this with your real tests.
   it('works', function () {
-    let result = floor(42)
-    expect(result).to.be.ok
+    let result = floor([42.8])
+    expect(result).to.equal(42)
   })
 })
