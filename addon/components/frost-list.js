@@ -21,6 +21,12 @@ export default Component.extend(PropTypeMixin, {
       PropTypes.array,
       PropTypes.EmberObject
     ]),
+    pagination: PropTypes.shape({
+      itemsPerPage: PropTypes.number,
+      page: PropTypes.number,
+      total: PropTypes.number,
+      onChange: PropTypes.func
+    }),
     sorting: PropTypes.object,
     onSelect: PropTypes.func,
 

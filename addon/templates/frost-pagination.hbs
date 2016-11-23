@@ -1,34 +1,43 @@
-<div class="button-bar left">
-  {{frost-button
-    disabled=leftButtonsDisabled
-    icon="frost/double-chevron-left"
-    onClick=(action '_onChange' 0)
-    priority="tertiary"
-    size="small"
-  }}
+{{! frost-pagination }}
 
+<div class='frost-pagination-left'>
   {{frost-button
-    disabled=leftButtonsDisabled
-    icon="frost/chevron-left"
+    class='frost-pagination-button'
+    disabled=_isLeftDisabled
+    icon='double-chevron-left'
+    onClick=(action '_onChange' 0)
+    priority='tertiary'
+    size='small'
+  }}
+  {{frost-button
+    class='frost-pagination-button'
+    disabled=_isLeftDisabled
+    icon='chevron-left'
     onClick=(action '_onChange' (sub page 1))
-    priority="tertiary"
-    size="small"
+    priority='tertiary'
+    size='small'
   }}
 </div>
-<span class="text">{{paginationText}}</span>
-<div class="button-bar right">
+
+<span class='frost-pagination-text'>
+  {{_paginationText}}
+</span>
+
+<div class='frost-pagination-right'>
   {{frost-button
-    disabled=rightButtonsDisabled
-    icon="frost/chevron-left"
+    class='frost-pagination-button'
+    disabled=_isRightDisabled
+    icon='chevron-left'
+    priority='tertiary'
+    size='small'
     onClick=(action '_onChange' (add page 1))
-    priority="tertiary"
-    size="small"
   }}
   {{frost-button
-    disabled=rightButtonsDisabled
-    icon="frost/double-chevron-left"
+    class='frost-pagination-button'
+    disabled=_isRightDisabled
+    icon='double-chevron-left'
+    priority='tertiary'
+    size='small'
     onClick=(action '_onChange' (floor (div (sub total 1) itemsPerPage)))
-    priority="tertiary"
-    size="small"
   }}
 </div>

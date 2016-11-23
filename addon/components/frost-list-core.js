@@ -30,9 +30,9 @@ const FrostList = Component.extend(PropTypeMixin, {
     return records
   },
 
-  @computed('expansion', 'infinite', 'sorting')
-  _hasHeader (expansion, infinite, sorting) {
-    return !!(infinite === false || sorting || expansion)
+  @computed('expansion', 'pagination', 'sorting')
+  _hasHeader (expansion, pagination, sorting) {
+    return !!(pagination || sorting || expansion)
   },
 
   alwaysUseDefaultHeight: false,

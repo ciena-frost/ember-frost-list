@@ -4,7 +4,7 @@
       {{component sorting}}
     {{/if}}
     <div class='frost-list-header-end'>
-      {{#if (not infinite)}}
+      {{#if (and (not infinite) pagination)}}
         {{frost-pagination
           itemsPerPage=pagination.itemsPerPage
           page=pagination.page
