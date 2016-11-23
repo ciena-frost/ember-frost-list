@@ -67,6 +67,52 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute` | `loadPrevious` | `action closure` | triggers associated user action when scroll reaches upper boundary. |
 | `Attribute` | `loadNext` | `action closure` | triggers associated user action when scroll reaches lower boundary. |
 
+### Finite / pagination
+
+In circumstances where infinite scroll is undesirable, the list can be made finite using
+
+```
+{{frost-list
+  infinite=false
+}}
+```
+
+In these cases pagination may optionally be used
+
+```
+{{frost-list
+  pagination=(hash
+    itemsPerPage=
+    page=
+    total=
+    onChange=
+  )
+}}
+```
+
+The onChange action will receive the `page` being requested, which can be combined with 
+the `itemsPerPage` to make an API request and provide the new items for the list
+
+```
+fetchPage (page) {
+  this.store.unloadAll('list-item')
+  this.store.query('list-item', {
+    pageSize: this.get('itemsPerPage'),
+    start: (page * this.get('itemsPerPage'))
+  }).then(() => {
+    this.set('model', this.store.peekAll('list-item'))
+  })
+},
+
+actions: {
+  changePage (page) {
+    this.set('page', page)
+    this.fetchPage(page)
+  }
+}
+```
+
+
 ## Examples
 
 ### Data driven pattern (must use with mixin)
