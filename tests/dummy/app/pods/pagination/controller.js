@@ -14,7 +14,7 @@ export default Ember.Controller.extend(FrostListMixin, {
   fetchPage (page) {
     this.store.unloadAll('list-item')
     this.store.query('list-item', {
-      pageSize: this.get('itemsPerPage'), // TODO Getting 500 from factory-guy
+      pageSize: this.get('itemsPerPage'),
       start: (page * this.get('itemsPerPage'))
     }).then(() => {
       this.set('model', this.store.peekAll('list-item'))
