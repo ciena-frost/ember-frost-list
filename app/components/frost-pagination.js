@@ -1,1 +1,1 @@
-export { default } from 'ember-frost-list/components/frost-pagination';
+export { default } from 'ember-frost-list/components/frost-pagination'
