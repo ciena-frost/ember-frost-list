@@ -9,14 +9,10 @@ import computed from 'ember-computed-decorators'
 
 export default Mixin.create({
   initListCoreMixin: on('init', function () {
-<<<<<<< HEAD
     defineProperty(this, '_listItems', alias(this.get('listConfig.items')))
-=======
-    defineProperty(this, '_listItems', alias(get(this, 'listConfig.items')))
     if (Ember.isNone(this.get('_listItems'))) {
-      this.set(get(this, 'listConfig.items'), [])
+      this.set(this.get('listConfig.items'), [])
     }
->>>>>>> upsteam/master
   }),
 
   @computed('_listItems.[]')
