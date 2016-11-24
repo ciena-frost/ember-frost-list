@@ -68,8 +68,9 @@ describeComponent(
       ]
 
       const _hasHeaderDependentKeys = [
-        'sorting',
-        'expansion'
+        'expansion',
+        'pagination',
+        'sorting'
       ]
 
       expect(

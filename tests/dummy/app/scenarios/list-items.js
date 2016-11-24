@@ -25,6 +25,12 @@ export default class extends Scenario {
     let queryBinding = this.buildList('list-item', 20)
     this.mockQuery('list-item', {pageSize: 20, start: 0}).returns({ json: queryBinding })
 
+    Array.from(Array(10).keys()).forEach((page) => {
+      this.mockQuery('list-item', {pageSize: 10, start: page * 10}).returns({
+        json: this.buildList('list-item', 10)
+      })
+    })
+
     this.mockFindAll('list-item', 500)
 
     this.mockFindRecord('list-item')

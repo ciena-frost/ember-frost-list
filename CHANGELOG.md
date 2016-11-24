@@ -1,3 +1,7 @@
+# 3.1.0
+* Added a `infinite=false` option along with `pagination` controls
+
+
 # 3.0.0
 
 * Upgraded ember to 2.8

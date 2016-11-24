@@ -22,16 +22,20 @@
   }}
 {{else}}
   {{frost-list-core
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    defaultHeight=defaultHeight
     hook=hook
     items=items
-    onSelect=onSelect
+    infinite=infinite
     item=item
     expansion=expansion
+    loadPrevious=loadPrevious
+    loadNext=loadNext
+    pagination=pagination
     sorting=sorting
     alwaysUseDefaultHeight=alwaysUseDefaultHeight
     scrollPosition=scrollPosition
     defaultHeight=defaultHeight
-    loadPrevious=loadPrevious
-    loadNext=loadNext
+    onSelect=onSelect
   }}
 {{/if}}
