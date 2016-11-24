@@ -1,17 +1,8 @@
-import {expect} from 'chai'
-import {
-  $hook,
-  initialize as initializeHook
-} from 'ember-hook'
-import {
-  describeComponent,
-  it
-} from 'ember-mocha'
+import { expect } from 'chai'
+import { $hook, initialize as initializeHook } from 'ember-hook'
+import { describeComponent, it } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
-import {
-  afterEach,
-  beforeEach
-} from 'mocha'
+import { afterEach, beforeEach, describe } from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -86,24 +77,30 @@ describeComponent(
       ).to.eql(true)
     })
 
-    it('concatenates the hook property', function () {
-      this.render(hbs`
-        {{frost-list-expansion
-          hook='my-list'
-          onCollapseAll='onCollapseAll'
-          onExpandAll='onExpandAll'
-        }}
-      `)
+    describe('concatenates the hook property', function () {
+      beforeEach(function () {
+        this.render(hbs`
+          {{frost-list-expansion
+            hook='my-list'
+            onCollapseAll='onCollapseAll'
+            onExpandAll='onExpandAll'
+          }}
+        `)
+      })
 
-      expect(
-        $hook('my-list-collapse-all').text().trim(),
-        '-collapse-all hook is set correctly'
-      ).to.equal('Collapse all')
+      it('sets -collapse-all hook correctly', function () {
+        expect(
+          $hook('my-list-collapse-all').text().trim(),
+          '-collapse-all hook is set correctly'
+        ).to.equal('Collapse all')
+      })
 
-      expect(
-        $hook('my-list-expand-all').text().trim(),
-        '-expand-all hook is set correctly'
-      ).to.equal('Expand all')
+      it('sets -expand-all hook correctly', function () {
+        expect(
+          $hook('my-list-expand-all').text().trim(),
+          '-expand-all hook is set correctly'
+        ).to.equal('Expand all')
+      })
     })
   }
 )

@@ -1,17 +1,9 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {
-  A,
-  run
-} = Ember
-import {describeComponent} from 'ember-mocha'
+const { A, run } = Ember
+import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -39,48 +31,61 @@ describeComponent(
     it('includes className frost-list-core', function () {
       expect(component.classNames).to.include('frost-list-core')
     })
+    describe('default property values', function () {
+      it('sets alwaysUseDefaultHeight to false', function () {
+        expect(
+          component.get('alwaysUseDefaultHeight'),
+          'alwaysUseDefaultHeight: false'
+        ).to.eql(false)
+      })
 
-    it('sets default property values correctly', function () {
-      expect(
-        component.get('alwaysUseDefaultHeight'),
-        'alwaysUseDefaultHeight: false'
-      ).to.eql(false)
+      it('sets idForFirstItem to null', function () {
+        expect(
+          component.get('idForFirstItem'),
+          'idForFirstItem: null'
+        ).to.eql(null)
+      })
 
-      expect(
-        component.get('idForFirstItem'),
-        'idForFirstItem: null'
-      ).to.eql(null)
+      it('sets key to @identity', function () {
+        expect(
+          component.get('key'),
+          'key: @identity'
+        ).to.eql('@identity')
+      })
 
-      expect(
-        component.get('key'),
-        'key: @identity'
-      ).to.eql('@identity')
-
-      expect(
-        component.get('scrollPosition'),
-        'scrollPosition: 0'
-      ).to.eql(0)
+      it('sets scrollPosition to 0', function () {
+        expect(
+          component.get('scrollPosition'),
+          'scrollPosition: 0'
+        ).to.eql(0)
+      })
     })
 
-    it('sets dependent keys correctly', function () {
-      const _recordsDependentKeys = [
-        'items.[]'
-      ]
+    describe('dependent keys', function () {
+      let _recordsDependentKeys, _hasHeaderDependentKeys
+      beforeEach(function () {
+        _recordsDependentKeys = [
+          'items.[]'
+        ]
 
-      const _hasHeaderDependentKeys = [
-        'sorting',
-        'expansion'
-      ]
+        _hasHeaderDependentKeys = [
+          'sorting',
+          'expansion'
+        ]
+      })
 
-      expect(
-        component._records._dependentKeys,
-        'Dependent keys are correct for _records computed property'
-      ).to.eql(_recordsDependentKeys)
-
-      expect(
-        component._hasHeader._dependentKeys,
-        'Dependent keys are correct for _hasHeader computed property'
-      ).to.eql(_hasHeaderDependentKeys)
+      it('sets correct dependent keys for _records computed property', function () {
+        expect(
+          component._records._dependentKeys,
+          'Dependent keys are correct for _records computed property'
+        ).to.eql(_recordsDependentKeys)
+      })
+      it('sets correct dependent keys for _hasHeader computed property', function () {
+        expect(
+          component._hasHeader._dependentKeys,
+          'Dependent keys are correct for _hasHeader computed property'
+        ).to.eql(_hasHeaderDependentKeys)
+      })
     })
 
     it('has the expected Mixins', function () {
@@ -263,30 +268,37 @@ describeComponent(
 
     describe('"_findElementsInBetween" function', function () {
       let array = []
-      for (let i = 0; i < 10; i++) {
-        array.push({
-          id: i
-        })
-      }
+      beforeEach(function () {
+        for (let i = 0; i < 10; i++) {
+          array.push({
+            id: i
+          })
+        }
+      })
 
       it('returns result array when all attributes are provided', function () {
         expect(
           component._findElementsInBetween(array, array[2], array[6]).length,
-          'isSelectionValid: "true"'
+          'result is an array'
         ).to.eql(5)
       })
 
-      it('returns last element when "firstElement" is missing', function () {
-        let result = component._findElementsInBetween(array, undefined, array[6])
-        expect(
-          result.length,
-          'result array contains one element'
-        ).to.eql(1)
+      describe('returns last element when "firstElement" is missing', function () {
+        it('returns only one element', function () {
+          let result = component._findElementsInBetween(array, undefined, array[6])
+          expect(
+            result.length,
+            'result array contains one element'
+          ).to.eql(1)
+        })
 
-        expect(
-          result[0].id,
-          'result: {id: 6}'
-        ).to.eql(6)
+        it('returns the last element id', function () {
+          let result = component._findElementsInBetween(array, undefined, array[6])
+          expect(
+            result[0].id,
+            'result: {id: 6}'
+          ).to.eql(6)
+        })
       })
     })
 

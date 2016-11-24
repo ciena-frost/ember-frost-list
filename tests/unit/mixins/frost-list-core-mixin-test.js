@@ -1,14 +1,7 @@
-import {expect} from 'chai'
-import {
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { expect } from 'chai'
+import { beforeEach, describe, it } from 'mocha'
 import Ember from 'ember'
-const {
-  Object,
-  run
-} = Ember
+const { Object, run } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 describe('Unit: FrostListCoreMixin', function () {
@@ -45,36 +38,45 @@ describe('Unit: FrostListCoreMixin', function () {
     ).to.eql(testItems)
   })
 
-  it('listItems computed property is correctly set', function () {
-    expect(
-      subject.get('listItems')[0].id,
-      'listItems[0].id is set to 1'
-    ).to.eql('1')
+  describe('listItems computed property is correctly set', function () {
+    it('sets listItems[0].id to 1', function () {
+      expect(
+        subject.get('listItems')[0].id,
+        'listItems[0].id is set to 1'
+      ).to.eql('1')
+    })
 
-    expect(
-      subject.get('listItems')[0].record,
-      'listItems[0].record is set to the item object'
-    ).to.eql({
-      id: '1'
+    it('sets listItems[0].record to the item object', function () {
+      expect(
+        subject.get('listItems')[0].record,
+        'listItems[0].record is set to the item object'
+      ).to.eql({
+        id: '1'
+      })
     })
   })
 
   describe('statefulListItems computed property', function () {
-    it('sets default to false for "isSelected" and "isExpanded"', function () {
-      run(() => {
-        subject.set('selectedItems', Object.create())
-        subject.set('expandedItems', Object.create())
+    describe('"isSelected" and "isExpanded" have a default value of false', function () {
+      beforeEach(function () {
+        run(() => {
+          subject.set('selectedItems', Object.create())
+          subject.set('expandedItems', Object.create())
+        })
+      })
+      it('sets default to false for "isExpanded"', function () {
+        expect(
+          subject.get('statefulListItems')[0].isExpanded,
+          'statefulListItems.isExpanded defaults to false'
+        ).to.eql(false)
       })
 
-      expect(
-        subject.get('statefulListItems')[0].isExpanded,
-        'statefulListItems.isExpanded defaults to false'
-      ).to.eql(false)
-
-      expect(
-        subject.get('statefulListItems')[0].isSelected,
-        'statefulListItems.isSelected defaults to false'
-      ).to.eql(false)
+      it('sets default to false for "isSelected"', function () {
+        expect(
+          subject.get('statefulListItems')[0].isSelected,
+          'statefulListItems.isSelected defaults to false'
+        ).to.eql(false)
+      })
     })
 
     it('sets "isSelected" correctly when it already has a value', function () {

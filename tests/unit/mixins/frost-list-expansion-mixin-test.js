@@ -1,16 +1,7 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {
-  Controller,
-  Object,
-  run
-} = Ember
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+const { Controller, Object, run } = Ember
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 import sinon from 'sinon'

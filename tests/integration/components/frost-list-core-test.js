@@ -1,10 +1,7 @@
 import { expect } from 'chai'
 import { describeComponent, it } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
-import {
-  registerMockComponent,
-  unregisterMockComponent
-} from '../../helpers/mock-component'
+import { registerMockComponent, unregisterMockComponent } from '../../helpers/mock-component'
 
 describeComponent(
   'frost-list-core',

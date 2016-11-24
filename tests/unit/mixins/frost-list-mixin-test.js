@@ -1,16 +1,7 @@
-import {expect} from 'chai'
-import {
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { expect } from 'chai'
+import { beforeEach, describe, it } from 'mocha'
 import Ember from 'ember'
-const {
-  A,
-  Controller,
-  on,
-  run
-} = Ember
+const { A, Controller, on, run } = Ember
 import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
@@ -41,21 +32,27 @@ describe('Unit: FrostListMixin', function () {
     ).to.be.ok
   })
 
-  it('has the expected Mixins', function () {
-    expect(
-      FrostListSelectionMixin.detect(subject),
-      'FrostListSelectionMixin Mixin is present'
-    ).to.eql(true)
+  describe('expected Mixins', function () {
+    it('has FrostListSelectionMixin Mixin', function () {
+      expect(
+        FrostListSelectionMixin.detect(subject),
+        'FrostListSelectionMixin Mixin is present'
+      ).to.eql(true)
+    })
 
-    expect(
-      FrostListExpansionMixin.detect(subject),
-      'FrostListExpansionMixin Mixin is present'
-    ).to.eql(true)
+    it('has FrostListExpansionMixin Mixin', function () {
+      expect(
+        FrostListExpansionMixin.detect(subject),
+        'FrostListExpansionMixin Mixin is present'
+      ).to.eql(true)
+    })
 
-    expect(
-      FrostListSortingMixin.detect(subject),
-      'FrostListSortingMixin Mixin is present'
-    ).to.eql(true)
+    it('has FrostListSortingMixin Mixin', function () {
+      expect(
+        FrostListSortingMixin.detect(subject),
+        'FrostListSortingMixin Mixin is present'
+      ).to.eql(true)
+    })
   })
 
   it('sets dependent keys correctly', function () {

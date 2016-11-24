@@ -1,16 +1,7 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {
-  A,
-  Controller,
-  run
-} = Ember
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+const { A, Controller, run } = Ember
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
@@ -58,32 +49,36 @@ describe('Unit: FrostListSortingMixin', function () {
   })
 
   describe('sortItems() action', function () {
-    const testItems = A([
-      {
-        id: '1',
-        isSelected: false
-      },
-      {
-        id: '2',
-        isSelected: false
-      }
-    ])
+    let mixin, sortProperties
 
-    const sortProperties = A([
-      {
-        direction: ':desc',
-        value: 'id'
-      }
-    ])
+    beforeEach(function () {
+      const testItems = A([
+        {
+          id: '1',
+          isSelected: false
+        },
+        {
+          id: '2',
+          isSelected: false
+        }
+      ])
 
-    const mixinTestObject = Controller.extend(FrostListSortingMixin)
-    const mixin = mixinTestObject.create({
-      listConfig: {
-        items: 'model',
-        sorting: {}
-      }
+      sortProperties = A([
+        {
+          direction: ':desc',
+          value: 'id'
+        }
+      ])
+
+      const mixinTestObject = Controller.extend(FrostListSortingMixin)
+      mixin = mixinTestObject.create({
+        listConfig: {
+          items: 'model',
+          sorting: {}
+        }
+      })
+      run(() => mixin.set('model', testItems))
     })
-    run(() => mixin.set('model', testItems))
 
     it('calls default sort', function () {
       const resultItems = [
