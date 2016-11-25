@@ -156,7 +156,11 @@ $frost-list-content-border-bottom: 1px;
     }
   }
 
-  &-header + .frost-list-content {
+  &-header + .frost-list-finite-content {
+    height: calc(100% - #{$frost-list-header-height});
+  }
+
+  &-header + .frost-list-infinite-content {
     height: calc(100% - #{$frost-list-header-height});
   }
 }
@@ -260,6 +264,21 @@ $frost-list-content-border-bottom: 1px;
 .frost-list .vertical-item > div.is-selected {
   padding: 0 1px 1px 1px;
 	border: 1px solid $frost-color-blue-3;
+}
+
+// for finite case
+.frost-list .div:first-child {
+  border-top: none;
+}
+
+.frost-list .frost-scroll > div:not(.is-selected) {
+  padding: 0px 2px 1px 2px;
+  border-top: 1px solid $frost-color-lgrey-1;
+}
+
+.frost-list .frost-scroll > div.is-selected {
+  padding: 0 1px 1px 1px;
+  border: 1px solid $frost-color-blue-3;
 }
 
 .frost-list-item .badge {
