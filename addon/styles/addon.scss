@@ -156,7 +156,11 @@ $frost-list-content-border-bottom: 1px;
     }
   }
 
-  &-header + .frost-list-content {
+  &-header + .frost-list-finite-content {
+    height: calc(100% - #{$frost-list-header-height});
+  }
+
+  &-header + .frost-list-infinite-content {
     height: calc(100% - #{$frost-list-header-height});
   }
 }
