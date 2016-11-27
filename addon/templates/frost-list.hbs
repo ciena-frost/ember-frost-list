@@ -2,6 +2,7 @@
   {{frost-list-core
     hook=hook
     items=config.items
+    infinite=infinite
     onSelect=config.selection.onSelect
     item=(component config.component
     )
@@ -21,15 +22,17 @@
   }}
 {{else}}
   {{frost-list-core
-    hook=hook
-    items=items
-    onSelect=onSelect
-    item=item
-    expansion=expansion
-    sorting=sorting
     alwaysUseDefaultHeight=alwaysUseDefaultHeight
     defaultHeight=defaultHeight
+    hook=hook
+    items=items
+    infinite=infinite
+    item=item
+    expansion=expansion
     loadPrevious=loadPrevious
     loadNext=loadNext
+    pagination=pagination
+    sorting=sorting
+    onSelect=onSelect
   }}
 {{/if}}

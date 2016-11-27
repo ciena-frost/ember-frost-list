@@ -30,9 +30,9 @@ const FrostList = Component.extend(PropTypeMixin, {
     return records
   },
 
-  @computed('sorting', 'expansion')
-  _hasHeader (sorting, expansion) {
-    return !!(sorting || expansion)
+  @computed('expansion', 'pagination', 'sorting')
+  _hasHeader (expansion, pagination, sorting) {
+    return !!(expansion || pagination || sorting)
   },
 
   alwaysUseDefaultHeight: false,
@@ -152,6 +152,15 @@ const FrostList = Component.extend(PropTypeMixin, {
         clickedRecord: attrs.record,
         isSelected: attrs.selectDesc.isSelected
       })
+    },
+
+    _onPageChange (page) {
+      this.pagination.onChange(page)
+      const scrollbar = this.$('.frost-scroll')[0]
+      if (scrollbar) {
+        scrollbar.scrollTop = 0
+        window.Ps.update(scrollbar)
+      }
     }
   }
 })
