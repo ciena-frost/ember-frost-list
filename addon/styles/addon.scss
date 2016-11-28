@@ -1,4 +1,6 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
+@import './list-item-primitives';
+
 
 $frost-list-header-height: 40px;
 $frost-list-content-border-top: 1px;
@@ -42,6 +44,7 @@ $frost-list-content-border-bottom: 1px;
   background-image: -webkit-linear-gradient($pos-degree $full); // Safari 5.1+, Chrome
   background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
 }
+
 
 .frost-list {
   display: flex;
@@ -167,12 +170,12 @@ $frost-list-content-border-bottom: 1px;
 
 //TODO remove entire frost-list-item styles when new list-item component available
 
-//.frost-list-item {
-//	display: flex;
-//	flex-direction: row;
-//	flex-wrap: wrap;
-//	min-width: 0;
-//}
+.frost-list-item {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	min-width: 0;
+}
 
 .frost-list-item .select-checkbox {
 	//Override frost-checkbox
@@ -325,135 +328,6 @@ $frost-list-content-border-bottom: 1px;
   }
 }
 
-
-.frost-list-item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  min-width: 0;
-
-  &-icon-text {
-    line-height: 30px;
-    &-text {
-      display: inline-block;
-      font-size: $frost-font-xs;
-      color: $frost-color-grey-4;
-    }
-    &-icon {
-      display: inline-block;
-      position: relative;
-      top: 4px;
-      margin-right: 5px;
-      svg {
-        height: 15px;
-        width: 15px;
-      }
-    }
-  }
-
-  &-primary-state {
-    display: inline-block;
-    font-size: $frost-font-xs;
-    line-height: 15px;
-    padding-right: 3px;
-    padding-left: 3px;
-    border-radius: 2px;
-
-    &.neutral {
-      color: $frost-color-grey-1;
-      font-weight: 700;
-    }
-
-    &.critical {
-      background-color: red;
-      color: white;
-    }
-
-    &.major {
-      background-color: $frost-color-orange-1;
-      color: white;
-    }
-
-    &.warn {
-      background-color: $frost-color-teal-1;
-      color: white;
-    }
-  }
-
-}
-
-.frost-list-item-primary-identifier {
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: $frost-font-s;
-  color: $frost-color-grey-1;
-  font-weight: 600;
-  line-height: 30px;
-}
-
-.frost-list-item-secondary-identifier {
-   overflow: hidden;
-   white-space: nowrap;
-   font-size: $frost-font-xs;
-   color: $frost-color-grey-1;
-   line-height: 30px;
-}
-
-.frost-list-item-unlabeled-property {
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: $frost-font-xs;
-  color: $frost-color-grey-1;
-  line-height: 30px;
-}
-
-.frost-list-item-boolean {
-  line-height: 30px;
-  &-label {
-    display: inline-block;
-    font-size: $frost-font-xs;
-    font-weight: 700;
-    color: $frost-color-grey-4;
-    margin-right: 5px;
-  }
-  &-icon {
-    display: inline-block;
-    position: relative;
-    top: 4px;
-    svg {
-      height: 15px;
-      width: 15px;
-    }
-  }
-}
-
-
-.local-frost-list-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  .column {
-    .local-title {
-      overflow: hidden;
-      white-space: nowrap;
-      font-size: $frost-font-s;
-      color: $frost-color-grey-1;
-    }
-    .secondary-identifier {
-      overflow: hidden;
-      white-space: nowrap;
-      font-size: $frost-font-xs;
-      color: $frost-color-grey-1;
-    }
-    .unlabled-property {
-      overflow: hidden;
-      white-space: nowrap;
-      font-size: $frost-font-xs;
-      color: $frost-color-grey-1;
-    }
-  }
-}
-
 .frost-pagination {
   display: flex;
   flex-direction: row;
@@ -487,7 +361,7 @@ $frost-list-content-border-bottom: 1px;
     }
 
     &:last-child {
-      padding-right: 0px;
+      padding-right: 0;
     }
   }
 }
