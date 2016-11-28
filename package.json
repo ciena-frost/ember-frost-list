@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-list",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
@@ -80,5 +80,8 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "ember-frost-icon-pack": {
+    "name": "frost-list"
   }
 }

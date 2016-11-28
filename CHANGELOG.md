@@ -1,3 +1,13 @@
+# 3.2.0
+* Add icons
+
+
+
+# 3.1.1
+** Updated * pass in infinite property for data-driven pattern
+
+
+
 # 3.1.0
 * Added a `infinite=false` option along with `pagination` controls
 
