@@ -2,12 +2,13 @@
   {{frost-list-core
     hook=hook
     items=config.items
+    infinite=infinite
     onSelect=config.selection.onSelect
     item=(component config.component
     )
     expansion=(component 'frost-list-expansion'
-      onCollapseAll=config.expansion.onCollapseAll
-      onExpandAll=config.expansion.onExpandAll
+      onCollapseAll=config.expansion.onCollapseAll
+      onExpandAll=config.expansion.onExpandAll
     )
     sorting=(component 'frost-sort'
       sortOrder=config.sorting.activeSorting
@@ -22,16 +23,20 @@
   }}
 {{else}}
   {{frost-list-core
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    defaultHeight=defaultHeight
     hook=hook
     items=items
-    onSelect=onSelect
+    infinite=infinite
     item=item
     expansion=expansion
+    loadPrevious=loadPrevious
+    loadNext=loadNext
+    pagination=pagination
     sorting=sorting
     alwaysUseDefaultHeight=alwaysUseDefaultHeight
     scrollPosition=scrollPosition
     defaultHeight=defaultHeight
-    loadPrevious=loadPrevious
-    loadNext=loadNext
+    onSelect=onSelect
   }}
 {{/if}}

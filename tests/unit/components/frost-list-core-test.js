@@ -61,18 +61,16 @@ describeComponent(
       })
     })
 
-    describe('dependent keys', function () {
-      let _recordsDependentKeys, _hasHeaderDependentKeys
-      beforeEach(function () {
-        _recordsDependentKeys = [
-          'items.[]'
-        ]
+    it('sets dependent keys correctly', function () {
+      const _recordsDependentKeys = [
+        'items.[]'
+      ]
 
-        _hasHeaderDependentKeys = [
-          'sorting',
-          'expansion'
-        ]
-      })
+      const _hasHeaderDependentKeys = [
+        'expansion',
+        'pagination',
+        'sorting'
+      ]
 
       it('sets correct dependent keys for _records computed property', function () {
         expect(
