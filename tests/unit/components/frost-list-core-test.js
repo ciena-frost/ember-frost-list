@@ -35,28 +35,24 @@ describeComponent(
       it('sets alwaysUseDefaultHeight to false', function () {
         expect(
           component.get('alwaysUseDefaultHeight'),
-          'alwaysUseDefaultHeight: false'
         ).to.eql(false)
       })
 
       it('sets idForFirstItem to null', function () {
         expect(
           component.get('idForFirstItem'),
-          'idForFirstItem: null'
         ).to.eql(null)
       })
 
       it('sets key to @identity', function () {
         expect(
           component.get('key'),
-          'key: @identity'
         ).to.eql('@identity')
       })
 
       it('sets scrollPosition to 0', function () {
         expect(
           component.get('scrollPosition'),
-          'scrollPosition: 0'
         ).to.eql(0)
       })
     })
@@ -75,13 +71,11 @@ describeComponent(
       it('sets correct dependent keys for _records computed property', function () {
         expect(
           component._records._dependentKeys,
-          'Dependent keys are correct for _records computed property'
         ).to.eql(_recordsDependentKeys)
       })
       it('sets correct dependent keys for _hasHeader computed property', function () {
         expect(
           component._hasHeader._dependentKeys,
-          'Dependent keys are correct for _hasHeader computed property'
         ).to.eql(_hasHeaderDependentKeys)
       })
     })
@@ -89,7 +83,6 @@ describeComponent(
     it('has the expected Mixins', function () {
       expect(
         PropTypeMixin.detect(component),
-        'PropTypeMixin Mixin is present'
       ).to.eql(true)
     })
 
@@ -99,7 +92,6 @@ describeComponent(
 
         expect(
           component.get('_records'),
-          'item arrays are identical'
         ).to.eql(Ember.A([1, 2, 3, 4]))
       })
 
@@ -108,7 +100,6 @@ describeComponent(
 
         expect(
           component.get('_records'),
-          '_records is set to an empty array'
         ).to.eql([])
       })
     })
@@ -125,7 +116,6 @@ describeComponent(
 
         expect(
           component.get('_hasHeader'),
-          '_hasHeader: "true"'
         ).to.eql(true)
       })
 
@@ -136,7 +126,6 @@ describeComponent(
 
         expect(
           component.get('_hasHeader'),
-          '_hasHeader: "true"'
         ).to.eql(true)
       })
 
@@ -147,14 +136,12 @@ describeComponent(
 
         expect(
           component.get('_hasHeader'),
-          '_hasHeader: "true"'
         ).to.eql(true)
       })
 
       it('is set to "false" when "sorting" and "expansion" are NOT set', function () {
         expect(
           component.get('_hasHeader'),
-          '_hasHeader: "false"'
         ).to.eql(false)
       })
     })
@@ -168,7 +155,6 @@ describeComponent(
 
         expect(
           component.checkExpansionValidity(expansion),
-          'isExpansionValid: "true"'
         ).to.eql(true)
       })
 
@@ -179,7 +165,6 @@ describeComponent(
 
         expect(
           component.checkExpansionValidity(expansion),
-          'isExpansionValid: false'
         ).to.eql(false)
       })
 
@@ -190,7 +175,6 @@ describeComponent(
 
         expect(
           component.checkExpansionValidity(expansion),
-          'isExpansionValid: false'
         ).to.eql(false)
       })
     })
@@ -203,7 +187,6 @@ describeComponent(
 
         expect(
           component.checkSelectionValidity(selection),
-          'isSelectionValid: true'
         ).to.eql(true)
       })
 
@@ -212,7 +195,6 @@ describeComponent(
 
         expect(
           component.checkSelectionValidity(selection),
-          'isSelectionValid: true'
         ).to.eql(false)
       })
     })
@@ -223,7 +205,6 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: false'
         ).to.eql(false)
       })
 
@@ -234,7 +215,6 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: false'
         ).to.eql(false)
       })
 
@@ -246,7 +226,6 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: false'
         ).to.eql(false)
       })
 
@@ -259,7 +238,6 @@ describeComponent(
 
         expect(
           component.checkSortingValidity(sorting),
-          'isSortingValid: true'
         ).to.eql(true)
       })
     })
@@ -277,7 +255,6 @@ describeComponent(
       it('returns result array when all attributes are provided', function () {
         expect(
           component._findElementsInBetween(array, array[2], array[6]).length,
-          'result is an array'
         ).to.eql(5)
       })
 
@@ -286,7 +263,6 @@ describeComponent(
           let result = component._findElementsInBetween(array, undefined, array[6])
           expect(
             result.length,
-            'result array contains one element'
           ).to.eql(1)
         })
 
@@ -294,7 +270,6 @@ describeComponent(
           let result = component._findElementsInBetween(array, undefined, array[6])
           expect(
             result[0].id,
-            'result: {id: 6}'
           ).to.eql(6)
         })
       })
@@ -342,7 +317,6 @@ describeComponent(
 
         expect(
           component.get('persistedClickState'),
-          'persistedClickState is updated'
         ).to.eql(updatedPersistedClickState)
       })
 

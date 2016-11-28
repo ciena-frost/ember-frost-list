@@ -31,14 +31,12 @@ describeComponent(
       it('does NOT set "is-selected" class', function () {
         expect(
           this.$('.frost-list-item').hasClass('is-selected'),
-          'class "is-selected" not set'
         ).to.eql(false)
       })
 
       it('does NOT set "is-expanded" class', function () {
         expect(
           this.$('.frost-list-item').hasClass('is-expanded'),
-          'class "is-expanded" not set'
         ).to.eql(false)
       })
     })
@@ -54,7 +52,6 @@ describeComponent(
 
       expect(
         this.$('.frost-list-item').hasClass('is-selected'),
-        'is-selected class set'
       ).to.eql(true)
     })
 
@@ -69,7 +66,6 @@ describeComponent(
 
       expect(
         this.$('.frost-list-item').hasClass('is-expanded'),
-        'is-selected class set'
       ).to.eql(true)
     })
 
@@ -94,21 +90,18 @@ describeComponent(
       it('passes event obeject', function () {
         expect(
           externalActionSpy.args[0][0],
-          'event object is passed'
         ).to.have.property('type', 'click')
       })
 
       it('passes "record" property', function () {
         expect(
           externalActionSpy.args[0][1].record.isSelected,
-          '"record" property is passed'
         ).to.eql(true)
       })
 
       it('passes selectDesc object', function () {
         expect(
           externalActionSpy.args[0][1].selectDesc,
-          'selectDesc object is passed'
         ).to.eql(
           {
             'isSelected': false,

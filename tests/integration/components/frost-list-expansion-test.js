@@ -33,7 +33,6 @@ describeComponent(
 
       expect(
         this.$('.frost-list-expansion'),
-        'class frost-list-expansion is set'
       ).to.be.length(1)
     })
 
@@ -53,7 +52,6 @@ describeComponent(
 
       expect(
         collapseAllSpy.called,
-        'onCollapseAll is fired'
       ).to.eql(true)
     })
 
@@ -73,7 +71,6 @@ describeComponent(
 
       expect(
         expandAllSpy.called,
-        'onExpandAll is fired'
       ).to.eql(true)
     })
 
@@ -91,14 +88,12 @@ describeComponent(
       it('sets -collapse-all hook correctly', function () {
         expect(
           $hook('my-list-collapse-all').text().trim(),
-          '-collapse-all hook is set correctly'
         ).to.equal('Collapse all')
       })
 
       it('sets -expand-all hook correctly', function () {
         expect(
           $hook('my-list-expand-all').text().trim(),
-          '-expand-all hook is set correctly'
         ).to.equal('Expand all')
       })
     })

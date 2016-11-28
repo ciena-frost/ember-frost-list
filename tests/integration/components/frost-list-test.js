@@ -42,7 +42,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.frost-list'),
-            'class "frost-list" is set'
           ).to.have.length(1)
         })
       })
@@ -51,7 +50,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.vertical-item'),
-            'one vertical item is created'
           ).to.have.length(1)
         })
       })
@@ -60,7 +58,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.frost-list-item'),
-            'one list item is created'
           ).to.have.length(1)
         })
       })
@@ -105,7 +102,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.frost-list'),
-            'class "frost-list" is set'
           ).to.have.length(1)
         })
       })
@@ -114,7 +110,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.vertical-item'),
-            'one vertical item is created'
           ).to.have.length(1)
         })
       })
@@ -123,7 +118,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.frost-list-item'),
-            'one list item is created'
           ).to.have.length(1)
         })
       })
@@ -157,7 +151,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$($hook('my-list-item-0')).hasClass('is-selected'),
-            'pre selected item is selected'
           ).to.eql(true)
         })
       })
@@ -166,7 +159,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$($hook('my-list-item-1')).hasClass('is-selected'),
-            'item is not pre selected'
           ).to.eql(false)
         })
       })
@@ -175,7 +167,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$().find('vertical-item'),
-            'two vertical items are created'
           ).to.have.length(2)
         })
       })
@@ -184,7 +175,6 @@ describeComponent(
         return wait().then(() => {
           expect(
             this.$('.frost-list-item'),
-            'two list items are created'
           ).to.have.length(2)
         })
       })

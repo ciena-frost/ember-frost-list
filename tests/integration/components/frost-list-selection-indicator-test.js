@@ -16,7 +16,6 @@ describeComponent(
 
       expect(
         this.$('.frost-list-selection-indicator').hasClass('selected'),
-        'selected class not set'
       ).to.eql(false)
     })
 
@@ -29,7 +28,6 @@ describeComponent(
 
       expect(
         this.$('.frost-list-selection-indicator').hasClass('selected'),
-        'selected class is set'
       ).to.eql(true)
     })
   }

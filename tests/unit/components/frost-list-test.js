@@ -27,14 +27,12 @@ describeComponent(
     it('sets default properties value correctly', function () {
       expect(
         component.get('alwaysUseDefaultHeight'),
-        'alwaysUseDefaultHeight: false'
       ).to.eql(false)
     })
 
     it('has the expected Mixins', function () {
       expect(
         PropTypeMixin.detect(component),
-        'PropTypeMixin Mixin is present'
       ).to.eql(true)
     })
 
@@ -51,7 +49,6 @@ describeComponent(
 
         expect(
           EmberLoggerSpy.called,
-          'Logger.error is called'
         ).to.eql(true)
       })
 
@@ -67,7 +64,6 @@ describeComponent(
 
         expect(
           EmberLoggerSpy.called,
-          'Logger.error is called'
         ).to.eql(true)
       })
 
@@ -83,7 +79,6 @@ describeComponent(
 
         expect(
           EmberLoggerSpy.called,
-          'Logger.error is called'
         ).to.eql(true)
       })
 
@@ -96,7 +91,6 @@ describeComponent(
 
         expect(
           EmberLoggerSpy.called,
-          'Logger.error is not called'
         ).to.eql(false)
       })
     })

@@ -43,7 +43,6 @@ describeComponent(
       it('sets frost-pagination class', function () {
         expect(
           this.$('.frost-pagination'),
-          'class frost-pagination is set'
         ).to.have.length(1)
       })
 
