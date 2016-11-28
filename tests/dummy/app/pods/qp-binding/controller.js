@@ -23,7 +23,7 @@ export default Ember.Controller.extend(FrostListMixin, {
         if (config.isFrostGuideDirectory) {
           return 'user-list-item'
         } else {
-          return 'examples/user-list-item'
+          return 'qp-binding/user-list-item'
         }
       }
     }),

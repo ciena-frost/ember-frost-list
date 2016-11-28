@@ -187,21 +187,23 @@
     border-bottom: 1px solid $frost-color-grey-5;
 
     &-column {
-
     }
   }
 
   &-title {
     line-height: 30px;
     font-weight: 500;
-    font-size: $frost-font-s
+    font-size: $frost-font-s;
   }
 
   &-desc {
     line-height: 30px;
-    font-size: $frost-font-xs
+    font-size: $frost-font-xs;
   }
+}
 
+.frost-flex-row-item {
+  min-width: 0;
 }
 
 
