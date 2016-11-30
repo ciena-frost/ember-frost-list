@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import { beforeEach, it } from 'mocha'
+import { beforeEach, describe, it } from 'mocha'
 
 describeComponent(
   'frost-pagination',
@@ -20,59 +20,72 @@ describeComponent(
       expect(component.classNames).to.include('frost-pagination')
     })
 
-    it('sets dependent keys correctly', function () {
-      const _endDependentKeys = [
-        'itemsPerPage',
-        'page',
-        'total'
-      ]
+    describe('dependent keys', function () {
+      let _endDependentKeys,
+        _isLeftDisabledDependentKeys,
+        _isRightDisabledDependentKeys,
+        _offsetDependentKeys,
+        _paginationTextDependentKeys
 
-      const _isLeftDisabledDependentKeys = [
-        'page'
-      ]
+      beforeEach(function () {
+        _endDependentKeys = [
+          'itemsPerPage',
+          'page',
+          'total'
+        ]
 
-      const _isRightDisabledDependentKeys = [
-        'itemsPerPage',
-        'page',
-        'total'
-      ]
+        _isLeftDisabledDependentKeys = [
+          'page'
+        ]
 
-      const _offsetDependentKeys = [
-        'itemsPerPage',
-        'page',
-        'total'
-      ]
+        _isRightDisabledDependentKeys = [
+          'itemsPerPage',
+          'page',
+          'total'
+        ]
 
-      const _paginationTextDependentKeys = [
-        '_offset',
-        '_end',
-        'total'
-      ]
+        _offsetDependentKeys = [
+          'itemsPerPage',
+          'page',
+          'total'
+        ]
 
-      expect(
-        component._end._dependentKeys,
-        'Dependent keys are correct for _end computed property'
-      ).to.eql(_endDependentKeys)
+        _paginationTextDependentKeys = [
+          '_offset',
+          '_end',
+          'total'
+        ]
+      })
 
-      expect(
-        component._isLeftDisabled._dependentKeys,
-        'Dependent keys are correct for _isLeftDisabled computed property'
-      ).to.eql(_isLeftDisabledDependentKeys)
+      it('sets correct dependent keys for _end computed property', function () {
+        expect(
+          component._end._dependentKeys,
+        ).to.eql(_endDependentKeys)
+      })
 
-      expect(
-        component._isRightDisabled._dependentKeys,
-        'Dependent keys are correct for _isRightDisabled computed property'
-      ).to.eql(_isRightDisabledDependentKeys)
+      it('sets correct dependent keys for _isLeftDisabled computed property', function () {
+        expect(
+          component._isLeftDisabled._dependentKeys,
+        ).to.eql(_isLeftDisabledDependentKeys)
+      })
 
-      expect(
-        component._offset._dependentKeys,
-        'Dependent keys are correct for _offset computed property'
-      ).to.eql(_offsetDependentKeys)
+      it('sets correct dependent keys for _isRightDisabled computed property', function () {
+        expect(
+          component._isRightDisabled._dependentKeys,
+        ).to.eql(_isRightDisabledDependentKeys)
+      })
 
-      expect(
-        component._paginationText._dependentKeys,
-        'Dependent keys are correct for _paginationText computed property'
-      ).to.eql(_paginationTextDependentKeys)
+      it('sets correct dependent keys for _offset computed property', function () {
+        expect(
+          component._offset._dependentKeys,
+        ).to.eql(_offsetDependentKeys)
+      })
+
+      it('sets correct dependent keys for _paginationText computed property', function () {
+        expect(
+          component._paginationText._dependentKeys,
+        ).to.eql(_paginationTextDependentKeys)
+      })
     })
 
     it('has the expected Mixins', function () {
