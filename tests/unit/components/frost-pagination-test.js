@@ -98,7 +98,7 @@ describeComponent(
     })
 
     describe('_end computed property', function () {
-      it('is set to pageMax when it is NOT at the last page', function () {
+      it('is set to pageMax NOT at the last page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 5)
@@ -112,7 +112,7 @@ describeComponent(
         ).to.eql(expectedPageMax)
       })
 
-      it('is set to total when it is at the last page', function () {
+      it('is set to total at the last page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 9)
@@ -128,7 +128,7 @@ describeComponent(
     })
 
     describe('_isLeftDisabled computed property', function () {
-      it('is set to true when it is at the first page', function () {
+      it('is set to true at the first page', function () {
         run(() => component.set('page', 0))
 
         expect(
@@ -136,7 +136,7 @@ describeComponent(
         ).to.eql(true)
       })
 
-      it('is set to false when it is NOT at the first page', function () {
+      it('is set to false NOT at the first page', function () {
         run(() => component.set('page', 5))
 
         expect(
