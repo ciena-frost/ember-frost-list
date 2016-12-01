@@ -59,7 +59,7 @@ export default Component.extend(PropTypeMixin, {
 
   // == Computed Properties ===================================================
 
-   @readOnly
+  @readOnly
   @computed('itemsPerPage', 'page', 'total')
   _end: function (itemsPerPage, page, total) {
     const pageMax = (page + 1) * itemsPerPage
