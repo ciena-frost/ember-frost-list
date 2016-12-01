@@ -1,3 +1,7 @@
+# 3.2.2
+- **Fixed** issue when get(this, listConfig.items) return nested path.
+
+
 # 3.2.1
 - **Updated** list layout strategy to use flexbox.
 
