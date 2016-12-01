@@ -1,3 +1,7 @@
+# 3.2.1
+- **Updated** list layout strategy to use flexbox.
+
+
 # 3.2.0
 * Add icons
 
