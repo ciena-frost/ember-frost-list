@@ -35,22 +35,19 @@ describe('Unit: FrostListMixin', function () {
   describe('expected Mixins', function () {
     it('has FrostListSelectionMixin Mixin', function () {
       expect(
-        FrostListSelectionMixin.detect(subject),
-        'FrostListSelectionMixin Mixin is present'
+        FrostListSelectionMixin.detect(subject)
       ).to.eql(true)
     })
 
     it('has FrostListExpansionMixin Mixin', function () {
       expect(
-        FrostListExpansionMixin.detect(subject),
-        'FrostListExpansionMixin Mixin is present'
+        FrostListExpansionMixin.detect(subject)
       ).to.eql(true)
     })
 
     it('has FrostListSortingMixin Mixin', function () {
       expect(
-        FrostListSortingMixin.detect(subject),
-        'FrostListSortingMixin Mixin is present'
+        FrostListSortingMixin.detect(subject)
       ).to.eql(true)
     })
   })
@@ -63,8 +60,7 @@ describe('Unit: FrostListMixin', function () {
     ]
 
     expect(
-      subject.listMixinConfig._dependentKeys,
-      'Dependent keys are correct for listMixinConfig()'
+      subject.listMixinConfig._dependentKeys
     ).to.eql(listMixinConfigDependentKeys)
   })
 
@@ -111,22 +107,19 @@ describe('Unit: FrostListMixin', function () {
 
     it('has "items" property', function () {
       expect(
-        listMixinConfig,
-        '"items" property exists'
+        listMixinConfig
       ).to.have.property('items')
     })
 
     it('has component" property', function () {
       expect(
-        listMixinConfig,
-        '"component" property exists'
+        listMixinConfig
       ).to.have.property('component', 'my-list-item')
     })
 
     it('has "expansion" property with correct structure', function () {
       expect(
-        listMixinConfig,
-        '"expansion" property exists and has correct structure'
+        listMixinConfig
       ).to.have.property('expansion')
         .that.deep.equals({
           onCollapseAll: '_collapseItems',
@@ -136,8 +129,7 @@ describe('Unit: FrostListMixin', function () {
 
     it('has "selection" propery with correct structure', function () {
       expect(
-        listMixinConfig,
-        '"selection" propery exists and has correct structure'
+        listMixinConfig
         ).to.have.property('selection')
           .that.deep.equals({
             onSelect: '_selectItem'

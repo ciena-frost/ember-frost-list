@@ -33,13 +33,13 @@ describeComponent(
       })
       it('sets correct dependent keys for isSelected computed property', function () {
         expect(
-          component.isSelected._dependentKeys,
+          component.isSelected._dependentKeys
         ).to.eql(isSelectedDependentKeys)
       })
 
       it('sets correct dependent keys for isExpanded computed property', function () {
         expect(
-          component.isExpanded._dependentKeys,
+          component.isExpanded._dependentKeys
         ).to.eql(isExpandedDependentKeys)
       })
     })
@@ -48,7 +48,7 @@ describeComponent(
       run(() => component.set('model', { isExpanded: true }))
 
       expect(
-        component.get('isExpanded'),
+        component.get('isExpanded')
       ).to.eql(true)
     })
 
@@ -56,7 +56,7 @@ describeComponent(
       run(() => component.set('model', { isSelected: true }))
 
       expect(
-        component.get('isSelected'),
+        component.get('isSelected')
       ).to.eql(true)
     })
   }

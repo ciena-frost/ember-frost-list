@@ -40,15 +40,13 @@ describe('Unit: FrostListExpansionMixin', function () {
 
   it('creates "expandedItems" as an empty Ember.Object', function () {
     expect(
-      subject.get('expandedItems'),
-      'expandedItems: Ember.Object.create()'
+      subject.get('expandedItems')
     ).to.eql(Object.create())
   })
 
   it('has the expect Mixins', function () {
     expect(
-      FrostListCoreMixin.detect(subject),
-      'FrostListCoreMixin Mixin is present'
+      FrostListCoreMixin.detect(subject)
     ).to.eql(true)
   })
 
@@ -60,8 +58,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       subject.send('collapseItems')
 
       expect(
-        subject.get('expandedItems.1'),
-        'expandedItems is updated'
+        subject.get('expandedItems.1')
       ).to.eql(undefined)
     })
 
@@ -71,8 +68,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       subject.send('collapseItems')
 
       expect(
-        collapseItemsSpy.calledWith('expandedItems'),
-        'notifyPropertyChange function is called with expandedItems'
+        collapseItemsSpy.calledWith('expandedItems')
       ).to.eql(true)
     })
   })
@@ -83,8 +79,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       subject.send('expandItems')
 
       expect(
-        subject.get('expandedItems.1'),
-        'expandedItems is updated'
+        subject.get('expandedItems.1')
       ).to.eql(true)
     })
 
@@ -94,8 +89,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       subject.send('expandItems')
 
       expect(
-        expandItemsSpy.calledWith('expandedItems'),
-        'notifyPropertyChange function is called with expandedItems'
+        expandItemsSpy.calledWith('expandedItems')
       ).to.eql(true)
     })
   })

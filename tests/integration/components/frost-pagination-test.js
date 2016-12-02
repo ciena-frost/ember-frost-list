@@ -42,7 +42,7 @@ describeComponent(
 
       it('sets frost-pagination class', function () {
         expect(
-          this.$('.frost-pagination'),
+          this.$('.frost-pagination')
         ).to.have.length(1)
       })
 
@@ -231,7 +231,7 @@ describeComponent(
 
       it('fires onChangeSpy', function () {
         expect(
-          onChangeSpy.called,
+          onChangeSpy.called
         ).to.eql(true)
       })
     })

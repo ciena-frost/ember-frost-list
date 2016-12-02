@@ -61,38 +61,38 @@ describeComponent(
 
       it('sets correct dependent keys for _end computed property', function () {
         expect(
-          component._end._dependentKeys,
+          component._end._dependentKeys
         ).to.eql(_endDependentKeys)
       })
 
       it('sets correct dependent keys for _isLeftDisabled computed property', function () {
         expect(
-          component._isLeftDisabled._dependentKeys,
+          component._isLeftDisabled._dependentKeys
         ).to.eql(_isLeftDisabledDependentKeys)
       })
 
       it('sets correct dependent keys for _isRightDisabled computed property', function () {
         expect(
-          component._isRightDisabled._dependentKeys,
+          component._isRightDisabled._dependentKeys
         ).to.eql(_isRightDisabledDependentKeys)
       })
 
       it('sets correct dependent keys for _offset computed property', function () {
         expect(
-          component._offset._dependentKeys,
+          component._offset._dependentKeys
         ).to.eql(_offsetDependentKeys)
       })
 
       it('sets correct dependent keys for _paginationText computed property', function () {
         expect(
-          component._paginationText._dependentKeys,
+          component._paginationText._dependentKeys
         ).to.eql(_paginationTextDependentKeys)
       })
     })
 
     it('has the expected Mixins', function () {
       expect(
-        PropTypeMixin.detect(component),
+        PropTypeMixin.detect(component)
       ).to.eql(true)
     })
 
@@ -106,7 +106,7 @@ describeComponent(
 
         // on page 5 would be item 51 to 60 so _end is 60
         expect(
-          component.get('_end'),
+          component.get('_end')
         ).to.eql(60)
       })
 
@@ -120,7 +120,7 @@ describeComponent(
         const total = component.get('total')
 
         expect(
-          component.get('_end'),
+          component.get('_end')
         ).to.eql(total)
       })
     })
@@ -130,7 +130,7 @@ describeComponent(
         run(() => component.set('page', 0))
 
         expect(
-          component.get('_isLeftDisabled'),
+          component.get('_isLeftDisabled')
         ).to.eql(true)
       })
 
@@ -138,7 +138,7 @@ describeComponent(
         run(() => component.set('page', 5))
 
         expect(
-          component.get('_isLeftDisabled'),
+          component.get('_isLeftDisabled')
         ).to.eql(false)
       })
     })
@@ -148,7 +148,7 @@ describeComponent(
         run(() => component.set('total', 0))
 
         expect(
-          component.get('_isRightDisabled'),
+          component.get('_isRightDisabled')
         ).to.eql(true)
       })
 
@@ -160,7 +160,7 @@ describeComponent(
         })
 
         expect(
-          component.get('_isRightDisabled'),
+          component.get('_isRightDisabled')
         ).to.eql(true)
       })
 
@@ -172,7 +172,7 @@ describeComponent(
         })
 
         expect(
-          component.get('_isRightDisabled'),
+          component.get('_isRightDisabled')
         ).to.eql(false)
       })
     })
@@ -182,7 +182,7 @@ describeComponent(
         run(() => component.set('total', 0))
 
         expect(
-          component.get('_offset'),
+          component.get('_offset')
         ).to.eql(0)
       })
 
@@ -195,7 +195,7 @@ describeComponent(
 
         // on page 2 would be item 21 to 30 so _offset is 21
         expect(
-          component.get('_offset'),
+          component.get('_offset')
         ).to.eql(21)
       })
     })
@@ -205,7 +205,7 @@ describeComponent(
         run(() => component.set('total', 0))
 
         expect(
-          component.get('_paginationText'),
+          component.get('_paginationText')
         ).to.eql('0 results found')
       })
 
@@ -217,7 +217,7 @@ describeComponent(
         })
 
         expect(
-          component.get('_paginationText'),
+          component.get('_paginationText')
         ).to.eql('1 to 10 of 100')
       })
     })

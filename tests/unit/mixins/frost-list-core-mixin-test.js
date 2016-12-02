@@ -33,23 +33,20 @@ describe('Unit: FrostListCoreMixin', function () {
 
   it('sets up "_listItems" as a computed alias to listConfig.items', function () {
     expect(
-      subject.get('_listItems'),
-      '_listItems is setup'
+      subject.get('_listItems')
     ).to.eql(testItems)
   })
 
   describe('listItems computed property is correctly set', function () {
     it('sets listItems[0].id to 1', function () {
       expect(
-        subject.get('listItems')[0].id,
-        'listItems[0].id is set to 1'
+        subject.get('listItems')[0].id
       ).to.eql('1')
     })
 
     it('sets listItems[0].record to the item object', function () {
       expect(
-        subject.get('listItems')[0].record,
-        'listItems[0].record is set to the item object'
+        subject.get('listItems')[0].record
       ).to.eql({
         id: '1'
       })
@@ -66,15 +63,13 @@ describe('Unit: FrostListCoreMixin', function () {
       })
       it('sets default to false for "isExpanded"', function () {
         expect(
-          subject.get('statefulListItems')[0].isExpanded,
-          'statefulListItems.isExpanded defaults to false'
+          subject.get('statefulListItems')[0].isExpanded
         ).to.eql(false)
       })
 
       it('sets default to false for "isSelected"', function () {
         expect(
-          subject.get('statefulListItems')[0].isSelected,
-          'statefulListItems.isSelected defaults to false'
+          subject.get('statefulListItems')[0].isSelected
         ).to.eql(false)
       })
     })
@@ -86,8 +81,7 @@ describe('Unit: FrostListCoreMixin', function () {
       })
 
       expect(
-        subject.get('statefulListItems')[0].isSelected,
-        'statefulListItems.isSelected is set correctly when it has a value already'
+        subject.get('statefulListItems')[0].isSelected
       ).to.eql(true)
     })
 
@@ -98,8 +92,7 @@ describe('Unit: FrostListCoreMixin', function () {
       })
 
       expect(
-        subject.get('statefulListItems')[0].isExpanded,
-        'statefulListItems.isExpanded is set correctly when it has a value already'
+        subject.get('statefulListItems')[0].isExpanded
       ).to.eql(true)
     })
   })

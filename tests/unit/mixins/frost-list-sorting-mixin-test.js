@@ -43,8 +43,7 @@ describe('Unit: FrostListSortingMixin', function () {
 
   it('has the expect Mixins', function () {
     expect(
-      FrostListCoreMixin.detect(subject),
-      'FrostListCoreMixin Mixin is present'
+      FrostListCoreMixin.detect(subject)
     ).to.eql(true)
   })
 
@@ -105,19 +104,17 @@ describe('Unit: FrostListSortingMixin', function () {
       mixin.send('sortItems', sortProperties)
 
       expect(
-        mixin.get('listConfig.sorting.client').called,
-        'user defined sort is fired'
+        mixin.get('listConfig.sorting.client').called
       ).to.eql(true)
     })
 
-    it('throws assertion error', function () {
+    it('throws assertion error when custom sort method is not a function', function () {
       run(() => mixin.set('listConfig.sorting.client', 'test'))
 
       expect(
         () => {
           mixin.send('sortItems', sortProperties)
-        },
-        'assertion thrown when custom sort method is not a function'
+        }
       ).to.throw(/custom sort method to be function/)
     })
   })

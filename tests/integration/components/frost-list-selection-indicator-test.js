@@ -15,7 +15,7 @@ describeComponent(
       `)
 
       expect(
-        this.$('.frost-list-selection-indicator').hasClass('selected'),
+        this.$('.frost-list-selection-indicator').hasClass('selected')
       ).to.eql(false)
     })
 
@@ -27,7 +27,7 @@ describeComponent(
       `)
 
       expect(
-        this.$('.frost-list-selection-indicator').hasClass('selected'),
+        this.$('.frost-list-selection-indicator').hasClass('selected')
       ).to.eql(true)
     })
   }

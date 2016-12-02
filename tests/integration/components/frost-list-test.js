@@ -41,7 +41,7 @@ describeComponent(
       it('sets "frost-list" class', function () {
         return wait().then(() => {
           expect(
-            this.$('.frost-list'),
+            this.$('.frost-list')
           ).to.have.length(1)
         })
       })
@@ -49,7 +49,7 @@ describeComponent(
       it('has one vertical item created', function () {
         return wait().then(() => {
           expect(
-            this.$('.vertical-item'),
+            this.$('.vertical-item')
           ).to.have.length(1)
         })
       })
@@ -57,7 +57,7 @@ describeComponent(
       it('creates one list item', function () {
         return wait().then(() => {
           expect(
-            this.$('.frost-list-item'),
+            this.$('.frost-list-item')
           ).to.have.length(1)
         })
       })
@@ -101,7 +101,7 @@ describeComponent(
       it('sets "frost-list" class', function () {
         return wait().then(() => {
           expect(
-            this.$('.frost-list'),
+            this.$('.frost-list')
           ).to.have.length(1)
         })
       })
@@ -109,7 +109,7 @@ describeComponent(
       it('creates one vertical item', function () {
         return wait().then(() => {
           expect(
-            this.$('.vertical-item'),
+            this.$('.vertical-item')
           ).to.have.length(1)
         })
       })
@@ -117,7 +117,7 @@ describeComponent(
       it('creates one list item', function () {
         return wait().then(() => {
           expect(
-            this.$('.frost-list-item'),
+            this.$('.frost-list-item')
           ).to.have.length(1)
         })
       })
@@ -150,7 +150,7 @@ describeComponent(
       it('selects pre selected item', function () {
         return wait().then(() => {
           expect(
-            this.$($hook('my-list-item-0')).hasClass('is-selected'),
+            this.$($hook('my-list-item-0')).hasClass('is-selected')
           ).to.eql(true)
         })
       })
@@ -158,7 +158,7 @@ describeComponent(
       it('does NOT selecte pre selected item', function () {
         return wait().then(() => {
           expect(
-            this.$($hook('my-list-item-1')).hasClass('is-selected'),
+            this.$($hook('my-list-item-1')).hasClass('is-selected')
           ).to.eql(false)
         })
       })
@@ -166,7 +166,7 @@ describeComponent(
       it('creates two vertical items', function () {
         return wait().then(() => {
           expect(
-            this.$().find('vertical-item'),
+            this.$().find('vertical-item')
           ).to.have.length(2)
         })
       })
@@ -174,7 +174,7 @@ describeComponent(
       it('creates two list items', function () {
         return wait().then(() => {
           expect(
-            this.$('.frost-list-item'),
+            this.$('.frost-list-item')
           ).to.have.length(2)
         })
       })

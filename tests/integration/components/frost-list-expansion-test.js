@@ -32,7 +32,7 @@ describeComponent(
       `)
 
       expect(
-        this.$('.frost-list-expansion'),
+        this.$('.frost-list-expansion')
       ).to.be.length(1)
     })
 
@@ -51,7 +51,7 @@ describeComponent(
       this.$($hook('-collapse-all')).trigger('click')
 
       expect(
-        collapseAllSpy.called,
+        collapseAllSpy.called
       ).to.eql(true)
     })
 
@@ -70,7 +70,7 @@ describeComponent(
       this.$($hook('-expand-all')).trigger('click')
 
       expect(
-        expandAllSpy.called,
+        expandAllSpy.called
       ).to.eql(true)
     })
 
@@ -87,13 +87,13 @@ describeComponent(
 
       it('sets -collapse-all hook correctly', function () {
         expect(
-          $hook('my-list-collapse-all').text().trim(),
+          $hook('my-list-collapse-all').text().trim()
         ).to.equal('Collapse all')
       })
 
       it('sets -expand-all hook correctly', function () {
         expect(
-          $hook('my-list-expand-all').text().trim(),
+          $hook('my-list-expand-all').text().trim()
         ).to.equal('Expand all')
       })
     })
