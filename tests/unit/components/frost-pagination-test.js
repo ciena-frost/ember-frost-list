@@ -209,7 +209,7 @@ describeComponent(
         ).to.eql('0 results found')
       })
 
-      it('is set to "1 to 10 of 100" on the frist page', function () {
+      it('is set to "1 to 10 of 100" on the first page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 0)
