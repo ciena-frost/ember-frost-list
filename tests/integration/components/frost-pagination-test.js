@@ -107,7 +107,7 @@ describeComponent(
       })
     })
 
-    describe('at page "11 to 20"', function () {
+    describe('on page "11 to 20"', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}
@@ -157,7 +157,7 @@ describeComponent(
       })
     })
 
-    describe('at last page', function () {
+    describe('on last page', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}

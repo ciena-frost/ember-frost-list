@@ -97,21 +97,20 @@ describeComponent(
     })
 
     describe('_end computed property', function () {
-      it('is set to pageMax NOT at the last page', function () {
+      it('is set to pageMax when NOT on the last page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 5)
           component.set('total', 100)
         })
 
-        const expectedPageMax = (component.get('page') + 1) * component.get('itemsPerPage')
-
+        // on page 5 would be item 51 to 60 so _end is 60
         expect(
           component.get('_end'),
-        ).to.eql(expectedPageMax)
+        ).to.eql(60)
       })
 
-      it('is set to total at the last page', function () {
+      it('is set to total on the last page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 9)
@@ -127,7 +126,7 @@ describeComponent(
     })
 
     describe('_isLeftDisabled computed property', function () {
-      it('is set to true at the first page', function () {
+      it('is set to true on the first page', function () {
         run(() => component.set('page', 0))
 
         expect(
@@ -135,7 +134,7 @@ describeComponent(
         ).to.eql(true)
       })
 
-      it('is set to false NOT at the first page', function () {
+      it('is set to false when NOT on the first page', function () {
         run(() => component.set('page', 5))
 
         expect(
@@ -153,7 +152,7 @@ describeComponent(
         ).to.eql(true)
       })
 
-      it('is set to true at the last page', function () {
+      it('is set to true on the last page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 9)
@@ -165,7 +164,7 @@ describeComponent(
         ).to.eql(true)
       })
 
-      it('is set to false NOT at the last page', function () {
+      it('is set to false when NOT on the last page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 5)
@@ -187,20 +186,17 @@ describeComponent(
         ).to.eql(0)
       })
 
-      it('is set to correct off set of that page', function () {
+      it('is set to correct offset of that page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 2)
           component.set('total', 100)
         })
 
-        const page = component.get('page')
-        const itemsPerPage = component.get('itemsPerPage')
-        const expectedOffset = page * itemsPerPage + 1
-
+        // on page 2 would be item 21 to 30 so _offset is 21
         expect(
           component.get('_offset'),
-        ).to.eql(expectedOffset)
+        ).to.eql(21)
       })
     })
 
@@ -213,7 +209,7 @@ describeComponent(
         ).to.eql('0 results found')
       })
 
-      it('is set to "1 to 10 of 100" at frist page', function () {
+      it('is set to "1 to 10 of 100" on the frist page', function () {
         run(() => {
           component.set('itemsPerPage', 10)
           component.set('page', 0)
