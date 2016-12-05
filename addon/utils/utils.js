@@ -1,6 +1,6 @@
 import Ember from 'ember'
 
-export function updateSelectedItemsHash (selections, attrs) {
+export function updateSelectedItemDictionary (selections, attrs) {
   let _selections = selections
   if (attrs.selectDesc.isSelected) {
     if (attrs.selectDesc.isShiftSelect) {

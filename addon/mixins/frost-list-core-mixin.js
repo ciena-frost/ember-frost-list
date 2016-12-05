@@ -24,10 +24,10 @@ export default Mixin.create({
     })
   },
 
-  @computed('listItems.[]', 'selectedItems', 'expandedItems')
-  statefulListItems (listItems, selectedItems, expandedItems) {
+  @computed('listItems.[]', 'selectedItemDictionary', 'expandedItems')
+  statefulListItems (listItems, selectedItemDictionary, expandedItems) {
     return listItems.map((item) => {
-      item.set('isSelected', selectedItems.getWithDefault(item.id, false))
+      item.set('isSelected', selectedItemDictionary.getWithDefault(item.id, false))
       item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
       return item
     })

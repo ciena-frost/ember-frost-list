@@ -13,11 +13,11 @@ export default Ember.Route.extend({
   setupController (controller, model) {
     this._super(controller, model)
 
-    // For demo display only. Create new selectedItems object when entering route.
-    controller.set('selectedItems', Ember.Object.create())
+    // For demo display only. Create new selectedItemDictionary object when entering route.
+    controller.set('selectedItemDictionary', Ember.Object.create())
 
-    controller.selectedItems.set(model.objectAt(0).id, true)
-    controller.selectedItems.set(model.objectAt(2).id, true)
-    controller.selectedItems.set(model.objectAt(4).id, true)
+    controller.selectedItemDictionary.set(model.objectAt(0).id, true)
+    controller.selectedItemDictionary.set(model.objectAt(2).id, true)
+    controller.selectedItemDictionary.set(model.objectAt(4).id, true)
   }
 })
