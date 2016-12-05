@@ -4,7 +4,8 @@ const {
   get,
   on,
   defineProperty,
-  computed: {alias}
+  computed: {alias},
+  isNone
 } = Ember
 import computed from 'ember-computed-decorators'
 
@@ -15,6 +16,9 @@ export default Mixin.create({
 
   @computed('_listItems.[]')
   listItems (listItems) {
+    if (isNone(listItems)) {
+      listItems = []
+    }
     let wrapper = []
     return listItems.map((item) => {
       return wrapper.pushObject(Ember.Object.create({
