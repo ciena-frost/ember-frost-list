@@ -96,10 +96,14 @@ describe('Unit: FrostListMixin', function () {
       })
 
       run(() => {
-        mixin.set('model', list)
-        mixin.set('listConfig.component', 'my-list-item')
-        mixin.set('activeSorting', [])
-        mixin.set('properties', [])
+        mixin.setProperties(
+          {
+            'model': list,
+            'listConfig.component': 'my-list-item',
+            'activeSorting': [],
+            'properties': []
+          }
+        )
       })
 
       listMixinConfig = mixin.get('listMixinConfig')
