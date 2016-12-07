@@ -98,11 +98,11 @@ describeComponent(
 
     describe('_end computed property', function () {
       it('is set to pageMax when NOT on the last page', function () {
-        run(() => {
-          component.set('itemsPerPage', 10)
-          component.set('page', 5)
-          component.set('total', 100)
-        })
+        const itemsPerPage = 10
+        const page = 5
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
 
         // on page 5 would be item 51 to 60 so _end is 60
         expect(
@@ -111,17 +111,17 @@ describeComponent(
       })
 
       it('is set to total on the last page', function () {
-        run(() => {
-          component.set('itemsPerPage', 10)
-          component.set('page', 9)
-          component.set('total', 100)
-        })
+        const itemsPerPage = 10
+        const page = 9
+        const total = 100
 
-        const total = component.get('total')
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        const expectedResult = component.get('total')
 
         expect(
           component.get('_end')
-        ).to.eql(total)
+        ).to.eql(expectedResult)
       })
     })
 
@@ -153,11 +153,11 @@ describeComponent(
       })
 
       it('is set to true on the last page', function () {
-        run(() => {
-          component.set('itemsPerPage', 10)
-          component.set('page', 9)
-          component.set('total', 100)
-        })
+        const itemsPerPage = 10
+        const page = 9
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
 
         expect(
           component.get('_isRightDisabled')
@@ -165,11 +165,11 @@ describeComponent(
       })
 
       it('is set to false when NOT on the last page', function () {
-        run(() => {
-          component.set('itemsPerPage', 10)
-          component.set('page', 5)
-          component.set('total', 100)
-        })
+        const itemsPerPage = 10
+        const page = 5
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
 
         expect(
           component.get('_isRightDisabled')
@@ -187,11 +187,11 @@ describeComponent(
       })
 
       it('is set to correct offset of that page', function () {
-        run(() => {
-          component.set('itemsPerPage', 10)
-          component.set('page', 2)
-          component.set('total', 100)
-        })
+        const itemsPerPage = 10
+        const page = 2
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
 
         // on page 2 would be item 21 to 30 so _offset is 21
         expect(
@@ -210,11 +210,11 @@ describeComponent(
       })
 
       it('is set to "1 to 10 of 100" on the first page', function () {
-        run(() => {
-          component.set('itemsPerPage', 10)
-          component.set('page', 0)
-          component.set('total', 100)
-        })
+        const itemsPerPage = 10
+        const page = 0
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
 
         expect(
           component.get('_paginationText')

@@ -57,8 +57,12 @@ describe('Unit: FrostListCoreMixin', function () {
     describe('"isSelected" and "isExpanded" have a default value of false', function () {
       beforeEach(function () {
         run(() => {
-          subject.set('selectedItems', Object.create())
-          subject.set('expandedItems', Object.create())
+          subject.setProperties(
+            {
+              'selectedItems': Object.create(),
+              'expandedItems': Object.create()
+            }
+          )
         })
       })
       it('sets default to false for "isExpanded"', function () {
@@ -76,8 +80,12 @@ describe('Unit: FrostListCoreMixin', function () {
 
     it('sets "isSelected" correctly when it already has a value', function () {
       run(() => {
-        subject.set('selectedItems', Object.create({ 1: true }))
-        subject.set('expandedItems', Object.create())
+        subject.setProperties(
+          {
+            'selectedItems': Object.create({ 1: true }),
+            'expandedItems': Object.create()
+          }
+        )
       })
 
       expect(
@@ -87,8 +95,12 @@ describe('Unit: FrostListCoreMixin', function () {
 
     it('sets "isExpanded" correctly when it already has a value', function () {
       run(() => {
-        subject.set('selectedItems', Object.create())
-        subject.set('expandedItems', Object.create({ 1: true }))
+        subject.setProperties(
+          {
+            'selectedItems': Object.create(),
+            'expandedItems': Object.create({ 1: true })
+          }
+        )
       })
 
       expect(

@@ -88,7 +88,7 @@ describeComponent(
 
     describe('"_records" computed property', function () {
       it('is set correctly when items is not empty', function () {
-        run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
+        run(() => component.set('items', Ember.A([1, 2, 3, 4])))
 
         expect(
           component.get('_records')
@@ -96,7 +96,7 @@ describeComponent(
       })
 
       it('is set correctly when items is empty', function () {
-        run(() => { component.set('items', undefined) })
+        run(() => component.set('items', undefined))
 
         expect(
           component.get('_records')
@@ -109,10 +109,7 @@ describeComponent(
         const sorting = {sortProperty: 'sortProperty'}
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => {
-          component.set('sorting', sorting)
-          component.set('expansion', expansion)
-        })
+        run(() => component.setProperties({sorting, expansion}))
 
         expect(
           component.get('_hasHeader')
@@ -359,10 +356,15 @@ describeComponent(
             isShiftSelect: true
           }
         }
+
         run(() => {
-          component.set('onSelect', sandbox.spy())
-          component.set('_records', testItems)
-          component.set('persistedClickState', mockPersistedClickState)
+          component.setProperties(
+            {
+              'onSelect': sandbox.spy(),
+              '_records': testItems,
+              'persistedClickState': mockPersistedClickState
+            }
+          )
         })
 
         component.send('selectItem', mockEvent, mockAttrs)
@@ -401,8 +403,12 @@ describeComponent(
           }
         }
         run(() => {
-          component.set('onSelect', sandbox.spy())
-          component.set('_records', testItems)
+          component.setProperties(
+            {
+              'onSelect': sandbox.spy(),
+              '_records': testItems
+            }
+          )
         })
 
         component.send('selectItem', mockEvent, mockAttrs)

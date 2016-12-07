@@ -52,9 +52,7 @@ describe('Unit: FrostListExpansionMixin', function () {
 
   describe('collapseItems()', function () {
     it('removes the expended id', function () {
-      subject.set('expandedItems', Object.create({
-        1: true
-      }))
+      subject.set('expandedItems', Object.create({ 1: true }))
       subject.send('collapseItems')
 
       expect(

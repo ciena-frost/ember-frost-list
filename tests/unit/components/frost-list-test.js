@@ -41,8 +41,12 @@ describeComponent(
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
-          component.set('config', {})
-          component.set('item', {})
+          component.setProperties(
+            {
+              'config': {},
+              'item': {}
+            }
+          )
         })
 
         component.initContext()
@@ -56,8 +60,12 @@ describeComponent(
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
-          component.set('config', {})
-          component.set('expansion', {})
+          component.setProperties(
+            {
+              'config': {},
+              'expansion': {}
+            }
+          )
         })
 
         component.initContext()
@@ -71,8 +79,12 @@ describeComponent(
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
-          component.set('config', {})
-          component.set('sorting', {})
+          component.setProperties(
+            {
+              'config': {},
+              'sorting': {}
+            }
+          )
         })
 
         component.initContext()
