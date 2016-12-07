@@ -1,8 +1,5 @@
-import {expect} from 'chai'
-import {
-  describeComponent,
-  it
-} from 'ember-mocha'
+import { expect } from 'chai'
+import { describeComponent, it } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
 
 describeComponent(
@@ -18,8 +15,7 @@ describeComponent(
       `)
 
       expect(
-        this.$('.frost-list-selection-indicator').hasClass('selected'),
-        'selected class not set'
+        this.$('.frost-list-selection-indicator').hasClass('selected')
       ).to.eql(false)
     })
 
@@ -31,8 +27,7 @@ describeComponent(
       `)
 
       expect(
-        this.$('.frost-list-selection-indicator').hasClass('selected'),
-        'selected class is set'
+        this.$('.frost-list-selection-indicator').hasClass('selected')
       ).to.eql(true)
     })
   }

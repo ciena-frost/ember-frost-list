@@ -1,19 +1,10 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {
-  Controller,
-  Object,
-  run
-} = Ember
+const { Controller, Object, run } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import * as utils from 'ember-frost-list/utils/utils'
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 
 describe('Unit: FrostListSelectionMixin', function () {
@@ -53,15 +44,13 @@ describe('Unit: FrostListSelectionMixin', function () {
 
   it('sets up "selectedItems" with an empty object', function () {
     expect(
-      subject.get('selectedItems'),
-      'selectedItems: Ember.Object.create()'
+      subject.get('selectedItems')
     ).to.eql(Object.create())
   })
 
   it('has the expect Mixins', function () {
     expect(
-      FrostListCoreMixin.detect(subject),
-      'FrostListCoreMixin Mixin is present'
+      FrostListCoreMixin.detect(subject)
     ).to.eql(true)
   })
 
@@ -72,8 +61,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       subject.send('selectItem', {})
 
       expect(
-        subject.get('selectedItems'),
-        'selectedItems is updated'
+        subject.get('selectedItems')
       ).to.eql({ 1: true })
     })
 
@@ -86,8 +74,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       subject.send('selectItem', {})
 
       expect(
-        updateSelectedItemsHashSpy.calledWith({ 1: true }, {}),
-        'updateSelectedItemsHash() is called with correct parameter'
+        updateSelectedItemsHashSpy.calledWith({ 1: true }, {})
       ).to.eql(true)
     })
 
@@ -98,8 +85,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       subject.send('selectItem', {})
 
       expect(
-        notifyPropertyChangeSpy.calledWith('selectedItems'),
-        'notifyPropertyChange() is called with correct parameter'
+        notifyPropertyChangeSpy.calledWith('selectedItems')
       ).to.eql(true)
     })
   })

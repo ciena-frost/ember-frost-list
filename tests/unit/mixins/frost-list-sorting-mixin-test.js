@@ -1,16 +1,7 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {
-  A,
-  Controller,
-  run
-} = Ember
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+const { A, Controller, run } = Ember
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
@@ -52,38 +43,41 @@ describe('Unit: FrostListSortingMixin', function () {
 
   it('has the expect Mixins', function () {
     expect(
-      FrostListCoreMixin.detect(subject),
-      'FrostListCoreMixin Mixin is present'
+      FrostListCoreMixin.detect(subject)
     ).to.eql(true)
   })
 
   describe('sortItems() action', function () {
-    const testItems = A([
-      {
-        id: '1',
-        isSelected: false
-      },
-      {
-        id: '2',
-        isSelected: false
-      }
-    ])
+    let mixin, sortProperties
 
-    const sortProperties = A([
-      {
-        direction: ':desc',
-        value: 'id'
-      }
-    ])
+    beforeEach(function () {
+      const testItems = A([
+        {
+          id: '1',
+          isSelected: false
+        },
+        {
+          id: '2',
+          isSelected: false
+        }
+      ])
 
-    const mixinTestObject = Controller.extend(FrostListSortingMixin)
-    const mixin = mixinTestObject.create({
-      listConfig: {
-        items: 'model',
-        sorting: {}
-      }
+      sortProperties = A([
+        {
+          direction: ':desc',
+          value: 'id'
+        }
+      ])
+
+      const mixinTestObject = Controller.extend(FrostListSortingMixin)
+      mixin = mixinTestObject.create({
+        listConfig: {
+          items: 'model',
+          sorting: {}
+        }
+      })
+      run(() => mixin.set('model', testItems))
     })
-    run(() => mixin.set('model', testItems))
 
     it('calls default sort', function () {
       const resultItems = [
@@ -110,19 +104,17 @@ describe('Unit: FrostListSortingMixin', function () {
       mixin.send('sortItems', sortProperties)
 
       expect(
-        mixin.get('listConfig.sorting.client').called,
-        'user defined sort is fired'
+        mixin.get('listConfig.sorting.client').called
       ).to.eql(true)
     })
 
-    it('throws assertion error', function () {
+    it('throws assertion error when custom sort method is not a function', function () {
       run(() => mixin.set('listConfig.sorting.client', 'test'))
 
       expect(
         () => {
           mixin.send('sortItems', sortProperties)
-        },
-        'assertion thrown when custom sort method is not a function'
+        }
       ).to.throw(/custom sort method to be function/)
     })
   })

@@ -1,23 +1,13 @@
 import Ember from 'ember'
-const {A} = Ember
-import {expect}
-from 'chai'
-import {
-  make,
-  manualSetup
-} from 'ember-data-factory-guy'
-import {
-  describeComponent,
-  it
-}
+const { A } = Ember
+import { expect } from 'chai'
+import { make, manualSetup } from 'ember-data-factory-guy'
+import { describeComponent, it }
 from 'ember-mocha'
 import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
-import {beforeEach} from 'mocha'
-import {
-  $hook,
-  initialize as initializeHook
-} from 'ember-hook'
+import { beforeEach, describe } from 'mocha'
+import { $hook, initialize as initializeHook } from 'ember-hook'
 
 describeComponent(
   'frost-list',
@@ -33,130 +23,160 @@ describeComponent(
       initializeHook()
     })
 
-    it('renders frost-list-item', function () {
-      let list = A()
-      list.addObject(make('list-item'))
+    describe('renders frost-list-item', function () {
+      beforeEach(function () {
+        let list = A()
+        list.addObject(make('list-item'))
 
-      this.set('items', list)
+        this.set('items', list)
 
-      this.render(hbs`
-        {{frost-list
-          item=(component 'frost-list-item')
-          items=items
-        }}
-      `)
+        this.render(hbs`
+          {{frost-list
+            item=(component 'frost-list-item')
+            items=items
+          }}
+        `)
+      })
 
-      return wait().then(() => {
-        expect(
-          this.$('.frost-list'),
-          'class "frost-list" is set'
-        ).to.have.length(1)
+      it('sets "frost-list" class', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.frost-list')
+          ).to.have.length(1)
+        })
+      })
 
-        expect(
-          this.$('.vertical-item'),
-          'one vertical item is created'
-        ).to.have.length(1)
+      it('has one vertical item created', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.vertical-item')
+          ).to.have.length(1)
+        })
+      })
 
-        expect(
-          this.$('.frost-list-item'),
-          'one list item is created'
-        ).to.have.length(1)
+      it('creates one list item', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.frost-list-item')
+          ).to.have.length(1)
+        })
       })
     })
 
-    it('renders frost-list-item from "config" property', function () {
-      let list = A()
-      list.addObject(make('list-item'))
+    describe('renders frost-list-item from "config" property', function () {
+      beforeEach(function () {
+        let list = A()
+        list.addObject(make('list-item'))
 
-      const testConfig = {
-        items: list,
-        component: 'frost-list-item',
-        expansion: {
-          onCollapseAll: 'collapseItems',
-          onExpandAll: 'expandItems'
-        },
-        selection: {
-          onSelect: 'selectItem'
-        },
-        sorting: {
-          activeSorting: [],
-          properties: [],
-          onSort: 'sortItems'
-        },
-        infiniteScroll: {
-          loadNext: 'loadNext',
-          loadPrevious: 'loadPrevious'
+        const testConfig = {
+          items: list,
+          component: 'frost-list-item',
+          expansion: {
+            onCollapseAll: 'collapseItems',
+            onExpandAll: 'expandItems'
+          },
+          selection: {
+            onSelect: 'selectItem'
+          },
+          sorting: {
+            activeSorting: [],
+            properties: [],
+            onSort: 'sortItems'
+          },
+          infiniteScroll: {
+            loadNext: 'loadNext',
+            loadPrevious: 'loadPrevious'
+          }
         }
-      }
 
-      this.set('testConfig', testConfig)
+        this.set('testConfig', testConfig)
 
-      this.render(hbs`
-        {{frost-list
-          config=testConfig
-        }}
-      `)
+        this.render(hbs`
+          {{frost-list
+            config=testConfig
+          }}
+        `)
+      })
 
-      return wait().then(() => {
-        expect(
-          this.$('.frost-list'),
-          'class "frost-list" is set'
-        ).to.have.length(1)
+      it('sets "frost-list" class', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.frost-list')
+          ).to.have.length(1)
+        })
+      })
 
-        expect(
-          this.$('.vertical-item'),
-          'one vertical item is created'
-        ).to.have.length(1)
+      it('creates one vertical item', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.vertical-item')
+          ).to.have.length(1)
+        })
+      })
 
-        expect(
-          this.$('.frost-list-item'),
-          'one list item is created'
-        ).to.have.length(1)
+      it('creates one list item', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.frost-list-item')
+          ).to.have.length(1)
+        })
       })
     })
 
-    it('supports pre selection of records', function () {
-      const testItems = A([
-        {
-          id: '1',
-          isSelected: true
-        },
-        {
-          id: '2',
-          isSelected: false
-        }
-      ])
+    describe('supports pre selection of records', function () {
+      beforeEach(function () {
+        const testItems = A([
+          {
+            id: '1',
+            isSelected: true
+          },
+          {
+            id: '2',
+            isSelected: false
+          }
+        ])
 
-      this.set('items', testItems)
+        this.set('items', testItems)
 
-      this.render(hbs`
-        {{frost-list
-          item=(component 'frost-list-item')
-          hook='my-list'
-          items=items
-        }}
-      `)
+        this.render(hbs`
+          {{frost-list
+            item=(component 'frost-list-item')
+            hook='my-list'
+            items=items
+          }}
+        `)
+      })
 
-      return wait().then(() => {
-        expect(
-          this.$($hook('my-list-item-0')).hasClass('is-selected'),
-          'pre selected item is selected'
-        ).to.eql(true)
+      it('selects pre selected item', function () {
+        return wait().then(() => {
+          expect(
+            this.$($hook('my-list-item-0')).hasClass('is-selected')
+          ).to.eql(true)
+        })
+      })
 
-        expect(
-          this.$($hook('my-list-item-1')).hasClass('is-selected'),
-          'item is not pre selected'
-        ).to.eql(false)
+      it('does NOT selecte pre selected item', function () {
+        return wait().then(() => {
+          expect(
+            this.$($hook('my-list-item-1')).hasClass('is-selected')
+          ).to.eql(false)
+        })
+      })
 
-        expect(
-          this.$().find('vertical-item'),
-          'two vertical items are created'
-        ).to.have.length(2)
+      it('creates two vertical items', function () {
+        return wait().then(() => {
+          expect(
+            this.$().find('vertical-item')
+          ).to.have.length(2)
+        })
+      })
 
-        expect(
-          this.$('.frost-list-item'),
-          'two list items are created'
-        ).to.have.length(2)
+      it('creates two list items', function () {
+        return wait().then(() => {
+          expect(
+            this.$('.frost-list-item')
+          ).to.have.length(2)
+        })
       })
     })
   }

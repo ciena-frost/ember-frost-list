@@ -1,16 +1,7 @@
-import {expect} from 'chai'
-import {
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { expect } from 'chai'
+import { beforeEach, describe, it } from 'mocha'
 import Ember from 'ember'
-const {
-  A,
-  Controller,
-  on,
-  run
-} = Ember
+const { A, Controller, on, run } = Ember
 import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
@@ -41,21 +32,24 @@ describe('Unit: FrostListMixin', function () {
     ).to.be.ok
   })
 
-  it('has the expected Mixins', function () {
-    expect(
-      FrostListSelectionMixin.detect(subject),
-      'FrostListSelectionMixin Mixin is present'
-    ).to.eql(true)
+  describe('expected Mixins', function () {
+    it('has FrostListSelectionMixin Mixin', function () {
+      expect(
+        FrostListSelectionMixin.detect(subject)
+      ).to.eql(true)
+    })
 
-    expect(
-      FrostListExpansionMixin.detect(subject),
-      'FrostListExpansionMixin Mixin is present'
-    ).to.eql(true)
+    it('has FrostListExpansionMixin Mixin', function () {
+      expect(
+        FrostListExpansionMixin.detect(subject)
+      ).to.eql(true)
+    })
 
-    expect(
-      FrostListSortingMixin.detect(subject),
-      'FrostListSortingMixin Mixin is present'
-    ).to.eql(true)
+    it('has FrostListSortingMixin Mixin', function () {
+      expect(
+        FrostListSortingMixin.detect(subject)
+      ).to.eql(true)
+    })
   })
 
   it('sets dependent keys correctly', function () {
@@ -66,8 +60,7 @@ describe('Unit: FrostListMixin', function () {
     ]
 
     expect(
-      subject.listMixinConfig._dependentKeys,
-      'Dependent keys are correct for listMixinConfig()'
+      subject.listMixinConfig._dependentKeys
     ).to.eql(listMixinConfigDependentKeys)
   })
 
@@ -114,22 +107,19 @@ describe('Unit: FrostListMixin', function () {
 
     it('has "items" property', function () {
       expect(
-        listMixinConfig,
-        '"items" property exists'
+        listMixinConfig
       ).to.have.property('items')
     })
 
     it('has component" property', function () {
       expect(
-        listMixinConfig,
-        '"component" property exists'
+        listMixinConfig
       ).to.have.property('component', 'my-list-item')
     })
 
     it('has "expansion" property with correct structure', function () {
       expect(
-        listMixinConfig,
-        '"expansion" property exists and has correct structure'
+        listMixinConfig
       ).to.have.property('expansion')
         .that.deep.equals({
           onCollapseAll: '_collapseItems',
@@ -139,8 +129,7 @@ describe('Unit: FrostListMixin', function () {
 
     it('has "selection" propery with correct structure', function () {
       expect(
-        listMixinConfig,
-        '"selection" propery exists and has correct structure'
+        listMixinConfig
         ).to.have.property('selection')
           .that.deep.equals({
             onSelect: '_selectItem'

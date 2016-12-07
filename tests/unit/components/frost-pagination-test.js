@@ -1,10 +1,9 @@
-import {expect} from 'chai'
-import {describeComponent} from 'ember-mocha'
+import { expect } from 'chai'
+import Ember from 'ember'
+const { run } = Ember
+import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import {
-  beforeEach,
-  it
-} from 'mocha'
+import { beforeEach, describe, it } from 'mocha'
 
 describeComponent(
   'frost-pagination',
@@ -23,66 +22,204 @@ describeComponent(
       expect(component.classNames).to.include('frost-pagination')
     })
 
-    it('sets dependent keys correctly', function () {
-      const _endDependentKeys = [
-        'itemsPerPage',
-        'page',
-        'total'
-      ]
+    describe('dependent keys', function () {
+      let _endDependentKeys,
+        _isLeftDisabledDependentKeys,
+        _isRightDisabledDependentKeys,
+        _offsetDependentKeys,
+        _paginationTextDependentKeys
 
-      const _isLeftDisabledDependentKeys = [
-        'page'
-      ]
+      beforeEach(function () {
+        _endDependentKeys = [
+          'itemsPerPage',
+          'page',
+          'total'
+        ]
 
-      const _isRightDisabledDependentKeys = [
-        'itemsPerPage',
-        'page',
-        'total'
-      ]
+        _isLeftDisabledDependentKeys = [
+          'page'
+        ]
 
-      const _offsetDependentKeys = [
-        'itemsPerPage',
-        'page',
-        'total'
-      ]
+        _isRightDisabledDependentKeys = [
+          'itemsPerPage',
+          'page',
+          'total'
+        ]
 
-      const _paginationTextDependentKeys = [
-        '_offset',
-        '_end',
-        'total'
-      ]
+        _offsetDependentKeys = [
+          'itemsPerPage',
+          'page',
+          'total'
+        ]
 
-      expect(
-        component._end._dependentKeys,
-        'Dependent keys are correct for _end computed property'
-      ).to.eql(_endDependentKeys)
+        _paginationTextDependentKeys = [
+          '_offset',
+          '_end',
+          'total'
+        ]
+      })
 
-      expect(
-        component._isLeftDisabled._dependentKeys,
-        'Dependent keys are correct for _isLeftDisabled computed property'
-      ).to.eql(_isLeftDisabledDependentKeys)
+      it('sets correct dependent keys for _end computed property', function () {
+        expect(
+          component._end._dependentKeys
+        ).to.eql(_endDependentKeys)
+      })
 
-      expect(
-        component._isRightDisabled._dependentKeys,
-        'Dependent keys are correct for _isRightDisabled computed property'
-      ).to.eql(_isRightDisabledDependentKeys)
+      it('sets correct dependent keys for _isLeftDisabled computed property', function () {
+        expect(
+          component._isLeftDisabled._dependentKeys
+        ).to.eql(_isLeftDisabledDependentKeys)
+      })
 
-      expect(
-        component._offset._dependentKeys,
-        'Dependent keys are correct for _offset computed property'
-      ).to.eql(_offsetDependentKeys)
+      it('sets correct dependent keys for _isRightDisabled computed property', function () {
+        expect(
+          component._isRightDisabled._dependentKeys
+        ).to.eql(_isRightDisabledDependentKeys)
+      })
 
-      expect(
-        component._paginationText._dependentKeys,
-        'Dependent keys are correct for _paginationText computed property'
-      ).to.eql(_paginationTextDependentKeys)
+      it('sets correct dependent keys for _offset computed property', function () {
+        expect(
+          component._offset._dependentKeys
+        ).to.eql(_offsetDependentKeys)
+      })
+
+      it('sets correct dependent keys for _paginationText computed property', function () {
+        expect(
+          component._paginationText._dependentKeys
+        ).to.eql(_paginationTextDependentKeys)
+      })
     })
 
     it('has the expected Mixins', function () {
       expect(
-        PropTypeMixin.detect(component),
-        'PropTypeMixin Mixin is present'
+        PropTypeMixin.detect(component)
       ).to.eql(true)
+    })
+
+    describe('_end computed property', function () {
+      it('is set to pageMax when NOT on the last page', function () {
+        const itemsPerPage = 10
+        const page = 5
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        // on page 5 would be item 51 to 60 so _end is 60
+        expect(
+          component.get('_end')
+        ).to.eql(60)
+      })
+
+      it('is set to total on the last page', function () {
+        const itemsPerPage = 10
+        const page = 9
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        const expectedResult = component.get('total')
+
+        expect(
+          component.get('_end')
+        ).to.eql(expectedResult)
+      })
+    })
+
+    describe('_isLeftDisabled computed property', function () {
+      it('is set to true on the first page', function () {
+        run(() => component.set('page', 0))
+
+        expect(
+          component.get('_isLeftDisabled')
+        ).to.eql(true)
+      })
+
+      it('is set to false when NOT on the first page', function () {
+        run(() => component.set('page', 5))
+
+        expect(
+          component.get('_isLeftDisabled')
+        ).to.eql(false)
+      })
+    })
+
+    describe('_isRightDisabled computed property', function () {
+      it('is set to true when total is equal to 0', function () {
+        run(() => component.set('total', 0))
+
+        expect(
+          component.get('_isRightDisabled')
+        ).to.eql(true)
+      })
+
+      it('is set to true on the last page', function () {
+        const itemsPerPage = 10
+        const page = 9
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        expect(
+          component.get('_isRightDisabled')
+        ).to.eql(true)
+      })
+
+      it('is set to false when NOT on the last page', function () {
+        const itemsPerPage = 10
+        const page = 5
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        expect(
+          component.get('_isRightDisabled')
+        ).to.eql(false)
+      })
+    })
+
+    describe('_offset computed property', function () {
+      it('is set to 0 when total is equal to 0', function () {
+        run(() => component.set('total', 0))
+
+        expect(
+          component.get('_offset')
+        ).to.eql(0)
+      })
+
+      it('is set to correct offset of that page', function () {
+        const itemsPerPage = 10
+        const page = 2
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        // on page 2 would be item 21 to 30 so _offset is 21
+        expect(
+          component.get('_offset')
+        ).to.eql(21)
+      })
+    })
+
+    describe('_paginationText computed property', function () {
+      it('is set to "0 results found" when total is equal to 0', function () {
+        run(() => component.set('total', 0))
+
+        expect(
+          component.get('_paginationText')
+        ).to.eql('0 results found')
+      })
+
+      it('is set to "1 to 10 of 100" on the first page', function () {
+        const itemsPerPage = 10
+        const page = 0
+        const total = 100
+
+        run(() => component.setProperties({itemsPerPage, page, total}))
+
+        expect(
+          component.get('_paginationText')
+        ).to.eql('1 to 10 of 100')
+      })
     })
   }
 )

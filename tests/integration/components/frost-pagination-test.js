@@ -1,18 +1,8 @@
 import { expect } from 'chai'
-import {
-  $hook,
-  initialize as initializeHook
-} from 'ember-hook'
-import {
-  describeComponent,
-  it
-} from 'ember-mocha'
+import { $hook, initialize as initializeHook } from 'ember-hook'
+import { describeComponent, it } from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
-import {
-  afterEach,
-  beforeEach,
-  describe
-} from 'mocha'
+import { afterEach, beforeEach, describe } from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -52,8 +42,7 @@ describeComponent(
 
       it('sets frost-pagination class', function () {
         expect(
-          this.$('.frost-pagination'),
-          'class frost-pagination is set'
+          this.$('.frost-pagination')
         ).to.have.length(1)
       })
 
@@ -118,7 +107,7 @@ describeComponent(
       })
     })
 
-    describe('at page "11 to 20"', function () {
+    describe('on page "11 to 20"', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}
@@ -168,7 +157,7 @@ describeComponent(
       })
     })
 
-    describe('at last page', function () {
+    describe('on last page', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}
@@ -242,7 +231,7 @@ describeComponent(
 
       it('fires onChangeSpy', function () {
         expect(
-          onChangeSpy.called,
+          onChangeSpy.called
         ).to.eql(true)
       })
     })

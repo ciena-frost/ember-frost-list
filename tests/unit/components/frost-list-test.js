@@ -1,14 +1,9 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {run} = Ember
-import {describeComponent} from 'ember-mocha'
+const { run } = Ember
+import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -31,15 +26,13 @@ describeComponent(
 
     it('sets default properties value correctly', function () {
       expect(
-        component.get('alwaysUseDefaultHeight'),
-        'alwaysUseDefaultHeight: false'
+        component.get('alwaysUseDefaultHeight')
       ).to.eql(false)
     })
 
     it('has the expected Mixins', function () {
       expect(
-        PropTypeMixin.detect(component),
-        'PropTypeMixin Mixin is present'
+        PropTypeMixin.detect(component)
       ).to.eql(true)
     })
 
@@ -48,15 +41,18 @@ describeComponent(
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
-          component.set('config', {})
-          component.set('item', {})
+          component.setProperties(
+            {
+              'config': {},
+              'item': {}
+            }
+          )
         })
 
         component.initContext()
 
         expect(
-          EmberLoggerSpy.called,
-          'Logger.error is called'
+          EmberLoggerSpy.called
         ).to.eql(true)
       })
 
@@ -64,15 +60,18 @@ describeComponent(
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
-          component.set('config', {})
-          component.set('expansion', {})
+          component.setProperties(
+            {
+              'config': {},
+              'expansion': {}
+            }
+          )
         })
 
         component.initContext()
 
         expect(
-          EmberLoggerSpy.called,
-          'Logger.error is called'
+          EmberLoggerSpy.called
         ).to.eql(true)
       })
 
@@ -80,15 +79,18 @@ describeComponent(
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
         run(() => {
-          component.set('config', {})
-          component.set('sorting', {})
+          component.setProperties(
+            {
+              'config': {},
+              'sorting': {}
+            }
+          )
         })
 
         component.initContext()
 
         expect(
-          EmberLoggerSpy.called,
-          'Logger.error is called'
+          EmberLoggerSpy.called
         ).to.eql(true)
       })
 
@@ -100,8 +102,7 @@ describeComponent(
         component.initContext()
 
         expect(
-          EmberLoggerSpy.called,
-          'Logger.error is not called'
+          EmberLoggerSpy.called
         ).to.eql(false)
       })
     })

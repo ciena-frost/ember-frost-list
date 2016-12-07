@@ -1,9 +1,6 @@
-import {expect} from 'chai'
-import {describeComponent} from 'ember-mocha'
-import {
-  beforeEach,
-  it
-} from 'mocha'
+import { expect } from 'chai'
+import { describeComponent } from 'ember-mocha'
+import { beforeEach, it } from 'mocha'
 
 describeComponent(
   'frost-list-expansion',

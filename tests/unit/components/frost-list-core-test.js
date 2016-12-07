@@ -1,17 +1,9 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {
-  A,
-  run
-} = Ember
-import {describeComponent} from 'ember-mocha'
+const { A, run } = Ember
+import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -39,27 +31,30 @@ describeComponent(
     it('includes className frost-list-core', function () {
       expect(component.classNames).to.include('frost-list-core')
     })
+    describe('default property values', function () {
+      it('sets alwaysUseDefaultHeight to false', function () {
+        expect(
+          component.get('alwaysUseDefaultHeight')
+        ).to.eql(false)
+      })
 
-    it('sets default property values correctly', function () {
-      expect(
-        component.get('alwaysUseDefaultHeight'),
-        'alwaysUseDefaultHeight: false'
-      ).to.eql(false)
+      it('sets idForFirstItem to null', function () {
+        expect(
+          component.get('idForFirstItem')
+        ).to.eql(null)
+      })
 
-      expect(
-        component.get('idForFirstItem'),
-        'idForFirstItem: null'
-      ).to.eql(null)
+      it('sets key to @identity', function () {
+        expect(
+          component.get('key')
+        ).to.eql('@identity')
+      })
 
-      expect(
-        component.get('key'),
-        'key: @identity'
-      ).to.eql('@identity')
-
-      expect(
-        component.get('scrollPosition'),
-        'scrollPosition: 0'
-      ).to.eql(0)
+      it('sets scrollPosition to 0', function () {
+        expect(
+          component.get('scrollPosition')
+        ).to.eql(0)
+      })
     })
 
     it('sets dependent keys correctly', function () {
@@ -73,40 +68,38 @@ describeComponent(
         'sorting'
       ]
 
-      expect(
-        component._records._dependentKeys,
-        'Dependent keys are correct for _records computed property'
-      ).to.eql(_recordsDependentKeys)
-
-      expect(
-        component._hasHeader._dependentKeys,
-        'Dependent keys are correct for _hasHeader computed property'
-      ).to.eql(_hasHeaderDependentKeys)
+      it('sets correct dependent keys for _records computed property', function () {
+        expect(
+          component._records._dependentKeys
+        ).to.eql(_recordsDependentKeys)
+      })
+      it('sets correct dependent keys for _hasHeader computed property', function () {
+        expect(
+          component._hasHeader._dependentKeys
+        ).to.eql(_hasHeaderDependentKeys)
+      })
     })
 
     it('has the expected Mixins', function () {
       expect(
-        PropTypeMixin.detect(component),
-        'PropTypeMixin Mixin is present'
+        PropTypeMixin.detect(component)
       ).to.eql(true)
     })
 
     describe('"_records" computed property', function () {
       it('is set correctly when items is not empty', function () {
-        run(() => { component.set('items', Ember.A([1, 2, 3, 4])) })
+        run(() => component.set('items', Ember.A([1, 2, 3, 4])))
 
         expect(
-          component.get('_records'),
-          'item arrays are identical'
+          component.get('_records')
         ).to.eql(Ember.A([1, 2, 3, 4]))
       })
 
       it('is set correctly when items is empty', function () {
-        run(() => { component.set('items', undefined) })
+        run(() => component.set('items', undefined))
 
         expect(
-          component.get('_records'),
-          '_records is set to an empty array'
+          component.get('_records')
         ).to.eql([])
       })
     })
@@ -116,14 +109,10 @@ describeComponent(
         const sorting = {sortProperty: 'sortProperty'}
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => {
-          component.set('sorting', sorting)
-          component.set('expansion', expansion)
-        })
+        run(() => component.setProperties({sorting, expansion}))
 
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "true"'
+          component.get('_hasHeader')
         ).to.eql(true)
       })
 
@@ -133,8 +122,7 @@ describeComponent(
         run(() => component.set('sorting', sorting))
 
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "true"'
+          component.get('_hasHeader')
         ).to.eql(true)
       })
 
@@ -144,15 +132,13 @@ describeComponent(
         run(() => component.set('expansion', expansion))
 
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "true"'
+          component.get('_hasHeader')
         ).to.eql(true)
       })
 
       it('is set to "false" when "sorting" and "expansion" are NOT set', function () {
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "false"'
+          component.get('_hasHeader')
         ).to.eql(false)
       })
     })
@@ -165,8 +151,7 @@ describeComponent(
         }
 
         expect(
-          component.checkExpansionValidity(expansion),
-          'isExpansionValid: "true"'
+          component.checkExpansionValidity(expansion)
         ).to.eql(true)
       })
 
@@ -176,8 +161,7 @@ describeComponent(
         }
 
         expect(
-          component.checkExpansionValidity(expansion),
-          'isExpansionValid: false'
+          component.checkExpansionValidity(expansion)
         ).to.eql(false)
       })
 
@@ -187,8 +171,7 @@ describeComponent(
         }
 
         expect(
-          component.checkExpansionValidity(expansion),
-          'isExpansionValid: false'
+          component.checkExpansionValidity(expansion)
         ).to.eql(false)
       })
     })
@@ -200,8 +183,7 @@ describeComponent(
         }
 
         expect(
-          component.checkSelectionValidity(selection),
-          'isSelectionValid: true'
+          component.checkSelectionValidity(selection)
         ).to.eql(true)
       })
 
@@ -209,8 +191,7 @@ describeComponent(
         const selection = {}
 
         expect(
-          component.checkSelectionValidity(selection),
-          'isSelectionValid: true'
+          component.checkSelectionValidity(selection)
         ).to.eql(false)
       })
     })
@@ -220,8 +201,7 @@ describeComponent(
         const sorting = {}
 
         expect(
-          component.checkSortingValidity(sorting),
-          'isSortingValid: false'
+          component.checkSortingValidity(sorting)
         ).to.eql(false)
       })
 
@@ -231,8 +211,7 @@ describeComponent(
         }
 
         expect(
-          component.checkSortingValidity(sorting),
-          'isSortingValid: false'
+          component.checkSortingValidity(sorting)
         ).to.eql(false)
       })
 
@@ -243,8 +222,7 @@ describeComponent(
         }
 
         expect(
-          component.checkSortingValidity(sorting),
-          'isSortingValid: false'
+          component.checkSortingValidity(sorting)
         ).to.eql(false)
       })
 
@@ -256,38 +234,41 @@ describeComponent(
         }
 
         expect(
-          component.checkSortingValidity(sorting),
-          'isSortingValid: true'
+          component.checkSortingValidity(sorting)
         ).to.eql(true)
       })
     })
 
     describe('"_findElementsInBetween" function', function () {
       let array = []
-      for (let i = 0; i < 10; i++) {
-        array.push({
-          id: i
-        })
-      }
+      beforeEach(function () {
+        for (let i = 0; i < 10; i++) {
+          array.push({
+            id: i
+          })
+        }
+      })
 
       it('returns result array when all attributes are provided', function () {
         expect(
-          component._findElementsInBetween(array, array[2], array[6]).length,
-          'isSelectionValid: "true"'
+          component._findElementsInBetween(array, array[2], array[6]).length
         ).to.eql(5)
       })
 
-      it('returns last element when "firstElement" is missing', function () {
-        let result = component._findElementsInBetween(array, undefined, array[6])
-        expect(
-          result.length,
-          'result array contains one element'
-        ).to.eql(1)
+      describe('returns last element when "firstElement" is missing', function () {
+        it('returns only one element', function () {
+          let result = component._findElementsInBetween(array, undefined, array[6])
+          expect(
+            result.length
+          ).to.eql(1)
+        })
 
-        expect(
-          result[0].id,
-          'result: {id: 6}'
-        ).to.eql(6)
+        it('returns the last element id', function () {
+          let result = component._findElementsInBetween(array, undefined, array[6])
+          expect(
+            result[0].id
+          ).to.eql(6)
+        })
       })
     })
 
@@ -332,8 +313,7 @@ describeComponent(
         component.send('selectItem', {}, mockAttrs)
 
         expect(
-          component.get('persistedClickState'),
-          'persistedClickState is updated'
+          component.get('persistedClickState')
         ).to.eql(updatedPersistedClickState)
       })
 
@@ -376,10 +356,15 @@ describeComponent(
             isShiftSelect: true
           }
         }
+
         run(() => {
-          component.set('onSelect', sandbox.spy())
-          component.set('_records', testItems)
-          component.set('persistedClickState', mockPersistedClickState)
+          component.setProperties(
+            {
+              'onSelect': sandbox.spy(),
+              '_records': testItems,
+              'persistedClickState': mockPersistedClickState
+            }
+          )
         })
 
         component.send('selectItem', mockEvent, mockAttrs)
@@ -418,8 +403,12 @@ describeComponent(
           }
         }
         run(() => {
-          component.set('onSelect', sandbox.spy())
-          component.set('_records', testItems)
+          component.setProperties(
+            {
+              'onSelect': sandbox.spy(),
+              '_records': testItems
+            }
+          )
         })
 
         component.send('selectItem', mockEvent, mockAttrs)
