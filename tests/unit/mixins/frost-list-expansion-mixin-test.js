@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { Controller, Object, run } = Ember
+const { Controller, Object } = Ember
 import { afterEach, beforeEach, describe, it } from 'mocha'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
@@ -25,7 +25,7 @@ describe('Unit: FrostListExpansionMixin', function () {
       }
     })
 
-    run(() => subject.set('model', testItems))
+    subject.set('model', testItems)
   })
 
   afterEach(function () {

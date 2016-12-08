@@ -1,6 +1,4 @@
 import { expect } from 'chai'
-import Ember from 'ember'
-const { run } = Ember
 import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import { beforeEach, describe, it } from 'mocha'
@@ -102,7 +100,7 @@ describeComponent(
         const page = 5
         const total = 100
 
-        run(() => component.setProperties({itemsPerPage, page, total}))
+        component.setProperties({itemsPerPage, page, total})
 
         // on page 5 would be item 51 to 60 so _end is 60
         expect(
@@ -115,8 +113,7 @@ describeComponent(
         const page = 9
         const total = 100
 
-        run(() => component.setProperties({itemsPerPage, page, total}))
-
+        component.setProperties({itemsPerPage, page, total})
         const expectedResult = component.get('total')
 
         expect(
@@ -127,7 +124,7 @@ describeComponent(
 
     describe('_isLeftDisabled computed property', function () {
       it('is set to true on the first page', function () {
-        run(() => component.set('page', 0))
+        component.set('page', 0)
 
         expect(
           component.get('_isLeftDisabled')
@@ -135,7 +132,7 @@ describeComponent(
       })
 
       it('is set to false when NOT on the first page', function () {
-        run(() => component.set('page', 5))
+        component.set('page', 5)
 
         expect(
           component.get('_isLeftDisabled')
@@ -145,7 +142,7 @@ describeComponent(
 
     describe('_isRightDisabled computed property', function () {
       it('is set to true when total is equal to 0', function () {
-        run(() => component.set('total', 0))
+        component.set('total', 0)
 
         expect(
           component.get('_isRightDisabled')
@@ -157,7 +154,7 @@ describeComponent(
         const page = 9
         const total = 100
 
-        run(() => component.setProperties({itemsPerPage, page, total}))
+        component.setProperties({itemsPerPage, page, total})
 
         expect(
           component.get('_isRightDisabled')
@@ -169,7 +166,7 @@ describeComponent(
         const page = 5
         const total = 100
 
-        run(() => component.setProperties({itemsPerPage, page, total}))
+        component.setProperties({itemsPerPage, page, total})
 
         expect(
           component.get('_isRightDisabled')
@@ -179,7 +176,7 @@ describeComponent(
 
     describe('_offset computed property', function () {
       it('is set to 0 when total is equal to 0', function () {
-        run(() => component.set('total', 0))
+        component.set('total', 0)
 
         expect(
           component.get('_offset')
@@ -191,7 +188,7 @@ describeComponent(
         const page = 2
         const total = 100
 
-        run(() => component.setProperties({itemsPerPage, page, total}))
+        component.setProperties({itemsPerPage, page, total})
 
         // on page 2 would be item 21 to 30 so _offset is 21
         expect(
@@ -202,7 +199,7 @@ describeComponent(
 
     describe('_paginationText computed property', function () {
       it('is set to "0 results found" when total is equal to 0', function () {
-        run(() => component.set('total', 0))
+        component.set('total', 0)
 
         expect(
           component.get('_paginationText')
@@ -214,7 +211,7 @@ describeComponent(
         const page = 0
         const total = 100
 
-        run(() => component.setProperties({itemsPerPage, page, total}))
+        component.setProperties({itemsPerPage, page, total})
 
         expect(
           component.get('_paginationText')

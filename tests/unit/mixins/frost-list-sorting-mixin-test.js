@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { A, Controller, run } = Ember
+const { A, Controller } = Ember
 import { afterEach, beforeEach, describe, it } from 'mocha'
 import sinon from 'sinon'
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
@@ -26,9 +26,7 @@ describe('Unit: FrostListSortingMixin', function () {
       }
     })
 
-    run(() => {
-      subject.set('model', testItems)
-    })
+    subject.set('model', testItems)
   })
 
   afterEach(function () {
@@ -76,7 +74,7 @@ describe('Unit: FrostListSortingMixin', function () {
           sorting: {}
         }
       })
-      run(() => mixin.set('model', testItems))
+      mixin.set('model', testItems)
     })
 
     it('calls default sort', function () {
@@ -99,8 +97,7 @@ describe('Unit: FrostListSortingMixin', function () {
     })
 
     it('calls the user defined sort', function () {
-      run(() => mixin.set('listConfig.sorting.client', sandbox.spy()))
-
+      mixin.set('listConfig.sorting.client', sandbox.spy())
       mixin.send('sortItems', sortProperties)
 
       expect(
@@ -109,7 +106,7 @@ describe('Unit: FrostListSortingMixin', function () {
     })
 
     it('throws assertion error when custom sort method is not a function', function () {
-      run(() => mixin.set('listConfig.sorting.client', 'test'))
+      mixin.set('listConfig.sorting.client', 'test')
 
       expect(
         () => {

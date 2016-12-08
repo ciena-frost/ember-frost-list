@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { beforeEach, describe, it } from 'mocha'
 import Ember from 'ember'
-const { Object, run } = Ember
+const { Object } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
 describe('Unit: FrostListCoreMixin', function () {
@@ -20,9 +20,7 @@ describe('Unit: FrostListCoreMixin', function () {
       }
     })
 
-    run(() => {
-      subject.set('model', testItems)
-    })
+    subject.set('model', testItems)
   })
 
   it('successfully mixed', function () {
@@ -56,15 +54,14 @@ describe('Unit: FrostListCoreMixin', function () {
   describe('statefulListItems computed property', function () {
     describe('"isSelected" and "isExpanded" have a default value of false', function () {
       beforeEach(function () {
-        run(() => {
-          subject.setProperties(
-            {
-              'selectedItems': Object.create(),
-              'expandedItems': Object.create()
-            }
-          )
-        })
+        subject.setProperties(
+          {
+            'selectedItems': Object.create(),
+            'expandedItems': Object.create()
+          }
+        )
       })
+
       it('sets default to false for "isExpanded"', function () {
         expect(
           subject.get('statefulListItems')[0].isExpanded
@@ -79,14 +76,12 @@ describe('Unit: FrostListCoreMixin', function () {
     })
 
     it('sets "isSelected" correctly when it already has a value', function () {
-      run(() => {
-        subject.setProperties(
-          {
-            'selectedItems': Object.create({ 1: true }),
-            'expandedItems': Object.create()
-          }
-        )
-      })
+      subject.setProperties(
+        {
+          'selectedItems': Object.create({ 1: true }),
+          'expandedItems': Object.create()
+        }
+      )
 
       expect(
         subject.get('statefulListItems')[0].isSelected
@@ -94,14 +89,12 @@ describe('Unit: FrostListCoreMixin', function () {
     })
 
     it('sets "isExpanded" correctly when it already has a value', function () {
-      run(() => {
-        subject.setProperties(
-          {
-            'selectedItems': Object.create(),
-            'expandedItems': Object.create({ 1: true })
-          }
-        )
-      })
+      subject.setProperties(
+        {
+          'selectedItems': Object.create(),
+          'expandedItems': Object.create({ 1: true })
+        }
+      )
 
       expect(
         subject.get('statefulListItems')[0].isExpanded

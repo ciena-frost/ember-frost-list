@@ -1,6 +1,4 @@
 import { expect } from 'chai'
-import Ember from 'ember'
-const { run } = Ember
 import { describeComponent } from 'ember-mocha'
 import { beforeEach, describe, it } from 'mocha'
 
@@ -45,7 +43,7 @@ describeComponent(
     })
 
     it('"isExpanded" computed property', function () {
-      run(() => component.set('model', { isExpanded: true }))
+      component.set('model', { isExpanded: true })
 
       expect(
         component.get('isExpanded')
@@ -53,7 +51,7 @@ describeComponent(
     })
 
     it('"isSelected" computed property', function () {
-      run(() => component.set('model', { isSelected: true }))
+      component.set('model', { isSelected: true })
 
       expect(
         component.get('isSelected')

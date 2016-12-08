@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { Controller, Object, run } = Ember
+const { Controller, Object } = Ember
 import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import * as utils from 'ember-frost-list/utils/utils'
@@ -27,9 +27,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       }
     })
 
-    run(() => {
-      subject.set('model', testItems)
-    })
+    subject.set('model', testItems)
   })
 
   afterEach(function () {
@@ -69,7 +67,7 @@ describe('Unit: FrostListSelectionMixin', function () {
       const updateSelectedItemsHashSpy =
         sandbox.stub(utils, 'updateSelectedItemsHash').returns({ 1: true })
 
-      run(() => subject.set('selectedItems', { 1: true }))
+      subject.set('selectedItems', { 1: true })
 
       subject.send('selectItem', {})
 

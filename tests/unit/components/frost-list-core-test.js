@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { A, run } = Ember
+const { A } = Ember
 import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import { afterEach, beforeEach, describe, it } from 'mocha'
@@ -88,7 +88,7 @@ describeComponent(
 
     describe('"_records" computed property', function () {
       it('is set correctly when items is not empty', function () {
-        run(() => component.set('items', Ember.A([1, 2, 3, 4])))
+        component.set('items', Ember.A([1, 2, 3, 4]))
 
         expect(
           component.get('_records')
@@ -96,7 +96,7 @@ describeComponent(
       })
 
       it('is set correctly when items is empty', function () {
-        run(() => component.set('items', undefined))
+        component.set('items', undefined)
 
         expect(
           component.get('_records')
@@ -109,7 +109,7 @@ describeComponent(
         const sorting = {sortProperty: 'sortProperty'}
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => component.setProperties({sorting, expansion}))
+        component.setProperties({sorting, expansion})
 
         expect(
           component.get('_hasHeader')
@@ -119,7 +119,7 @@ describeComponent(
       it('is set to "true" when "sorting" is set', function () {
         const sorting = {sortProperty: 'sortProperty'}
 
-        run(() => component.set('sorting', sorting))
+        component.set('sorting', sorting)
 
         expect(
           component.get('_hasHeader')
@@ -129,7 +129,7 @@ describeComponent(
       it('is set to "true" when "expansion" is set', function () {
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => component.set('expansion', expansion))
+        component.set('expansion', expansion)
 
         expect(
           component.get('_hasHeader')
@@ -308,8 +308,8 @@ describeComponent(
             id: '3'
           }
         }
-        run(() => component.set('persistedClickState', persistedClickState))
 
+        component.set('persistedClickState', persistedClickState)
         component.send('selectItem', {}, mockAttrs)
 
         expect(
@@ -357,16 +357,13 @@ describeComponent(
           }
         }
 
-        run(() => {
-          component.setProperties(
-            {
-              'onSelect': sandbox.spy(),
-              '_records': testItems,
-              'persistedClickState': mockPersistedClickState
-            }
-          )
-        })
-
+        component.setProperties(
+          {
+            'onSelect': sandbox.spy(),
+            '_records': testItems,
+            'persistedClickState': mockPersistedClickState
+          }
+        )
         component.send('selectItem', mockEvent, mockAttrs)
 
         expect(
@@ -402,15 +399,13 @@ describeComponent(
             isShiftSelect: false
           }
         }
-        run(() => {
-          component.setProperties(
-            {
-              'onSelect': sandbox.spy(),
-              '_records': testItems
-            }
-          )
-        })
 
+        component.setProperties(
+          {
+            'onSelect': sandbox.spy(),
+            '_records': testItems
+          }
+        )
         component.send('selectItem', mockEvent, mockAttrs)
 
         expect(

@@ -1,6 +1,5 @@
 import { expect } from 'chai'
 import Ember from 'ember'
-const { run } = Ember
 import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import { afterEach, beforeEach, describe, it } from 'mocha'
@@ -40,15 +39,12 @@ describeComponent(
       it('errors when config is set with item', function () {
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
-        run(() => {
-          component.setProperties(
-            {
-              'config': {},
-              'item': {}
-            }
-          )
-        })
-
+        component.setProperties(
+          {
+            'config': {},
+            'item': {}
+          }
+        )
         component.initContext()
 
         expect(
@@ -59,15 +55,12 @@ describeComponent(
       it('errors when config is set with expansion', function () {
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
-        run(() => {
-          component.setProperties(
-            {
-              'config': {},
-              'expansion': {}
-            }
-          )
-        })
-
+        component.setProperties(
+          {
+            'config': {},
+            'expansion': {}
+          }
+        )
         component.initContext()
 
         expect(
@@ -78,15 +71,12 @@ describeComponent(
       it('errors when config is set with sorting', function () {
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
-        run(() => {
-          component.setProperties(
-            {
-              'config': {},
-              'sorting': {}
-            }
-          )
-        })
-
+        component.setProperties(
+          {
+            'config': {},
+            'sorting': {}
+          }
+        )
         component.initContext()
 
         expect(
@@ -97,8 +87,7 @@ describeComponent(
       it('does not error when config is set by itself', function () {
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 
-        run(() => component.set('config', {}))
-
+        component.set('config', {})
         component.initContext()
 
         expect(

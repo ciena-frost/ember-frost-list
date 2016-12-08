@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { beforeEach, describe, it } from 'mocha'
 import Ember from 'ember'
-const { A, Controller, on, run } = Ember
+const { A, Controller, on } = Ember
 import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
@@ -23,7 +23,7 @@ describe('Unit: FrostListMixin', function () {
       }
     })
 
-    run(() => subject.set('model', testItems))
+    subject.set('model', testItems)
   })
 
   it('successfully mixed', function () {
@@ -95,16 +95,14 @@ describe('Unit: FrostListMixin', function () {
         })
       })
 
-      run(() => {
-        mixin.setProperties(
-          {
-            'model': list,
-            'listConfig.component': 'my-list-item',
-            'activeSorting': [],
-            'properties': []
-          }
-        )
-      })
+      mixin.setProperties(
+        {
+          'model': list,
+          'listConfig.component': 'my-list-item',
+          'activeSorting': [],
+          'properties': []
+        }
+      )
 
       listMixinConfig = mixin.get('listMixinConfig')
     })
