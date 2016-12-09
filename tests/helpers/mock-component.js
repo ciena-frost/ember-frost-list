@@ -1,9 +1,7 @@
 import Ember from 'ember'
-const {
-  Component,
-  assign,
-  getOwner
-} = Ember
+const { Component, getOwner } = Ember
+
+const assign = Ember.assign || Ember.merge
 
 export function registerMockComponent (context, name = 'mock-component', opts = {}) {
   const owner = getOwner(context)
