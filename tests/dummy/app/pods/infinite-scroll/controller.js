@@ -51,7 +51,7 @@ export default Ember.Controller.extend(FrostListMixin, {
     }
   }),
 
-  listItems: Ember.computed('model', function () {
+  wrappedListItems: Ember.computed('model', function () {
     return this.get('model.items')
   }),
 
