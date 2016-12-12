@@ -88,11 +88,11 @@ describeComponent(
 
     describe('"_records" computed property', function () {
       it('is set correctly when items is not empty', function () {
-        component.set('items', Ember.A([1, 2, 3, 4]))
+        component.set('items', A([1, 2, 3, 4]))
 
         expect(
           component.get('_records')
-        ).to.eql(Ember.A([1, 2, 3, 4]))
+        ).to.eql(A([1, 2, 3, 4]))
       })
 
       it('is set correctly when items is empty', function () {
