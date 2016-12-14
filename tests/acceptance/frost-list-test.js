@@ -1,22 +1,9 @@
-import {
-  describe,
-  it,
-  beforeEach,
-  afterEach
-} from 'mocha'
+import { describe, it, beforeEach, afterEach } from 'mocha'
 import {expect} from 'chai'
-import {
-  buildList,
-  mockQuery,
-  mockSetup,
-  mockTeardown
-} from 'ember-data-factory-guy'
+import { buildList, mockQuery, mockSetup, mockTeardown } from 'ember-data-factory-guy'
 import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
-import {
-  hook,
-  $hook
-} from 'ember-hook'
+import { hook, $hook } from 'ember-hook'
 
 describe('Acceptance: FrostList', function () {
   let application
