@@ -339,7 +339,7 @@ describeComponent(
           }
         }
         const resultObject = {
-          records: [
+          records: A([
             {
               id: '1'
             },
@@ -349,11 +349,62 @@ describeComponent(
             {
               id: '3'
             }
-          ],
+          ]),
           selectDesc: {
             isSelected: true,
             isTargetSelectionIndicator: false,
             isShiftSelect: true
+          }
+        }
+
+        component.setProperties(
+          {
+            'onSelect': sandbox.spy(),
+            '_records': testItems,
+            'persistedClickState': mockPersistedClickState
+          }
+        )
+        component.send('selectItem', mockEvent, mockAttrs)
+
+        expect(
+          component.get('onSelect').calledWith(resultObject),
+          'calls onSelect() with the correct object'
+        ).to.eql(true)
+      })
+
+      it('triggers command/control key selection', function () {
+        const mockEvent = {
+          shiftKey: false,
+          ctrlKey: true
+        }
+
+        const mockAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '3'
+          }
+        }
+
+        const mockPersistedClickState = {
+          isSelected: true,
+          clickedRecord: {
+            id: '1'
+          }
+        }
+        const resultObject = {
+          records: A([
+            {
+              id: '3'
+            }
+          ]),
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false,
+            isShiftSelect: false,
+            isCtrlSelect: true
           }
         }
 
@@ -388,11 +439,11 @@ describeComponent(
         }
 
         const resultObject = {
-          records: [
+          records: A([
             {
               id: '1'
             }
-          ],
+          ]),
           selectDesc: {
             isSelected: true,
             isTargetSelectionIndicator: false,
