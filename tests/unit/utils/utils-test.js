@@ -76,6 +76,39 @@ describe('Unit: Utils', function () {
           ).to.eql(Object.create({ 1: true }))
         })
       })
+
+      describe('control or command key selection', function () {
+        let selections, attr
+
+        beforeEach(function () {
+          selections = Object.create({ 1: true })
+
+          attr = Object.create({
+            selectDesc: {
+              isSelected: true,
+              isShiftSelect: false,
+              isCtrlSelect: true
+            },
+            records: [
+              {
+                id: '2'
+              }
+            ]
+          })
+        })
+
+        it('updates selections and does NOT delete prevous record/records', function () {
+          const updatedSelections = updateSelectedItemsHash(selections, attr)
+          const expectedSelections = Object.create({
+            1: true,
+            2: true
+          })
+
+          expect(
+            updatedSelections
+          ).to.eql(expectedSelections)
+        })
+      })
     })
 
     describe('unselect item', function () {
