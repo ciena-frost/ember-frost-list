@@ -8,7 +8,6 @@ import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
 const FrostList = Component.extend(PropTypeMixin, {
-
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
@@ -128,6 +127,9 @@ const FrostList = Component.extend(PropTypeMixin, {
         } else {
           selectedItems = [attrs.record]
           selectDesc.isShiftSelect = false
+          if (event.metaKey || event.ctrlKey) {
+            selectDesc.isCtrlSelect = true
+          }
         }
 
         onSelect({
