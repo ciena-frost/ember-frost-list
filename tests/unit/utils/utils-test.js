@@ -25,12 +25,8 @@ describe('Unit: Utils', function () {
         })
 
         it('updates selection', function () {
-          const selections = Object.create({})
-
-          const updatedSelections = updateSelectedItemsHash(selections, attr)
-
           expect(
-            updatedSelections
+            updateSelectedItemsHash(Object.create(), attr)
           ).to.eql(Object.create({ 1: true }))
         })
 
@@ -40,21 +36,17 @@ describe('Unit: Utils', function () {
             3: true
           })
 
-          const updatedSelections = updateSelectedItemsHash(selections, attr)
-
           expect(
-            updatedSelections,
+            updateSelectedItemsHash(selections, attr),
             'previous selected record/records are deleted'
           ).to.eql(Object.create({ 1: true }))
         })
       })
 
       describe('shiftKey selection', function () {
-        let selections, attr
+        let attr
 
         beforeEach(function () {
-          selections = Object.create({})
-
           attr = Object.create({
             selectDesc: {
               isSelected: true,
@@ -69,20 +61,16 @@ describe('Unit: Utils', function () {
         })
 
         it('updates selections', function () {
-          const updatedSelections = updateSelectedItemsHash(selections, attr)
-
           expect(
-            updatedSelections
+            updateSelectedItemsHash(Object.create(), attr)
           ).to.eql(Object.create({ 1: true }))
         })
       })
 
       describe('control or command key selection', function () {
-        let selections, attr
+        let attr
 
         beforeEach(function () {
-          selections = Object.create({ 1: true })
-
           attr = Object.create({
             selectDesc: {
               isSelected: true,
@@ -98,25 +86,22 @@ describe('Unit: Utils', function () {
         })
 
         it('updates selections and does NOT delete prevous record/records', function () {
-          const updatedSelections = updateSelectedItemsHash(selections, attr)
-          const expectedSelections = Object.create({
-            1: true,
-            2: true
-          })
-
           expect(
-            updatedSelections
-          ).to.eql(expectedSelections)
+            updateSelectedItemsHash(Object.create({ 1: true }), attr)
+          ).to.eql(Object.create(
+            {
+              1: true,
+              2: true
+            })
+          )
         })
       })
     })
 
     describe('unselect item', function () {
-      let selections, attr
+      let attr
 
       beforeEach(function () {
-        selections = Object.create({ 1: true })
-
         attr = Object.create({
           selectDesc: {
             isSelected: false
@@ -130,11 +115,9 @@ describe('Unit: Utils', function () {
       })
 
       it('deletes id from selections', function () {
-        const updatedSelections = updateSelectedItemsHash(selections, attr)
-
         expect(
-          updatedSelections
-        ).to.eql(Object.create({}))
+          updateSelectedItemsHash(Object.create({ 1: true }), attr)
+        ).to.eql(Object.create())
       })
     })
   })
@@ -142,32 +125,37 @@ describe('Unit: Utils', function () {
   describe('normalizeSort function', function () {
     describe('sort array is NOT present', function () {
       it('returns empty array', function () {
-        const normalizedSort = normalizeSort('')
-
         expect(
-          normalizedSort
+          normalizeSort()
         ).to.eql([])
       })
     })
 
     describe('sort array exists', function () {
-      let sort
-
-      beforeEach(function () {
-        sort = A([
+      it('returns output prefixed with "-"', function () {
+        const sort = A([
           {
             direction: ':desc',
             value: 'label'
           }
         ])
-      })
-
-      it('returns correct output', function () {
-        const normalizedSort = normalizeSort(sort)
 
         expect(
-          normalizedSort
+          normalizeSort(sort)
         ).to.eql(A(['-label']))
+      })
+
+      it('returns output prefixed with no "-"', function () {
+        const sort = A([
+          {
+            direction: ':asc',
+            value: 'label'
+          }
+        ])
+
+        expect(
+          normalizeSort(sort)
+        ).to.eql(A(['label']))
       })
     })
   })
@@ -175,14 +163,12 @@ describe('Unit: Utils', function () {
   describe('defaultSort function', function () {
     describe('sortProperties is NOT present', function () {
       it('returns and does nothing', function () {
-        const items = Object.create({})
-        defaultSort(items, '')
-
         expect(
-          items
-        ).to.eql(Object.create({}))
+          defaultSort(Object.create())
+        ).to.eql(undefined)
       })
     })
+
     describe('sortProperties is present', function () {
       it('sorts items in ascending order', function () {
         const sortProperties = A(['label'])
@@ -204,10 +190,9 @@ describe('Unit: Utils', function () {
             label: '2'
           }
         ])
-        const sortedArray = defaultSort(items, sortProperties)
 
         expect(
-          sortedArray
+          defaultSort(items, sortProperties)
         ).to.eql(sortedItems)
       })
 
@@ -231,10 +216,9 @@ describe('Unit: Utils', function () {
             label: '1'
           }
         ])
-        const sortedArray = defaultSort(items, sortProperties)
 
         expect(
-          sortedArray
+          defaultSort(items, sortProperties)
         ).to.eql(sortedItems)
       })
     })
