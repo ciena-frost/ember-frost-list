@@ -1,3 +1,10 @@
+# 3.2.5
+- **Added** test suite for frost-list
+- **Updated** repo to follow new convention guidelines
+- **Updated** usage to Ember.typeOf()
+- **Removed** unused method from frost-list-core.js
+
+
 # 3.2.4
 - **Updated** repo to use ember-cli-code-coverage instead of ember-cli-blanket
 
