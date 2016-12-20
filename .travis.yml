@@ -35,6 +35,7 @@ before_install:
 - npm install -g coveralls pr-bumper --ignore-scripts
 - pr-bumper check
 install:
+- npm install ember-cli-sass # NOTE: this requies scripts
 - npm install --ignore-scripts
 - bower install
 script:
