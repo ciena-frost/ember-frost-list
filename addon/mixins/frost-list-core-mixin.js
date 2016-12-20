@@ -15,7 +15,7 @@ export default Mixin.create({
   }),
 
   @computed('_listItems.[]')
-  listItems (listItems) {
+  wrappedListItems (listItems) {
     if (isNone(listItems)) {
       listItems = []
     }
@@ -28,11 +28,11 @@ export default Mixin.create({
     })
   },
 
-  @computed('listItems.[]', 'selectedItems', 'expandedItems')
-  statefulListItems (listItems, selectedItems, expandedItems) {
+  @computed('wrappedListItems.[]', 'selectedItemDictionary', 'expandedItemDictionary')
+  statefulListItems (listItems, selectedItemDictionary, expandedItemDictionary) {
     return listItems.map((item) => {
-      item.set('isSelected', selectedItems.getWithDefault(item.id, false))
-      item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
+      item.set('isSelected', selectedItemDictionary.getWithDefault(item.id, false))
+      item.set('isExpanded', expandedItemDictionary.getWithDefault(item.id, false))
       return item
     })
   }

@@ -10,27 +10,27 @@ import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 export default Mixin.create(FrostListCoreMixin, {
   // == Event =================================================================
   initListExpansionMixin: on('init', function () {
-    set(this, 'expandedItems', Ember.Object.create())
+    set(this, 'expandedItemDictionary', Ember.Object.create())
   }),
 
   // == Actions ================================================================
   actions: {
     collapseItems () {
       let records = get(this, '_listItems')
-      let expandedItems = get(this, 'expandedItems')
+      let expandedItemDictionary = get(this, 'expandedItemDictionary')
       records.map((record) => {
-        delete expandedItems[record.id]
+        delete expandedItemDictionary[record.id]
       })
-      this.notifyPropertyChange('expandedItems')
+      this.notifyPropertyChange('expandedItemDictionary')
     },
 
     expandItems () {
       let records = get(this, '_listItems')
-      let expandedItems = get(this, 'expandedItems')
+      let expandedItemDictionary = get(this, 'expandedItemDictionary')
       records.map((record) => {
-        expandedItems.set(record.id, true)
+        expandedItemDictionary.set(record.id, true)
       })
-      this.notifyPropertyChange('expandedItems')
+      this.notifyPropertyChange('expandedItemDictionary')
     },
 
     collapseItem () {

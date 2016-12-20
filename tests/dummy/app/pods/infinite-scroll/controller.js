@@ -13,21 +13,6 @@ export default Ember.Controller.extend(FrostListMixin, {
     return this.store.peekAll('list-item').content.length
   }),
 
-  isButtonActive: computed('selectedItems.[]', function () {
-    let selectedItem = this.get('selectedItems')
-    if (!selectedItem.length) {
-      return {
-        updateButton: true,
-        deleteButton: true
-      }
-    } else {
-      return {
-        updateButton: false,
-        deleteButton: false
-      }
-    }
-  }),
-
   listConfig: {
     items: 'model',
     component: Ember.computed({
@@ -56,7 +41,6 @@ export default Ember.Controller.extend(FrostListMixin, {
   },
 
   alwaysUseDefaultHeight: true,
-  selectedItems: Ember.A(),
   componentPath: computed({
     get () {
       if (config.isFrostGuideDirectory) {
@@ -67,7 +51,7 @@ export default Ember.Controller.extend(FrostListMixin, {
     }
   }),
 
-  listItems: Ember.computed('model', function () {
+  wrappedListItems: Ember.computed('model', function () {
     return this.get('model.items')
   }),
 

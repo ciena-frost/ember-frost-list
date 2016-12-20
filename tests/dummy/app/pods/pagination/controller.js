@@ -8,7 +8,6 @@ export default Ember.Controller.extend(FrostListMixin, {
   },
   itemsPerPage: 10,
   page: 0, // TODO From qp
-  selectedItems: Ember.A(),
   total: 100, // TODO From meta
 
   fetchPage (page) {

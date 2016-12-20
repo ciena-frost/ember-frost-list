@@ -67,5 +67,7 @@ export default Mixin.create(FrostListSelectionMixin, FrostListExpansionMixin, Fr
         loadPrevious: get(this, '_loadPrevious')
       }
     }
-  })
+  }),
+  selectedItems: Ember.computed.filterBy('statefulListItems', 'isSelected', true),
+  expandedItems: Ember.computed.filterBy('statefulListItems', 'isExpanded', true)
 })

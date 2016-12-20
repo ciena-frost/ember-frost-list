@@ -97,8 +97,8 @@ export default Ember.Controller.extend(FrostListMixin, {
     /* eslint-enable complexity */
 
     renderDemo (attrs) {
-      this.set('selectedItems', Ember.Object.create())
-      this.set('expandedItems', Ember.Object.create())
+      this.set('selectedItemDictionary', Ember.Object.create())
+      this.set('expandedItemDictionary', Ember.Object.create())
 
       this.set('renderDemo', true)
 

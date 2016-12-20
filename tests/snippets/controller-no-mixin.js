@@ -18,23 +18,23 @@ export default Ember.Controller.extend({
     })
   },
 
-  @computed('listItems.[]', 'selectedItems', 'expandedItems')
-  statefulListItems (listItems, selectedItems, expandedItems) {
+  @computed('listItems.[]', 'selectedItemDictionary', 'expandedItemDictionary')
+  statefulListItems (listItems, selectedItemDictionary, expandedItemDictionary) {
     return listItems.map((item) => {
-      item.set('isSelected', selectedItems.getWithDefault(item.id, false))
-      item.set('isExpanded', expandedItems.getWithDefault(item.id, false))
+      item.set('isSelected', selectedItemDictionary.getWithDefault(item.id, false))
+      item.set('isExpanded', expandedItemDictionary.getWithDefault(item.id, false))
       return item
     })
   },
 
   // == Event =================================================================
   initListSelectionMixin: on('init', function () {
-    this.set('expandedItems', Ember.Object.create())
-    this.set('selectedItems', Ember.Object.create())
+    this.set('expandedItemDictionary', Ember.Object.create())
+    this.set('selectedItemDictionary', Ember.Object.create())
   }),
 
   // == Functions ==============================================================
-  updateSelectedItemsHash (selections, attrs) {
+  updateSelectedItemDictionary (selections, attrs) {
     let _selections = selections
     if (attrs.selectDesc.isSelected) {
       if (attrs.selectDesc.isShiftSelect) {
@@ -82,28 +82,28 @@ export default Ember.Controller.extend({
   // == Actions ===============================================
   actions: {
     selectItem (attrs) {
-      let selectedItems = this.get('selectedItems')
-      this.set('selectedItems',
-        this.updateSelectedItemsHash(selectedItems, attrs))
-      this.notifyPropertyChange('selectedItems')
+      let selectedItemDictionary = this.get('selectedItemDictionary')
+      this.set('selectedItemDictionary',
+        this.updateSelectedItemDictionary(selectedItemDictionary, attrs))
+      this.notifyPropertyChange('selectedItemDictionary')
     },
 
     collapseItems () {
       let records = this.get('listItems')
-      let expandedItems = this.get('expandedItems')
+      let expandedItemDictionary = this.get('expandedItemDictionary')
       records.map((record) => {
-        expandedItems.set(record.id, false)
+        expandedItemDictionary.set(record.id, false)
       })
-      this.notifyPropertyChange('expandedItems')
+      this.notifyPropertyChange('expandedItemDictionary')
     },
 
     expandItems () {
       let records = this.get('listItems')
-      let expandedItems = this.get('expandedItems')
+      let expandedItemDictionary = this.get('expandedItemDictionary')
       records.map((record) => {
-        expandedItems.set(record.id, true)
+        expandedItemDictionary.set(record.id, true)
       })
-      this.notifyPropertyChange('expandedItems')
+      this.notifyPropertyChange('expandedItemDictionary')
     },
 
     collapseItem () {
