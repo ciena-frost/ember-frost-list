@@ -1,11 +1,13 @@
 import Ember from 'ember'
-const {Component, get} = Ember
+const {
+  Component,
+  typeOf
+} = Ember
 import computed from 'ember-computed-decorators'
 import layout from '../templates/frost-list-core'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 
 const FrostList = Component.extend(PropTypeMixin, {
-
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
@@ -14,10 +16,8 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   propTypes: {
     alwaysUseDefaultHeight: PropTypes.bool,
-    defaultHeight: PropTypes.number,
     hook: PropTypes.string,
-    scrollPosition: PropTypes.number,
-    size: PropTypes.string
+    scrollPosition: PropTypes.number
   },
 
   // == Computed Properties =====================================================
@@ -42,6 +42,7 @@ const FrostList = Component.extend(PropTypeMixin, {
     return {
       //  Optional attrs for smoke-and-mirror vertical-collection
       //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
+      alwaysUseDefaultHeight: false,
       idForFirstItem: null,
       key: '@identity',
       scrollPosition: 0
@@ -50,18 +51,18 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   // TODO Add validation check for collapseItem/expandItem when feature landed
   checkExpansionValidity (expansion) {
-    return typeof expansion.onCollapseAll === 'function' &&
-      typeof expansion.onExpandAll === 'function'
+    return typeOf(expansion.onCollapseAll) === 'function' &&
+      typeOf(expansion.onExpandAll) === 'function'
   },
 
   checkSelectionValidity (selection) {
-    return typeof selection.onSelect === 'function'
+    return typeOf(selection.onSelect) === 'function'
   },
 
   checkSortingValidity (sorting) {
     return Array.isArray(sorting.activeSorting) &&
            Array.isArray(sorting.properties) &&
-           typeof sorting.onSort === 'function'
+           typeOf(sorting.onSort) === 'function'
   },
 
   // FIXME: code is too complex (was overly complex before adding eslint rule)
@@ -100,20 +101,6 @@ const FrostList = Component.extend(PropTypeMixin, {
   },
   /* eslint-enabled complexity */
 
-  onShiftSelect (attrs) {
-    let records = get(this, '_records')
-    let firstElement = get(this, 'persistedClickState.clickedRecord')
-    let secondElement = attrs.secondClickedRecord
-    get(this, 'onSelect')({
-      records: this._findElementsInBetween(records, firstElement, secondElement),
-      selectDesc: {
-        isSelected: true,
-        isShiftSelect: true,
-        isTargetSelectionIndicator: attrs.isTargetSelectionIndicator
-      }
-    })
-  },
-
   buildRangeSelectedItemsArray (records, firstElement, secondElement) {
     return this._findElementsInBetween(records, firstElement, secondElement)
   },
@@ -124,22 +111,25 @@ const FrostList = Component.extend(PropTypeMixin, {
 
   actions: {
     selectItem (event, attrs) {
-      const onSelect = get(this, 'onSelect')
+      const onSelect = this.get('onSelect')
 
-      if (onSelect && typeof onSelect === 'function') {
+      if (onSelect && typeOf(onSelect) === 'function') {
         let selectedItems = []
         let selectDesc = attrs.selectDesc
 
-        if (event.shiftKey && get(this, 'persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
+        if (event.shiftKey && this.get('persistedClickState.isSelected') && attrs.selectDesc.isSelected) {
           selectedItems = this.buildRangeSelectedItemsArray(
-            get(this, '_records'),
-            get(this, 'persistedClickState.clickedRecord'),
+            this.get('_records'),
+            this.get('persistedClickState.clickedRecord'),
             attrs.record
           )
           selectDesc.isShiftSelect = true
         } else {
           selectedItems = [attrs.record]
           selectDesc.isShiftSelect = false
+          if (event.metaKey || event.ctrlKey) {
+            selectDesc.isCtrlSelect = true
+          }
         }
 
         onSelect({

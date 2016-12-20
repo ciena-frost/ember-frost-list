@@ -1,7 +1,6 @@
 import Ember from 'ember'
 const {
   Component,
-  get,
   on,
   $
 } = Ember
@@ -24,8 +23,8 @@ export default Component.extend({
   @computed('model.isSelected')
   isSelected (isSelected) {
     // TODO: Find a better solution for binding the className to the parent
-    isSelected ? $(get(this, 'element')).parent().addClass('is-selected')
-      : $(get(this, 'element')).parent().removeClass('is-selected')
+    isSelected ? $(this.get('element')).parent().addClass('is-selected')
+      : $(this.get('element')).parent().removeClass('is-selected')
     return isSelected
   },
 
@@ -52,15 +51,15 @@ export default Component.extend({
     event.preventDefault()
     event.stopPropagation()
 
-    const onSelect = get(this, 'onSelect')
+    const onSelect = this.get('onSelect')
 
     if (onSelect && typeof onSelect === 'function') {
       const isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
 
       onSelect(event, {
-        record: get(this, 'model'),
+        record: this.get('model'),
         selectDesc: {
-          isSelected: !get(this, 'model.isSelected'),
+          isSelected: !this.get('model.isSelected'),
           isTargetSelectionIndicator: isTargetSelectionIndicator
         }
       })

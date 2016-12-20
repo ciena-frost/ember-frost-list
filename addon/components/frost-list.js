@@ -1,7 +1,6 @@
 import Ember from 'ember'
 const {
   Component,
-  get,
   isPresent,
   Logger
 } = Ember
@@ -32,9 +31,7 @@ export default Component.extend(PropTypeMixin, {
 
     // proxy properties for smoke-and-mirror
     alwaysUseDefaultHeight: PropTypes.bool,
-    defaultHeight: PropTypes.number,
-    scrollPosition: PropTypes.number,
-    size: PropTypes.string
+    scrollPosition: PropTypes.number
   },
 
   getDefaultProps () {
@@ -49,7 +46,7 @@ export default Component.extend(PropTypeMixin, {
   // FIXME: code is too complex (was overly complex before adding eslint rule)
   /* eslint-disable complexity */
   initContext: Ember.on('init', function () {
-    const config = get(this, 'config')
+    const config = this.get('config')
 
     if (!isPresent(config)) {
       return
