@@ -1,3 +1,7 @@
+# 3.2.4
+- **Updated** repo to use ember-cli-code-coverage instead of ember-cli-blanket
+
+
 # 3.2.3
 - **fixed** bug when data is not coming from the model hook as **listItems** evaluated to null.
 
