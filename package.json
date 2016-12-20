@@ -11,7 +11,8 @@
     "start": "ember server",
     "lint": "eslint *.js addon app blueprints config tests",
     "build": "ember build",
-    "test": "npm run-script lint && ember test"
+    "test": "npm run lint && COVERAGE=true ember test",
+    "ci-test": "ember try:one $EMBER_TRY_SCENARIO --- COVERAGE=true ember test"
   },
   "repository": "git@github.com:ciena-frost/ember-frost-list.git",
   "engines": {
@@ -29,7 +30,7 @@
     "ember-browserify": "1.1.13",
     "ember-cli": "~2.8.0",
     "ember-cli-app-version": "^2.0.0",
-    "ember-cli-blanket": "0.9.8",
+    "ember-cli-code-coverage": "0.3.5",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars-inline-precompile": "0.3.6",
     "ember-cli-inject-live-reload": "^1.3.1",
