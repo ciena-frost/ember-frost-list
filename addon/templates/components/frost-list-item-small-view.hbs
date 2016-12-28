@@ -1,0 +1,10 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#each-in data as |item value|}}
+      <div class="frost-list-item-small-view-row">
+          <div class="frost-list-item-small-view-label">{{item}}</div>
+          <div class="frost-list-item-small-view-value">{{value}}</div>
+      </div>
+  {{/each-in}}
+{{/if}}

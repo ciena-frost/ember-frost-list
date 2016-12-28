@@ -1,0 +1,14 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#if icon}}
+      <div class="frost-list-item-large-icon-text-icon">
+        {{frost-icon icon=icon pack=pack}}
+      </div>
+  {{/if}}
+  {{#if text}}
+      <div class="frost-list-item-large-icon-text-text">
+        {{text}}
+      </div>
+  {{/if}}
+{{/if}}

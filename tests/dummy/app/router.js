@@ -20,6 +20,7 @@ Router.map(function () {
   this.route('mixin-list')
   this.route('pre-selection')
   this.route('qp-binding')
+  this.route('item-primitives')
 })
 
 export default Router

@@ -1,4 +1,6 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
+@import './list-item-primitives';
+
 
 $frost-list-content-border-top: 1px;
 $frost-list-content-border-bottom: 1px;
@@ -41,6 +43,7 @@ $frost-list-content-border-bottom: 1px;
   background-image: -webkit-linear-gradient($pos-degree $full); // Safari 5.1+, Chrome
   background-image: unquote("linear-gradient(#{$pos-spec}#{$full})");
 }
+
 
 .frost-list {
   display: flex;
@@ -353,7 +356,7 @@ $frost-list-content-border-bottom: 1px;
     }
 
     &:last-child {
-      padding-right: 0px;
+      padding-right: 0;
     }
   }
 }
