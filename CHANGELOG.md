@@ -1,3 +1,7 @@
+# 5.0.0
+* onExpansionChange -> expandedItems -> list
+
+
 # 4.0.0
 
 - Coming soon, refer to the demo in the meantime
