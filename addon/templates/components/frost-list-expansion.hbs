@@ -1,4 +1,4 @@
 {{! Template for the frost-list-expansion component }}
 
-<div {{action onCollapseAll}} class="frost-list-expansion-item">Collapse all</div>
-<div {{action onExpandAll}} class="frost-list-expansion-item">Expand all</div>
+<div {{action onCollapseAll}} class="frost-list-expansion-item" data-test={{hook (concat hook '-collapse-all')}}>Collapse all</div>
+<div {{action onExpandAll}} class="frost-list-expansion-item" data-test={{hook (concat hook '-expand-all')}}>Expand all</div>

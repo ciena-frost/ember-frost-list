@@ -1,25 +1,27 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import Ember from 'ember'
-const {run} = Ember
-import {describeComponent} from 'ember-mocha'
+const { A } = Ember
+import { describeComponent } from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import {
-  beforeEach,
-  describe,
-  it
-} from 'mocha'
+import { afterEach, beforeEach, describe, it } from 'mocha'
+import sinon from 'sinon'
 
 describeComponent(
   'frost-list-core',
-  'Unit: FrostListCore',
+  'Unit: FrostListCoreComponent',
   {
     unit: true
   },
   function () {
-    let component
+    let component, sandbox
 
     beforeEach(function () {
       component = this.subject()
+      sandbox = sinon.sandbox.create()
+    })
+
+    afterEach(function () {
+      sandbox.restore()
     })
 
     it('includes className frost-list', function () {
@@ -29,23 +31,30 @@ describeComponent(
     it('includes className frost-list-core', function () {
       expect(component.classNames).to.include('frost-list-core')
     })
+    describe('default property values', function () {
+      it('sets alwaysUseDefaultHeight to false', function () {
+        expect(
+          component.get('alwaysUseDefaultHeight')
+        ).to.eql(false)
+      })
 
-    it('sets default properties value correct', function () {
-      expect(component.get('alwaysUseDefaultHeight'),
-      'alwaysUseDefaultHeight: false'
-      ).to.be.false
+      it('sets idForFirstItem to null', function () {
+        expect(
+          component.get('idForFirstItem')
+        ).to.eql(null)
+      })
 
-      expect(component.get('idForFirstItem'),
-        'idForFirstItem: null'
-      ).to.be.null
+      it('sets key to @identity', function () {
+        expect(
+          component.get('key')
+        ).to.eql('@identity')
+      })
 
-      expect(component.get('key'),
-        'key: @identity'
-      ).to.eql('@identity')
-
-      expect(component.get('scrollPosition'),
-        'scrollPosition: 0'
-      ).to.eql(0)
+      it('sets scrollPosition to 0', function () {
+        expect(
+          component.get('scrollPosition')
+        ).to.eql(0)
+      })
     })
 
     it('sets dependent keys correctly', function () {
@@ -59,41 +68,39 @@ describeComponent(
         'sorting'
       ]
 
-      expect(
-        component._records._dependentKeys,
-        'Dependent keys are correct for _records computed property'
-      ).to.eql(_recordsDependentKeys)
-
-      expect(
-        component._hasHeader._dependentKeys,
-        'Dependent keys are correct for _hasHeader computed property'
-      ).to.eql(_hasHeaderDependentKeys)
+      it('sets correct dependent keys for _records computed property', function () {
+        expect(
+          component._records._dependentKeys
+        ).to.eql(_recordsDependentKeys)
+      })
+      it('sets correct dependent keys for _hasHeader computed property', function () {
+        expect(
+          component._hasHeader._dependentKeys
+        ).to.eql(_hasHeaderDependentKeys)
+      })
     })
 
     it('has the expected Mixins', function () {
       expect(
-        PropTypeMixin.detect(component),
-        'PropTypeMixin Mixin is present'
-      ).to.be.true
+        PropTypeMixin.detect(component)
+      ).to.eql(true)
     })
 
     describe('"_records" computed property', function () {
-      it('is set correctly', function () {
-        const items = [1, 2, 3, 4]
-        run(() => { component.set('items', items) })
-        expect(component.get('_records')).to.eql(items)
+      it('is set correctly when items is not empty', function () {
+        component.set('items', A([1, 2, 3, 4]))
+
+        expect(
+          component.get('_records')
+        ).to.eql(A([1, 2, 3, 4]))
       })
 
-      it('is set correctly when items is undefined', function () {
-        const items = undefined
-        run(() => { component.set('items', items) })
-        expect(component.get('_records')).to.eql([])
-      })
+      it('is set correctly when items is empty', function () {
+        component.set('items', undefined)
 
-      it('is set correctly when items is null', function () {
-        const items = null
-        run(() => { component.set('items', items) })
-        expect(component.get('_records')).to.eql([])
+        expect(
+          component.get('_records')
+        ).to.eql([])
       })
     })
 
@@ -102,62 +109,50 @@ describeComponent(
         const sorting = {sortProperty: 'sortProperty'}
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => {
-          component.set('sorting', sorting)
-          component.set('expansion', expansion)
-        })
+        component.setProperties({sorting, expansion})
 
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "true"'
-        ).to.be.true
+          component.get('_hasHeader')
+        ).to.eql(true)
       })
 
       it('is set to "true" when "sorting" is set', function () {
         const sorting = {sortProperty: 'sortProperty'}
 
-        run(() => {
-          component.set('sorting', sorting)
-        })
+        component.set('sorting', sorting)
 
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "true"'
-        ).to.be.true
+          component.get('_hasHeader')
+        ).to.eql(true)
       })
 
       it('is set to "true" when "expansion" is set', function () {
         const expansion = {expansion: 'expansionMethod'}
 
-        run(() => {
-          component.set('expansion', expansion)
-        })
+        component.set('expansion', expansion)
 
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "true"'
-        ).to.be.true
+          component.get('_hasHeader')
+        ).to.eql(true)
       })
 
-      it('is set to "false" when both "sorting" and "expansion" are NOT set', function () {
+      it('is set to "false" when "sorting" and "expansion" are NOT set', function () {
         expect(
-          component.get('_hasHeader'),
-          '_hasHeader: "false"'
-        ).to.be.false
+          component.get('_hasHeader')
+        ).to.eql(false)
       })
     })
 
     describe('"checkExpansionValidity" function', function () {
-      it('returns "true" when expansion is set Properly', function () {
+      it('returns "true" when expansion is set properly', function () {
         const expansion = {
           onCollapseAll: function () {},
           onExpandAll: function () {}
         }
 
         expect(
-          component.checkExpansionValidity(expansion),
-          'isExpansionValid: "true"'
-        ).to.be.true
+          component.checkExpansionValidity(expansion)
+        ).to.eql(true)
       })
 
       it('returns "false" when "onExpandAll" function is missing in "expansion"', function () {
@@ -166,9 +161,8 @@ describeComponent(
         }
 
         expect(
-          component.checkExpansionValidity(expansion),
-          'isExpansionValid: "false"'
-        ).to.be.false
+          component.checkExpansionValidity(expansion)
+        ).to.eql(false)
       })
 
       it('returns "false" when "onCollapseAll" function is missing in "expansion"', function () {
@@ -177,9 +171,8 @@ describeComponent(
         }
 
         expect(
-          component.checkExpansionValidity(expansion),
-          'isExpansionValid: "false"'
-        ).to.be.false
+          component.checkExpansionValidity(expansion)
+        ).to.eql(false)
       })
     })
 
@@ -190,85 +183,286 @@ describeComponent(
         }
 
         expect(
-          component.checkSelectionValidity(selection),
-          'isSelectionValid: "true"'
-        ).to.be.true
+          component.checkSelectionValidity(selection)
+        ).to.eql(true)
       })
 
       it('returns "false" when "onSelect" function is missing in "selection"', function () {
         const selection = {}
 
         expect(
-          component.checkSelectionValidity(selection),
-          'isSelectionValid: "true"'
-        ).to.be.false
+          component.checkSelectionValidity(selection)
+        ).to.eql(false)
       })
     })
 
     describe('"checkSortingValidity" function', function () {
-      let selection = {}
+      it('returns "false" when "sorting" is NOT set properly', function () {
+        const sorting = {}
 
-      it('returns "false" when "sorting" is NOT set Properly', function () {
         expect(
-          component.checkSortingValidity(selection),
-          'isSortingValid: "false"'
-        ).to.be.false
+          component.checkSortingValidity(sorting)
+        ).to.eql(false)
       })
 
       it('returns "false" when "activeSorting" and "properties" are missing in "sorting"', function () {
-        Object.defineProperty(selection, 'onSort', {value: function () {}})
+        const sorting = {
+          onSort: function () {}
+        }
 
         expect(
-          component.checkSortingValidity(selection),
-          'isSortingValid: "false"'
-        ).to.be.false
+          component.checkSortingValidity(sorting)
+        ).to.eql(false)
       })
 
       it('returns "false" when "activeSorting" is missing in "sorting"', function () {
-        Object.defineProperty(selection, 'properties', {value: []})
+        const sorting = {
+          onSort: function () {},
+          properties: []
+        }
 
         expect(
-          component.checkSortingValidity(selection),
-          'isSortingValid: "false"'
-        ).to.be.false
+          component.checkSortingValidity(sorting)
+        ).to.eql(false)
       })
 
-      it('returns "true" when "selection" is set properly', function () {
-        Object.defineProperty(selection, 'activeSorting', {value: []})
+      it('returns "true" when "sorting" is set properly', function () {
+        const sorting = {
+          onSort: function () {},
+          properties: [],
+          activeSorting: []
+        }
 
         expect(
-          component.checkSortingValidity(selection),
-          'isSortingValid: "true"'
-        ).to.be.true
+          component.checkSortingValidity(sorting)
+        ).to.eql(true)
       })
     })
 
     describe('"_findElementsInBetween" function', function () {
       let array = []
-      for (let i = 0; i < 10; i++) {
-        array.push({
-          id: i
-        })
-      }
+      beforeEach(function () {
+        for (let i = 0; i < 10; i++) {
+          array.push({
+            id: i
+          })
+        }
+      })
 
       it('returns result array when all attributes are provided', function () {
         expect(
-          component._findElementsInBetween(array, array[2], array[6]).length,
-          'isSelectionValid: "true"'
+          component._findElementsInBetween(array, array[2], array[6]).length
         ).to.eql(5)
       })
 
-      it('returns last element when "firstElement" is missing', function () {
-        let result = component._findElementsInBetween(array, undefined, array[6])
-        expect(
-          result.length,
-          'result array contains one element'
-        ).to.eql(1)
+      describe('returns last element when "firstElement" is missing', function () {
+        it('returns only one element', function () {
+          let result = component._findElementsInBetween(array, undefined, array[6])
+          expect(
+            result.length
+          ).to.eql(1)
+        })
+
+        it('returns the last element id', function () {
+          let result = component._findElementsInBetween(array, undefined, array[6])
+          expect(
+            result[0].id
+          ).to.eql(6)
+        })
+      })
+    })
+
+    describe('"selectItem" action', function () {
+      const testItems = A([
+        {
+          id: '1'
+        },
+        {
+          id: '2'
+        },
+        {
+          id: '3'
+        }
+      ])
+
+      it('updates persistedClickState with correct object', function () {
+        const persistedClickState = {
+          clickedRecord: {
+            id: '1'
+          },
+          isSelected: true
+        }
+
+        const updatedPersistedClickState = {
+          clickedRecord: {
+            id: '3'
+          },
+          isSelected: true
+        }
+        const mockAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '3'
+          }
+        }
+
+        component.set('persistedClickState', persistedClickState)
+        component.send('selectItem', {}, mockAttrs)
 
         expect(
-          result[0].id,
-          'result: {id: 6}'
-        ).to.eql(6)
+          component.get('persistedClickState')
+        ).to.eql(updatedPersistedClickState)
+      })
+
+      it('triggers shiftKey selection', function () {
+        const mockEvent = {
+          shiftKey: true
+        }
+
+        const mockAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '3'
+          }
+        }
+
+        const mockPersistedClickState = {
+          isSelected: true,
+          clickedRecord: {
+            id: '1'
+          }
+        }
+        const resultObject = {
+          records: A([
+            {
+              id: '1'
+            },
+            {
+              id: '2'
+            },
+            {
+              id: '3'
+            }
+          ]),
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false,
+            isShiftSelect: true
+          }
+        }
+
+        component.setProperties(
+          {
+            'onSelect': sandbox.spy(),
+            '_records': testItems,
+            'persistedClickState': mockPersistedClickState
+          }
+        )
+        component.send('selectItem', mockEvent, mockAttrs)
+
+        expect(
+          component.get('onSelect').calledWith(resultObject),
+          'calls onSelect() with the correct object'
+        ).to.eql(true)
+      })
+
+      it('triggers command/control key selection', function () {
+        const mockEvent = {
+          shiftKey: false,
+          ctrlKey: true
+        }
+
+        const mockAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '3'
+          }
+        }
+
+        const mockPersistedClickState = {
+          isSelected: true,
+          clickedRecord: {
+            id: '1'
+          }
+        }
+        const resultObject = {
+          records: A([
+            {
+              id: '3'
+            }
+          ]),
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false,
+            isShiftSelect: false,
+            isCtrlSelect: true
+          }
+        }
+
+        component.setProperties(
+          {
+            'onSelect': sandbox.spy(),
+            '_records': testItems,
+            'persistedClickState': mockPersistedClickState
+          }
+        )
+        component.send('selectItem', mockEvent, mockAttrs)
+
+        expect(
+          component.get('onSelect').calledWith(resultObject),
+          'calls onSelect() with the correct object'
+        ).to.eql(true)
+      })
+
+      it('triggers single item selection', function () {
+        const mockEvent = {
+          shiftKey: false
+        }
+
+        const mockAttrs = {
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false
+          },
+          record: {
+            id: '1'
+          }
+        }
+
+        const resultObject = {
+          records: A([
+            {
+              id: '1'
+            }
+          ]),
+          selectDesc: {
+            isSelected: true,
+            isTargetSelectionIndicator: false,
+            isShiftSelect: false
+          }
+        }
+
+        component.setProperties(
+          {
+            'onSelect': sandbox.spy(),
+            '_records': testItems
+          }
+        )
+        component.send('selectItem', mockEvent, mockAttrs)
+
+        expect(
+          component.get('onSelect').calledWith(resultObject),
+          'calls onSelect() with the correct object'
+        ).to.eql(true)
       })
     })
   }
