@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
 
   // == Properties ============================================================
 
+  expandedItems: [],
   itemsPerPage: 10,
   page: 0,
   scrollTop: 0,
@@ -52,6 +53,10 @@ export default Ember.Controller.extend({
   // == Actions ===============================================================
 
   actions: {
+    onExpansionChange (expandedItems) {
+      this.get('expandedItems').setObjects(expandedItems)
+    },
+
     onPaginationChange (page) {
       this.setProperties({
         page,

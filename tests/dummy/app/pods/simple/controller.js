@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
 
   // == Properties ============================================================
 
+  expandedItems: [],
   selectedItems: [],
   sortOrder: ['-id'],
   sortingProperties: [
@@ -38,6 +39,10 @@ export default Ember.Controller.extend({
   // == Actions ===============================================================
 
   actions: {
+    onExpansionChange (expandedItems) {
+      this.get('expandedItems').setObjects(expandedItems)
+    },
+
     onSelectionChange (selectedItems) {
       this.get('selectedItems').setObjects(selectedItems)
     },
