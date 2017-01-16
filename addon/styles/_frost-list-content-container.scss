@@ -1,0 +1,46 @@
+.frost-list-content-container {
+  display: flex;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+  height: calc(100% - 2px);
+  min-height: 0;
+  // Only for the infinite scroll case
+  border-right: 1px solid $frost-color-lgrey-1;
+  // The only border side that can be done this way
+  border-left: 1px solid $frost-color-lgrey-1;
+
+  &.paged {
+    border-right: 0;
+
+    // The scroll rail requires a padding offset, so a typical border-right
+    // doesn't work (appears on the outside of the scroll gutter)
+    // Offset rails https://github.com/noraesae/perfect-scrollbar/issues/508
+    &:before {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      bottom: 0;
+      border-right: 1px solid $frost-color-lgrey-1;
+      content: '';
+    }
+
+    .frost-scroll {
+      padding-right: $frost-list-scroll-rail-gutter-width;
+    }
+  }
+}
+
+// The scroll rail requires a padding offset, so a typical border-top/border-bottom
+// doesn't work (overflows the scroll gutter)
+// Offset rails https://github.com/noraesae/perfect-scrollbar/issues/508
+.frost-list-content-container-top-border,
+.frost-list-content-container-bottom-border {
+  width: 100%;
+  height: 1px;
+  background-color: $frost-color-lgrey-1;
+
+  &.paged {
+    width: calc(100% - #{$frost-list-scroll-rail-gutter-width});
+  }
+}

@@ -1,0 +1,32 @@
+.frost-list-item-expansion {
+  align-self: center;
+  margin: 0 5px;
+  padding: 5px 5px 1px; // FIXME Bottom is 1px to compensate for svg sizing
+  color: $frost-color-grey-5;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $frost-list-item-expansion-hover-background-color;
+    color: $frost-color-blue-1;
+  }
+
+  &.is-expanded {
+    color: $frost-color-grey-2;
+
+    &:hover {
+      background-color: $frost-list-item-expansion-hover-background-color;
+      color: $frost-color-blue-1;
+    }
+  }
+
+  &-icon {
+    width: 15px;
+    height: 15px;
+    transform: rotate(-90deg);
+    transition: .2s ease-out;
+
+    &.is-expanded {
+      transform: rotate(0deg);
+    }
+  }
+}

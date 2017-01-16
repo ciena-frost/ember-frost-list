@@ -1,22 +1,28 @@
-<div class="dummy-notification-container">
-	{{#each notifications as |notification|}}
-		{{notification-message notification=notification}}
-	{{/each}}
+{{frost-select-outlet
+  hook='demo-select-outlet'
+}}
+{{notification-container position="top-right"}}
+
+<div class='frost-modal-demo'>
+  <div class='frost-modal-demos'>
+    <div class='frost-modal-demo-title'>
+      Demos
+    </div>
+    {{#frost-scroll
+      class='frost-modal-demo-selectors'
+      hook='demo-navigation-scroll'
+    }}
+      <div class='frost-modal-demo-selector-title'>
+        Cookbook
+        {{#link-to 'simple'}}Basic{{/link-to}}
+        {{#link-to 'infinite'}}Infinite{{/link-to}}
+        {{#link-to 'paged'}}Paged{{/link-to}}
+      </div>
+    {{/frost-scroll}}
+  </div>
+
+  <div class='frost-modal-demo-example'>
+    {{outlet}}
+  </div>
 </div>
 
-<ui class="frost-demo-nav">
-    <li class="demo-nav-item">{{#link-to "documents" class='demo-link'}}Doc{{/link-to}}</li>
-    <li class="demo-nav-item">{{#link-to "examples" class='demo-link'}}Live Demo{{/link-to}}</li>
-    <li class="demo-nav-item">{{#link-to "infinite-scroll" class='demo-link'}}Infinite Scroll{{/link-to}}</li>
-    <li class="demo-nav-item">{{#link-to "pagination" class='demo-link'}}Pagination{{/link-to}}</li>
-    <li class="demo-nav-item">{{#link-to "qp-binding" class='demo-link'}}Query Binding{{/link-to}}</li>
-    <li class="demo-nav-item">{{#link-to "pre-selection" class='demo-link'}}Pre selection{{/link-to}}</li>
-</ui>
-
-<div class="dummy-body">
-	<div class="dummy-content">
-		{{outlet}}
-	</div>
-</div>
-
-{{frost-select-outlet}}

@@ -1,64 +1,179 @@
+/**
+ * TODO Component definition for the frost-list component
+ */
+
 import Ember from 'ember'
-const {
-  Component,
-  get,
-  isPresent,
-  Logger
-} = Ember
-import layout from '../templates/frost-list'
-import PropTypeMixin, {PropTypes} from 'ember-prop-types'
+const {$, isEmpty, set} = Ember
+import computed, {readOnly} from 'ember-computed-decorators'
+import {Component} from 'ember-frost-core'
+import {selection} from 'ember-frost-list'
+import {PropTypes} from 'ember-prop-types'
 
-export default Component.extend(PropTypeMixin, {
-  tagName: '',
+import layout from '../templates/components/frost-list'
+
+export default Component.extend({
+
+  // == Dependencies ==========================================================
+
+  // == Keyword Properties ====================================================
+
+  classNameBindings: ['_isShiftDown:shift-down'],
   layout,
-  propTypes: {
-    config: PropTypes.object,
-    expansion: PropTypes.object,
-    hook: PropTypes.string,
-    infinite: PropTypes.bool,
-    item: PropTypes.object,
-    items: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.EmberObject
-    ]),
-    pagination: PropTypes.shape({
-      itemsPerPage: PropTypes.number.isRequired,
-      page: PropTypes.number.isRequired,
-      total: PropTypes.number.isRequired,
-      onChange: PropTypes.func.isRequired
-    }),
-    sorting: PropTypes.object,
-    onSelect: PropTypes.func,
 
-    // proxy properties for smoke-and-mirror
+  // == PropTypes =============================================================
+
+  propTypes: {
+    // Options - required
+    item: PropTypes.EmberComponent.isRequired,
+    items: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ])).isRequired,
+
+    // Options - general
+    itemExpansion: PropTypes.EmberComponent,
+    scrollTop: PropTypes.number,
+    selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ])),
+    onSelectionChange: PropTypes.func,
+
+    // Options - sub-components
+    pagination: PropTypes.EmberComponent,
+    sorting: PropTypes.EmberComponent,
+
+    // Options - infinite scroll
+    onLoadNext: PropTypes.func,
+    onLoadPrevious: PropTypes.func,
+    // Smoke and mirrors
     alwaysUseDefaultHeight: PropTypes.bool,
+    bufferSize: PropTypes.number,
     defaultHeight: PropTypes.number,
-    scrollPosition: PropTypes.number,
-    size: PropTypes.string
+
+    // State
+    _expandedItems: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ])),
+
+    _isShiftDown: PropTypes.bool,
+
+    _rangeState: PropTypes.shape({
+      anchor: PropTypes.oneOfType([
+        PropTypes.EmberObject,
+        PropTypes.object
+      ]),
+      endpoint: PropTypes.oneOfType([
+        PropTypes.EmberObject,
+        PropTypes.object
+      ])
+    })
   },
 
   getDefaultProps () {
     return {
-      //  Optional attrs for smoke-and-mirror vertical-collection
-      //  https://github.com/runspired/smoke-and-mirrors/blob/develop/addon/components/vertical-collection.js
+      // Options - general
+      scrollTop: 0,
+
+      // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
-      infinite: true
+      bufferSize: 10,
+      defaultHeight: 50,
+
+      // State
+      _expandedItems: [],
+      _rangeState: {
+        anchor: null,
+        endpoint: null
+      }
     }
   },
 
-  // FIXME: code is too complex (was overly complex before adding eslint rule)
-  /* eslint-disable complexity */
-  initContext: Ember.on('init', function () {
-    const config = get(this, 'config')
+  // == Computed Properties ===================================================
 
-    if (!isPresent(config)) {
-      return
-    } else {
-      if (this.item || this.expansion || this.sorting) {
-        Logger.error('Consumer should not provide config hash and item/expansion/sorting at the same time.')
+  @readOnly
+  @computed('_expandedItems.[]', 'items.[]', 'selectedItems.[]')
+  _items (_expandedItems, items, selectedItems) {
+    if (isEmpty(items)) {
+      return []
+    }
+
+    return items.map(item => {
+      set(item, 'isExpanded', _expandedItems.indexOf(item) >= 0)
+      set(item, 'isSelected', selectedItems.indexOf(item) >= 0)
+      return item
+    })
+  },
+
+  // == Functions =============================================================
+
+  setShift (event) {
+    if (!this.isDestroyed) {
+      this.set('_isShiftDown', event.shiftKey)
+    }
+  },
+
+  // == DOM Events ============================================================
+
+  // == Lifecycle Hooks =======================================================
+
+  didUpdateAttrs ({newAttrs}) {
+    if (newAttrs.scrollTop) {
+      // TODO Push this down into frost-scroll
+      const scrollbar = this.$('.frost-scroll')[0]
+      if (scrollbar) {
+        scrollbar.scrollTop = newAttrs.scrollTop
+        window.Ps.update(scrollbar)
       }
     }
-  })
-  /* eslint-enable complexity */
-})
+  },
 
+  init () {
+    this._super(...arguments)
+
+    $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this.setShift.bind(this))
+  },
+
+  willDestroy () {
+    $(document).off(`keyup.${this.elementId} keydown.${this.elementId}`, this.setShift.bind(this))
+  },
+
+  // == Actions ===============================================================
+
+  actions: {
+    _collapseAll () {
+      this.get('_expandedItems').clear()
+    },
+
+    _expand (item) {
+      const _expandedItems = this.get('_expandedItems')
+      if (_expandedItems.indexOf(item) >= 0) {
+        _expandedItems.removeObject(item)
+      } else {
+        _expandedItems.pushObject(item)
+      }
+    },
+
+    _expandAll () {
+      this.get('_expandedItems').setObjects(this.get('items'))
+    },
+
+    _select ({isRangeSelect, isSpecificSelect, item}) {
+      const items = this.get('items')
+      const clonedSelectedItems = this.get('selectedItems').slice()
+      const _rangeState = this.get('_rangeState')
+
+      // Selects are proccessed in order of precedence: specific, range, basic
+      if (isSpecificSelect) {
+        selection.specific(clonedSelectedItems, item, _rangeState)
+      } else if (isRangeSelect) {
+        selection.range(items, clonedSelectedItems, item, _rangeState)
+      } else {
+        selection.basic(clonedSelectedItems, item, _rangeState)
+      }
+
+      this.onSelectionChange(clonedSelectedItems)
+    }
+  }
+})

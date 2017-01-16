@@ -1,0 +1,68 @@
+.frost-list-item-element-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 5px 0;
+  padding: 0 15px 0 10px;
+  cursor: text;
+}
+
+.frost-list-item-element-block-start {
+  margin: 0;
+  padding: 0;
+}
+
+.frost-list-item-element-block ~ .frost-list-item-element-block {
+  border-left: 1px solid $frost-color-lgrey-2;
+}
+
+.frost-list-item-element-block-end {
+  * {
+    direction: rtl;
+  }
+}
+
+.frost-list-item-element-primary,
+.frost-list-item-element-secondary,
+.frost-list-item-element-tertiary {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.frost-list-item-element-primary,
+.frost-list-item-element-secondary {
+  padding-bottom: 5px;
+  color: $frost-color-grey-2;
+  font-weight: bold;
+}
+
+.frost-list-item-element-primary {
+  font-size: $frost-font-s;
+}
+
+.frost-list-item-element-secondary {
+  font-size: $frost-font-xs;
+}
+
+.frost-list-item-element-tertiary {
+  flex-direction: row;
+  align-items: center;
+  color: $frost-color-grey-4;
+  font-size: $frost-font-xs;
+}
+
+.frost-list-item-element-badge {
+  display: inline-block;
+  margin-right: auto;
+}
+
+.frost-list-item-element-icon {
+  width: 40px;
+  height: 40px;
+  margin: 5px 0 5px 5px;
+}
+
+.frost-list-item-element-label {
+  margin-right: 5px;
+}

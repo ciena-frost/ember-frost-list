@@ -1,0 +1,87 @@
+{{! Template for the frost-list component }}
+
+<div class='frost-list-header'>
+  {{#if sorting}}
+    {{component sorting
+      hook=(concat hookPrefix '-sorting')
+    }}
+  {{/if}}
+
+  <div class='frost-list-header-end'>
+    {{#if pagination}}
+      {{component pagination
+        hook=(concat hookPrefix '-pagination')
+      }}
+    {{/if}}
+
+    {{#if (and pagination itemExpansion)}}
+      <div class='frost-list-header-divider'></div>
+    {{/if}}
+
+    {{#if itemExpansion}}
+      {{frost-list-expansion
+        hook=(concat hookPrefix '-expansion')
+        onCollapseAll=(action '_collapseAll')
+        onExpandAll=(action '_expandAll')
+      }}
+    {{/if}}
+  </div>
+</div>
+
+<div class='frost-list-content-container-top-border {{if pagination 'paged'}}'></div>
+{{#frost-list-content-container
+  alwaysUseDefaultHeight=alwaysUseDefaultHeight
+  bufferSize=bufferSize
+  defaultHeight=defaultHeight
+  hook=(concat hookPrefix '-contentContainer')
+  items=_items
+  pagination=pagination
+  scrollTop=scrollTop
+  onLoadNext=onLoadNext
+  onLoadPrevious=onLoadPrevious
+  as |model index|
+}}
+  <div class='
+    frost-list-item-container
+    {{if (eq index 0) ' first'}}
+    {{if model.isSelected ' is-selected'}}
+    {{if (is-lead-selection _items model) ' is-lead-selection'}}
+  '>
+    <div class='frost-list-item-container-base'>
+      {{#if itemExpansion}}
+        {{frost-list-item-expansion
+          hook=(concat hookPrefix '-expansion')
+          model=model
+          onExpand=(action '_expand')
+        }}
+      {{/if}}
+
+      {{#if onSelectionChange}}
+        {{frost-list-item-selection
+          hook=(concat hookPrefix '-selection')
+          model=model
+          onSelect=(action '_select')
+        }}
+      {{/if}}
+
+      {{component item
+        hook=(concat hookPrefix '-item')
+        hookQualifiers=(hash index=index)
+        model=model
+        onSelect=(action '_select')
+      }}
+    </div>
+
+    {{#if model.isExpanded}}
+      <div class='frost-list-item-container-expansion'>
+        {{component itemExpansion
+          hook=(concat hookPrefix '-item-expansion')
+          hookQualifiers=(hash index=index)
+          model=model
+          onSelect=(action '_select')
+        }}
+      </div>
+    {{/if}}
+  </div>
+{{/frost-list-content-container}}
+<div class='frost-list-content-container-bottom-border {{if pagination 'paged'}}'></div>

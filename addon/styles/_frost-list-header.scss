@@ -1,0 +1,22 @@
+.frost-list-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 45px;
+  padding-right: $frost-list-scroll-rail-gutter-width;
+}
+
+.frost-list-header-divider {
+  width: 1px;
+  height: 15px;
+  margin: 0 10px;
+  background-color: $frost-color-grey-6;
+}
+
+.frost-list-header-end {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 45px;
+  margin-left: auto;
+}

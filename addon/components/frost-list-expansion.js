@@ -1,8 +1,37 @@
-import Ember from 'ember'
-const {Component} = Ember
-import layout from '../templates/frost-list-expansion'
+/**
+ * TODO
+ */
+
+import {Component} from 'ember-frost-core'
+
+import layout from '../templates/components/frost-list-expansion'
 
 export default Component.extend({
-  classNames: ['frost-list-expansion'],
-  layout
+
+  // == Dependencies ==========================================================
+
+  // == Keyword Properties ====================================================
+
+  layout,
+
+  // == PropTypes =============================================================
+
+  propTypes: {
+  },
+
+  getDefaultProps () {
+    return {
+    }
+  }
+
+  // == Computed Properties ===================================================
+
+  // == Functions =============================================================
+
+  // == DOM Events ============================================================
+
+  // == Lifecycle Hooks =======================================================
+
+  // == Actions ===============================================================
+
 })

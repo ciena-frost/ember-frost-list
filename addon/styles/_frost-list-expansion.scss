@@ -1,0 +1,22 @@
+.frost-list-expansion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: $frost-font-s;
+  cursor: pointer;
+
+  .frost-list-expansion-item {
+    height: 30px;
+    padding: 0 5px;
+    color: $frost-color-blue-1;
+    line-height: 30px;
+
+    &:hover {
+      background-color: $frost-list-expansion-item-hover-color;
+    }
+
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}

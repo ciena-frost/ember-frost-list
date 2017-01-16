@@ -1,0 +1,8 @@
+{{! Template for the frost-list-item-expansion component }}
+
+{{frost-icon
+  class=(concat css '-icon' (if isExpanded ' is-expanded' ''))
+  hook=(concat hookPrefix '-icon')
+  icon='chevron-thin'
+  pack='frost-list'
+}}
