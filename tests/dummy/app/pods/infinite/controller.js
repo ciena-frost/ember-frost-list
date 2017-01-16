@@ -15,6 +15,7 @@ export default Controller.extend({
 
   // == Properties ============================================================
 
+  expandedItems: [],
   itemsPerPage: 100,
   lastPage: 0,
   selectedItems: [],
@@ -55,6 +56,10 @@ export default Controller.extend({
   // == Actions ===============================================================
 
   actions: {
+    onExpansionChange (expandedItems) {
+      this.get('expandedItems').setObjects(expandedItems)
+    },
+
     onLoadNext (page) {
       this.set('lastPage', this.get('lastPage') + 1)
       this.fetchPage(this.get('lastPage'))

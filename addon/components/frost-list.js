@@ -31,6 +31,10 @@ export default Component.extend({
     ])).isRequired,
 
     // Options - general
+    expandedItems: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ])),
     itemExpansion: PropTypes.EmberComponent,
     scrollTop: PropTypes.number,
     selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -52,11 +56,6 @@ export default Component.extend({
     defaultHeight: PropTypes.number,
 
     // State
-    _expandedItems: PropTypes.arrayOf(PropTypes.oneOfType([
-      PropTypes.EmberObject,
-      PropTypes.object
-    ])),
-
     _isShiftDown: PropTypes.bool,
 
     _rangeState: PropTypes.shape({
@@ -82,7 +81,6 @@ export default Component.extend({
       defaultHeight: 50,
 
       // State
-      _expandedItems: [],
       _rangeState: {
         anchor: null,
         endpoint: null
@@ -93,14 +91,14 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('_expandedItems.[]', 'items.[]', 'selectedItems.[]')
-  _items (_expandedItems, items, selectedItems) {
+  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]')
+  _items (expandedItems, items, selectedItems) {
     if (isEmpty(items)) {
       return []
     }
 
     return items.map(item => {
-      set(item, 'isExpanded', _expandedItems.indexOf(item) >= 0)
+      set(item, 'isExpanded', expandedItems.indexOf(item) >= 0)
       set(item, 'isSelected', selectedItems.indexOf(item) >= 0)
       return item
     })
@@ -143,20 +141,21 @@ export default Component.extend({
 
   actions: {
     _collapseAll () {
-      this.get('_expandedItems').clear()
+      this.onExpansionChange([])
     },
 
     _expand (item) {
-      const _expandedItems = this.get('_expandedItems')
-      if (_expandedItems.indexOf(item) >= 0) {
-        _expandedItems.removeObject(item)
+      const clonedExpandedItems = this.get('expandedItems').slice()
+      if (clonedExpandedItems.indexOf(item) >= 0) {
+        clonedExpandedItems.removeObject(item)
       } else {
-        _expandedItems.pushObject(item)
+        clonedExpandedItems.pushObject(item)
       }
+      this.onExpansionChange(clonedExpandedItems)
     },
 
     _expandAll () {
-      this.get('_expandedItems').setObjects(this.get('items'))
+      this.onExpansionChange(this.get('items'))
     },
 
     _select ({isRangeSelect, isSpecificSelect, item}) {
