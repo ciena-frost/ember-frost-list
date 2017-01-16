@@ -1,3 +1,8 @@
+# 4.0.0
+
+- Coming soon, refer to the demo in the meantime
+
+
 # 3.2.5
 - **Added** test suite for frost-list
 - **Updated** repo to follow new convention guidelines
