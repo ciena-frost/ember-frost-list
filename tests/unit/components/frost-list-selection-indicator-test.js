@@ -15,7 +15,7 @@ describeComponent(
       component = this.subject()
     })
 
-    it('includes className frost-list-selection-indicator', function () {
+    it.skip('includes className frost-list-selection-indicator', function () {
       expect(component.classNames).to.include('frost-list-selection-indicator')
     })
   }

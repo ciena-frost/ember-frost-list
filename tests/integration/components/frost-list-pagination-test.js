@@ -23,7 +23,7 @@ describeComponent(
       sandbox.restore()
     })
 
-    describe('default render state', function () {
+    describe.skip('default render state', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}
@@ -107,7 +107,7 @@ describeComponent(
       })
     })
 
-    describe('on page "11 to 20"', function () {
+    describe.skip('on page "11 to 20"', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}
@@ -157,7 +157,7 @@ describeComponent(
       })
     })
 
-    describe('on last page', function () {
+    describe.skip('on last page', function () {
       beforeEach(function () {
         this.set('actions', {
           onChange: function () {}
@@ -209,7 +209,7 @@ describeComponent(
       })
     })
 
-    describe('fires onChange closure action', function () {
+    describe.skip('fires onChange closure action', function () {
       let onChangeSpy
 
       beforeEach(function () {

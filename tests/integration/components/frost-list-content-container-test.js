@@ -12,7 +12,7 @@ import sinon from 'sinon'
 import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
 const test = integration('frost-list-content-container')
-describe(test.label, function () {
+describe.skip(test.label, function () {
   test.setup()
 
   let sandbox

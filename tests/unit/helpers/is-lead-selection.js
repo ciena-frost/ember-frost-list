@@ -8,7 +8,7 @@ import {
   floor
 } from 'ember-frost-list/helpers/is-lead-selection'
 
-describe('FloorHelper', function () {
+describe.skip('FloorHelper', function () {
   // Replace this with your real tests.
   it('works', function () {
     let result = floor([42.8])

@@ -10,7 +10,7 @@ describeComponent(
     integration: true
   },
   function () {
-    it('Header section renders when "sorting" is passed in', function () {
+    it.skip('Header section renders when "sorting" is passed in', function () {
       registerMockComponent(this, 'mock-sort')
 
       this.render(hbs`
@@ -32,7 +32,7 @@ describeComponent(
       unregisterMockComponent(this)
     })
 
-    it('Header section renders when "expansion" is passed in', function () {
+    it.skip('Header section renders when "expansion" is passed in', function () {
       registerMockComponent(this, 'mock-expansion')
 
       this.render(hbs`

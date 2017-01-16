@@ -15,7 +15,7 @@ describeComponent(
       component = this.subject()
     })
 
-    it('includes className frost-list-expansion', function () {
+    it.skip('includes className frost-list-expansion', function () {
       expect(component.classNames).to.include('frost-list-expansion')
     })
   }

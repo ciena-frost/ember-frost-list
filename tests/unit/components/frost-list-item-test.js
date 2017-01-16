@@ -15,10 +15,11 @@ describeComponent(
       component = this.subject()
     })
 
-    it('includes className frost-list-item', function () {
+    it.skip('includes className frost-list-item', function () {
       expect(component.classNames).to.include('frost-list-item')
     })
-    describe('dependent keys', function () {
+
+    describe.skip('dependent keys', function () {
       let isSelectedDependentKeys, isExpandedDependentKeys
       beforeEach(function () {
         isSelectedDependentKeys = [
@@ -42,7 +43,7 @@ describeComponent(
       })
     })
 
-    it('"isExpanded" computed property', function () {
+    it.skip('"isExpanded" computed property', function () {
       component.set('model', { isExpanded: true })
 
       expect(
@@ -50,7 +51,7 @@ describeComponent(
       ).to.eql(true)
     })
 
-    it('"isSelected" computed property', function () {
+    it.skip('"isSelected" computed property', function () {
       component.set('model', { isSelected: true })
 
       expect(

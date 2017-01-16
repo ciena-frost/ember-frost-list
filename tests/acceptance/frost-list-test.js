@@ -5,7 +5,7 @@ import startApp from '../helpers/start-app'
 import destroyApp from '../helpers/destroy-app'
 import { hook, $hook } from 'ember-hook'
 
-describe('Acceptance: FrostList', function () {
+describe.skip('Acceptance: FrostList', function () {
   let application
 
   beforeEach(function () {
