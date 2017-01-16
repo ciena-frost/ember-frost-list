@@ -1,72 +1,67 @@
+/**
+ * TODO
+ */
+
 import Ember from 'ember'
-const {
-  Component,
-  on,
-  $
-} = Ember
-import computed, {readOnly} from 'ember-computed-decorators'
-import FrostList from './frost-list-core'
+const {ViewUtils} = Ember
+const {isSimpleClick} = ViewUtils
+import {Component} from 'ember-frost-core'
+import {PropTypes} from 'ember-prop-types'
 
 export default Component.extend({
 
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
+
   classNames: ['frost-list-item'],
   classNameBindings: [
-    'isSelected',
-    'isExpanded'
+    'isExpanded',
+    'isSelected'
   ],
 
-  // == Computed Properties =====================================================
-  @readOnly
-  @computed('model.isSelected')
-  isSelected (isSelected) {
-    // TODO: Find a better solution for binding the className to the parent
-    isSelected ? $(this.get('element')).parent().addClass('is-selected')
-      : $(this.get('element')).parent().removeClass('is-selected')
-    return isSelected
+  propTypes: {
+    // Options
+    model: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]).isRequired,
+
+    onExpand: PropTypes.func,
+    onSelect: PropTypes.func
   },
 
-  @readOnly
-  @computed('model.isExpanded')
-  isExpanded (isExpanded) {
-    return isExpanded
-  },
-
-  // == Functions ==============================================================
-  initContext: on('init', function () {
-    this.set('_frostList', this.nearestOfType(FrostList))
-  }),
-
-  // == Event ==============================================================
-
-  // FIXME: code is too complex (was overly complex before adding eslint rule)
-  /* eslint-disable complexity */
-  onclick: Ember.on('click', function (event) {
-    if (!(Ember.ViewUtils.isSimpleClick(event) || event.shiftKey || event.metaKey || event.ctrlKey)) {
-      return true
+  getDefaultProps () {
+    return {
     }
+  },
 
-    event.preventDefault()
-    event.stopPropagation()
+  // == Computed properties ==================================================
 
-    const onSelect = this.get('onSelect')
+  // == Functions =============================================================
 
-    if (onSelect && typeof onSelect === 'function') {
-      const isTargetSelectionIndicator = Ember.$(event.target).hasClass('frost-list-selection-indicator')
+  // == Ember Lifecycle Hooks =================================================
 
-      onSelect(event, {
-        record: this.get('model'),
-        selectDesc: {
-          isSelected: !this.get('model.isSelected'),
-          isTargetSelectionIndicator: isTargetSelectionIndicator
-        }
+  // == DOM Events ============================================================
+
+  click (event) {
+    // Acceptable event modifiers
+    const isSpecificSelect = (new window.UAParser()).getOS() === 'Mac OS' ? event.ctrlKey : event.metaKey // TODO Move instance to a service
+    const isRangeSelect = event.shiftKey
+
+    // Only process simple clicks or clicks with the acceptable modifiers
+    if (isSimpleClick(event) || isSpecificSelect || isRangeSelect) {
+      event.preventDefault()
+      event.stopPropagation()
+
+      this.onSelect({
+        isRangeSelect,
+        isSpecificSelect,
+        item: this.get('model')
       })
     }
-  })
-  /* eslint-enable complexity */
+  }
 
-  // == Actions ================================================================
+  // == Actions ===============================================================
 
 })

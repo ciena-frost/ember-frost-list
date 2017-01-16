@@ -1,179 +1,120 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
-@import 'list-item';
-@import 'pagination-list-item';
+@import 'tests/dummy/app/pods/components/list-item/styles';
+@import 'tests/dummy/app/pods/components/list-item-expansion/styles';
 
-.dummy-notification-container {
-  position: fixed;
-  top: 60px;
-  right: 10px;
-  z-index: 999;
-  width: 80%;
-  max-width: 400px;
-  margin: auto;
-}
+// List sizing for demos
 
-.dummy-body {
-  height: 100%;
-  margin-left: 20px;
-}
-
-.frost-demo-nav + .dummy-body {
-  height: calc(100% - 50px)
-}
-
-.dummy-content {
-  height: 100%;
+.frost-list.demo {
   display: flex;
   flex-direction: column;
-
-  .demo {
-    margin-top: 20px;
-    .frost-button {
-      margin-bottom: 10px;
-    }
-  }
-
-  .frost-list {
-    height: 800px;
-  }
-
-  .dummy-infinite-scroll {
-    display: flex;
-    flex-direction: row;
-
-    .frost-list {
-      position: relative;
-      height: 70vh;
-      width: 70vh;
-    }
-
-    .info-section {
-      margin-left: 30px;
-      width: 200px;
-
-      &-description {
-        position: relative;
-      }
-
-      &-count {
-        display: inline-block;
-        position: absolute;
-        right: 0;
-      }
-    }
-  }
-
-  .examples {
-    display: flex;
-    flex-direction: column;
-
-    &-demo {
-      .frost-list {
-        height: 400px;
-      }
-    }
-
-    &-source {
-      .content {
-        display: flex;
-        flex-direction: row;
-
-        .examples-source-controller {
-          flex: 1;
-          margin-right: 30px;
-        }
-        .examples-source-template {
-          flex: 1;
-          margin-right: 30px;
-        }
-        .examples-source-route{
-          flex: 1;
-          margin-right: 30px;
-        }
-      }
-    }
-  }
-
-  .preselection {
-    display: flex;
-    flex-direction: row;
-
-    .preselection-demo {
-      flex: 1;
-
-      .frost-list {
-        height: 60vh;
-      }
-    }
-
-    .preselection-source {
-      flex: 1;
-      margin-left: 40px;
-    }
-  }
-
-  .qp-binding {
-    display: flex;
-    flex-direction: row;
-
-    .qp-binding-demo {
-      flex: 1;
-
-      .frost-list {
-        height: 60vh;
-      }
-    }
-
-    .qp-binding-source {
-      flex: 1;
-      margin-left: 40px;
-    }
-  }
+  width: 1000px;
+  height: 300px;
 }
 
-.frost-demo-nav {
+// General demo styles
+// TODO Move into an addon
+
+$frost-modal-demos-shadow-color: rgba(0, 0, 0, .13);
+
+.frost-modal-demo {
   display: flex;
   flex-direction: row;
-  background-color: $frost-color-blue-1;
-  list-style-type: none;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-  .demo-nav-item {
-    padding: 0;
-    .demo-link {
-      display: block;
-      color: $frost-color-white;
-      font-size: 17px;
-      letter-spacing: 2px;
-      text-decoration: none;
-      padding: 15px 20px 15px 20px;
-      transition: background-color .3s,color .15s,box-shadow .3s,opacity 0.3s;
-      cursor: pointer;
+}
 
-      &:hover {
-        background-color: white;
-        color: black;
-      }
-      &.active {
-        background-color: white;
-        color: black;
-      }
+.frost-modal-demos {
+  height: 100vh;
+  padding: 0 20px;
+  box-shadow: 0 0 5px 3px $frost-modal-demos-shadow-color;
+}
+
+.frost-modal-demo-selectors {
+  min-width: 100px;
+  height: calc(100vh - 61px);
+  margin: 10px 0 10px 10px;
+  padding-right: 20px;
+  font-size: $frost-font-s;
+
+  a {
+    display: block;
+    transition: color .3s;
+    color: $frost-color-grey-2;
+    font-style: normal;
+    text-decoration: initial;
+    cursor: pointer;
+
+    &:hover {
+      color: $frost-color-blue-3;
+    }
+
+    &.active {
+      color: $frost-color-blue-1;
+    }
+
+    + a {
+      padding-top: 10px;
     }
   }
 }
 
-.frost-list-documents {
+.frost-modal-demo-selector-title {
+  padding-top: 10px;
+  font-style: italic;
+
+  + a {
+    padding-top: 10px;
+  }
+
+  > a,
+  > .frost-modal-demo-selector-title {
+    padding: 10px 0 0 10px;
+  }
+}
+
+.frost-modal-demo-overview-links {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  margin-top: 40px;
+  padding-top: 60px;
+  border-top: 1px solid $frost-color-lgrey-2;
+}
 
-  &-side-nav {
-    margin-right: 40px;
-  }
+.frost-modal-demo-example {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  height: 100vh;
+  padding-left: 20px;
+  background-color: $frost-color-lgrey-3;
+}
 
-  &-content {
-    p {
-      font-size: 14px
-    }
+.frost-modal-demo-api,
+.frost-modal-demo-live {
+  flex: 1;
+  margin-right: 20px;
+
+  .frost-tabs {
+    margin-top: 15px;
   }
 }
 
+.frost-modal-demo-title {
+  margin-top: 20px;
+  color: $frost-color-grey-2;
+  font-size: $frost-font-m;
+  font-weight: bold;
+}
 
+.frost-modal-demo-snippet {
+  margin: 0 20px;
+  font-size: $frost-font-s;
+
+  > pre {
+    padding: 20px;
+  }
+}
+
+.frost-modal-demo-notes {
+  margin: 0 20px 0 10px;
+  font-size: $frost-font-s;
+}

@@ -1,0 +1,14 @@
+{{frost-list
+  class='demo'
+  hook='demo'
+  item=(component 'list-item')
+  itemExpansion=(component 'list-item-expansion')
+  items=items
+  selectedItems=selectedItems
+  onSelectionChange=(action 'onSelectionChange')
+  sorting=(component 'frost-sort'
+    sortOrder=sortOrder
+    sortingProperties=sortingProperties
+    onChange=(action 'onSortingChange')
+  )
+}}

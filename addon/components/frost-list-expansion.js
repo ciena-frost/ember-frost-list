@@ -1,12 +1,37 @@
-import Ember from 'ember'
-const {Component} = Ember
-import layout from '../templates/frost-list-expansion'
-import PropTypeMixin, {PropTypes} from 'ember-prop-types'
+/**
+ * TODO
+ */
 
-export default Component.extend(PropTypeMixin, {
-  classNames: ['frost-list-expansion'],
+import {Component} from 'ember-frost-core'
+
+import layout from '../templates/components/frost-list-expansion'
+
+export default Component.extend({
+
+  // == Dependencies ==========================================================
+
+  // == Keyword Properties ====================================================
+
   layout,
+
+  // == PropTypes =============================================================
+
   propTypes: {
-    hook: PropTypes.string
+  },
+
+  getDefaultProps () {
+    return {
+    }
   }
+
+  // == Computed Properties ===================================================
+
+  // == Functions =============================================================
+
+  // == DOM Events ============================================================
+
+  // == Lifecycle Hooks =======================================================
+
+  // == Actions ===============================================================
+
 })

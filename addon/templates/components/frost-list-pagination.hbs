@@ -1,0 +1,47 @@
+{{! Template for the frost-list-pagination component }}
+
+<div class='frost-list-pagination-left'>
+  {{frost-button
+    class='frost-list-pagination-button'
+    disabled=_isLeftDisabled
+    hook=(concat hook '-first-page')
+    icon='chevron-double'
+    onClick=(action onChange 0)
+    priority='tertiary'
+    size='small'
+  }}
+  {{frost-button
+    class='frost-list-pagination-button'
+    disabled=_isLeftDisabled
+    hook=(concat hook '-previous-page')
+    icon='chevron'
+    onClick=(action onChange (sub page 1))
+    priority='tertiary'
+    size='small'
+  }}
+</div>
+
+<span class='frost-list-pagination-text'>
+  {{_paginationText}}
+</span>
+
+<div class='frost-list-pagination-right'>
+  {{frost-button
+    class='frost-list-pagination-button'
+    disabled=_isRightDisabled
+    hook=(concat hook '-next-page')
+    icon='chevron'
+    priority='tertiary'
+    size='small'
+    onClick=(action onChange (add page 1))
+  }}
+  {{frost-button
+    class='frost-list-pagination-button'
+    disabled=_isRightDisabled
+    hook=(concat hook '-last-page')
+    icon='chevron-double'
+    priority='tertiary'
+    size='small'
+    onClick=(action onChange (floor (div (sub total 1) itemsPerPage)))
+  }}
+</div>

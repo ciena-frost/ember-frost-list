@@ -9,7 +9,7 @@ describeComponent(
     integration: true
   },
   function () {
-    it('"selected" class is NOT set by default', function () {
+    it.skip('"selected" class is NOT set by default', function () {
       this.render(hbs`
         {{frost-list-selection-indicator}}
       `)
@@ -19,7 +19,7 @@ describeComponent(
       ).to.eql(false)
     })
 
-    it('sets "selected" class when isSelected=true', function () {
+    it.skip('sets "selected" class when isSelected=true', function () {
       this.render(hbs`
         {{frost-list-selection-indicator
           isSelected=true

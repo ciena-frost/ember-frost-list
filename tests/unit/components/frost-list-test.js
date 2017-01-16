@@ -23,19 +23,19 @@ describeComponent(
       sandbox.restore()
     })
 
-    it('sets default properties value correctly', function () {
+    it.skip('sets default properties value correctly', function () {
       expect(
         component.get('alwaysUseDefaultHeight')
       ).to.eql(false)
     })
 
-    it('has the expected Mixins', function () {
+    it.skip('has the expected Mixins', function () {
       expect(
         PropTypeMixin.detect(component)
       ).to.eql(true)
     })
 
-    describe('InitContext()', function () {
+    describe.skip('InitContext()', function () {
       it('errors when config is set with item', function () {
         const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
 

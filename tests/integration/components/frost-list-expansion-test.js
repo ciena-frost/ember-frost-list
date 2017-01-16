@@ -23,7 +23,7 @@ describeComponent(
       sandbox.restore()
     })
 
-    it('renders with default class', function () {
+    it.skip('renders with default class', function () {
       this.render(hbs`
         {{frost-list-expansion
           onCollapseAll='onCollapseAll'
@@ -36,7 +36,7 @@ describeComponent(
       ).to.be.length(1)
     })
 
-    it('fires onCollapseAll closure action', function () {
+    it.skip('fires onCollapseAll closure action', function () {
       const collapseAllSpy = sandbox.spy()
 
       this.on('collapseAllAction', collapseAllSpy)
@@ -55,7 +55,7 @@ describeComponent(
       ).to.eql(true)
     })
 
-    it('fires onExpandAll closure action', function () {
+    it.skip('fires onExpandAll closure action', function () {
       const expandAllSpy = sandbox.spy()
 
       this.on('expandAllAction', expandAllSpy)
@@ -74,7 +74,7 @@ describeComponent(
       ).to.eql(true)
     })
 
-    describe('concatenates the hook property', function () {
+    describe.skip('concatenates the hook property', function () {
       beforeEach(function () {
         this.render(hbs`
           {{frost-list-expansion

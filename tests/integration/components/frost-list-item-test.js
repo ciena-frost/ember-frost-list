@@ -21,7 +21,7 @@ describeComponent(
       sandbox.restore()
     })
 
-    describe('default state has no class "is-selected" and "is-expanded"', function () {
+    describe.skip('default state has no class "is-selected" and "is-expanded"', function () {
       beforeEach(function () {
         this.render(hbs`
           {{frost-list-item}}
@@ -41,7 +41,7 @@ describeComponent(
       })
     })
 
-    it('sets "is-selected" class when model.isSelected=true', function () {
+    it.skip('sets "is-selected" class when model.isSelected=true', function () {
       this.set('model', { isSelected: true })
 
       this.render(hbs`
@@ -55,7 +55,7 @@ describeComponent(
       ).to.eql(true)
     })
 
-    it('sets "is-expanded" class when model.isSelected=true', function () {
+    it.skip('sets "is-expanded" class when model.isSelected=true', function () {
       this.set('model', { isExpanded: true })
 
       this.render(hbs`
@@ -69,7 +69,7 @@ describeComponent(
       ).to.eql(true)
     })
 
-    describe('onSelect closure action', function () {
+    describe.skip('onSelect closure action', function () {
       let externalActionSpy
       beforeEach(function () {
         externalActionSpy = sandbox.spy()

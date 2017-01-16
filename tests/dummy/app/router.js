@@ -7,19 +7,11 @@ const Router = Ember.Router.extend({
 })
 
 Router.map(function () {
-  this.route('examples', {
+  this.route('simple', {
     path: '/'
   })
-
-  this.route('demo')
-  this.route('documents', function () {
-    this.route('overview', {path: '/'})
-  })
-  this.route('infinite-scroll')
-  this.route('pagination')
-  this.route('mixin-list')
-  this.route('pre-selection')
-  this.route('qp-binding')
+  this.route('infinite')
+  this.route('paged')
 })
 
 export default Router

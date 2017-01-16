@@ -1,0 +1,40 @@
+{{! Template for the frost-list-content-container component }}
+
+{{#if pagination}}
+  {{#frost-scroll
+    hook=(concat hookPrefix '-scroll')
+  }}
+    {{#each items as |model index|}}
+      {{yield model index}}
+    {{/each}}
+  {{/frost-scroll}}
+{{else}}
+  {{#vertical-collection
+    alwaysRemeasure=true
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    bufferSize=bufferSize
+    content=items
+    defaultHeight=defaultHeight
+    firstReached=onLoadPrevious
+    lastReached=onLoadNext
+    scrollPosition=scrollTop
+    useContentProxy=false
+
+    key='@identity'
+    resizeDebounce=64
+    firstVisibleChanged=null
+    lastVisibleChanged=null
+    didMountCollection=null
+    idForFirstItem=null
+    renderFromLast=false
+    renderAllInitially=false
+    shouldRender=true
+    minimumMovement=15
+    containerSelector=null
+    containerHeight=null
+
+    as |model index|
+  }}
+    {{yield model index}}
+  {{/vertical-collection}}
+{{/if}}
