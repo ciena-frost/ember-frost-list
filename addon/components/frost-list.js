@@ -98,8 +98,8 @@ export default Component.extend({
     }
 
     return items.map(item => {
-      set(item, 'isExpanded', expandedItems.indexOf(item) >= 0)
-      set(item, 'isSelected', selectedItems.indexOf(item) >= 0)
+      set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.indexOf(item) >= 0)
+      set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.indexOf(item) >= 0)
       return item
     })
   },
