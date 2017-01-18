@@ -1,3 +1,7 @@
+# 5.1.1
+* Fixed the list-item element icon to target frost-icon instead of frost-svg
+
+
 # 5.1.0
 * Added null checks if selectedItems and expandedItems are not provided (optional)
 * Updated the CSS for list items to conform to UX specs
