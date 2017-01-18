@@ -1,3 +1,7 @@
+# 5.1.2
+* Removed the list item `block-start` styles since these are already covered in a basic `block`
+
+
 # 5.1.1
 * Fixed the list-item element icon to target frost-icon instead of frost-svg
 
