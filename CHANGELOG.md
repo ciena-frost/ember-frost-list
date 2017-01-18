@@ -1,3 +1,8 @@
+# 5.1.0
+* Added null checks if selectedItems and expandedItems are not provided (optional)
+* Updated the CSS for list items to conform to UX specs
+
+
 # 5.0.0
 * onExpansionChange -> expandedItems -> list
 
