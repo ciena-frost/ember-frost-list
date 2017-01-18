@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  margin: 5px 0;
-  padding: 0 15px 0 10px;
-  cursor: text;
+  margin: 7px 0;
+  padding: 0 7px;
 }
 
 .frost-list-item-element-block-start {
@@ -17,8 +16,8 @@
 }
 
 .frost-list-item-element-block-end {
-  * {
-    direction: rtl;
+  > div {
+    margin-left: auto;
   }
 }
 
@@ -27,29 +26,44 @@
 .frost-list-item-element-tertiary {
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: text;
   overflow: hidden;
 }
 
-.frost-list-item-element-primary,
-.frost-list-item-element-secondary {
-  padding-bottom: 5px;
-  color: $frost-color-grey-2;
-  font-weight: bold;
-}
-
 .frost-list-item-element-primary {
+  margin-bottom: 5px;
+  padding: 0;
+  color: $frost-color-grey-1;
   font-size: $frost-font-s;
+  font-weight: 700;
+
+  a {
+    color: $frost-color-grey-1;
+
+    &:hover {
+      color: $frost-color-blue-1;
+      text-decoration: underline;
+    }
+  }
 }
 
 .frost-list-item-element-secondary {
+  padding: 0;
+  color: $frost-color-grey-2;
   font-size: $frost-font-xs;
+  font-weight: 400;
 }
 
 .frost-list-item-element-tertiary {
   flex-direction: row;
   align-items: center;
-  color: $frost-color-grey-4;
+  margin-top: 1px;
+  color: $frost-color-grey-1;
   font-size: $frost-font-xs;
+}
+
+.frost-list-item-element-tertiary + .frost-list-item-element-tertiary {
+  margin-top: 5px;
 }
 
 .frost-list-item-element-badge {
@@ -61,8 +75,27 @@
   width: 40px;
   height: 40px;
   margin: 5px 0 5px 5px;
+
+  .frost-svg {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .frost-list-item-element-label {
   margin-right: 5px;
+  color: $frost-color-grey-5;
+  font-weight: 700;
+}
+
+.frost-list-item-element-progress {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 25px;
+
+  .frost-icon {
+    width: 25px;
+    height: 25px;
+  }
 }
