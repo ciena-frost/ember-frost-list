@@ -1,3 +1,7 @@
+# 5.1.3
+* Removed the icon sizing from the progress CSS to allow multiple sizes
+
+
 # 5.1.2
 * Removed the list item `block-start` styles since these are already covered in a basic `block`
 
