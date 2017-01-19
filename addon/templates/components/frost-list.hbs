@@ -1,6 +1,6 @@
 {{! Template for the frost-list component }}
 
-<div class='frost-list-header'>
+<div class='frost-list-header {{if pagination 'paged'}}'>
   {{#if sorting}}
     {{component sorting
       hook=(concat hookPrefix '-sorting')
