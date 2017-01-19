@@ -1,6 +1,6 @@
 {{! Template for the frost-list component }}
 
-<div class='frost-list-header'>
+<div class='frost-list-header {{if pagination 'paged'}}'>
   {{#if sorting}}
     {{component sorting
       hook=(concat hookPrefix '-sorting')
@@ -44,6 +44,7 @@
   <div class='
     frost-list-item-container
     {{if (eq index 0) ' first'}}
+    {{if (eq index (subtract _items.length 1)) ' last'}}
     {{if model.isSelected ' is-selected'}}
     {{if (is-lead-selection _items model) ' is-lead-selection'}}
   '>

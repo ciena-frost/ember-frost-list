@@ -30,6 +30,14 @@
       border-top: 1px solid $frost-color-blue-1;
     }
   }
+
+  // The last list item container is given a class so that it can be targeted
+  // This is primarily to support the case where additional bottom margin needs
+  // to be given to the bottom content in the list (e.g. when the bottom of the
+  // list is covered by something like an action bar)
+  // &.last {
+  //   // No default styles
+  // }
 }
 
 .frost-list-item-container-base {

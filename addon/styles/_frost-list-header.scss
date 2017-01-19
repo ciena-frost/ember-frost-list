@@ -3,7 +3,10 @@
   flex-direction: row;
   align-items: center;
   height: 45px;
-  padding-right: $frost-list-scroll-rail-gutter-width;
+
+  &.paged {
+    padding-right: $frost-list-scroll-rail-gutter-width;
+  }
 }
 
 .frost-list-header-divider {
