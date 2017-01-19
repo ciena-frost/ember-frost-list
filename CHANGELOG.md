@@ -1,3 +1,9 @@
+# 5.2.0
+* Added a "last" class to the last frost-list-item-container for situational targeting
+* Added CSS for list item progress elements
+* Added CSS for various corner cases
+
+
 # 5.1.3
 * Removed the icon sizing from the progress CSS to allow multiple sizes
 
