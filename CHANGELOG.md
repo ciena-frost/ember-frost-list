@@ -1,3 +1,7 @@
+# 5.2.1
+* Missed `ember-math-helpers` in the blueprint previously, which is a required dependency
+
+
 # 5.2.0
 * Added a "last" class to the last frost-list-item-container for situational targeting
 * Added CSS for list item progress elements
