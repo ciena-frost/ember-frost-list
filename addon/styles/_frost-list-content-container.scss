@@ -20,9 +20,12 @@
     &:before {
       position: absolute;
       top: 0;
-      right: 10px;
+      right: 0;
       bottom: 0;
-      border-right: 1px solid $frost-color-lgrey-1;
+      width: 10px;
+      border-left: 1px solid $frost-color-lgrey-1;
+      // Needs to be set to the background color of the surrounding area
+      // background-color: $frost-color-lgrey-3;
       content: '';
     }
 
