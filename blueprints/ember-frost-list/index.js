@@ -4,6 +4,7 @@ module.exports = {
       packages: [
         {name: 'ember-frost-core', target: '^1.5.1'},
         {name: 'ember-frost-sort', target: '^7.0.0'},
+        {name: 'ember-math-helpers', target: '^2.0.0'},
         {name: 'smoke-and-mirrors', target: '~0.6.2'}
       ]
     })
