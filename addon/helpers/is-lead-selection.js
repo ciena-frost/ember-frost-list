@@ -8,7 +8,7 @@ const {Helper} = Ember
  * @returns {boolean} - true if the item is the lead selection
  */
 export function selectionPosition ([items, item]) {
-  if (!item.get('isSelected')) {
+  if (!get(item, 'isSelected')) {
     return false
   }
 
@@ -17,7 +17,7 @@ export function selectionPosition ([items, item]) {
     return true
   }
 
-  const isPreviousItemSelected = items.get(itemIndex - 1).get('isSelected')
+  const isPreviousItemSelected = get(items, `${itemIndex - 1}.isSelected`)
   return !isPreviousItemSelected
 }
 
