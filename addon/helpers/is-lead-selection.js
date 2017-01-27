@@ -1,5 +1,5 @@
 import Ember from 'ember'
-const {Helper} = Ember
+const {Helper, get} = Ember
 
 /**
  * Determine if an item is the lead selection in a set of selections
