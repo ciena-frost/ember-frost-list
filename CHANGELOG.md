@@ -1,3 +1,8 @@
+# 5.2.2
+
+* **Fixed** code to play nice with POJO's.
+
+
 # 5.2.1
 * Missed `ember-math-helpers` in the blueprint previously, which is a required dependency
 
