@@ -1,12 +1,12 @@
 /* jshint expr:true */
-import { expect } from 'chai'
+import {expect} from 'chai'
+import {
+  floor
+} from 'ember-frost-list/helpers/is-lead-selection'
 import {
   describe,
   it
 } from 'mocha'
-import {
-  floor
-} from 'ember-frost-list/helpers/is-lead-selection'
 
 describe.skip('FloorHelper', function () {
   // Replace this with your real tests.

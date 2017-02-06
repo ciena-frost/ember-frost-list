@@ -1,7 +1,7 @@
-import { expect } from 'chai'
-import { describeComponent, it } from 'ember-mocha'
-import { afterEach, beforeEach, describe } from 'mocha'
+import {expect} from 'chai'
+import {describeComponent, it} from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
+import {afterEach, beforeEach, describe} from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -42,7 +42,7 @@ describeComponent(
     })
 
     it.skip('sets "is-selected" class when model.isSelected=true', function () {
-      this.set('model', { isSelected: true })
+      this.set('model', {isSelected: true})
 
       this.render(hbs`
         {{frost-list-item
@@ -56,7 +56,7 @@ describeComponent(
     })
 
     it.skip('sets "is-expanded" class when model.isSelected=true', function () {
-      this.set('model', { isExpanded: true })
+      this.set('model', {isExpanded: true})
 
       this.render(hbs`
         {{frost-list-item
@@ -75,7 +75,7 @@ describeComponent(
         externalActionSpy = sandbox.spy()
 
         this.on('externalAction', externalActionSpy)
-        this.set('model', { isSelected: true })
+        this.set('model', {isSelected: true})
 
         this.render(hbs`
           {{frost-list-item

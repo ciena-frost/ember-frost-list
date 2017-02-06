@@ -1,6 +1,6 @@
-import { expect } from 'chai'
-import { describe, it } from 'mocha'
-import { floor } from 'ember-frost-list/helpers/floor'
+import {expect} from 'chai'
+import {floor} from 'ember-frost-list/helpers/floor'
+import {describe, it} from 'mocha'
 
 describe.skip('FloorHelper', function () {
   it('works for positive numbers', function () {

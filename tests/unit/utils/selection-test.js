@@ -1,11 +1,11 @@
-import { expect } from 'chai'
-import { describe, it } from 'mocha'
+import {expect} from 'chai'
 import selection from 'ember-frost-list/utils/selection'
+import {describe, it} from 'mocha'
 
-describe.skip('Unit | Utility | selection', function () {
+describe('Unit | Utility | selection', function () {
   // Replace this with your real tests.
-  it('works', function () {
+  it.skip('works', function () {
     let result = selection()
-    expect(result).to.be.ok
+    expect(result).not.to.equal(undefined)
   })
 })

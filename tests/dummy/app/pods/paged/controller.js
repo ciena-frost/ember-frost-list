@@ -3,25 +3,25 @@
  */
 
 import Ember from 'ember'
-const {isEmpty} = Ember
+const {A, Controller, isEmpty} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {sort} from 'ember-frost-sort'
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
 
-  expandedItems: [],
+  expandedItems: A([]),
   itemsPerPage: 10,
   page: 0,
   scrollTop: 0,
-  selectedItems: [],
-  sortOrder: ['id'],
+  selectedItems: A([]),
+  sortOrder: A(['id']),
   sortingProperties: [
-    { label: 'Id', value: 'id' },
-    { label: 'Label', value: 'label' }
+    {label: 'Id', value: 'id'},
+    {label: 'Label', value: 'label'}
   ],
   totalItems: 100, // Typically extracted from meta on the request
 

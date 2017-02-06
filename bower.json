@@ -1,17 +1,12 @@
 {
   "name": "ember-frost-list",
   "dependencies": {
-    "ember": "~2.8.0",
+    "ember": "^2.11.0",
     "ember-cli-shims": "0.1.0",
-    "ember-mocha": "~0.8.11",
     "Faker": "^3.1.0",
     "animation-frame": "~0.2.4",
-    "perfect-scrollbar": "~0.6.0",
     "jquery-mockjax": "2.2.1",
     "node-uuid": "1.4.7",
     "ember-mocha-adapter": "~0.3.1"
-  },
-  "resolutions": {
-    "ember": "~2.8.0"
   }
 }

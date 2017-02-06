@@ -1,9 +1,9 @@
-import { expect } from 'chai'
+import {expect} from 'chai'
 import Ember from 'ember'
-const { A } = Ember
-import { describeComponent } from 'ember-mocha'
+const {A} = Ember
+import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import { afterEach, beforeEach, describe, it } from 'mocha'
+import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(

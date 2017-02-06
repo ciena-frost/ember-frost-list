@@ -1,1 +1,1 @@
-export { default } from 'ember-frost-list/utils/selection'
+export {default} from 'ember-frost-list/utils/selection'

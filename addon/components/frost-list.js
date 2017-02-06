@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, isEmpty, set} = Ember
+const {$, A, isEmpty, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -145,7 +145,7 @@ export default Component.extend({
     },
 
     _expand (item) {
-      const clonedExpandedItems = this.get('expandedItems').slice()
+      const clonedExpandedItems = A(this.get('expandedItems').slice())
       if (clonedExpandedItems.indexOf(item) >= 0) {
         clonedExpandedItems.removeObject(item)
       } else {

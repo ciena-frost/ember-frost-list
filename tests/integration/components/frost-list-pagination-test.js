@@ -1,8 +1,8 @@
-import { expect } from 'chai'
-import { $hook, initialize as initializeHook } from 'ember-hook'
-import { describeComponent, it } from 'ember-mocha'
+import {expect} from 'chai'
+import {$hook, initialize as initializeHook} from 'ember-hook'
+import {describeComponent, it} from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
-import { afterEach, beforeEach, describe } from 'mocha'
+import {afterEach, beforeEach, describe} from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
