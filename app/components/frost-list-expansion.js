@@ -1,1 +1,1 @@
-export { default } from 'ember-frost-list/components/frost-list-expansion'
+export {default} from 'ember-frost-list/components/frost-list-expansion'

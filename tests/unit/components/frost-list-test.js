@@ -1,8 +1,10 @@
-import { expect } from 'chai'
+import {expect} from 'chai'
 import Ember from 'ember'
-import { describeComponent } from 'ember-mocha'
+const {Logger} = Ember
+
+import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import { afterEach, beforeEach, describe, it } from 'mocha'
+import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
 describeComponent(
@@ -37,7 +39,7 @@ describeComponent(
 
     describe.skip('InitContext()', function () {
       it('errors when config is set with item', function () {
-        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
 
         component.setProperties(
           {
@@ -53,7 +55,7 @@ describeComponent(
       })
 
       it('errors when config is set with expansion', function () {
-        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
 
         component.setProperties(
           {
@@ -69,7 +71,7 @@ describeComponent(
       })
 
       it('errors when config is set with sorting', function () {
-        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
 
         component.setProperties(
           {
@@ -85,7 +87,7 @@ describeComponent(
       })
 
       it('does not error when config is set by itself', function () {
-        const EmberLoggerSpy = sandbox.spy(Ember.Logger, 'error')
+        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
 
         component.set('config', {})
         component.initContext()

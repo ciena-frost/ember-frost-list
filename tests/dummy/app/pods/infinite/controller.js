@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {Controller, isEmpty, inject} = Ember
+const {A, Controller, inject, isEmpty} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {sort} from 'ember-frost-sort'
 
@@ -15,14 +15,14 @@ export default Controller.extend({
 
   // == Properties ============================================================
 
-  expandedItems: [],
+  expandedItems: A([]),
   itemsPerPage: 100,
   lastPage: 0,
-  selectedItems: [],
-  sortOrder: ['id'],
+  selectedItems: A([]),
+  sortOrder: A(['id']),
   sortingProperties: [
-    { label: 'Id', value: 'id' },
-    { label: 'Label', value: 'label' }
+    {label: 'Id', value: 'id'},
+    {label: 'Label', value: 'label'}
   ],
 
   // == Computed Properties ===================================================
@@ -74,4 +74,3 @@ export default Controller.extend({
     }
   }
 })
-

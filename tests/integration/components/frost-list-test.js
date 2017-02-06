@@ -1,13 +1,13 @@
+import {expect} from 'chai'
+const {A} = Ember
 import Ember from 'ember'
-const { A } = Ember
-import { expect } from 'chai'
-import { make, manualSetup } from 'ember-data-factory-guy'
-import { describeComponent, it }
+import {make, manualSetup} from 'ember-data-factory-guy'
+import {$hook, initialize as initializeHook} from 'ember-hook'
+import {describeComponent, it}
 from 'ember-mocha'
 import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
-import { beforeEach, describe } from 'mocha'
-import { $hook, initialize as initializeHook } from 'ember-hook'
+import {beforeEach, describe} from 'mocha'
 
 describeComponent(
   'frost-list',

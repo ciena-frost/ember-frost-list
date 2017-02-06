@@ -3,22 +3,22 @@
  */
 
 import Ember from 'ember'
-const {isEmpty} = Ember
+const {A, Controller, isEmpty} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {sort} from 'ember-frost-sort'
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
 
-  expandedItems: [],
-  selectedItems: [],
-  sortOrder: ['-id'],
+  expandedItems: A([]),
+  selectedItems: A([]),
+  sortOrder: A(['-id']),
   sortingProperties: [
-    { label: 'Id', value: 'id' },
-    { label: 'Label', value: 'label' }
+    {label: 'Id', value: 'id'},
+    {label: 'Label', value: 'label'}
   ],
 
   // == Computed Properties ===================================================

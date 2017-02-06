@@ -1,6 +1,6 @@
-import { expect } from 'chai'
-import { describeComponent } from 'ember-mocha'
-import { beforeEach, describe, it } from 'mocha'
+import {expect} from 'chai'
+import {describeComponent} from 'ember-mocha'
+import {beforeEach, describe, it} from 'mocha'
 
 describeComponent(
   'frost-list-item',
@@ -44,7 +44,7 @@ describeComponent(
     })
 
     it.skip('"isExpanded" computed property', function () {
-      component.set('model', { isExpanded: true })
+      component.set('model', {isExpanded: true})
 
       expect(
         component.get('isExpanded')
@@ -52,7 +52,7 @@ describeComponent(
     })
 
     it.skip('"isSelected" computed property', function () {
-      component.set('model', { isSelected: true })
+      component.set('model', {isSelected: true})
 
       expect(
         component.get('isSelected')

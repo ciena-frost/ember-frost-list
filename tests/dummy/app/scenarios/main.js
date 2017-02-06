@@ -1,4 +1,4 @@
-import { Scenario } from 'ember-data-factory-guy'
+import {Scenario} from 'ember-data-factory-guy'
 import ListItems from './list-items'
 
 Scenario.settings({

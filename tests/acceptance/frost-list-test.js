@@ -1,9 +1,10 @@
-import { describe, it, beforeEach, afterEach } from 'mocha'
 import {expect} from 'chai'
-import { buildList, mockQuery, mockSetup, mockTeardown } from 'ember-data-factory-guy'
-import startApp from '../helpers/start-app'
+import {buildList, mockQuery, mockSetup, mockTeardown} from 'ember-data-factory-guy'
+import {$hook, hook} from 'ember-hook'
+import {afterEach, beforeEach, describe, it} from 'mocha'
+
 import destroyApp from '../helpers/destroy-app'
-import { hook, $hook } from 'ember-hook'
+import startApp from '../helpers/start-app'
 
 describe.skip('Acceptance: FrostList', function () {
   let application
@@ -22,7 +23,7 @@ describe.skip('Acceptance: FrostList', function () {
 
   it('can expand and collapse rows', function () {
     let queryBinding = buildList('list-item', 20)
-    mockQuery('list-item', {pageSize: 20, start: 0}).returns({ json: queryBinding })
+    mockQuery('list-item', {pageSize: 20, start: 0}).returns({json: queryBinding})
 
     visit('/qp-binding')
 

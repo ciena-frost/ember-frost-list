@@ -1,11 +1,9 @@
 import Ember from 'ember'
-const { Component, getOwner } = Ember
-
-const assign = Ember.assign || Ember.merge
+const {Component, getOwner, merge} = Ember
 
 export function registerMockComponent (context, name = 'mock-component', opts = {}) {
   const owner = getOwner(context)
-  const options = assign({ tagName: 'dummy' }, opts)
+  const options = merge({tagName: 'dummy'}, opts)
   const mockComponent = Component.extend(options)
 
   unregisterMockComponent(context)

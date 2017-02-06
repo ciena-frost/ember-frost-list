@@ -1,7 +1,7 @@
-import { expect } from 'chai'
-import { describeComponent } from 'ember-mocha'
+import {expect} from 'chai'
+import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
-import { beforeEach, describe, it } from 'mocha'
+import {beforeEach, describe, it} from 'mocha'
 
 describeComponent(
   'frost-pagination',
@@ -57,31 +57,31 @@ describeComponent(
         ]
       })
 
-      it.skip('sets correct dependent keys for _end computed property', function () {
+      it('sets correct dependent keys for _end computed property', function () {
         expect(
           component._end._dependentKeys
         ).to.eql(_endDependentKeys)
       })
 
-      it.skip('sets correct dependent keys for _isLeftDisabled computed property', function () {
+      it('sets correct dependent keys for _isLeftDisabled computed property', function () {
         expect(
           component._isLeftDisabled._dependentKeys
         ).to.eql(_isLeftDisabledDependentKeys)
       })
 
-      it.skip('sets correct dependent keys for _isRightDisabled computed property', function () {
+      it('sets correct dependent keys for _isRightDisabled computed property', function () {
         expect(
           component._isRightDisabled._dependentKeys
         ).to.eql(_isRightDisabledDependentKeys)
       })
 
-      it.skip('sets correct dependent keys for _offset computed property', function () {
+      it('sets correct dependent keys for _offset computed property', function () {
         expect(
           component._offset._dependentKeys
         ).to.eql(_offsetDependentKeys)
       })
 
-      it.skip('sets correct dependent keys for _paginationText computed property', function () {
+      it('sets correct dependent keys for _paginationText computed property', function () {
         expect(
           component._paginationText._dependentKeys
         ).to.eql(_paginationTextDependentKeys)
