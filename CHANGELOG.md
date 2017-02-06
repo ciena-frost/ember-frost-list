@@ -1,3 +1,11 @@
+# 5.3.0
+
+* **Added** `ember-disable-prototype-extensions` to ensure addon works with prototype extensions disabled.
+* **Removed** `lodash` and `redux` as they aren't actually used by this addon.
+* **Updated** CI to test against both Firefox and Chrome.
+* **Upgraded** build to Ember 2.11.
+
+
 # 5.2.2
 
 * **Fixed** code to play nice with POJO's.
