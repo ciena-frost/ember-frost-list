@@ -2,7 +2,6 @@ import {expect} from 'chai'
 import {floor} from 'ember-frost-list/helpers/floor'
 import {describe, it} from 'mocha'
 
-
 describe.skip('Unit / Helper / floor', function () {
   it('works for positive numbers', function () {
     let result = floor([42.8])
