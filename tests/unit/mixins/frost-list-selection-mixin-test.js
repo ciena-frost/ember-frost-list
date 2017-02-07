@@ -1,13 +1,13 @@
-// import { expect } from 'chai'
+// import {expect} from 'chai'
 // import Ember from 'ember'
-// const { Controller, Object } = Ember
+// const {Controller, EmberObject as EmberObject} = Ember
 // import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 // import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 // import * as utils from 'ember-frost-list/utils/utils'
-// import { afterEach, beforeEach, describe, it } from 'mocha'
+// import {afterEach, beforeEach, describe, it} from 'mocha'
 // import sinon from 'sinon'
 
-// describe.skip('Unit: FrostListSelectionMixin', function () {
+// describe.skip('Unit / Mixin / frost-list-selection-mixin', function () {
 //   let sandbox
 
 //   const testItems = [
@@ -43,7 +43,7 @@
 //   it('sets up "selectedItems" with an empty object', function () {
 //     expect(
 //       subject.get('selectedItems')
-//     ).to.eql(Object.create())
+//     ).to.eql(EmberObject.create())
 //   })
 
 //   it('has the expect Mixins', function () {

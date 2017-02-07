@@ -3,16 +3,18 @@
  */
 
 // import {expect} from 'chai'
-// import {describeComponent, it} from 'ember-mocha'
 // import hbs from 'htmlbars-inline-precompile'
 // import {$hook, initialize as initializeHook} from 'ember-hook'
 // import wait from 'ember-test-helpers/wait'
-// import {afterEach, beforeEach, describe} from 'mocha'
+// import {afterEach, beforeEach, describe, it} from 'mocha'
 // import sinon from 'sinon'
 
-// import {integration} from 'ember-frost-list/tests/helpers/ember-test-utils/describe-component'
+// import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
-// describeComponent(...integration('frost-list-item-selection'), function () {
+// const test = integration('frost-list-item-selection')
+// describe(test.label, function () {
+//   test.setup()
+
 //   let sandbox
 
 //   beforeEach(function () {

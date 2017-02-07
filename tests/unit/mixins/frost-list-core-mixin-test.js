@@ -1,10 +1,10 @@
-// import { expect } from 'chai'
-// import { beforeEach, describe, it } from 'mocha'
+// import {expect} from 'chai'
+// import {beforeEach, describe, it} from 'mocha'
 // import Ember from 'ember'
-// const { Object } = Ember
+// const {Object as EmberObject} = Ember
 // import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 
-// describe.skip('Unit: FrostListCoreMixin', function () {
+// describe.skip('Unit / Mixin / frost-list-core-mixin', function () {
 //   const testItems = [
 //     {
 //       id: '1'
@@ -13,7 +13,7 @@
 //   let subject
 
 //   beforeEach(function () {
-//     let testObject = Object.extend(FrostListCoreMixin)
+//     let testObject = EmberObject.extend(FrostListCoreMixin)
 //     subject = testObject.create({
 //       listConfig: {
 //         items: 'model'
@@ -56,8 +56,8 @@
 //       beforeEach(function () {
 //         subject.setProperties(
 //           {
-//             'selectedItems': Object.create(),
-//             'expandedItems': Object.create()
+//             'selectedItems': EmberObject.create(),
+//             'expandedItems': EmberObject.create()
 //           }
 //         )
 //       })
@@ -78,8 +78,8 @@
 //     it('sets "isSelected" correctly when it already has a value', function () {
 //       subject.setProperties(
 //         {
-//           'selectedItems': Object.create({ 1: true }),
-//           'expandedItems': Object.create()
+//           'selectedItems': EmberObject.create({ 1: true }),
+//           'expandedItems': EmberObject.create()
 //         }
 //       )
 
@@ -91,8 +91,8 @@
 //     it('sets "isExpanded" correctly when it already has a value', function () {
 //       subject.setProperties(
 //         {
-//           'selectedItems': Object.create(),
-//           'expandedItems': Object.create({ 1: true })
+//           'selectedItems': EmberObject.create(),
+//           'expandedItems': EmberObject.create({ 1: true })
 //         }
 //       )
 

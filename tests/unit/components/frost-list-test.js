@@ -1,101 +1,97 @@
 import {expect} from 'chai'
 import Ember from 'ember'
 const {Logger} = Ember
-
-import {describeComponent} from 'ember-mocha'
 import PropTypeMixin from 'ember-prop-types'
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
-describeComponent(
-  'frost-list',
-  'Unit: FrostListComponent',
-  {
-    unit: true
-  },
-  function () {
-    let component, sandbox
+import {unit} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
-    beforeEach(function () {
-      component = this.subject()
-      sandbox = sinon.sandbox.create()
-    })
+const test = unit('frost-list')
+describe(test.label, function () {
+  test.setup()
 
-    afterEach(function () {
-      sandbox.restore()
-    })
+  let component, sandbox
 
-    it.skip('sets default properties value correctly', function () {
+  beforeEach(function () {
+    component = this.subject()
+    sandbox = sinon.sandbox.create()
+  })
+
+  afterEach(function () {
+    sandbox.restore()
+  })
+
+  it.skip('sets default properties value correctly', function () {
+    expect(
+      component.get('alwaysUseDefaultHeight')
+    ).to.eql(false)
+  })
+
+  it.skip('has the expected Mixins', function () {
+    expect(
+      PropTypeMixin.detect(component)
+    ).to.eql(true)
+  })
+
+  describe.skip('InitContext()', function () {
+    it('errors when config is set with item', function () {
+      const EmberLoggerSpy = sandbox.spy(Logger, 'error')
+
+      component.setProperties(
+        {
+          'config': {},
+          'item': {}
+        }
+      )
+      component.initContext()
+
       expect(
-        component.get('alwaysUseDefaultHeight')
-      ).to.eql(false)
-    })
-
-    it.skip('has the expected Mixins', function () {
-      expect(
-        PropTypeMixin.detect(component)
+        EmberLoggerSpy.called
       ).to.eql(true)
     })
 
-    describe.skip('InitContext()', function () {
-      it('errors when config is set with item', function () {
-        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
+    it('errors when config is set with expansion', function () {
+      const EmberLoggerSpy = sandbox.spy(Logger, 'error')
 
-        component.setProperties(
-          {
-            'config': {},
-            'item': {}
-          }
-        )
-        component.initContext()
+      component.setProperties(
+        {
+          'config': {},
+          'expansion': {}
+        }
+      )
+      component.initContext()
 
-        expect(
-          EmberLoggerSpy.called
-        ).to.eql(true)
-      })
-
-      it('errors when config is set with expansion', function () {
-        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
-
-        component.setProperties(
-          {
-            'config': {},
-            'expansion': {}
-          }
-        )
-        component.initContext()
-
-        expect(
-          EmberLoggerSpy.called
-        ).to.eql(true)
-      })
-
-      it('errors when config is set with sorting', function () {
-        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
-
-        component.setProperties(
-          {
-            'config': {},
-            'sorting': {}
-          }
-        )
-        component.initContext()
-
-        expect(
-          EmberLoggerSpy.called
-        ).to.eql(true)
-      })
-
-      it('does not error when config is set by itself', function () {
-        const EmberLoggerSpy = sandbox.spy(Logger, 'error')
-
-        component.set('config', {})
-        component.initContext()
-
-        expect(
-          EmberLoggerSpy.called
-        ).to.eql(false)
-      })
+      expect(
+        EmberLoggerSpy.called
+      ).to.eql(true)
     })
-  }
-)
+
+    it('errors when config is set with sorting', function () {
+      const EmberLoggerSpy = sandbox.spy(Logger, 'error')
+
+      component.setProperties(
+        {
+          'config': {},
+          'sorting': {}
+        }
+      )
+      component.initContext()
+
+      expect(
+        EmberLoggerSpy.called
+      ).to.eql(true)
+    })
+
+    it('does not error when config is set by itself', function () {
+      const EmberLoggerSpy = sandbox.spy(Logger, 'error')
+
+      component.set('config', {})
+      component.initContext()
+
+      expect(
+        EmberLoggerSpy.called
+      ).to.eql(false)
+    })
+  })
+})

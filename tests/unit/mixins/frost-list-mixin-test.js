@@ -1,13 +1,13 @@
-// import { expect } from 'chai'
-// import { beforeEach, describe, it } from 'mocha'
+// import {expect} from 'chai'
+// import {beforeEach, describe, it} from 'mocha'
 // import Ember from 'ember'
-// const { A, Controller, on } = Ember
+// const {A, Controller, on} = Ember
 // import FrostListMixin from 'ember-frost-list/mixins/frost-list-mixin'
 // import FrostListSelectionMixin from 'ember-frost-list/mixins/frost-list-selection-mixin'
 // import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 // import FrostListSortingMixin from 'ember-frost-list/mixins/frost-list-sorting-mixin'
 
-// describe.skip('Unit: FrostListMixin', function () {
+// describe.skip('Unit / Mixin / frost-list-mixin', function () {
 //   const testItems = [
 //     {
 //       id: '1'

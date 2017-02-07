@@ -1,10 +1,10 @@
 // import Ember from 'ember'
-// import { expect } from 'chai'
-// const { A, Object } = Ember
-// import { beforeEach, describe, it } from 'mocha'
-// import { updateSelectedItemsHash, normalizeSort, defaultSort } from 'ember-frost-list/utils/utils'
+// import {expect} from 'chai'
+// const {A, Object} = Ember
+// import {beforeEach, describe, it} from 'mocha'
+// import {updateSelectedItemsHash, normalizeSort, defaultSort} from 'ember-frost-list/utils/utils'
 
-// describe('Unit: Utils', function () {
+// describe('Unit / Utils / utils', function () {
 //   describe('updateSelectedItemsHash function', function () {
 //     describe('single item or multiple items selection', function () {
 //       describe('single item selection', function () {
