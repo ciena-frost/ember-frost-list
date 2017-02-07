@@ -1,3 +1,7 @@
+# 5.3.1
+* **Updated** integration/unit tests to remove the deprecated use of `describeComponent()`
+
+
 # 5.3.0
 
 * **Added** `ember-disable-prototype-extensions` to ensure addon works with prototype extensions disabled.
