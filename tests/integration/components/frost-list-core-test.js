@@ -1,57 +1,55 @@
 import {expect} from 'chai'
-import {describeComponent, it} from 'ember-mocha'
 import hbs from 'htmlbars-inline-precompile'
+import {describe, it} from 'mocha'
 import {registerMockComponent, unregisterMockComponent} from '../../helpers/mock-component'
 
-describeComponent(
-  'frost-list-core',
-  'Integration: FrostListCoreComponent',
-  {
-    integration: true
-  },
-  function () {
-    it.skip('Header section renders when "sorting" is passed in', function () {
-      registerMockComponent(this, 'mock-sort')
+import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
-      this.render(hbs`
-        {{frost-list-core
-          sorting=(component 'mock-sort' class='mock-sort')
-        }}
-      `)
+const test = integration('frost-list-core')
+describe.skip(test.label, function () {
+  test.setup()
 
-      expect(
-        this.$('.frost-list-header'),
-        'header section is rendered'
-      ).to.have.length(1)
+  it.skip('Header section renders when "sorting" is passed in', function () {
+    registerMockComponent(this, 'mock-sort')
 
-      expect(
-        this.$('.mock-sort'),
-        'sort component is rendered'
-      ).to.have.length(1)
+    this.render(hbs`
+      {{frost-list-core
+        sorting=(component 'mock-sort' class='mock-sort')
+      }}
+    `)
 
-      unregisterMockComponent(this)
-    })
+    expect(
+      this.$('.frost-list-header'),
+      'header section is rendered'
+    ).to.have.length(1)
 
-    it.skip('Header section renders when "expansion" is passed in', function () {
-      registerMockComponent(this, 'mock-expansion')
+    expect(
+      this.$('.mock-sort'),
+      'sort component is rendered'
+    ).to.have.length(1)
 
-      this.render(hbs`
-        {{frost-list-core
-          expansion=(component 'mock-expansion' class='mock-expansion')
-        }}
-      `)
+    unregisterMockComponent(this)
+  })
 
-      expect(
-        this.$('.frost-list-header'),
-        'header section is rendered'
-      ).to.have.length(1)
+  it.skip('Header section renders when "expansion" is passed in', function () {
+    registerMockComponent(this, 'mock-expansion')
 
-      expect(
-        this.$('.mock-expansion'),
-        'expansion component is rendered'
-      ).to.have.length(1)
+    this.render(hbs`
+      {{frost-list-core
+        expansion=(component 'mock-expansion' class='mock-expansion')
+      }}
+    `)
 
-      unregisterMockComponent(this)
-    })
-  }
-)
+    expect(
+      this.$('.frost-list-header'),
+      'header section is rendered'
+    ).to.have.length(1)
+
+    expect(
+      this.$('.mock-expansion'),
+      'expansion component is rendered'
+    ).to.have.length(1)
+
+    unregisterMockComponent(this)
+  })
+})

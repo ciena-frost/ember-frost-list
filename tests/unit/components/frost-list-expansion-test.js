@@ -1,22 +1,19 @@
 import {expect} from 'chai'
-import {describeComponent} from 'ember-mocha'
-import {beforeEach, it} from 'mocha'
+import {beforeEach, describe, it} from 'mocha'
 
-describeComponent(
-  'frost-list-expansion',
-  'Unit: FrostListExpansionComponent',
-  {
-    unit: true
-  },
-  function () {
-    let component
+import {unit} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
-    beforeEach(function () {
-      component = this.subject()
-    })
+const test = unit('frost-list-expansion')
+describe(test.label, function () {
+  test.setup()
 
-    it.skip('includes className frost-list-expansion', function () {
-      expect(component.classNames).to.include('frost-list-expansion')
-    })
-  }
-)
+  let component
+
+  beforeEach(function () {
+    component = this.subject()
+  })
+
+  it.skip('includes className frost-list-expansion', function () {
+    expect(component.classNames).to.include('frost-list-expansion')
+  })
+})

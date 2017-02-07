@@ -1,12 +1,12 @@
-// import { expect } from 'chai'
+// import {expect} from 'chai'
 // import Ember from 'ember'
-// const { Controller, Object } = Ember
-// import { afterEach, beforeEach, describe, it } from 'mocha'
+// const {Controller, Object as EmberObject} = Ember
+// import {afterEach, beforeEach, describe, it} from 'mocha'
 // import FrostListCoreMixin from 'ember-frost-list/mixins/frost-list-core-mixin'
 // import FrostListExpansionMixin from 'ember-frost-list/mixins/frost-list-expansion-mixin'
 // import sinon from 'sinon'
 
-// describe.skip('Unit: FrostListExpansionMixin', function () {
+// describe.skip('Unit / Mixin / frost-list-expansion-mixin', function () {
 //   let sandbox
 
 //   const testItems = [
@@ -41,7 +41,7 @@
 //   it('creates "expandedItems" as an empty Ember.Object', function () {
 //     expect(
 //       subject.get('expandedItems')
-//     ).to.eql(Object.create())
+//     ).to.eql(EmberObject.create())
 //   })
 
 //   it('has the expect Mixins', function () {
@@ -52,7 +52,7 @@
 
 //   describe('collapseItems()', function () {
 //     it('removes the expended id', function () {
-//       subject.set('expandedItems', Object.create({ 1: true }))
+//       subject.set('expandedItems', EmberObject.create({ 1: true }))
 //       subject.send('collapseItems')
 
 //       expect(
@@ -73,7 +73,7 @@
 
 //   describe('expandItems()', function () {
 //     it('expandItems function sets id to true', function () {
-//       subject.set('expandedItems', Object.create())
+//       subject.set('expandedItems', EmberObject.create())
 //       subject.send('expandItems')
 
 //       expect(
