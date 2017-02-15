@@ -151,8 +151,10 @@ export default Component.extend({
 
     _expand (item) {
       const clonedExpandedItems = A(this.get('expandedItems').slice())
-      if (clonedExpandedItems.indexOf(item) >= 0) {
-        clonedExpandedItems.removeObject(item)
+      const itemComparator = this.get('itemComparator')
+      const index = clonedExpandedItems.findIndex(expandedItem => itemComparator(expandedItem, item))
+      if (index >= 0) {
+        clonedExpandedItems.removeAt(index)
       } else {
         clonedExpandedItems.pushObject(item)
       }

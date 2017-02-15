@@ -142,7 +142,7 @@ export default {
     if (isSelected) {
       selectedItems.pushObject(item)
     } else {
-      selectedItems = selectedItems.splice(index, 1)
+      selectedItems.removeAt(index)
     }
   }
 }

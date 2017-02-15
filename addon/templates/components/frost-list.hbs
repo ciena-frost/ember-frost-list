@@ -53,6 +53,7 @@
       {{#if itemExpansion}}
         {{frost-list-item-expansion
           hook=(concat hookPrefix '-expansion')
+          hookQualifiers=(hash index=index)
           model=model
           onExpand=(action '_expand')
         }}
