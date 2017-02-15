@@ -40,7 +40,6 @@ export default {
         selectedItems.pushObject(item)
       } else {
         selectedItems.removeAt(index)
-        // selectedItems.removeObject(item)
       }
 
       // Set the range anchor if selected, otherwise clear the anchor
@@ -93,7 +92,6 @@ export default {
 
     // If an endpoint was already selected remove selected items that were
     // in the previous range but aren't in the new range
-    // const previousEndpoint = items.indexOf(rangeState['endpoint'])
     const previousEndpoint = items.findIndex(currentItem => itemComparator(currentItem, rangeState['endpoint']))
     if (previousEndpoint >= 0) {
       // If both endpoints are above the anchor

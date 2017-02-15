@@ -47,7 +47,7 @@
     {{if (eq index (sub _items.length 1)) ' last'}}
     {{if model.isSelected ' is-selected'}}
     {{if (is-lead-selection _items model) ' is-lead-selection'}}'
-       data-test={{hook (concat hook '-item-container') index=index }}
+    data-test={{hook (concat hook '-item-container') index=index }}
   >
     <div class='frost-list-item-container-base'>
       {{#if itemExpansion}}
@@ -61,6 +61,7 @@
       {{#if onSelectionChange}}
         {{frost-list-item-selection
           hook=(concat hookPrefix '-selection')
+          hookQualifiers=(hash index=index)
           model=model
           onSelect=(action '_select')
         }}

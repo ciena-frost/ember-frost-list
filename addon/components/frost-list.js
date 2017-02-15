@@ -99,13 +99,12 @@ export default Component.extend({
       return []
     }
     return items.map(item => {
-      set(
-        item, 'isExpanded',
-        isEmpty(expandedItems) ? false : expandedItems.findIndex(
-          expandedItem => itemComparator(expandedItem, item)) >= 0)
-      set(item, 'isSelected',
-        isEmpty(selectedItems) ? false : selectedItems.findIndex(
-          selectedItem => itemComparator(selectedItem, item)) >= 0)
+      set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
+        selectedItem => itemComparator(selectedItem, item))
+      )
+      set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
+        selectedItem => itemComparator(selectedItem, item))
+      )
       return item
     })
   },
