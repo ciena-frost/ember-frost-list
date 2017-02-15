@@ -264,8 +264,8 @@ describe(test.label, function () {
 
     describe('when doing basic click and all is selected', function () {
       beforeEach(function () {
-        $(hook('my-list-selection', {index:0})).click()
-        $(hook('my-list-selection', {index:1})).click()
+        $(hook('my-list-selection', {index: 0})).click()
+        $(hook('my-list-selection', {index: 1})).click()
         $(hook('my-list-item', {index: 0})).click()
         return wait()
       })
@@ -309,8 +309,8 @@ describe(test.label, function () {
 
     describe('when doing specific click on each item', function () {
       beforeEach(function () {
-        $(hook('my-list-selection', {index:0})).click()
-        $(hook('my-list-selection', {index:1})).click()
+        $(hook('my-list-selection', {index: 0})).click()
+        $(hook('my-list-selection', {index: 1})).click()
         return wait()
       })
 
@@ -323,8 +323,8 @@ describe(test.label, function () {
 
       describe('when doing specific click to unselect each items', function () {
         beforeEach(function () {
-          $(hook('my-list-selection', {index:0})).click()
-          $(hook('my-list-selection', {index:1})).click()
+          $(hook('my-list-selection', {index: 0})).click()
+          $(hook('my-list-selection', {index: 1})).click()
           // $($(hook('my-list-item-container', {index: 0})).find(hook('my-list-selection-checkbox'))).click()
           // $($(hook('my-list-item-container', {index: 1})).find(hook('my-list-selection-checkbox'))).click()
           return wait()
