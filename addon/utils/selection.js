@@ -17,10 +17,12 @@ export default {
    * @param {Object[]} selectedItems - currently selected items
    * @param {Object} item - selection event target
    * @param {Object} rangeState - tracking the anchor and endpoint
+   * @param {Function} itemComparator - comparator for items
    */
-  basic (selectedItems, item, rangeState) {
+  basic (selectedItems, item, rangeState, itemComparator) {
     // If a previous set of selections is present
-    if (selectedItems.get('length') > 1 || selectedItems.indexOf(item) === -1) {
+    const index = selectedItems.findIndex(selectedItem => itemComparator(selectedItem, item))
+    if (selectedItems.get('length') > 1 || index === -1) {
       // Clear the other selections and select the item
       selectedItems.setObjects([item])
 
@@ -31,15 +33,17 @@ export default {
       rangeState['endpoint'] = null
     } else {
       // Toggle the item selection
-      const isCurrentlySelected = selectedItems.indexOf(item) >= 0
+
+      const isCurrentlySelected = (index >= 0)
       const isSelected = !isCurrentlySelected
       if (isSelected) {
         selectedItems.pushObject(item)
       } else {
-        selectedItems.removeObject(item)
+        selectedItems.removeAt(index)
+        // selectedItems.removeObject(item)
       }
 
-       // Set the range anchor if selected, otherwise clear the anchor
+      // Set the range anchor if selected, otherwise clear the anchor
       rangeState['anchor'] = isSelected ? item : null
 
       // New or no anchor, clear any previous endpoint
@@ -57,9 +61,10 @@ export default {
    * @param {Object[]} selectedItems - currently selected items
    * @param {Object} item - selection event target
    * @param {Object} rangeState - tracking the anchor and endpoint
+   * @param {Function} itemComparator - comparator for items
    */
   /* eslint-disable complexity */
-  range (items, selectedItems, item, rangeState) {
+  range (items, selectedItems, item, rangeState, itemComparator) {
     // If an anchor isn't set, then set the anchor and exit
     const rangeAnchor = rangeState['anchor']
     if (isNone(rangeAnchor)) {
@@ -76,8 +81,8 @@ export default {
     }
 
     // Find the indicies of the anchor and endpoint
-    const anchor = items.indexOf(rangeState['anchor'])
-    const endpoint = items.indexOf(item)
+    const anchor = items.findIndex(currentItem => itemComparator(currentItem, rangeState['anchor']))
+    const endpoint = items.findIndex(currentItem => itemComparator(currentItem, item))
 
     // Select all of the items between the anchor and the item (inclusive)
     if (anchor < endpoint) {
@@ -88,7 +93,8 @@ export default {
 
     // If an endpoint was already selected remove selected items that were
     // in the previous range but aren't in the new range
-    const previousEndpoint = items.indexOf(rangeState['endpoint'])
+    // const previousEndpoint = items.indexOf(rangeState['endpoint'])
+    const previousEndpoint = items.findIndex(currentItem => itemComparator(currentItem, rangeState['endpoint']))
     if (previousEndpoint >= 0) {
       // If both endpoints are above the anchor
       if (anchor < endpoint && anchor < previousEndpoint) {
@@ -122,9 +128,11 @@ export default {
    * @param {Object[]} selectedItems - currently selected items
    * @param {Object} item - selection event target
    * @param {Object} rangeState - tracking the anchor and endpoint
+   * @param {Function} itemComparator - comparator for items
    */
-  specific (selectedItems, item, rangeState) {
-    const isCurrentlySelected = selectedItems.indexOf(item) >= 0
+  specific (selectedItems, item, rangeState, itemComparator) {
+    const index = selectedItems.findIndex(selectedItem => itemComparator(selectedItem, item))
+    const isCurrentlySelected = (index >= 0)
     const isSelected = !isCurrentlySelected
 
     // Set the range anchor if selected, otherwise clear the anchor
@@ -136,7 +144,7 @@ export default {
     if (isSelected) {
       selectedItems.pushObject(item)
     } else {
-      selectedItems.removeObject(item)
+      selectedItems = selectedItems.splice(index, 1)
     }
   }
 }

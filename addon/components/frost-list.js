@@ -42,6 +42,7 @@ export default Component.extend({
       PropTypes.object
     ])),
     onSelectionChange: PropTypes.func,
+    itemComparator: PropTypes.func,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -74,6 +75,7 @@ export default Component.extend({
     return {
       // Options - general
       scrollTop: 0,
+      itemComparator: (rhs, lhs) => { return rhs === lhs },
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -91,15 +93,19 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]')
-  _items (expandedItems, items, selectedItems) {
+  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', 'itemComparator')
+  _items (expandedItems, items, selectedItems, itemComparator) {
     if (isEmpty(items)) {
       return []
     }
-
     return items.map(item => {
-      set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.indexOf(item) >= 0)
-      set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.indexOf(item) >= 0)
+      set(
+        item, 'isExpanded',
+        isEmpty(expandedItems) ? false : expandedItems.findIndex(
+          expandedItem => itemComparator(expandedItem, item)) >= 0)
+      set(item, 'isSelected',
+        isEmpty(selectedItems) ? false : selectedItems.findIndex(
+          selectedItem => itemComparator(selectedItem, item)) >= 0)
       return item
     })
   },
@@ -160,16 +166,16 @@ export default Component.extend({
 
     _select ({isRangeSelect, isSpecificSelect, item}) {
       const items = this.get('items')
-      const clonedSelectedItems = this.get('selectedItems').slice()
+      const clonedSelectedItems = A(this.get('selectedItems').slice())
       const _rangeState = this.get('_rangeState')
 
       // Selects are proccessed in order of precedence: specific, range, basic
       if (isSpecificSelect) {
-        selection.specific(clonedSelectedItems, item, _rangeState)
+        selection.specific(clonedSelectedItems, item, _rangeState, this.get('itemComparator'))
       } else if (isRangeSelect) {
-        selection.range(items, clonedSelectedItems, item, _rangeState)
+        selection.range(items, clonedSelectedItems, item, _rangeState, this.get('itemComparator'))
       } else {
-        selection.basic(clonedSelectedItems, item, _rangeState)
+        selection.basic(clonedSelectedItems, item, _rangeState, this.get('itemComparator'))
       }
 
       this.onSelectionChange(clonedSelectedItems)
