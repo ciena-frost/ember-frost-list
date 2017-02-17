@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, isEmpty, set} = Ember
+const {$, A, isEmpty, run, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -99,12 +99,14 @@ export default Component.extend({
       return []
     }
     return items.map(item => {
-      set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
-        selectedItem => itemComparator(selectedItem, item))
-      )
-      set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
-        selectedItem => itemComparator(selectedItem, item))
-      )
+      run.next(() => {
+        set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
+          selectedItem => itemComparator(selectedItem, item))
+        )
+        set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
+          selectedItem => itemComparator(selectedItem, item))
+        )
+      })
       return item
     })
   },
