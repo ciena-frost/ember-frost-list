@@ -59,7 +59,8 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}], This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
-| `Attribute`        | `itemComparator`     | `action closure` |       | callback functions user provided to handle custom item comparisons.  This is an attribute on frost-list component.|
+| `Attribute`        | `itemComparator`     | `action closure` |       | callback functions user provided to handle custom item comparisons.|
+| `Attribute`        | `basicClickDisabled` | `boolean`        |       | Optional: set to true if you want to disable basic clicks, else false by default.|
 
 
 ### Infinite scroll

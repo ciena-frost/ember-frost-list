@@ -339,6 +339,58 @@ describe(test.label, function () {
     })
   })
 
+  describe('when setting basicClickDisabled=true and using basic clicks', function () {
+    beforeEach(function () {
+      const testItems = A([
+        Ember.Object.create({id: '0'}),
+        Ember.Object.create({id: '1'})
+      ])
+
+      this.set('items', testItems)
+      const testSelectedItems = A([])
+      this.set('selectedItems', testSelectedItems)
+      this.set('onSelectionChange', (selectedItems) => {
+        this.get('selectedItems').setObjects(selectedItems)
+      })
+      this.render(hbs`
+        {{frost-list
+          basicClickDisabled=true
+          item=(component 'frost-list-item')
+          hook='my-list'
+          items=items
+          selectedItems=selectedItems
+          onSelectionChange=onSelectionChange
+        }}
+      `)
+      return wait()
+    })
+
+    describe('when selecting both items', function () {
+      beforeEach(function () {
+        $(hook('my-list-item', {index: 0})).click()
+        $(hook('my-list-item', {index: 1})).click()
+      })
+      it('item 0 is selected', function () {
+        expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+      })
+      it('item 1 is selected', function () {
+        expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+      })
+
+      describe('when unselecting item 0', function () {
+        beforeEach(function () {
+          $(hook('my-list-item', {index: 0})).click()
+        })
+        it('item 0 is not selected', function () {
+          expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+        })
+        it('item 1 is selected', function () {
+          expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+        })
+      })
+    })
+  })
+
   describe('supports ranged based clicks', function () {
     beforeEach(function () {
       const testItems = A([
@@ -403,7 +455,6 @@ describe(test.label, function () {
       })
     })
   })
-
   describe('supports item expansion', function () {
     beforeEach(function () {
       const testItems = A([
