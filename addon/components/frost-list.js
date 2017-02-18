@@ -175,18 +175,16 @@ export default Component.extend({
       const basicClickDisabled = this.get('basicClickDisabled')
       const clonedSelectedItems = A(this.get('selectedItems').slice())
       const _rangeState = this.get('_rangeState')
-
+      if (basicClickDisabled) {
+        isSpecificSelect = true
+      }
       // Selects are proccessed in order of precedence: specific, range, basic
       if (isSpecificSelect) {
         selection.specific(clonedSelectedItems, item, _rangeState, itemComparator)
       } else if (isRangeSelect) {
         selection.range(items, clonedSelectedItems, item, _rangeState, itemComparator)
       } else {
-        if (basicClickDisabled) {
-          selection.specific(clonedSelectedItems, item, _rangeState, itemComparator)
-        } else {
-          selection.basic(clonedSelectedItems, item, _rangeState, itemComparator)
-        }
+        selection.basic(clonedSelectedItems, item, _rangeState, itemComparator)
       }
       this.onSelectionChange(clonedSelectedItems)
     }

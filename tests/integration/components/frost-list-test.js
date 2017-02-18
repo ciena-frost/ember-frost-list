@@ -345,7 +345,6 @@ describe(test.label, function () {
         Ember.Object.create({id: '0'}),
         Ember.Object.create({id: '1'})
       ])
-
       this.set('items', testItems)
       const testSelectedItems = A([])
       this.set('selectedItems', testSelectedItems)
@@ -367,8 +366,9 @@ describe(test.label, function () {
 
     describe('when selecting both items', function () {
       beforeEach(function () {
-        $(hook('my-list-item', {index: 0})).click()
-        $(hook('my-list-item', {index: 1})).click()
+        $hook('my-list-item', {index: 0}).click()
+        $hook('my-list-item', {index: 1}).click()
+        return wait()
       })
       it('item 0 is selected', function () {
         expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
@@ -379,7 +379,8 @@ describe(test.label, function () {
 
       describe('when unselecting item 0', function () {
         beforeEach(function () {
-          $(hook('my-list-item', {index: 0})).click()
+          $hook('my-list-item', {index: 0}).click()
+          return wait()
         })
         it('item 0 is not selected', function () {
           expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
