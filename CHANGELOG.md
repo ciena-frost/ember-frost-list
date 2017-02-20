@@ -1,3 +1,17 @@
+# 5.4.0
+* Added .pr-bumper.json file to correct build problems during merging.
+* Publish PR #102, #104, #105, #106, and #107, which included:
+* Added a default comparator which can be overridden with a custom comparator.
+* Added tests for three scenarios of clicking
+* Modified frost-list template to have a hook at the top of the container for easier testing of items below it.
+* Updated to use latest pr-bumper which supports being able to set a PR to none when publishing a new version is not desired.
+* **Added** optional `basicClickDisabled` attribute. While basic click is nice, it is not always desirable. If you have a list of 100+ selected items, a mis-click might reset your selections.
+* **Fixed** issue with Ember 2.11 and run loop
+* **Added** a default comparator which can be overridden with a custom comparator
+* **Added** tests for three scenarios of clicking
+* **Added** an ember hook selector to frost-list-item-container
+
+
 # 5.3.1
 * **Updated** integration/unit tests to remove the deprecated use of `describeComponent()`
 
