@@ -1,12 +1,11 @@
 sudo: required
 dist: trusty
 language: node_js
+
 node_js:
-  - '6.9'
+  - '6.9.1'
   - 'stable'
-branches:
-  except:
-  - /^v[0-9\.]+/
+
 addons:
   apt:
     sources:
@@ -24,6 +23,7 @@ env:
   global:
     - CXX=g++-4.8
     - secure: tK0mjRJcrgwKXz9lPXrbXQiUZYikeDG/8/1eeik7Kw0mfArGQeIhNfoTwAN8beQXSPXHUuYCQGxNsfa1cBdPXQOYSTg1vD9hu+zROWBAfhhDiZZRN9JMnESK3kk3zXWE3/NpK5NdJV6b7ONB2XpVIFAYfuN5DPRvI2FFYHqak9h8XapENF2KM9zMs4ZMvZxHvuDNy2E62r2Qq8sTQ3eWjBRxWNfIoW/jsbhJ/y7xptAd0fUdhA42n5fCw/OY24p+AU1J1oTVJ9fpcjoho0m/nGcYuhhnw2/cM/WqR3KV5M6y8lMM26/Ic81PE3XFg+E8ESaYhUddbhFYy9Ap/edw+TVbXqUsPE26/3HI3oXU+gKFQ1txJuESy64UoTar0W0KgakcAhD268EYUBl+MtPLLgNHcrD1Tq7QBIu83y0Y8BGF5T0xBmvlYTVX589XPHL5vMaKCrZlVm6lsoVtFZFGSv/IHTXPrC4gIMukTCcvIYJ+bmsFsbeTtUAo4gpZXJdV7IrL5LMVv6gEpJWkfh5yF4pNab5lcGrfarBx4WXQ74Fvz1cozm7YUF1ewbvsMjupWO7zbUD9HXrt6MMZdxwp0HgWhBWyvmOeGRzxpuyImtIefh0NGgKZYQ+Te8bNl3MHyW9Mq8zyAWlZxWRU9mE9uLB3V2CrhkLO86R8Gj8w6yg=
+
 matrix:
   fast_finish: true
   allow_failures:
@@ -33,19 +33,18 @@ before_install:
 - "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
 - npm config set spin false
-- npm install -g coveralls pr-bumper --ignore-scripts
-- pr-bumper check
+- npm install -g coveralls pr-bumper
+
 install:
-- npm install ember-cli-sass # NOTE: this requies scripts
-- npm install --ignore-scripts
-- bower install
+- $(npm root -g)/pr-bumper/.travis/maybe-install.sh
+
 script:
-- npm run lint
-- npm run ci-test
+- $(npm root -g)/pr-bumper/.travis/maybe-test.sh
+- if [ $EMBER_TRY_SCENARIO == "default" ]; then $(npm root -g)/pr-bumper/.travis/maybe-bump-version.sh; fi
+
 after_success:
-- .travis/publish-coverage.sh
-before_deploy:
-- pr-bumper bump
+- $(npm root -g)/pr-bumper/.travis/maybe-publish-coverage.sh
+
 deploy:
   provider: npm
   email: npm.ciena@gmail.com
@@ -53,12 +52,13 @@ deploy:
   api_key:
     secure: 2flghVwIh/AVn5hXljg4qjRdQfL7u/0PUiFvFumz8Q3UPkzsT3rQ+0GjSV6D9XLnnVNFK0KZ2eZEji1Zh2wht3V14FkHq95kRin1V82Xl69b0DD0S9fq9py/SLX3cR1Fr4FsCvCQL2VLkTmHoLZ+chiWHjR/Em0oro8/4tCfShk1mgQ8ZE7o3wnwItXRckPdtTj8Gzug3ce/lFmiHgKz9I8PFu9ErqkKmKQsitzuZwe58xRz3WOWsYrw3qNYjuC5TUnXKcHSwmI2F6WoAgO5latia2xryx9yosxCaZL7qie0kgW/lhk62FY1RwYzXuKfb4pW+XQBnJhpr7uBhq2K3HVWdYuUqTf/i6rYTIm2x9LuxkY25ok0V3vpKQDOwALEVSZpMMvNPRwyLWuUecNtNz73V47BNwETSo45dBCNgjhvu2Zh19WTHpHEgYacztlcUR/F9heRa1RDEKalS+XbtLX7NgyejJXARG9zb++G1d37wc3tESPge8Nwj5/ls3jN5M5pFE1/K7Ayus1MLBDsTBKLshmbfWKq7WbiXWiQtsou0PT0NJKojk+j7KCTYMg5nt79RF0OaRWsdog7FjE/KmnxDCjgQp8P1VEV0olvtDPbr52WUUVUofpNnV8V/70AI2eBkm4ZK0/8C2wBOKMH7XwYTVVyboaqwIpY+RDEi/Y=
   on:
-    branch: master
+    all_branches: true
     condition: "$EMBER_TRY_SCENARIO = 'default'"
     node: 'stable'
-    tags: false
+    tags: true
 after_deploy:
 - ".travis/publish-gh-pages.sh"
+
 notifications:
   slack:
     secure: 23OKRoBihrqjj/qBioJGJ6ZoNbSMDLzUYyfKL+3yOLhZeevumKAUBKNP3brvzWIC5/8rqRKQiaFRrp1bfKm97H15WA6XegUuaVZTlScQvFlHn59MMF6dCPllkHKltPgGBJGe/bUWHAkD1ulESBv1L8J9K5FhkfyEhMon8vzntJMfWiolmfOK8L/r7Fo2lA2Y8z1noXGSC2wSI6DLHgoBzuEdDuhraK9+TzY3ApprHIfFR8mPJLEYZtNbpqqMN5uNdawaTKg1MjlHOqMYiB1+KNSucTHR68fClwv0jEU31FtNdXSeWm8p4aj8IFqNOu476G+Y+TihqOyde8KnT8osXo9gomn9FvJ+1KavA0Dy+AEZ+IFvReZ28V627n2dZweUjizX3bBV+cetkkaCqq4rPvYL5YI2HsnMRpfrRDBHrdsPKceggl2lM6dz73OaH8Shw1Hjiij7sLG4KmKlLyG0JCtuE1JXcPfC4uMs6k29snwNruH+ZGBt6R5Gbl0FVTrDjXA23PLvDvtrwMh41oxvv1wmF0amHR1mOQC2fjXs0K76siVmCYWj4SZJZp7PthrwNwrAONYuyymnjkfvc5zyynQloiXoCt2jLUbi7golhlqznwj7i+CapPs/eZlAB2ODv/ZAR9kWcRxlbZ305jGEQHgZW7vbM+p+AXgAYPvVb/Q=
