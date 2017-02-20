@@ -56,7 +56,6 @@ deploy:
     condition: "$EMBER_TRY_SCENARIO = 'default'"
     node: 'stable'
     tags: true
-
 after_deploy:
 - ".travis/publish-gh-pages.sh"
 

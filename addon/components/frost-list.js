@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, isEmpty, set} = Ember
+const {$, A, isEmpty, run, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -43,6 +43,7 @@ export default Component.extend({
     ])),
     onSelectionChange: PropTypes.func,
     itemComparator: PropTypes.func,
+    basicClickDisabled: PropTypes.bool,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -76,6 +77,7 @@ export default Component.extend({
       // Options - general
       scrollTop: 0,
       itemComparator: (rhs, lhs) => { return rhs === lhs },
+      basicClickDisabled: false,
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -99,12 +101,14 @@ export default Component.extend({
       return []
     }
     return items.map(item => {
-      set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
-        selectedItem => itemComparator(selectedItem, item))
-      )
-      set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
-        selectedItem => itemComparator(selectedItem, item))
-      )
+      run.next(() => {
+        set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
+          selectedItem => itemComparator(selectedItem, item))
+        )
+        set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
+          selectedItem => itemComparator(selectedItem, item))
+        )
+      })
       return item
     })
   },
@@ -167,18 +171,21 @@ export default Component.extend({
 
     _select ({isRangeSelect, isSpecificSelect, item}) {
       const items = this.get('items')
+      const itemComparator = this.get('itemComparator')
+      const basicClickDisabled = this.get('basicClickDisabled')
       const clonedSelectedItems = A(this.get('selectedItems').slice())
       const _rangeState = this.get('_rangeState')
-
+      if (basicClickDisabled) {
+        isSpecificSelect = true
+      }
       // Selects are proccessed in order of precedence: specific, range, basic
       if (isSpecificSelect) {
-        selection.specific(clonedSelectedItems, item, _rangeState, this.get('itemComparator'))
+        selection.specific(clonedSelectedItems, item, _rangeState, itemComparator)
       } else if (isRangeSelect) {
-        selection.range(items, clonedSelectedItems, item, _rangeState, this.get('itemComparator'))
+        selection.range(items, clonedSelectedItems, item, _rangeState, itemComparator)
       } else {
-        selection.basic(clonedSelectedItems, item, _rangeState, this.get('itemComparator'))
+        selection.basic(clonedSelectedItems, item, _rangeState, itemComparator)
       }
-
       this.onSelectionChange(clonedSelectedItems)
     }
   }
