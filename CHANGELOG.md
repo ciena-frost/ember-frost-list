@@ -1,3 +1,8 @@
+# 5.4.1
+- Added `{{yield to='inverse'}}` when no content is present to improve usability
+- Changed outline to border to avoid computations
+
+
 # 5.4.0
 * Added .pr-bumper.json file to correct build problems during merging.
 * Publish PR #102, #104, #105, #106, and #107, which included:
