@@ -45,8 +45,7 @@
     frost-list-item-container
     {{if (eq index 0) ' first'}}
     {{if (eq index (sub _items.length 1)) ' last'}}
-    {{if model.isSelected ' is-selected'}}
-    {{if (is-lead-selection _items model) ' is-lead-selection'}}'
+    {{if model.isSelected ' is-selected'}}'
     data-test={{hook (concat hook '-item-container') index=index }}
   >
     <div class='frost-list-item-container-base'>
@@ -87,5 +86,7 @@
       </div>
     {{/if}}
   </div>
+{{else}}
+  {{yield to="inverse"}}
 {{/frost-list-content-container}}
 <div class='frost-list-content-container-bottom-border {{if pagination 'paged'}}'></div>

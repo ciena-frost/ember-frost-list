@@ -6,6 +6,8 @@
   }}
     {{#each items as |model index|}}
       {{yield model index}}
+    {{else}}
+      {{yield to="inverse"}}
     {{/each}}
   {{/frost-scroll}}
 {{else}}
@@ -36,5 +38,7 @@
     as |model index|
   }}
     {{yield model index}}
+  {{else}}
+    {{yield to="inverse"}}
   {{/vertical-collection}}
 {{/if}}
