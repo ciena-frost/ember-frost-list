@@ -1,35 +1,21 @@
 .frost-list-item-container {
-  padding: 0 1px 1px;
-  border-top: 1px solid $frost-color-lgrey-1;
+  margin: 1px;
+  outline: 1px solid $frost-color-lgrey-1;
 
   &:hover {
-    & .frost-list-item-container-base,
-    & .frost-list-item-container-expansion {
+    .frost-list-item-container-base,
+    .frost-list-item-container-expansion {
       background-color: $frost-list-item-hover-color;
       cursor: pointer;
     }
   }
 
   &.is-selected {
-    padding: 0;
-    border-right: 1px solid $frost-color-blue-1;
-    border-bottom: 1px solid $frost-color-blue-1;
-    border-left: 1px solid $frost-color-blue-1;
-
-    &.is-lead-selection {
-      border-top: 1px solid $frost-color-blue-1;
-    }
+    position: relative;
+    outline: 1px solid $frost-color-blue-1;
+    z-index: 1;
   }
 
-  &.first {
-    padding-top: 1px;
-    border-top: 0;
-
-    &.is-selected {
-      padding-top: 0;
-      border-top: 1px solid $frost-color-blue-1;
-    }
-  }
 
   // The last list item container is given a class so that it can be targeted
   // This is primarily to support the case where additional bottom margin needs
