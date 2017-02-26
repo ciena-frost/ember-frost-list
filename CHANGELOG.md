@@ -1,3 +1,8 @@
+# 5.5.0
+* Removed basicClickDisabled as it was never an agreed upon UX change.
+* Fixed non default itemComparator failing on shift based clicks.
+
+
 # 5.4.1
 - Added `{{yield to='inverse'}}` when no content is present to improve usability
 - Changed outline to border to avoid computations
