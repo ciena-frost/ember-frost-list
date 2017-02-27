@@ -23,6 +23,7 @@ export default Component.extend({
   // == PropTypes =============================================================
 
   propTypes: {
+    minHeight: PropTypes.number,
     // Options - required
     item: PropTypes.EmberComponent.isRequired,
     items: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -86,7 +87,8 @@ export default Component.extend({
       _rangeState: {
         anchor: null,
         endpoint: null
-      }
+      },
+      minHeight: 50
     }
   },
 

@@ -5,6 +5,7 @@
   flex-direction: column;
   height: calc(100% - 2px);
   min-height: 0;
+  overflow-y: scroll;
   // Only for the infinite scroll case
   border-right: 1px solid $frost-color-lgrey-1;
   // The only border side that can be done this way

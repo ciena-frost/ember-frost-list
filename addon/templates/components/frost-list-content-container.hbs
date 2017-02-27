@@ -8,13 +8,11 @@
       {{yield model index}}
     {{/each}}
   {{/frost-scroll}}
-{{else}}
+{{else if items}}
   {{#vertical-collection
     alwaysRemeasure=true
-    alwaysUseDefaultHeight=alwaysUseDefaultHeight
-    bufferSize=bufferSize
+    minHeight=minHeight
     content=items
-    defaultHeight=defaultHeight
     firstReached=onLoadPrevious
     lastReached=onLoadNext
     scrollPosition=scrollTop
