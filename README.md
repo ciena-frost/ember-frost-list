@@ -59,7 +59,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}], This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
-| `Attribute`        | `itemComparator`     | `action closure` |       | callback functions user provided to handle custom item comparisons.|
+| `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
 
 
 ### Infinite scroll
@@ -261,7 +261,7 @@ execute the test suite and output code coverage.
 [cov-img]: https://coveralls.io/repos/github/ciena-frost/ember-frost-list/badge.svg?branch=master "Code Coverage"
 [cov-url]: https://coveralls.io/github/ciena-frost/ember-frost-list
 
-[ember-img]: https://img.shields.io/badge/ember-2.0.0+-orange.svg "Ember 2.0.0+"
+[ember-img]: https://img.shields.io/badge/ember-2.8.0+-orange.svg "Ember 2.8.0+"
 
 [npm-img]: https://img.shields.io/npm/v/ember-frost-list.svg "NPM Version"
 [npm-url]: https://www.npmjs.com/package/ember-frost-list

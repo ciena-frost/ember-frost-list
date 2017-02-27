@@ -3,7 +3,6 @@
  */
 
 import Ember from 'ember'
-const {isNone} = Ember
 
 export default {
   /**
@@ -63,24 +62,27 @@ export default {
    * @param {Function} itemComparator - comparator for items
    */
   /* eslint-disable complexity */
-  range (items, selectedItems, item, rangeState, itemComparator) {
+  range (items, selectedItems, item, rangeState, itemComparator, itemKey) {
     // If an anchor isn't set, then set the anchor and exit
     const rangeAnchor = rangeState['anchor']
-    if (isNone(rangeAnchor)) {
+
+    const anchor = items.findIndex(currentItem => itemComparator(currentItem, rangeState['anchor']))
+    // If anchor is -1 then it was a anchor from a previous page that we can not find, so reset
+    if (Ember.isEmpty(rangeAnchor) || anchor === -1) {
       // Range select is always a positive selection (no deselect)
       rangeState['anchor'] = item
 
       // New anchor, clear any previous endpoint
       rangeState['endpoint'] = Ember.Object.create()
 
-      // Add the anchor to the selected items
-      selectedItems.pushObject(item)
+      // Add the anchor to the selected items if not already in it from a previous page
+      if (!selectedItems.some(selectedItem => itemComparator(selectedItem, item))) {
+        selectedItems.pushObject(item)
+      }
 
       return
     }
-
-    // Find the indicies of the anchor and endpoint
-    const anchor = items.findIndex(currentItem => itemComparator(currentItem, rangeState['anchor']))
+    // Find the indices of the endpoint
     const endpoint = items.findIndex(currentItem => itemComparator(currentItem, item))
 
     // Select all of the items between the anchor and the item (inclusive)
@@ -112,6 +114,14 @@ export default {
       } else {
         selectedItems.removeObjects(items.slice(anchor + 1, previousEndpoint + 1))
       }
+    }
+
+    // Wipe out duplicates if range selection covered already selected items
+    // e.g item2-3 already selected but shift click item0 through item5 happens
+    if (itemKey) {
+      selectedItems.setObjects(selectedItems.uniqBy(itemKey))
+    } else {
+      selectedItems.setObjects(selectedItems.uniq())
     }
 
     // Store the new endpoint
