@@ -30,7 +30,7 @@ export default {
       rangeState['anchor'] = item
 
       // New anchor, clear any previous endpoint
-      rangeState['endpoint'] = null
+      rangeState['endpoint'] = Ember.Object.create()
     } else {
       // Toggle the item selection
 
@@ -43,10 +43,10 @@ export default {
       }
 
       // Set the range anchor if selected, otherwise clear the anchor
-      rangeState['anchor'] = isSelected ? item : null
+      rangeState['anchor'] = isSelected ? item : Ember.Object.create()
 
       // New or no anchor, clear any previous endpoint
-      rangeState['endpoint'] = null
+      rangeState['endpoint'] = Ember.Object.create()
     }
   },
 
@@ -71,7 +71,7 @@ export default {
       rangeState['anchor'] = item
 
       // New anchor, clear any previous endpoint
-      rangeState['endpoint'] = null
+      rangeState['endpoint'] = Ember.Object.create()
 
       // Add the anchor to the selected items
       selectedItems.pushObject(item)
@@ -134,9 +134,9 @@ export default {
     const isSelected = !isCurrentlySelected
 
     // Set the range anchor if selected, otherwise clear the anchor
-    rangeState['anchor'] = isSelected ? item : null
+    rangeState['anchor'] = isSelected ? item : Ember.Object.create()
     // New or no anchor, clear any previous endpoint
-    rangeState['endpoint'] = null
+    rangeState['endpoint'] = Ember.Object.create()
 
     // Store the selection
     if (isSelected) {

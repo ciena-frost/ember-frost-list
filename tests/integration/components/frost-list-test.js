@@ -123,7 +123,7 @@ describe(test.label, function () {
     })
   })
 
-  describe('supports pre selection with default itemComparator', function () {
+  describe('Supports pre selection with default itemComparator', function () {
     beforeEach(function () {
       const one = Ember.Object.create({isNotCompared: '0'})
       const two = Ember.Object.create({isNotCompared: '1'})
@@ -151,7 +151,7 @@ describe(test.label, function () {
     })
   })
 
-  describe('supports pre selection with custom itemComparator', function () {
+  describe('Supports pre selection with custom itemComparator', function () {
     beforeEach(function () {
       const testItems = [
         Ember.Object.create({id: '0'}),
@@ -185,7 +185,7 @@ describe(test.label, function () {
       expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
     })
 
-    describe('when itemComparator set back to default', function () {
+    describe('When itemComparator is set back to default', function () {
       beforeEach(function () {
         this.render(hbs`
         {{frost-list
@@ -206,7 +206,7 @@ describe(test.label, function () {
     })
   })
 
-  describe('supports basic and specific click', function () {
+  describe('Supports basic and specific click', function () {
     beforeEach(function () {
       const testItems = A([
         Ember.Object.create({id: '0'}),
@@ -232,7 +232,7 @@ describe(test.label, function () {
       return wait()
     })
 
-    describe('when doing basic click', function () {
+    describe('When using basic click', function () {
       beforeEach(function () {
         $(hook('my-list-item', {index: 0})).click()
         return wait()
@@ -246,7 +246,7 @@ describe(test.label, function () {
         expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
       })
 
-      describe('when doing basic click on previous selected item', function () {
+      describe('When using basic click on previous selected item', function () {
         beforeEach(function () {
           $(hook('my-list-item', {index: 0})).click()
           return wait()
@@ -262,7 +262,7 @@ describe(test.label, function () {
       })
     })
 
-    describe('when doing basic click and all is selected', function () {
+    describe('When using basic click and all is selected', function () {
       beforeEach(function () {
         $(hook('my-list-selection', {index: 0})).click()
         $(hook('my-list-selection', {index: 1})).click()
@@ -279,7 +279,7 @@ describe(test.label, function () {
       })
     })
 
-    describe('when doing specific click on one item', function () {
+    describe('When using specific click on one item', function () {
       beforeEach(function () {
         $hook('my-list-selection', {index: 0}).click()
         return wait()
@@ -292,7 +292,7 @@ describe(test.label, function () {
         expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
       })
 
-      describe('when doing specific click to unselect previous item', function () {
+      describe('When using specific click to unselect previous item', function () {
         beforeEach(function () {
           $hook('my-list-selection', {index: 0}).click()
           return wait()
@@ -307,7 +307,7 @@ describe(test.label, function () {
       })
     })
 
-    describe('when doing specific click on each item', function () {
+    describe('When using specific click on each item', function () {
       beforeEach(function () {
         $hook('my-list-selection', {index: 0}).click()
         $hook('my-list-selection', {index: 1}).click()
@@ -321,7 +321,7 @@ describe(test.label, function () {
         expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
       })
 
-      describe('when doing specific click to unselect each items', function () {
+      describe('When using specific click to unselect each items', function () {
         beforeEach(function () {
           $hook('my-list-selection', {index: 0}).click()
           $hook('my-list-selection', {index: 1}).click()
@@ -339,7 +339,7 @@ describe(test.label, function () {
     })
   })
 
-  describe('supports ranged based clicks', function () {
+  describe('Supports ranged based clicks', function () {
     beforeEach(function () {
       const testItems = A([
         Ember.Object.create({id: '0'}),
@@ -369,7 +369,7 @@ describe(test.label, function () {
       return wait()
     })
 
-    describe('when doing shift click from item1-5', function () {
+    describe('When using shift click from item1-5', function () {
       beforeEach(function () {
         const clickEvent = $.Event('click')
         clickEvent.shiftKey = true
@@ -402,9 +402,61 @@ describe(test.label, function () {
         expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
       })
     })
-  })
 
-  describe('supports item expansion', function () {
+    describe('When using custom itemComparator', function () {
+      beforeEach(function () {
+        this.set('itemComparator', (lhs, rhs) => {
+          return lhs.get('id') === rhs.get('id')
+        })
+        this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          hook='my-list'
+          items=items
+          selectedItems=selectedItems
+          onSelectionChange=onSelectionChange
+          itemComparator=itemComparator
+        }}
+      `)
+        return wait()
+      })
+
+      describe('When using shift click from item1-5', function () {
+        beforeEach(function () {
+          const clickEvent = $.Event('click')
+          clickEvent.shiftKey = true
+          const clickEvent2 = $.Event('click')
+          clickEvent2.shiftKey = true
+          $(hook('my-list-item', {index: 1})).trigger(clickEvent)
+          $(hook('my-list-item', {index: 5})).trigger(clickEvent2)
+          return wait()
+        })
+
+        it('item 0 is not selected', function () {
+          expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+        })
+        it('item 1 is selected', function () {
+          expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+        })
+        it('item 2 is selected', function () {
+          expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+        })
+        it('item 3 is selected', function () {
+          expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
+        })
+        it('item 4 is selected', function () {
+          expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
+        })
+        it('item 5 is selected', function () {
+          expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
+        })
+        it('item 6 is not selected', function () {
+          expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+        })
+      })
+    })
+  })
+  describe('Supports item expansion', function () {
     beforeEach(function () {
       const testItems = A([
         Ember.Object.create({id: '0'}),
