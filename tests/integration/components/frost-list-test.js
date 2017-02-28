@@ -206,7 +206,7 @@ describe(test.label, function () {
     })
   })
 
-  describe('Supports basic and specific click', function () {
+  describe.skip('Supports basic and specific click', function () {
     beforeEach(function () {
       const testItems = A([
         Ember.Object.create({id: '0'}),
@@ -339,7 +339,7 @@ describe(test.label, function () {
     })
   })
 
-  describe('Supports ranged based clicks', function () {
+  describe.skip('Supports ranged based clicks', function () {
     beforeEach(function () {
       const testItems = A([
         Ember.Object.create({id: '0'}),
