@@ -3,7 +3,16 @@
  */
 
 import Ember from 'ember'
-const {$, A, isEmpty, run, set} = Ember
+const {
+  $,
+  A,
+  isEmpty,
+  run,
+  set,
+  computed: {
+    deprecatingAlias
+  }
+} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -113,6 +122,10 @@ export default Component.extend({
     })
   },
 
+  defaultHeight: deprecatingAlias('minHeight', {
+    id: 'frost-list.deprecate-defaultHeight',
+    until: '2.0.0'
+  }),
   // == Functions =============================================================
 
   setShift (event) {
