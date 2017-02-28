@@ -89,9 +89,7 @@ export default Component.extend({
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
-      bufferSize: 10,
-      defaultHeight: 50,
-
+      bufferSize: 1,
       // State
       _rangeState: {
         anchor: null,
