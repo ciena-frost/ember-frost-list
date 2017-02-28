@@ -1,5 +1,4 @@
 {{! Template for the frost-list component }}
-
 <div class='frost-list-header {{if pagination 'paged'}}'>
   {{#if sorting}}
     {{component sorting
@@ -47,7 +46,7 @@
       (if (eq index (sub _items.length 1)) ' last')
       (if model.isSelected ' is-selected')
     }}
-    data-test={{hook (concat hook '-item-container') index=index }}
+    data-test={{hook (concat hookPrefix '-item-container') index=index }}
   >
     <div class='frost-list-item-container-base'>
       {{#if itemExpansion}}

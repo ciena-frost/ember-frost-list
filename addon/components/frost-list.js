@@ -124,7 +124,7 @@ export default Component.extend({
 
   defaultHeight: deprecatingAlias('minHeight', {
     id: 'frost-list.deprecate-defaultHeight',
-    until: '2.0.0'
+    until: '6.0.0'
   }),
   // == Functions =============================================================
 
