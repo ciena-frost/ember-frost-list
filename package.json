@@ -55,7 +55,6 @@
     "ember-frost-sort": "^7.0.0",
     "ember-frost-test": "1.0.1",
     "ember-get-config": "0.2.1",
-    "ember-hash-helper-polyfill": "0.1.2",
     "ember-hook": "1.4.1",
     "ember-load-initializers": "0.6.3",
     "ember-math-helpers": "^2.0.5",
