@@ -41,11 +41,12 @@
   onLoadPrevious=onLoadPrevious
   as |model index|
 }}
-  <div class='
-    frost-list-item-container
-    {{if (eq index 0) ' first'}}
-    {{if (eq index (sub _items.length 1)) ' last'}}
-    {{if model.isSelected ' is-selected'}}'
+  <div class={{concat
+      'frost-list-item-container'
+      (if (eq index 0) ' first')
+      (if (eq index (sub _items.length 1)) ' last')
+      (if model.isSelected ' is-selected')
+    }}
     data-test={{hook (concat hook '-item-container') index=index }}
   >
     <div class='frost-list-item-container-base'>
