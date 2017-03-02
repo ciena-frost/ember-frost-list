@@ -1,3 +1,7 @@
+# 5.5.1
+- Pull in temporary fork of s&m (pre 1.0.0)
+- Remove whitespace in content-container className
+
 # 5.5.0
 * Removed basicClickDisabled as it was never an agreed upon UX change.
 * Fixed non default itemComparator failing on shift based clicks.
