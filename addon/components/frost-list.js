@@ -65,7 +65,7 @@ export default Component.extend({
     alwaysUseDefaultHeight: PropTypes.bool,
     bufferSize: PropTypes.number,
     defaultHeight: PropTypes.number,
-
+    debug: PropTypes.bool,
     // State
     _isShiftDown: PropTypes.bool,
 
@@ -95,7 +95,8 @@ export default Component.extend({
         anchor: null,
         endpoint: null
       },
-      minHeight: 50
+      minHeight: 50,
+      debug: false
     }
   },
 

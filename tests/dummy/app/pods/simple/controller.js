@@ -12,7 +12,7 @@ export default Controller.extend({
   // == Dependencies ==========================================================
 
   // == Properties ============================================================
-
+  debug: false,
   expandedItems: A([]),
   selectedItems: A([]),
   sortOrder: A(['-id']),

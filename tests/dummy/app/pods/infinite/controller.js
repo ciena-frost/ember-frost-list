@@ -14,7 +14,7 @@ export default Controller.extend({
   notifications: inject.service('notification-messages'),
 
   // == Properties ============================================================
-
+  debug: false,
   expandedItems: A([]),
   itemsPerPage: 100,
   lastPage: 0,
