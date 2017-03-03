@@ -1,3 +1,8 @@
+# 5.5.2
+* Fixed range select issues with selectedItems increasing with duplicates
+* Simplified itemComparator to just itemKey: string
+
+
 # 5.5.1
 - Pull in temporary fork of s&m (pre 1.0.0)
 - Remove whitespace in content-container className
