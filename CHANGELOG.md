@@ -1,3 +1,8 @@
+# 5.5.3
+* Fixed range select issues with selectedItems increasing with duplicates
+* Simplified itemComparator to just itemKey: string
+
+
 # 5.5.2
 * Fixed range select issues with selectedItems increasing with duplicates
 * Simplified itemComparator to just itemKey: string
