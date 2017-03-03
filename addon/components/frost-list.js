@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, isEmpty, run, set} = Ember
+const {$, A, get, isEmpty, isNone, run, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -86,8 +86,8 @@ export default Component.extend({
 
       // State
       _rangeState: {
-        anchor: Ember.Object.create(),
-        endpoint: Ember.Object.create()
+        anchor: null,
+        endpoint: null
       }
     }
   },
@@ -96,17 +96,18 @@ export default Component.extend({
 
   @readOnly
   @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator')
-  _items (expandedItems, items, selectedItems, itemComparator) {
+  _items (expandedItems, items, selectedItems, _itemComparator) {
     if (isEmpty(items)) {
       return []
     }
+
     return items.map(item => {
       run.next(() => {
         set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
-          selectedItem => itemComparator(selectedItem, item))
+          selectedItem => _itemComparator(selectedItem, item))
         )
         set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
-          selectedItem => itemComparator(selectedItem, item))
+          selectedItem => _itemComparator(selectedItem, item))
         )
       })
       return item
@@ -141,7 +142,7 @@ export default Component.extend({
     const itemKey = this.get('itemKey')
     if (itemKey) {
       this.set('_itemComparator', function (lhs, rhs) {
-        return lhs.get(itemKey) === rhs.get(itemKey)
+        return isNone(lhs) || isNone(rhs) ? false : get(lhs, itemKey) === get(rhs, itemKey)
       })
     } else {
       this.set('_itemComparator', function (lhs, rhs) {

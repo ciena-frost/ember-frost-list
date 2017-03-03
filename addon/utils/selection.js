@@ -2,8 +2,6 @@
  * TODO Selection utilities
  */
 
-import Ember from 'ember'
-
 export default {
   /**
    * Basic selection acts conditionally based on the presence of additional selections.
@@ -29,7 +27,7 @@ export default {
       rangeState['anchor'] = item
 
       // New anchor, clear any previous endpoint
-      rangeState['endpoint'] = Ember.Object.create()
+      rangeState['endpoint'] = null
     } else {
       // Toggle the item selection
 
@@ -42,10 +40,10 @@ export default {
       }
 
       // Set the range anchor if selected, otherwise clear the anchor
-      rangeState['anchor'] = isSelected ? item : Ember.Object.create()
+      rangeState['anchor'] = isSelected ? item : null
 
       // New or no anchor, clear any previous endpoint
-      rangeState['endpoint'] = Ember.Object.create()
+      rangeState['endpoint'] = null
     }
   },
 
@@ -63,22 +61,18 @@ export default {
    */
   /* eslint-disable complexity */
   range (items, selectedItems, item, rangeState, itemComparator, itemKey) {
-    // If an anchor isn't set, then set the anchor and exit
+    // If an anchor isn't set or in the current list of items, then set the anchor and exit
     const rangeAnchor = rangeState['anchor']
-
-    const anchor = items.findIndex(currentItem => itemComparator(currentItem, rangeState['anchor']))
-    // If anchor is -1 then it was a anchor from a previous page that we can not find, so reset
-    if (Ember.isEmpty(rangeAnchor) || anchor === -1) {
+    const anchor = rangeAnchor ? items.findIndex(currentItem => itemComparator(currentItem, rangeAnchor)) : -1
+    if (anchor === -1) {
       // Range select is always a positive selection (no deselect)
       rangeState['anchor'] = item
 
       // New anchor, clear any previous endpoint
-      rangeState['endpoint'] = Ember.Object.create()
+      rangeState['endpoint'] = null
 
-      // Add the anchor to the selected items if not already in it from a previous page
-      if (!selectedItems.some(selectedItem => itemComparator(selectedItem, item))) {
-        selectedItems.pushObject(item)
-      }
+      // Add the anchor to the selected items
+      selectedItems.addObject(item)
 
       return
     }
@@ -87,9 +81,9 @@ export default {
 
     // Select all of the items between the anchor and the item (inclusive)
     if (anchor < endpoint) {
-      selectedItems.pushObjects(items.slice(anchor, endpoint + 1))
+      selectedItems.addObjects(items.slice(anchor, endpoint + 1))
     } else {
-      selectedItems.pushObjects(items.slice(endpoint, anchor + 1))
+      selectedItems.addObjects(items.slice(endpoint, anchor + 1))
     }
 
     // If an endpoint was already selected remove selected items that were
@@ -116,14 +110,6 @@ export default {
       }
     }
 
-    // Wipe out duplicates if range selection covered already selected items
-    // e.g item2-3 already selected but shift click item0 through item5 happens
-    if (itemKey) {
-      selectedItems.setObjects(selectedItems.uniqBy(itemKey))
-    } else {
-      selectedItems.setObjects(selectedItems.uniq())
-    }
-
     // Store the new endpoint
     rangeState['endpoint'] = item
   },
@@ -144,9 +130,9 @@ export default {
     const isSelected = !isCurrentlySelected
 
     // Set the range anchor if selected, otherwise clear the anchor
-    rangeState['anchor'] = isSelected ? item : Ember.Object.create()
+    rangeState['anchor'] = isSelected ? item : null
     // New or no anchor, clear any previous endpoint
-    rangeState['endpoint'] = Ember.Object.create()
+    rangeState['endpoint'] = null
 
     // Store the selection
     if (isSelected) {
