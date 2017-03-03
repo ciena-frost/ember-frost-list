@@ -3,6 +3,7 @@
  */
 
 export default {
+
   /**
    * Basic selection acts conditionally based on the presence of additional selections.
    *
@@ -30,11 +31,10 @@ export default {
       rangeState['endpoint'] = null
     } else {
       // Toggle the item selection
-
-      const isCurrentlySelected = (index >= 0)
+      const isCurrentlySelected = index >= 0
       const isSelected = !isCurrentlySelected
       if (isSelected) {
-        selectedItems.pushObject(item)
+        selectedItems.addObject(item)
       } else {
         selectedItems.removeAt(index)
       }
@@ -110,6 +110,12 @@ export default {
       }
     }
 
+    // If items in the list are compared using itemKey rather than by reference
+    // then addObject(s) won't guarentee uniqueness, so do a uniqueness pass
+    if (itemKey) {
+      selectedItems.setObjects(selectedItems.uniqBy(itemKey))
+    }
+
     // Store the new endpoint
     rangeState['endpoint'] = item
   },
@@ -136,7 +142,7 @@ export default {
 
     // Store the selection
     if (isSelected) {
-      selectedItems.pushObject(item)
+      selectedItems.addObject(item)
     } else {
       selectedItems.removeAt(index)
     }

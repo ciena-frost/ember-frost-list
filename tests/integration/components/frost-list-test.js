@@ -627,6 +627,8 @@ describe(test.label, function () {
 
     describe('When Paged', function () {
       beforeEach(function () {
+        // Note: DON'T change the seeding, the object creation/destruction is intentional
+        // to prove that comparison of selected items only via key works!
         const testItems = A([
           Ember.Object.create({id: '0'}),
           Ember.Object.create({id: '1'}),
@@ -723,7 +725,7 @@ describe(test.label, function () {
             expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
           })
 
-          it('item 1 is not selected', function () {
+          it('item 2 is not selected', function () {
             expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
           })
 
@@ -763,6 +765,7 @@ describe(test.label, function () {
           })
         })
       })
+
       describe('When using specific select on item 2', function () {
         beforeEach(function () {
           $hook('my-list-selection', {index: 1}).click()
