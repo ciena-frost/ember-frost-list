@@ -51,7 +51,7 @@ deploy:
   api_key:
     secure: 2flghVwIh/AVn5hXljg4qjRdQfL7u/0PUiFvFumz8Q3UPkzsT3rQ+0GjSV6D9XLnnVNFK0KZ2eZEji1Zh2wht3V14FkHq95kRin1V82Xl69b0DD0S9fq9py/SLX3cR1Fr4FsCvCQL2VLkTmHoLZ+chiWHjR/Em0oro8/4tCfShk1mgQ8ZE7o3wnwItXRckPdtTj8Gzug3ce/lFmiHgKz9I8PFu9ErqkKmKQsitzuZwe58xRz3WOWsYrw3qNYjuC5TUnXKcHSwmI2F6WoAgO5latia2xryx9yosxCaZL7qie0kgW/lhk62FY1RwYzXuKfb4pW+XQBnJhpr7uBhq2K3HVWdYuUqTf/i6rYTIm2x9LuxkY25ok0V3vpKQDOwALEVSZpMMvNPRwyLWuUecNtNz73V47BNwETSo45dBCNgjhvu2Zh19WTHpHEgYacztlcUR/F9heRa1RDEKalS+XbtLX7NgyejJXARG9zb++G1d37wc3tESPge8Nwj5/ls3jN5M5pFE1/K7Ayus1MLBDsTBKLshmbfWKq7WbiXWiQtsou0PT0NJKojk+j7KCTYMg5nt79RF0OaRWsdog7FjE/KmnxDCjgQp8P1VEV0olvtDPbr52WUUVUofpNnV8V/70AI2eBkm4ZK0/8C2wBOKMH7XwYTVVyboaqwIpY+RDEi/Y=
   on:
-    all_branches: true
+    branch: 'master'
     condition: "$EMBER_TRY_SCENARIO = 'default'"
     node: 'stable'
     tags: true
