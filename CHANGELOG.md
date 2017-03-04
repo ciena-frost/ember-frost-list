@@ -1,3 +1,6 @@
+# 5.5.3
+* **Updated** travis scripts to get publishing of demo to gh-pages working
+
 # 5.5.2
 * Fixed range select issues with selectedItems increasing with duplicates
 * Simplified itemComparator to just itemKey: string
