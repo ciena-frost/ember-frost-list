@@ -123,6 +123,48 @@ describe(test.label, function () {
     })
   })
 
+  describe('Loading State', function () {
+    beforeEach(function () {
+      this.set('items', [Ember.Object.create(), Ember.Object.create()])
+      return wait()
+    })
+
+    describe('is loading', function () {
+      beforeEach(function () {
+        this.render(hbs`
+          {{frost-list
+            hook='my-list'
+            isLoading=true
+            item=(component 'frost-list-item')
+            items=items
+          }}
+        `)
+        return wait()
+      })
+
+      it('should display `frost-loading` component', function () {
+        expect($hook('my-list-contentContainer-loading').length).to.eql(1)
+      })
+    })
+
+    describe('is not loading', function () {
+      beforeEach(function () {
+        this.render(hbs`
+          {{frost-list
+            hook='my-list'
+            item=(component 'frost-list-item')
+            items=items
+          }}
+        `)
+        return wait()
+      })
+
+      it('should not display `frost-loading` component', function () {
+        expect($hook('my-list-contentContainer-loading').length).to.eql(0)
+      })
+    })
+  })
+
   describe('Supports pre selection with default itemKey', function () {
     beforeEach(function () {
       const one = Ember.Object.create({isNotCompared: '0'})

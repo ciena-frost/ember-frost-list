@@ -12,8 +12,11 @@ Router.map(function () {
   this.route('simple', {
     path: '/'
   })
+  this.route('simple-loading')
   this.route('infinite')
+  this.route('infinite-loading')
   this.route('paged')
+  this.route('paged-loading')
 })
 
 export default Router

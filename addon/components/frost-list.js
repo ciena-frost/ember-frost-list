@@ -35,6 +35,7 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ])),
+    isLoading: PropTypes.bool,
     itemExpansion: PropTypes.EmberComponent,
     scrollTop: PropTypes.number,
     selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -77,6 +78,7 @@ export default Component.extend({
   getDefaultProps () {
     return {
       // Options - general
+      isLoading: false,
       scrollTop: 0,
 
       // Smoke and mirrors options

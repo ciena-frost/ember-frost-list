@@ -1,6 +1,7 @@
 {{frost-list
-  class='demo'
+  class='demo-loading'
   hook='demo'
+  isLoading=isLoading
   item=(component 'list-item')
   itemExpansion=(component 'list-item-expansion')
   items=items
@@ -14,4 +15,11 @@
     sortingProperties=sortingProperties
     onChange=(action 'onSortingChange')
   )
+}}
+
+{{frost-button
+  hook='whatever'
+  onClick=(action 'onClick')
+  priority='primary'
+  text='Refresh model'
 }}

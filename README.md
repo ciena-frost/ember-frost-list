@@ -60,6 +60,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
 | `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
+| `Attribute`        | `isLoading`            | `boolean`         |       | Optional: When `true` the `frost-loading` component is displayed in place of either the *Infinite Scroll* or *Finite / pagination* lists. |
 
 
 ### Infinite scroll
@@ -92,7 +93,7 @@ In these cases pagination may optionally be used
 }}
 ```
 
-The onChange action will receive the `page` being requested, which can be combined with 
+The onChange action will receive the `page` being requested, which can be combined with
 the `itemsPerPage` to make an API request and provide the new items for the list
 
 ```
