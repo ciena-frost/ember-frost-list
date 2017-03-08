@@ -3,6 +3,7 @@
 {{#if isLoading}}
   {{frost-loading
     hook=(concat hookPrefix '-loading')
+    type=loadingType
   }}
 {{else}}
   {{#if pagination}}

@@ -61,6 +61,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
 | `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
 | `Attribute`        | `isLoading`            | `boolean`         |       | Optional: When `true` the `frost-loading` component is displayed in place of either the *Infinite Scroll* or *Finite / pagination* lists. |
+| `Attribute`        | `loadingType`            | `string`         |       | Optional: The `frost-loading` loading effect. See [frost-loading](https://github.com/ciena-frost/ember-frost-core/blob/master/docs/frost-loading.md) |
 
 
 ### Infinite scroll

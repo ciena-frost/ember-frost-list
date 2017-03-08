@@ -137,6 +137,7 @@ describe(test.label, function () {
             isLoading=true
             item=(component 'frost-list-item')
             items=items
+            loadingType=loadingType
           }}
         `)
         return wait()
@@ -144,6 +145,25 @@ describe(test.label, function () {
 
       it('should display `frost-loading` component', function () {
         expect($hook('my-list-contentContainer-loading').length).to.eql(1)
+      })
+
+      describe('loader type', function () {
+        describe('default type', function () {
+          it('should use ripple effect', function () {
+            expect($(hook('my-list-contentContainer-loading') + '> svg.uil-ripple').length).to.eql(1)
+          })
+        })
+
+        describe('ring type', function () {
+          beforeEach(function () {
+            this.set('loadingType', 'ring')
+            return wait()
+          })
+
+          it('should use ring effect', function () {
+            expect($(hook('my-list-contentContainer-loading') + '> svg.uil-ring').length).to.eql(1)
+          })
+        })
       })
     })
 

@@ -37,6 +37,7 @@ export default Component.extend({
     ])),
     isLoading: PropTypes.bool,
     itemExpansion: PropTypes.EmberComponent,
+    loadingType: PropTypes.string,
     scrollTop: PropTypes.number,
     selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
       PropTypes.EmberObject,
