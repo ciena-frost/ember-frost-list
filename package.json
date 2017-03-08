@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-list",
-  "version": "5.5.0",
+  "version": "5.5.3",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
@@ -68,7 +68,7 @@
     "loader.js": "^4.0.0",
     "pull-report": "^0.3.1",
     "sinon-chai": "^2.8.0",
-    "vertical-collection": "git+https://github.com/html-next/vertical-collection.git"
+    "vertical-collection": "github:html-next/vertical-collection"
   },
   "keywords": [
     "ember-addon",

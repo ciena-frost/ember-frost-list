@@ -1,0 +1,95 @@
+/**!
+  Visualization Classes for debugging the vertical-collection
+  */
+.vertical-collection-visual-debugger {
+  height: 100%;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background: rgba(50, 50, 50, 1);
+  width: 150px;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-container {
+  -moz-transform: scale(.2);
+  zoom: 20%;
+  left: 0;
+  position: relative;
+  width: 250px;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-telescope {
+  position: absolute;
+  width: 750px;
+  background: rgba(100, 230, 100, 0.65);
+}
+
+.vertical-collection-visual-debugger .vc_visualization-skyline {
+  position: absolute;
+  width: 750px;
+  background: rgba(255, 255, 255, .15);
+}
+
+.vertical-collection-visual-debugger .vc_visualization-visible {
+  position: absolute;
+  background: rgba(100, 230, 100, 0.4);
+  width: 750px;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-satellite {
+  /*position: absolute;*/
+  box-sizing: border-box;
+  border: 1px dotted #bbb;
+  border-top: 0px;
+  color: #fff;
+  text-align: center;
+  font-size: 8px;
+  line-height: 10px;
+  width: 250px;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-satellite {
+  border-top: 1px;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-mirror {
+  position: absolute;
+  background: rgba(100, 250, 100, 0.5);
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-top: 0px;
+  color: #fff;
+  text-align: center;
+  font-size: 8px;
+  line-height: 10px;
+  width: 250px;
+}
+.vertical-collection-visual-debugger .vc_visualization-mirror[viewState="culled"] {
+  background: rgba(100, 250, 100, 0.25);
+}
+.vertical-collection-visual-debugger .vc_visualization-mirror[viewState="culled"][hasErrors=true] {
+  background: rgba(255, 50, 50, 0.5);
+}
+
+.vertical-collection-visual-debugger .vc_visualization-screen {
+  position: absolute;
+  background: transparent;
+  box-sizing: content-box;
+  width: 750px;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-mirror[hasErrors=true] {
+  background: rgba(255, 50, 50, 1);
+}
+
+.vertical-collection-visual-debugger .vc_visualization-satellite[viewState="culled"] {
+  background: transparent;
+}
+
+.vertical-collection-visual-debugger .vc_visualization-satellite[viewState="visible"] {
+  background: rgba(230, 100, 230, 0.6);
+}

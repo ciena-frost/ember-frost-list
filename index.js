@@ -18,6 +18,9 @@ module.exports = {
 
     if (app) {
       app.import(path.join('vendor', 'ua-parser.min.js'))
+      if (!/production/.test(app.env) && !/test/.test(app.env)) {
+        app.import(path.join('vendor', 'smoke-and-mirrors-debug.css'))
+      }
     }
   },
 

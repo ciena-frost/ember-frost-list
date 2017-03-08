@@ -1,3 +1,15 @@
+# 5.5.3
+* **Updated** travis scripts to get publishing of demo to gh-pages working
+
+# 5.5.2
+* Fixed range select issues with selectedItems increasing with duplicates
+* Simplified itemComparator to just itemKey: string
+
+
+# 5.5.1
+- Pull in temporary fork of s&m (pre 1.0.0)
+- Remove whitespace in content-container className
+
 # 5.5.0
 * Removed basicClickDisabled as it was never an agreed upon UX change.
 * Fixed non default itemComparator failing on shift based clicks.
