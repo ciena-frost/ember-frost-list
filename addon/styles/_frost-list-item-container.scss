@@ -1,6 +1,6 @@
 .frost-list-item-container {
   margin: 1px;
-  outline: 1px solid $frost-color-lgrey-1;
+  box-shadow: 0 -1px 0 $frost-color-lgrey-1;
 
   &:hover {
     .frost-list-item-container-base,
