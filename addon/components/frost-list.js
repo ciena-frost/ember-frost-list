@@ -93,7 +93,7 @@ export default Component.extend({
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
-      alwaysRemeasure: true,
+      alwaysRemeasure: false,
       bufferSize: 1,
       // State
       _rangeState: {
@@ -129,7 +129,7 @@ export default Component.extend({
 
   defaultHeight: deprecatingAlias('minHeight', {
     id: 'frost-list.deprecate-defaultHeight',
-    until: '6.0.0'
+    until: '7.0.0'
   }),
   // == Functions =============================================================
 
