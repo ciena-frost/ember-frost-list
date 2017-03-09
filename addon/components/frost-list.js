@@ -66,8 +66,7 @@ export default Component.extend({
     // Smoke and mirrors
     alwaysUseDefaultHeight: PropTypes.bool,
     bufferSize: PropTypes.number,
-    defaultHeight: PropTypes.number,
-
+    alwaysRemeasure: PropTypes.bool,
     // Private
     _itemComparator: PropTypes.func,
     debug: PropTypes.bool,
@@ -94,6 +93,7 @@ export default Component.extend({
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
+      alwaysRemeasure: true,
       bufferSize: 1,
       // State
       _rangeState: {
