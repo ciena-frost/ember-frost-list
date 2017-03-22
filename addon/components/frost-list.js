@@ -93,7 +93,7 @@ export default Component.extend({
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
-      alwaysRemeasure: false,
+      alwaysRemeasure: true,
       bufferSize: 1,
       // State
       _rangeState: {
