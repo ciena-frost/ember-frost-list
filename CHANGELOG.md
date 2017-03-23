@@ -1,3 +1,6 @@
+# 5.5.4 (2017-03-23)
+* **Fixed** `ember` and `ember-cli` dependencies
+
 # 5.5.3
 * **Updated** travis scripts to get publishing of demo to gh-pages working
 
