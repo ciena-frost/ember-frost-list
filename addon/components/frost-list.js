@@ -3,7 +3,16 @@
  */
 
 import Ember from 'ember'
-const {$, A, get, isEmpty, isNone, run, set} = Ember
+const {
+  A,
+  get,
+  isEmpty,
+  isNone,
+  set,
+  computed: {
+    deprecatingAlias
+  }
+} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -23,6 +32,7 @@ export default Component.extend({
   // == PropTypes =============================================================
 
   propTypes: {
+    minHeight: PropTypes.number,
     // Options - required
     item: PropTypes.EmberComponent.isRequired,
     items: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -52,12 +62,13 @@ export default Component.extend({
     onLoadNext: PropTypes.func,
     onLoadPrevious: PropTypes.func,
     // Smoke and mirrors
+    containerSelector: PropTypes.string,
     alwaysUseDefaultHeight: PropTypes.bool,
     bufferSize: PropTypes.number,
-    defaultHeight: PropTypes.number,
-
+    alwaysRemeasure: PropTypes.bool,
     // Private
     _itemComparator: PropTypes.func,
+    debug: PropTypes.bool,
 
     // State
     _isShiftDown: PropTypes.bool,
@@ -81,14 +92,15 @@ export default Component.extend({
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
-      bufferSize: 10,
-      defaultHeight: 50,
-
+      alwaysRemeasure: true,
+      bufferSize: 1,
       // State
       _rangeState: {
         anchor: null,
         endpoint: null
-      }
+      },
+      minHeight: 50,
+      debug: false
     }
   },
 
@@ -101,19 +113,27 @@ export default Component.extend({
       return []
     }
 
-    return items.map(item => {
-      run.next(() => {
-        set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
-          selectedItem => _itemComparator(selectedItem, item))
-        )
-        set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
-          selectedItem => _itemComparator(selectedItem, item))
-        )
-      })
-      return item
+    const hasExpandedItems = isEmpty(expandedItems)
+    const hasSelectedItems = isEmpty(selectedItems)
+
+    items.forEach(function (item) {
+      set(item, 'isExpanded', hasExpandedItems
+        ? false
+        : expandedItems.some(k => _itemComparator(k, item))
+      )
+      set(item, 'isSelected', hasSelectedItems
+        ? false
+        : selectedItems.some(k => _itemComparator(k, item))
+      )
     })
+
+    return items
   },
 
+  defaultHeight: deprecatingAlias('minHeight', {
+    id: 'frost-list.deprecate-defaultHeight',
+    until: '7.0.0'
+  }),
   // == Functions =============================================================
 
   setShift (event) {
@@ -125,17 +145,6 @@ export default Component.extend({
   // == DOM Events ============================================================
 
   // == Lifecycle Hooks =======================================================
-
-  didUpdateAttrs ({newAttrs}) {
-    if (newAttrs.scrollTop) {
-      // TODO Push this down into frost-scroll
-      const scrollbar = this.$('.frost-scroll')[0]
-      if (scrollbar) {
-        scrollbar.scrollTop = newAttrs.scrollTop
-        window.Ps.update(scrollbar)
-      }
-    }
-  },
 
   init () {
     this._super(...arguments)
@@ -149,14 +158,7 @@ export default Component.extend({
         return lhs === rhs
       })
     }
-
-    $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this.setShift.bind(this))
   },
-
-  willDestroy () {
-    $(document).off(`keyup.${this.elementId} keydown.${this.elementId}`, this.setShift.bind(this))
-  },
-
   // == Actions ===============================================================
 
   actions: {

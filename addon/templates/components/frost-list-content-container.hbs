@@ -10,31 +10,23 @@
       {{yield to="inverse"}}
     {{/each}}
   {{/frost-scroll}}
-{{else}}
+{{else if items}}
   {{#vertical-collection
-    alwaysRemeasure=true
-    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    alwaysRemeasure=alwaysRemeasure
     bufferSize=bufferSize
-    content=items
-    defaultHeight=defaultHeight
+    minHeight=minHeight
+    items=items
     firstReached=onLoadPrevious
     lastReached=onLoadNext
     scrollPosition=scrollTop
-    useContentProxy=false
 
-    key='@identity'
-    resizeDebounce=64
     firstVisibleChanged=null
     lastVisibleChanged=null
     didMountCollection=null
     idForFirstItem=null
     renderFromLast=false
-    renderAllInitially=false
     shouldRender=true
-    minimumMovement=15
     containerSelector=null
-    containerHeight=null
-
     as |model index|
   }}
     {{yield model index}}

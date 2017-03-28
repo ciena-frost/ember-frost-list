@@ -7,8 +7,8 @@
 .frost-list.demo {
   display: flex;
   flex-direction: column;
-  width: 1000px;
-  height: 300px;
+  height: 50vh;
+  margin-bottom: 10px;
 }
 
 // General demo styles
@@ -117,4 +117,30 @@ $frost-modal-demos-shadow-color: rgba(0, 0, 0, .13);
 .frost-modal-demo-notes {
   margin: 0 20px 0 10px;
   font-size: $frost-font-s;
+}
+
+.custom-sort {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+
+  .item {
+    display: flex;
+  }
+  .center {
+    justify-content: center;
+  }
+  .label {
+    line-height: 45px;
+    padding: 5px;
+  }
+}
+
+#ember-testing {
+  height: 100%;
+  width: 100%;
+  .ember-view {
+    height: inherit;
+    width: inherit;
+  }
 }

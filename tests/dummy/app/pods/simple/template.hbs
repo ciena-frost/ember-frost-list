@@ -1,5 +1,6 @@
+<!-- BEGIN-SNIPPET simple -->
 {{frost-list
-  class='demo'
+  class='demo frost-flex-3'
   hook='demo'
   item=(component 'list-item')
   itemExpansion=(component 'list-item-expansion')
@@ -9,8 +10,11 @@
   onExpansionChange=(action 'onExpansionChange')
   onSelectionChange=(action 'onSelectionChange')
   sorting=(component 'frost-sort'
+    hook='mySort'
     sortOrder=sortOrder
     sortingProperties=sortingProperties
     onChange=(action 'onSortingChange')
   )
 }}
+<!-- END-SNIPPET -->
+{{code-snippet class='frost-flex-2' name='simple.hbs'}}

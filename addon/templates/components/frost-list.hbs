@@ -1,5 +1,4 @@
 {{! Template for the frost-list component }}
-
 <div class='frost-list-header {{if pagination 'paged'}}'>
   {{#if sorting}}
     {{component sorting
@@ -30,16 +29,18 @@
 
 <div class='frost-list-content-container-top-border {{if pagination 'paged'}}'></div>
 {{#frost-list-content-container
+  alwaysRemeasure=alwaysRemeasure
   alwaysUseDefaultHeight=alwaysUseDefaultHeight
   bufferSize=bufferSize
-  defaultHeight=defaultHeight
+  minHeight=minHeight
   hook=(concat hookPrefix '-contentContainer')
   items=_items
   pagination=pagination
   scrollTop=scrollTop
   onLoadNext=onLoadNext
   onLoadPrevious=onLoadPrevious
-  as |model index|
+  debug=debug
+  as |model index heightDidChange|
 }}
   <div class={{concat
       'frost-list-item-container'

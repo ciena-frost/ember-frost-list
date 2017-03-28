@@ -207,14 +207,20 @@ describe(test.label, function () {
           this.get('selectedItems').setObjects(selectedItems)
         })
         this.render(hbs`
-        {{frost-list
-          item=(component 'frost-list-item')
-          hook='my-list'
-          items=items
-          selectedItems=selectedItems
-          onSelectionChange=onSelectionChange
-          itemKey='id'
-        }}
+          {{frost-list
+            item=(component 'frost-list-item')
+            hook='my-list'
+            items=items
+            pagination=(component 'frost-list-pagination'
+              page=0
+              itemsPerPage=100
+              total=100
+              onChange=(action (mut currentPage))
+            )
+            selectedItems=selectedItems
+            onSelectionChange=onSelectionChange
+            itemKey='id'
+          }}
       `)
         return wait()
       })
