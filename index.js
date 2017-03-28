@@ -10,7 +10,7 @@ module.exports = {
 
   included: function (app) {
     // Addons - see: https://github.com/ember-cli/ember-cli/issues/3718
-    if (typeof app.import !== 'function' && app.app) {
+    while (typeof app.import !== 'function' && app.app) {
       this.app = app = app.app
     }
 
@@ -18,9 +18,6 @@ module.exports = {
 
     if (app) {
       app.import(path.join('vendor', 'ua-parser.min.js'))
-      if (!/production/.test(app.env) && !/test/.test(app.env)) {
-        app.import(path.join('vendor', 'smoke-and-mirrors-debug.css'))
-      }
     }
   },
 

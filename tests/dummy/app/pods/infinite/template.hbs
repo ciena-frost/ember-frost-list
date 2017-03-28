@@ -1,31 +1,22 @@
-{{frost-checkbox
-  hook=(concat hook 'dwa')
-  checked=true
-}}
-
-<!-- {{frost-list
-  class='demo'
+<!-- BEGIN-SNIPPET infinite -->
+{{frost-list
+  class='demo frost-flex-3'
   hook='demo'
   item=(component 'list-item')
   itemExpansion=(component 'list-item-expansion')
   items=items
   expandedItems=expandedItems
   selectedItems=selectedItems
+  bufferSize=2 
   onExpansionChange=(action 'onExpansionChange')
-  onLoadNext=(action 'onLoadNext')
   onSelectionChange=(action 'onSelectionChange')
-  debug=debug
-  sorting=(component 'custom-sort'
-    toggle=(component 'frost-toggle'
-      hook='myToggle'
-      value=debug
-      onClick=(action (mut debug) (not debug))
-    )
-    sort=(component 'frost-sort'
-      hook='mySort'
-      sortOrder=sortOrder
-      sortingProperties=sortingProperties
-      onChange=(action 'onSortingChange')
-    )
+  onLoadNext=(action 'onLoadNext')
+  sorting=(component 'frost-sort'
+    hook='mySort'
+    sortOrder=sortOrder
+    sortingProperties=sortingProperties
+    onChange=(action 'onSortingChange')
   )
-}} -->
+}}
+<!-- END-SNIPPET -->
+{{code-snippet class='frost-flex-2' name='infinite.hbs'}}

@@ -21,9 +21,6 @@ module.exports = function (defaults) {
     ]
   })
 
-  // Development dependencies
-  app.import(app.bowerDirectory + '/Faker/build/build/faker.js')
-
   /*
     This build file specifies the options for the dummy test app of this
     addon, located in `/tests/dummy`

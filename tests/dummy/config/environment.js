@@ -47,7 +47,7 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing'
   }
 
-  if (environment === 'development') {
+  if (environment === 'production') {
     ENV.rootURL = '/ember-frost-list'
     ENV.factoryGuy = true
   }

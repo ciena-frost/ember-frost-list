@@ -14,7 +14,7 @@ export default Controller.extend({
   notifications: inject.service('notification-messages'),
 
   // == Properties ============================================================
-  debug: false,
+
   expandedItems: A([]),
   itemsPerPage: 100,
   lastPage: 0,
@@ -38,15 +38,20 @@ export default Controller.extend({
 
   // == Functions =============================================================
 
-  fetchPage (page) {
-    this.get('notifications').success(`Fetching page ${page}`, {
+  _notify (message) {
+    this.get('notifications').success(message, {
       autoClear: true,
       clearDuration: 2000
     })
+  },
+
+  fetchPage (page) {
+    const perPage = this.get('itemsPerPage')
     this.store.query('list-item', {
-      pageSize: this.get('itemsPerPage'),
-      start: (page * this.get('itemsPerPage'))
+      pageSize: perPage,
+      start: (page * perPage)
     }).then(() => {
+      this._notify(`Page ${page}`)
       this.set('model', this.store.peekAll('list-item'))
     })
   },
@@ -60,9 +65,8 @@ export default Controller.extend({
       this.get('expandedItems').setObjects(expandedItems)
     },
 
-    onLoadNext (page) {
-      this.set('lastPage', this.get('lastPage') + 1)
-      this.fetchPage(this.get('lastPage'))
+    onLoadNext () {
+      this.fetchPage(this.incrementProperty('lastPage'))
     },
 
     onSelectionChange (selectedItems) {
