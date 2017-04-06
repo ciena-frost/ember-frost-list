@@ -1,3 +1,8 @@
+# 5.5.5 (2017-04-06)
+
+* **Fixed** memory leak by removing the original event handler for `keyup/down` events.
+
+
 # 5.5.4 (2017-03-23)
 * **Fixed** `ember` and `ember-cli` dependencies
 
