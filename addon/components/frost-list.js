@@ -117,9 +117,11 @@ export default Component.extend({
   // == Functions =============================================================
 
   setShift (event) {
-    if (!this.isDestroyed) {
-      this.set('_isShiftDown', event.shiftKey)
-    }
+    run.next(() => {
+      if (!this.isDestroyed) {
+        this.set('_isShiftDown', event.shiftKey)
+      }
+    })
   },
 
   // == DOM Events ============================================================

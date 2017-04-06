@@ -1,13 +1,13 @@
 import {expect} from 'chai'
-const {A} = Ember
 import Ember from 'ember'
+const {$, A} = Ember
 import {make, manualSetup} from 'ember-data-factory-guy'
 import {$hook, hook, initialize as initializeHook} from 'ember-hook'
 import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
-import {beforeEach, describe, it} from 'mocha'
-
+import {afterEach, beforeEach, describe, it} from 'mocha'
 import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
+import sinon from 'sinon'
 
 const test = integration('frost-list',
   {
@@ -19,8 +19,43 @@ const test = integration('frost-list',
 describe(test.label, function () {
   test.setup()
 
+  let sandbox
   beforeEach(function () {
+    sandbox = sinon.sandbox.create()
     initializeHook()
+  })
+
+  afterEach(function () {
+    sandbox.restore()
+  })
+
+  it('unregisters event handler with same handler used with on', function () {
+    sandbox.spy($.fn, 'on')
+    sandbox.spy($.fn, 'off')
+
+    this.setProperties({
+      visible: true,
+      items: []
+    })
+
+    this.render(hbs`
+      {{#if visible}}
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='testHook'
+        }}
+      {{/if}}
+    `)
+
+    return wait().then(() => {
+      this.setProperties({
+        visible: false
+      })
+
+      const originalHandler = $.fn.on.getCall(0).args[1]
+      expect($.fn.off.getCall(0).args[1]).to.equal(originalHandler)
+    })
   })
 
   describe.skip('renders frost-list-item', function () {
