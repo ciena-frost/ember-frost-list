@@ -117,9 +117,12 @@ export default Component.extend({
   // == Functions =============================================================
 
   setShift (event) {
-    if (!this.isDestroyed) {
+    run.next(() => {
+      if (this.isDestroyed || this.isDestroying) {
+        return
+      }
       this.set('_isShiftDown', event.shiftKey)
-    }
+    })
   },
 
   // == DOM Events ============================================================
@@ -150,11 +153,12 @@ export default Component.extend({
       })
     }
 
-    $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this.setShift.bind(this))
+    this._keyHandler = this.setShift.bind(this)
+    $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this._keyHandler)
   },
 
   willDestroy () {
-    $(document).off(`keyup.${this.elementId} keydown.${this.elementId}`, this.setShift.bind(this))
+    $(document).off(`keyup.${this.elementId} keydown.${this.elementId}`, this._keyHandler)
   },
 
   // == Actions ===============================================================
