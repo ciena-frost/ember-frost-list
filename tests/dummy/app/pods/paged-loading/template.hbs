@@ -1,17 +1,32 @@
 {{frost-list
-  class='demo'
+  class='demo-loading'
   hook='demo'
+  isLoading=isLoading
   item=(component 'list-item')
   itemExpansion=(component 'list-item-expansion')
+  itemKey='id'
   items=items
+  scrollTop=scrollTop
   expandedItems=expandedItems
   selectedItems=selectedItems
   onExpansionChange=(action 'onExpansionChange')
-  onLoadNext=(action 'onLoadNext')
   onSelectionChange=(action 'onSelectionChange')
+  pagination=(component 'frost-list-pagination'
+    itemsPerPage=itemsPerPage
+    page=page
+    total=totalItems
+    onChange=(action 'onPaginationChange')
+  )
   sorting=(component 'frost-sort'
     sortOrder=sortOrder
     sortingProperties=sortingProperties
     onChange=(action 'onSortingChange')
   )
+}}
+
+{{frost-button
+  hook='whatever'
+  onClick=(action 'onClick')
+  priority='primary'
+  text='Refresh model'
 }}

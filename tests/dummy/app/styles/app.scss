@@ -4,11 +4,15 @@
 
 // List sizing for demos
 
-.frost-list.demo {
+.frost-list {
   display: flex;
   flex-direction: column;
   width: 1000px;
   height: 300px;
+}
+
+.frost-list.demo-loading {
+  height: initial;
 }
 
 // General demo styles
