@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, get, isEmpty, isNone, run, set} = Ember
+const {$, A, get, isEmpty, isNone, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
