@@ -102,15 +102,15 @@ export default Component.extend({
     }
 
     return items.map(item => {
-      run.next(() => {
-        set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
-          selectedItem => _itemComparator(selectedItem, item))
-        )
-        set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
-          selectedItem => _itemComparator(selectedItem, item))
-        )
-      })
-      return item
+      return {
+        record: item,
+        states: {
+          isExpanded: isEmpty(expandedItems) ? false : expandedItems.some(
+            selectedItem => _itemComparator(selectedItem, item)),
+          isSelected: isEmpty(selectedItems) ? false : selectedItems.some(
+            selectedItem => _itemComparator(selectedItem, item))
+        }
+      }
     })
   },
 
@@ -128,17 +128,6 @@ export default Component.extend({
   // == DOM Events ============================================================
 
   // == Lifecycle Hooks =======================================================
-
-  didUpdateAttrs ({newAttrs}) {
-    if (newAttrs.scrollTop) {
-      // TODO Push this down into frost-scroll
-      const scrollbar = this.$('.frost-scroll')[0]
-      if (scrollbar) {
-        scrollbar.scrollTop = newAttrs.scrollTop
-        window.Ps.update(scrollbar)
-      }
-    }
-  },
 
   init () {
     this._super(...arguments)

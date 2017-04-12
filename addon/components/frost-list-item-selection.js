@@ -5,7 +5,6 @@
 import Ember from 'ember'
 const {ViewUtils} = Ember
 const {isSimpleClick} = ViewUtils
-import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {PropTypes} from 'ember-prop-types'
 
@@ -28,6 +27,7 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ]),
+    isSelected: PropTypes.bool,
 
     onSelect: PropTypes.func.isRequired
   },
@@ -38,12 +38,6 @@ export default Component.extend({
   },
 
   // == Computed Properties ===================================================
-
-  @readOnly
-  @computed('model.isSelected')
-  isSelected (isSelected) {
-    return isSelected
-  },
 
   // == Functions =============================================================
 

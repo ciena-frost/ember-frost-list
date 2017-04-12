@@ -26,6 +26,8 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ]).isRequired,
+    isExpanded: PropTypes.bool,
+    isSelected: PropTypes.bool,
 
     onExpand: PropTypes.func,
     onSelect: PropTypes.func
