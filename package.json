@@ -51,7 +51,6 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-elsewhere": "0.4.1",
     "ember-export-application-global": "^1.0.4",
-    "ember-frost-core": "^1.5.1",
     "ember-frost-sort": "^7.0.0",
     "ember-frost-test": "1.0.1",
     "ember-get-config": "0.2.1",
@@ -78,6 +77,7 @@
     "ember-cli-babel": "^5.1.10",
     "ember-cli-htmlbars": "^1.0.1",
     "ember-cli-sass": "^5.4.0",
+    "ember-frost-core": "^1.14.3",
     "smoke-and-mirrors": "github:ciena-frost/smoke-and-mirrors",
     "ua-parser-js": "^0.7.12"
   },
