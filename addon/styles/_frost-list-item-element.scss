@@ -1,5 +1,6 @@
 .frost-list-item-element-block {
   display: flex;
+  position: relative;
   flex-direction: column;
   min-width: 0;
   margin: 7px 0;
@@ -16,6 +17,14 @@
   }
 }
 
+.frost-list-item-element-loading {
+  position: absolute;
+  bottom: 20px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+}
+
 .frost-list-item-element-primary,
 .frost-list-item-element-secondary,
 .frost-list-item-element-tertiary {
@@ -26,7 +35,7 @@
 }
 
 .frost-list-item-element-primary {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   padding: 0;
   color: $frost-color-grey-1;
   font-size: $frost-font-s;
@@ -41,6 +50,23 @@
     &:hover {
       color: $frost-color-blue-1;
       text-decoration: underline;
+    }
+  }
+}
+
+.frost-list {
+  .frost-list-item-element-primary {
+    > a {
+      text-decoration: none;
+    }
+  }
+
+  .frost-link {
+    &.disabled {
+      &:hover {
+        color: $frost-color-grey-1;
+        text-decoration: none;
+      }
     }
   }
 }
