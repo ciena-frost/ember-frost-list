@@ -5,7 +5,7 @@ module.exports = {
     const addonsToAdd = [
       {name: 'ember-frost-core', target: '^1.14.3'},
       {name: 'ember-frost-sort', target: '^7.0.0'},
-      {name: 'ember-math-helpers', target: '^2.0.0'},
+      {name: 'ember-math-helpers', target: '^2.0.5'},
       {name: 'smoke-and-mirrors', target: 'github:ciena-frost/smoke-and-mirrors'}
     ]
 
