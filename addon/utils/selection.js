@@ -19,7 +19,7 @@ export default {
    */
   basic (selectedItems, item, rangeState, itemComparator) {
     // If a previous set of selections is present
-    const index = selectedItems.findIndex(selectedItem => itemComparator(selectedItem, item))
+    const index = this._findIndex(selectedItems, item, itemComparator)
     if (selectedItems.get('length') > 1 || index === -1) {
       // Clear the other selections and select the item
       selectedItems.setObjects([item])
@@ -63,7 +63,7 @@ export default {
   range (items, selectedItems, item, rangeState, itemComparator, itemKey) {
     // If an anchor isn't set or in the current list of items, then set the anchor and exit
     const rangeAnchor = rangeState['anchor']
-    const anchor = rangeAnchor ? items.findIndex(currentItem => itemComparator(currentItem, rangeAnchor)) : -1
+    const anchor = this._findIndex(items, rangeAnchor, itemComparator)
     if (anchor === -1) {
       // Range select is always a positive selection (no deselect)
       rangeState['anchor'] = item
@@ -77,7 +77,7 @@ export default {
       return
     }
     // Find the indices of the endpoint
-    const endpoint = items.findIndex(currentItem => itemComparator(currentItem, item))
+    const endpoint = this._findIndex(items, item, itemComparator)
 
     // Select all of the items between the anchor and the item (inclusive)
     if (anchor < endpoint) {
@@ -88,7 +88,7 @@ export default {
 
     // If an endpoint was already selected remove selected items that were
     // in the previous range but aren't in the new range
-    const previousEndpoint = items.findIndex(currentItem => itemComparator(currentItem, rangeState['endpoint']))
+    const previousEndpoint = this._findIndex(items, rangeState['endpoint'], itemComparator)
     if (previousEndpoint >= 0) {
       // If both endpoints are above the anchor
       if (anchor < endpoint && anchor < previousEndpoint) {
@@ -131,7 +131,7 @@ export default {
    * @param {Function} itemComparator - comparator for items
    */
   specific (selectedItems, item, rangeState, itemComparator) {
-    const index = selectedItems.findIndex(selectedItem => itemComparator(selectedItem, item))
+    const index = this._findIndex(selectedItems, item, itemComparator)
     const isCurrentlySelected = (index >= 0)
     const isSelected = !isCurrentlySelected
 
@@ -145,6 +145,31 @@ export default {
       selectedItems.addObject(item)
     } else {
       selectedItems.removeAt(index)
+    }
+  },
+
+  /**
+   * Reproducing the `findIndex` behavior to avoid use cases where it's not defined.
+   * @param {Array} array the array of elements
+   * @param {Object} rhs right hand side value to compare to the elements in the array
+   * @param {Function} compareFct the compare function
+   * @returns {Number} the index of the rhs value if it's in the array otherwise -1
+   */
+  _findIndex (array, rhs, compareFct) {
+    if (array.findIndex) {
+      return array.findIndex(currentItem => compareFct(currentItem, rhs))
+    } else {
+      let findIndex = -1
+      if (array && rhs && compareFct) {
+        for (let index = 0; index !== array.length; index++) {
+          const lhs = array.objectAt(index)
+          if (compareFct(lhs, rhs)) {
+            findIndex = index
+            break
+          }
+        }
+      }
+      return findIndex
     }
   }
 }

@@ -3,11 +3,12 @@
  */
 
 import Ember from 'ember'
-const {$, A, get, isEmpty, isNone, run, set} = Ember
+const {$, A, get, isEmpty, isNone, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
 import {PropTypes} from 'ember-prop-types'
+import uuid from 'ember-simple-uuid'
 
 import layout from '../templates/components/frost-list'
 
@@ -95,22 +96,43 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator')
-  _items (expandedItems, items, selectedItems, _itemComparator) {
+  @computed('items.[]')
+  /**
+   * Add a unique id to every item to avoid rerendering on updates like selection and expansion.
+   * @param {Array} items a list of items
+   * @returns {Array} a list of items with unique ids
+   */
+  _itemsWithUniqueId (items) {
     if (isEmpty(items)) {
       return []
     }
 
     return items.map(item => {
-      run.next(() => {
-        set(item, 'isExpanded', isEmpty(expandedItems) ? false : expandedItems.some(
-          selectedItem => _itemComparator(selectedItem, item))
-        )
-        set(item, 'isSelected', isEmpty(selectedItems) ? false : selectedItems.some(
-          selectedItem => _itemComparator(selectedItem, item))
-        )
-      })
-      return item
+      return {
+        record: item,
+        uuid: uuid()
+      }
+    })
+  },
+
+  @readOnly
+  @computed('expandedItems.[]', '_itemsWithUniqueId.[]', 'selectedItems.[]', '_itemComparator')
+  _items (expandedItems, items, selectedItems, _itemComparator) {
+    if (isEmpty(items)) {
+      return []
+    }
+
+    return items.map(({uuid, record}) => {
+      return {
+        uuid,
+        record,
+        states: {
+          isExpanded: isEmpty(expandedItems) ? false : expandedItems.some(
+            selectedItem => _itemComparator(selectedItem, record)),
+          isSelected: isEmpty(selectedItems) ? false : selectedItems.some(
+            selectedItem => _itemComparator(selectedItem, record))
+        }
+      }
     })
   },
 

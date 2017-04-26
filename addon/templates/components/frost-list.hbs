@@ -45,7 +45,7 @@
       'frost-list-item-container'
       (if (eq index 0) ' first')
       (if (eq index (sub _items.length 1)) ' last')
-      (if model.isSelected ' is-selected')
+      (if model.states.isSelected ' is-selected')
     }}
     data-test={{hook (concat hook '-item-container') index=index }}
   >
@@ -54,7 +54,8 @@
         {{frost-list-item-expansion
           hook=(concat hookPrefix '-expansion')
           hookQualifiers=(hash index=index)
-          model=model
+          model=model.record
+          isExpanded=model.states.isExpanded
           onExpand=(action '_expand')
         }}
       {{/if}}
@@ -63,7 +64,8 @@
         {{frost-list-item-selection
           hook=(concat hookPrefix '-selection')
           hookQualifiers=(hash index=index)
-          model=model
+          model=model.record
+          isSelected=model.states.isSelected
           onSelect=(action '_select')
         }}
       {{/if}}
@@ -71,17 +73,21 @@
       {{component item
         hook=(concat hookPrefix '-item')
         hookQualifiers=(hash index=index)
-        model=model
+        model=model.record
+        isExpanded=model.states.isExpanded
+        isSelected=model.states.isSelected
         onSelect=(action '_select')
       }}
     </div>
 
-    {{#if model.isExpanded}}
+    {{#if model.states.isExpanded}}
       <div class='frost-list-item-container-expansion'>
         {{component itemExpansion
           hook=(concat hookPrefix '-item-expansion')
           hookQualifiers=(hash index=index)
-          model=model
+          model=model.record
+          isExpanded=model.states.isExpanded
+          isSelected=model.states.isSelected
           onSelect=(action '_select')
         }}
       </div>
