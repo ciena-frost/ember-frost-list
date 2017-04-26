@@ -1,3 +1,9 @@
+# 5.5.6 (2017-04-26)
+* **Split** states and record for a list item
+* **Fixed** #129 
+* **Changed** version of `smoke-and-mirrors`
+* **Added** blueprint check
+
 # 5.5.5 (2017-04-06)
 
 * **Fixed** memory leak by removing the original event handler for `keyup/down` events.
