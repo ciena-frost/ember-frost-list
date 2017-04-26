@@ -1,31 +1,43 @@
 {{! Template for the frost-list-content-container component }}
-{{#vertical-collection
-  alwaysRemeasure=true
-  alwaysUseDefaultHeight=alwaysUseDefaultHeight
-  bufferSize=bufferSize
-  content=items
-  defaultHeight=defaultHeight
-  firstReached=onLoadPrevious
-  lastReached=onLoadNext
-  scrollPosition=scrollTop
-  useContentProxy=false
-
-  key='@identity'
-  resizeDebounce=64
-  firstVisibleChanged=null
-  lastVisibleChanged=null
-  didMountCollection=null
-  idForFirstItem=null
-  renderFromLast=false
-  renderAllInitially=false
-  shouldRender=true
-  minimumMovement=15
-  containerSelector=null
-  containerHeight=null
-
-  as |model index|
-}}
-  {{yield model index}}
+{{#if pagination}}
+  {{#frost-scroll
+    hook=(concat hookPrefix '-scroll')
+  }}
+    {{#each items key='uuid' as |model index|}}
+      {{yield model index}}
+    {{else}}
+      {{yield to="inverse"}}
+    {{/each}}
+  {{/frost-scroll}}
 {{else}}
-  {{yield to="inverse"}}
-{{/vertical-collection}}
+  {{#vertical-collection
+    alwaysRemeasure=true
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    bufferSize=bufferSize
+    content=items
+    defaultHeight=defaultHeight
+    firstReached=onLoadPrevious
+    lastReached=onLoadNext
+    scrollPosition=scrollTop
+    useContentProxy=false
+
+    key='@identity'
+    resizeDebounce=64
+    firstVisibleChanged=null
+    lastVisibleChanged=null
+    didMountCollection=null
+    idForFirstItem=null
+    renderFromLast=false
+    renderAllInitially=false
+    shouldRender=true
+    minimumMovement=15
+    containerSelector=null
+    containerHeight=null
+
+    as |model index|
+  }}
+    {{yield model index}}
+  {{else}}
+    {{yield to="inverse"}}
+  {{/vertical-collection}}
+{{/if}}
