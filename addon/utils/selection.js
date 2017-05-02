@@ -58,6 +58,7 @@ export default {
    * @param {Object} item - selection event target
    * @param {Object} rangeState - tracking the anchor and endpoint
    * @param {Function} itemComparator - comparator for items
+   * @param {String} itemKey - the unique key to remove duplicate items by
    */
   /* eslint-disable complexity */
   range (items, selectedItems, item, rangeState, itemComparator, itemKey) {
@@ -149,6 +150,17 @@ export default {
   },
 
   /**
+   * Determines whether a method exists in this environment
+   *
+   * @param {Object} objectName Object to check for method on
+   * @param {String} methodName Method to see if exists
+   * @returns {Boolean} true if the method exists on the object
+   */
+  isSupportedInEnvironment (objectName, methodName) {
+    return Boolean(objectName[methodName])
+  },
+
+  /**
    * Reproducing the `findIndex` behavior to avoid use cases where it's not defined.
    * @param {Array} array the array of elements
    * @param {Object} rhs right hand side value to compare to the elements in the array
@@ -156,7 +168,7 @@ export default {
    * @returns {Number} the index of the rhs value if it's in the array otherwise -1
    */
   _findIndex (array, rhs, compareFct) {
-    if (array.findIndex) {
+    if (this.isSupportedInEnvironment(array, 'findIndex')) {
       return array.findIndex(currentItem => compareFct(currentItem, rhs))
     } else {
       let findIndex = -1
