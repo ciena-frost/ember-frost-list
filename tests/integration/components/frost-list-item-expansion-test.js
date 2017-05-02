@@ -2,55 +2,91 @@
  * Integration test for the frost-list-item-expansion component
  */
 
-// import {expect} from 'chai'
-// import hbs from 'htmlbars-inline-precompile'
-// import {$hook, initialize as initializeHook} from 'ember-hook'
-// import wait from 'ember-test-helpers/wait'
-// import {afterEach, beforeEach, describe, it} from 'mocha'
-// import sinon from 'sinon'
+import {expect} from 'chai'
+import Ember from 'ember'
+import {$hook, initialize as initializeHook} from 'ember-hook'
+import hbs from 'htmlbars-inline-precompile'
+import {afterEach, beforeEach, describe, it} from 'mocha'
+import sinon from 'sinon'
 
-// import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
+import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
-// const test = integration('frost-list-item-expansion')
-// describe(test.label, function () {
-//   test.setup()
+const test = integration('frost-list-item-expansion')
+describe(test.label, function () {
+  test.setup()
 
-//   let sandbox
+  let expandSpy, sandbox
+  let model = Ember.Object.create({
+    id: '400',
+    states: {isExpanded: false}
+  })
 
-//   beforeEach(function () {
-//     sandbox = sinon.sandbox.create()
-//     initializeHook()
-//   })
+  beforeEach(function () {
+    sandbox = sinon.sandbox.create()
+    initializeHook()
+    expandSpy = sandbox.spy()
+    this.on('expandAction', expandSpy)
+    this.setProperties({
+      hook: 'myListItemExpansion',
+      model: model
+    })
+    this.render(hbs`
+      {{frost-list-item-expansion
+        hook=hook
+        isExpanded=model.states.isExpanded
+        model=model
+        onExpand=(action 'expandAction')
+      }}
+    `)
+  })
 
-//   afterEach(function () {
-//     sandbox.restore()
-//   })
+  afterEach(function () {
+    sandbox.restore()
+  })
 
-//   it.skip('should have real tests', function () {
-//     expect(true).to.equal(false)
-//   })
+  it('renders with default class', function () {
+    expect(this.$('.frost-list-item-expansion')).to.be.length(1)
+  })
 
-//   describe.skip('after render', function () {
-//     beforeEach(function () {
-//       this.setProperties({
-//         myHook: 'myThing'
-//       })
+  it('adds correct class to frost-icon', function () {
+    expect(this.$('.frost-list-item-expansion-icon')).to.be.length(1)
+  })
 
-//       this.render(hbs`
-//         {{frost-list-item-expansion
-//           hook=myHook
-//         }}
-//       `)
+  it('sets -icon hook correctly', function () {
+    expect($hook('myListItemExpansion-icon')).to.be.length(1)
+  })
 
-//       return wait()
-//     })
+  it('sets the correct icon', function () {
+    expect(
+      $hook('myListItemExpansion-icon')
+    ).to.have.class('frost-icon-frost-list-chevron-thin')
+  })
 
-//     it('should have an element', function () {
-//       expect(this.$()).to.have.length(1)
-//     })
+  describe('onExpand closure action', function () {
+    beforeEach(function () {
+      $hook('myListItemExpansion').trigger('click')
+    })
 
-//     it('should be accessible via the hook', function () {
-//       expect($hook('myThing')).to.have.length(1)
-//     })
-//   })
-// })
+    it('fires onExpand closure action', function () {
+      expect(expandSpy).have.callCount(1)
+    })
+
+    it('passes the model', function () {
+      expect(expandSpy.args[0][0].id).to.equal('400')
+    })
+  })
+
+  describe('when the isExpanded computed property is set', function () {
+    beforeEach(function () {
+      model.set('states.isExpanded', true)
+    })
+
+    it('should have an "is-expanded" class', function () {
+      expect($hook('myListItemExpansion')).to.have.class('is-expanded')
+    })
+
+    it('should have an "is-expanded" class set for frost-icon', function () {
+      expect($hook('myListItemExpansion-icon')).to.have.class('is-expanded')
+    })
+  })
+})

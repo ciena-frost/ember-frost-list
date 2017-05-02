@@ -1,4 +1,5 @@
 import {expect} from 'chai'
+import {$hook, initialize as initializeHook} from 'ember-hook'
 import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
@@ -9,103 +10,53 @@ const test = integration('frost-list-item')
 describe(test.label, function () {
   test.setup()
 
-  let sandbox
+  let sandbox, selectSpy
 
   beforeEach(function () {
     sandbox = sinon.sandbox.create()
+    initializeHook()
+    selectSpy = sandbox.spy()
+    this.on('selectAction', selectSpy)
+    this.setProperties({
+      hook: 'myListItem',
+      model: {id: '400'}
+    })
+    this.render(hbs`
+      {{frost-list-item
+        hook=hook
+        model=model
+        onSelect=(action 'selectAction')
+      }}
+    `)
   })
 
   afterEach(function () {
     sandbox.restore()
   })
 
-  describe.skip('default state has no class "is-selected" and "is-expanded"', function () {
+  it('renders with default class', function () {
+    expect(this.$('.frost-list-item')).to.be.length(1)
+  })
+
+  describe('onSelect closure action', function () {
     beforeEach(function () {
-      this.render(hbs`
-        {{frost-list-item}}
-      `)
+      $hook('myListItem').trigger('click')
     })
 
-    it('does NOT set "is-selected" class', function () {
-      expect(
-        this.$('.frost-list-item').hasClass('is-selected')
-      ).to.eql(false)
+    it('fires onSelect closure action', function () {
+      expect(selectSpy).have.callCount(1)
     })
 
-    it('does NOT set "is-expanded" class', function () {
-      expect(
-        this.$('.frost-list-item').hasClass('is-expanded')
-      ).to.eql(false)
-    })
-  })
-
-  it.skip('sets "is-selected" class when model.isSelected=true', function () {
-    this.set('model', {isSelected: true})
-
-    this.render(hbs`
-      {{frost-list-item
-        model=model
-      }}
-    `)
-
-    expect(
-      this.$('.frost-list-item').hasClass('is-selected')
-    ).to.eql(true)
-  })
-
-  it.skip('sets "is-expanded" class when model.isSelected=true', function () {
-    this.set('model', {isExpanded: true})
-
-    this.render(hbs`
-      {{frost-list-item
-        model=model
-      }}
-    `)
-
-    expect(
-      this.$('.frost-list-item').hasClass('is-expanded')
-    ).to.eql(true)
-  })
-
-  describe.skip('onSelect closure action', function () {
-    let externalActionSpy
-    beforeEach(function () {
-      externalActionSpy = sandbox.spy()
-
-      this.on('externalAction', externalActionSpy)
-      this.set('model', {isSelected: true})
-
-      this.render(hbs`
-        {{frost-list-item
-          model=model
-          onSelect=(action 'externalAction')
-        }}
-      `)
-
-      this.$('.frost-list-item').trigger('click')
+    it('passes the isRangeSelect property', function () {
+      expect(selectSpy.args[0][0]).to.have.property('isRangeSelect')
     })
 
-    it('passes event obeject', function () {
-      expect(
-        externalActionSpy.args[0][0]
-      ).to.have.property('type', 'click')
+    it('passes the isSpecificSelect property', function () {
+      expect(selectSpy.args[0][0]).to.have.property('isSpecificSelect')
     })
 
-    it('passes "record" property', function () {
-      expect(
-        externalActionSpy.args[0][1].record.isSelected
-      ).to.eql(true)
-    })
-
-    it('passes selectDesc object', function () {
-      expect(
-        externalActionSpy.args[0][1].selectDesc
-      ).to.eql(
-        {
-          'isSelected': false,
-          'isTargetSelectionIndicator': false
-        }
-      )
+    it('passes the model', function () {
+      expect(selectSpy.args[0][0].item.id).to.equal('400')
     })
   })
 })

@@ -1,21 +1,15 @@
 import {expect} from 'chai'
 import Ember from 'ember'
 const {$, A} = Ember
-import {make, manualSetup} from 'ember-data-factory-guy'
-import {$hook, hook, initialize as initializeHook} from 'ember-hook'
+import {$hook, initialize as initializeHook} from 'ember-hook'
 import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
+import {registerMockComponent, unregisterMockComponent} from '../../helpers/mock-component'
 import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 import sinon from 'sinon'
 
-const test = integration('frost-list',
-  {
-    setup: function () {
-      manualSetup(this.container)
-    }
-  }
-)
+const test = integration('frost-list')
 describe(test.label, function () {
   test.setup()
 
@@ -43,7 +37,7 @@ describe(test.label, function () {
         {{frost-list
           item=(component 'frost-list-item')
           items=items
-          hook='testHook'
+          hook='myList'
         }}
       {{/if}}
     `)
@@ -58,10 +52,11 @@ describe(test.label, function () {
     })
   })
 
-  describe.skip('renders frost-list-item', function () {
+  describe('renders frost-list-item', function () {
     beforeEach(function () {
-      let list = A()
-      list.addObject(make('list-item'))
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
 
       this.set('items', list)
 
@@ -69,92 +64,178 @@ describe(test.label, function () {
         {{frost-list
           item=(component 'frost-list-item')
           items=items
+          hook='myList'
         }}
       `)
+      return wait()
     })
 
     it('sets "frost-list" class', function () {
-      return wait().then(() => {
-        expect(
-          this.$('.frost-list')
-        ).to.have.length(1)
-      })
-    })
-
-    it('has one vertical item created', function () {
-      return wait().then(() => {
-        expect(
-          this.$('.vertical-item')
-        ).to.have.length(1)
-      })
+      expect(this.$('.frost-list')).to.have.length(1)
     })
 
     it('creates one list item', function () {
-      return wait().then(() => {
-        expect(
-          this.$('.frost-list-item')
-        ).to.have.length(1)
+      expect($hook('myList-item')).to.have.length(1)
+    })
+  })
+
+  describe('when sort component is set', function () {
+    beforeEach(function () {
+      registerMockComponent(this, 'mock-sort')
+      this.set('items', A())
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          sorting=(component 'mock-sort' class='mock-sort')
+        }}
+      `)
+      return wait()
+    })
+
+    afterEach(function () {
+      unregisterMockComponent(this)
+    })
+
+    it('should render the sort component', function () {
+      expect(this.$('.mock-sort')).to.have.length(1)
+    })
+
+    it('should have the hook "-sorting" set', function () {
+      expect($hook('myList-sorting')).to.have.length(1)
+    })
+  })
+
+  describe('when pagination component is set', function () {
+    beforeEach(function () {
+      registerMockComponent(this, 'mock-pagination')
+      this.set('items', A())
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          pagination=(component 'mock-pagination' class='mock-pagination')
+        }}
+      `)
+      return wait()
+    })
+
+    afterEach(function () {
+      unregisterMockComponent(this)
+    })
+
+    it('should render the pagination component', function () {
+      expect(this.$('.mock-pagination')).to.have.length(1)
+    })
+
+    it('should have the hook "-pagination" set', function () {
+      expect($hook('myList-pagination')).to.have.length(1)
+    })
+
+    it('should have the "paged" class set on "frost-list-header"', function () {
+      expect(this.$('.frost-list-header')).to.have.class('paged')
+    })
+
+    it('should have the "paged" class set on "frost-list-content-container-top-border"', function () {
+      expect(this.$('.frost-list-content-container-top-border')).to.have.class('paged')
+    })
+
+    it('should have the "paged" class set on "frost-list-content-container-bottom-border"', function () {
+      expect(this.$('.frost-list-content-container-bottom-border')).to.have.class('paged')
+    })
+  })
+
+  describe('when itemExpansion component is set', function () {
+    beforeEach(function () {
+      registerMockComponent(this, 'mock-item-expansion')
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+      this.setProperties({
+        expandedItems: A([]),
+        items: list,
+        onExpansionChange: (expandedItems) => {
+          this.get('expandedItems').setObjects(expandedItems)
+        }
+      })
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
+          expandedItems=expandedItems
+        }}
+      `)
+      return wait()
+    })
+
+    afterEach(function () {
+      unregisterMockComponent(this)
+    })
+
+    it('did not render the itemExpansion component when "model.isExpanded" is "false"', function () {
+      expect(this.$('.mock-item-expansion')).to.have.length(0)
+    })
+
+    it('should render the "frost-list-expanson" component', function () {
+      expect($hook('myList-expansion-collapse-all')).to.have.length(1)
+    })
+
+    it('should render the "frost-list-item-expansion" component', function () {
+      expect($hook('myList-expansion', {index: 0})).to.have.length(1)
+    })
+
+    describe('when "model.isExpanded" is set to "true"', function () {
+      beforeEach(function () {
+        const testItem = Ember.Object.create({
+          id: '0',
+          isExpanded: true
+        })
+
+        this.setProperties({
+          items: A([testItem]),
+          expandedItems: A([testItem])
+        })
+        return wait()
+      })
+
+      it('should render the itemExpansion component', function () {
+        expect(this.$('.mock-item-expansion')).to.have.length(1)
       })
     })
   })
 
-  describe.skip('renders frost-list-item from "config" property', function () {
+  describe('when "onSelectionChange" closure is set', function () {
     beforeEach(function () {
-      let list = A()
-      list.addObject(make('list-item'))
-
-      const testConfig = {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+      this.setProperties({
         items: list,
-        component: 'frost-list-item',
-        expansion: {
-          onCollapseAll: 'collapseItems',
-          onExpandAll: 'expandItems'
-        },
-        selection: {
-          onSelect: 'selectItem'
-        },
-        sorting: {
-          activeSorting: [],
-          properties: [],
-          onSort: 'sortItems'
-        },
-        infiniteScroll: {
-          loadNext: 'loadNext',
-          loadPrevious: 'loadPrevious'
+        onSelectionChange: (selectedItems) => {
+          this.get('selectedItems').setObjects(selectedItems)
         }
-      }
-
-      this.set('testConfig', testConfig)
+      })
 
       this.render(hbs`
         {{frost-list
-          config=testConfig
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          onSelectionChange=onSelectionChange
         }}
       `)
+      return wait()
     })
 
-    it('sets "frost-list" class', function () {
-      return wait().then(() => {
-        expect(
-          this.$('.frost-list')
-        ).to.have.length(1)
-      })
-    })
-
-    it('creates one vertical item', function () {
-      return wait().then(() => {
-        expect(
-          this.$('.vertical-item')
-        ).to.have.length(1)
-      })
-    })
-
-    it('creates one list item', function () {
-      return wait().then(() => {
-        expect(
-          this.$('.frost-list-item')
-        ).to.have.length(1)
-      })
+    it('should render the "frost-list-item-selection" for checkbox selection', function () {
+      expect($hook('myList-selection')).to.have.length(1)
     })
   })
 
@@ -164,12 +245,14 @@ describe(test.label, function () {
       const two = Ember.Object.create({isNotCompared: '1'})
       const testItems = [one, two]
       const testSelectedItems = [one]
-      this.set('items', testItems)
-      this.set('selectedItems', testSelectedItems)
+      this.setProperties({
+        items: testItems,
+        selectedItems: testSelectedItems
+      })
       this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
-          hook='my-list'
+          hook='myList'
           items=items
           selectedItems=selectedItems
         }}
@@ -178,11 +261,11 @@ describe(test.label, function () {
     })
 
     it('item 0 is selected', function () {
-      expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+      expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
     })
 
     it('item 1 is not selected', function () {
-      expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+      expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
     })
 
     it('selectedItems length to be 1', function () {
@@ -200,13 +283,15 @@ describe(test.label, function () {
         Ember.Object.create({id: '0'})
       ]
 
-      this.set('items', testItems)
-      this.set('selectedItems', testSelectedItems)
+      this.setProperties({
+        items: testItems,
+        selectedItems: testSelectedItems
+      })
 
       this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
-          hook='my-list'
+          hook='myList'
           items=items
           selectedItems=selectedItems
           itemKey='id'
@@ -216,10 +301,10 @@ describe(test.label, function () {
     })
 
     it('item 0 is selected', function () {
-      expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+      expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
     })
     it('item 1 is not selected', function () {
-      expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+      expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
     })
 
     it('selectedItems length to be 1', function () {
@@ -235,16 +320,18 @@ describe(test.label, function () {
           Ember.Object.create({id: '1'})
         ])
 
-        this.set('items', testItems)
-        const testSelectedItems = A([])
-        this.set('selectedItems', testSelectedItems)
-        this.set('onSelectionChange', (selectedItems) => {
-          this.get('selectedItems').setObjects(selectedItems)
+        this.setProperties({
+          items: testItems,
+          selectedItems: A([]),
+          onSelectionChange: (selectedItems) => {
+            this.get('selectedItems').setObjects(selectedItems)
+          }
         })
+
         this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
-          hook='my-list'
+          hook='myList'
           items=items
           selectedItems=selectedItems
           onSelectionChange=onSelectionChange
@@ -257,34 +344,40 @@ describe(test.label, function () {
       describe('Supports basic click', function () {
         describe('Selecting item 0', function () {
           beforeEach(function () {
-            $(hook('my-list-item', {index: 0})).click()
+            $hook('myList-item', {index: 0}).click()
             return wait()
           })
 
           it('item 0 is selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+            return wait().then(() => {
+              expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+            })
           })
 
           it('item 1 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+            return wait().then(() => {
+              expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+            })
           })
 
           it('selectedItems length to be 1', function () {
-            expect(this.get('selectedItems').length).to.eql(1)
+            return wait().then(() => {
+              expect(this.get('selectedItems').length).to.eql(1)
+            })
           })
 
           describe('Selecting previous selected item', function () {
             beforeEach(function () {
-              $(hook('my-list-item', {index: 0})).click()
+              $hook('myList-item', {index: 0}).click()
               return wait()
             })
 
             it('item 0 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
             })
 
             it('item 1 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
             })
 
             it('selectedItems length to be 0', function () {
@@ -295,18 +388,18 @@ describe(test.label, function () {
 
         describe('All items selected, then select item 0', function () {
           beforeEach(function () {
-            $(hook('my-list-selection', {index: 0})).click()
-            $(hook('my-list-selection', {index: 1})).click()
-            $(hook('my-list-item', {index: 0})).click()
+            $hook('myList-selection', {index: 0}).click()
+            $hook('myList-selection', {index: 1}).click()
+            $hook('myList-item', {index: 0}).click()
             return wait()
           })
 
           it('item 0 is selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 1 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
           })
 
           it('selectedItems length to be 1', function () {
@@ -318,15 +411,15 @@ describe(test.label, function () {
       describe('Supports specific click', function () {
         describe('Selecting item 0', function () {
           beforeEach(function () {
-            $hook('my-list-selection', {index: 0}).click()
+            $hook('myList-selection', {index: 0}).click()
             return wait()
           })
 
           it('item 0 is selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
           })
           it('item 1 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
           })
 
           it('selectedItems length to be 1', function () {
@@ -335,16 +428,16 @@ describe(test.label, function () {
 
           describe('Unselecting item 1', function () {
             beforeEach(function () {
-              $hook('my-list-selection', {index: 0}).click()
+              $hook('myList-selection', {index: 0}).click()
               return wait()
             })
 
             it('item 0 is not selected', function () {
-              expect($($hook('my-list-item-container', {index: 0})).hasClass('is-selected')).to.eql(false)
+              expect($($hook('myList-item-container', {index: 0})).hasClass('is-selected')).to.eql(false)
             })
 
             it('item 1 is not selected', function () {
-              expect($($hook('my-list-item-container', {index: 1})).hasClass('is-selected')).to.eql(false)
+              expect($($hook('myList-item-container', {index: 1})).hasClass('is-selected')).to.eql(false)
             })
 
             it('selectedItems length to be 0', function () {
@@ -355,17 +448,17 @@ describe(test.label, function () {
 
         describe('Selecting every item', function () {
           beforeEach(function () {
-            $hook('my-list-selection', {index: 0}).click()
-            $hook('my-list-selection', {index: 1}).click()
+            $hook('myList-selection', {index: 0}).click()
+            $hook('myList-selection', {index: 1}).click()
             return wait()
           })
 
           it('item 0 is selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 1 is selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
           })
 
           it('selectedItems length to be 2', function () {
@@ -374,17 +467,17 @@ describe(test.label, function () {
 
           describe('Unselect each item', function () {
             beforeEach(function () {
-              $hook('my-list-selection', {index: 0}).click()
-              $hook('my-list-selection', {index: 1}).click()
+              $hook('myList-selection', {index: 0}).click()
+              $hook('myList-selection', {index: 1}).click()
               return wait()
             })
 
             it('item 0 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
             })
 
             it('item 1 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
             })
 
             it('selectedItems length to be 0', function () {
@@ -415,37 +508,37 @@ describe(test.label, function () {
             clickEvent.shiftKey = true
             const clickEvent2 = $.Event('click')
             clickEvent2.shiftKey = true
-            $(hook('my-list-item', {index: 1})).trigger(clickEvent)
-            $(hook('my-list-item', {index: 5})).trigger(clickEvent2)
+            $hook('myList-item', {index: 1}).trigger(clickEvent)
+            $hook('myList-item', {index: 5}).trigger(clickEvent2)
             return wait()
           })
 
           it('item 0 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 1 is selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 2 is selected', function () {
-            expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 3 is selected', function () {
-            expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 4 is selected', function () {
-            expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 5 is selected', function () {
-            expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 6 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
           })
 
           it('selectedItems length to be 5', function () {
@@ -457,36 +550,36 @@ describe(test.label, function () {
           beforeEach(function () {
             const clickEvent = $.Event('click')
             clickEvent.shiftKey = true
-            $(hook('my-list-item', {index: 1})).trigger(clickEvent)
+            $hook('myList-item', {index: 1}).trigger(clickEvent)
             return wait()
           })
 
           it('item 0 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 1 is selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 2 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 3 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 4 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 5 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 6 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
           })
 
           it('selectedItems length to be 1', function () {
@@ -497,36 +590,36 @@ describe(test.label, function () {
             beforeEach(function () {
               const clickEvent = $.Event('click')
               clickEvent.shiftKey = true
-              $(hook('my-list-item', {index: 3})).trigger(clickEvent)
+              $hook('myList-item', {index: 3}).trigger(clickEvent)
               return wait()
             })
 
             it('item 0 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
             })
 
             it('item 1 is selected', function () {
-              expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 2 is selected', function () {
-              expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 3 is selected', function () {
-              expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 4 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
             })
 
             it('item 5 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
             })
 
             it('item 6 is not selected', function () {
-              expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+              expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
             })
 
             it('selectedItems length to be 3', function () {
@@ -537,36 +630,36 @@ describe(test.label, function () {
               beforeEach(function () {
                 const clickEvent = $.Event('click')
                 clickEvent.shiftKey = true
-                $(hook('my-list-item', {index: 5})).trigger(clickEvent)
+                $hook('myList-item', {index: 5}).trigger(clickEvent)
                 return wait()
               })
 
               it('item 0 is not selected', function () {
-                expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+                expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
               })
 
               it('item 1 is selected', function () {
-                expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+                expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
               })
 
               it('item 2 is selected', function () {
-                expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+                expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
               })
 
               it('item 3 is selected', function () {
-                expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
+                expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
               })
 
               it('item 4 is selected', function () {
-                expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
+                expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
               })
 
               it('item 5 is selected', function () {
-                expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
+                expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
               })
 
               it('item 6 is not selected', function () {
-                expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+                expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
               })
 
               it('selectedItems length to be 5', function () {
@@ -577,36 +670,36 @@ describe(test.label, function () {
                 beforeEach(function () {
                   const clickEvent = $.Event('click')
                   clickEvent.shiftKey = true
-                  $(hook('my-list-item', {index: 1})).trigger(clickEvent)
+                  $hook('myList-item', {index: 1}).trigger(clickEvent)
                   return wait()
                 })
 
                 it('item 0 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 1 is selected', function () {
-                  expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+                  expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
                 })
 
                 it('item 2 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 3 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 4 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 5 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 6 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('selectedItems length to be 1', function () {
@@ -618,36 +711,36 @@ describe(test.label, function () {
                 beforeEach(function () {
                   const clickEvent = $.Event('click')
                   clickEvent.shiftKey = true
-                  $(hook('my-list-item', {index: 0})).trigger(clickEvent)
+                  $hook('myList-item', {index: 0}).trigger(clickEvent)
                   return wait()
                 })
 
                 it('item 0 is selected', function () {
-                  expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+                  expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
                 })
 
                 it('item 1 is selected', function () {
-                  expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+                  expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
                 })
 
                 it('item 2 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 3 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 4 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 5 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('item 6 is not selected', function () {
-                  expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+                  expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
                 })
 
                 it('selectedItems length to be 2', function () {
@@ -689,17 +782,20 @@ describe(test.label, function () {
             }
           }
         })
-        this.set('items', testItems)
-        const testSelectedItems = A([])
-        this.set('selectedItems', testSelectedItems)
-        this.set('onSelectionChange', (selectedItems) => {
-          this.get('selectedItems').setObjects(selectedItems)
+
+        this.setProperties({
+          items: testItems,
+          onSelectionChange: (selectedItems) => {
+            this.get('selectedItems').setObjects(selectedItems)
+          },
+          page: 0,
+          selectedItems: A([])
         })
-        this.set('page', 0)
+
         this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
-          hook='my-list'
+          hook='myList'
           items=items
           selectedItems=selectedItems
           onSelectionChange=onSelectionChange
@@ -725,21 +821,21 @@ describe(test.label, function () {
           clickEvent.shiftKey = true
           const clickEvent2 = $.Event('click')
           clickEvent2.shiftKey = true
-          $(hook('my-list-item', {index: 0})).trigger(clickEvent)
-          $(hook('my-list-item', {index: 2})).trigger(clickEvent2)
+          $hook('myList-item', {index: 0}).trigger(clickEvent)
+          $hook('myList-item', {index: 2}).trigger(clickEvent2)
           return wait()
         })
 
         it('item 0 is selected', function () {
-          expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 1 is selected', function () {
-          expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 2 is selected', function () {
-          expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
         })
 
         it('selectedItems length to be 3', function () {
@@ -748,20 +844,20 @@ describe(test.label, function () {
 
         describe('When clicking next page', function () {
           beforeEach(function () {
-            $(hook('my-list-pagination-next-page')).click()
+            $hook('myList-pagination-next-page').click()
             return wait()
           })
 
           it('item 0 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 1 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(false)
           })
 
           it('item 2 is not selected', function () {
-            expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
+            expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
           })
 
           it('selectedItems length to be 3', function () {
@@ -778,20 +874,20 @@ describe(test.label, function () {
               clickEvent.shiftKey = true
               const clickEvent2 = $.Event('click')
               clickEvent2.shiftKey = true
-              $(hook('my-list-item', {index: 0})).trigger(clickEvent)
-              $(hook('my-list-item', {index: 2})).trigger(clickEvent2)
+              $hook('myList-item', {index: 0}).trigger(clickEvent)
+              $hook('myList-item', {index: 2}).trigger(clickEvent2)
               return wait()
             })
             it('item 0 is selected', function () {
-              expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 1 is selected', function () {
-              expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 2 is selected', function () {
-              expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
             })
 
             it('selectedItems length to be 6', function () {
@@ -803,20 +899,20 @@ describe(test.label, function () {
 
       describe('When using specific select on item 2', function () {
         beforeEach(function () {
-          $hook('my-list-selection', {index: 1}).click()
+          $hook('myList-selection', {index: 1}).click()
           return wait()
         })
 
         it('item 0 is not selected', function () {
-          expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+          expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
         })
 
         it('item 1 is selected', function () {
-          expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 2 is not selected', function () {
-          expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
+          expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(false)
         })
 
         it('selectedItems length to be 1', function () {
@@ -825,28 +921,28 @@ describe(test.label, function () {
 
         describe('When switching to page 2 and shift click item4-6', function () {
           beforeEach(function () {
-            $(hook('my-list-pagination-next-page')).click()
+            $hook('myList-pagination-next-page').click()
             return wait().then(() => {
               const clickEvent = $.Event('click')
               clickEvent.shiftKey = true
               const clickEvent2 = $.Event('click')
               clickEvent2.shiftKey = true
-              $(hook('my-list-item', {index: 0})).trigger(clickEvent)
-              $(hook('my-list-item', {index: 2})).trigger(clickEvent2)
+              $hook('myList-item', {index: 0}).trigger(clickEvent)
+              $hook('myList-item', {index: 2}).trigger(clickEvent2)
               return wait()
             })
           })
 
           it('item 0 is selected', function () {
-            expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 1 is selected', function () {
-            expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
           })
 
           it('item 2 is selected', function () {
-            expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+            expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
           })
 
           it('selectedItems length to be 4', function () {
@@ -855,28 +951,28 @@ describe(test.label, function () {
 
           describe('When switching to page 1 and shift click item1-3', function () {
             beforeEach(function () {
-              $(hook('my-list-pagination-previous-page')).click()
+              $hook('myList-pagination-previous-page').click()
               return wait().then(() => {
                 const clickEvent = $.Event('click')
                 clickEvent.shiftKey = true
                 const clickEvent2 = $.Event('click')
                 clickEvent2.shiftKey = true
-                $(hook('my-list-item', {index: 0})).trigger(clickEvent)
-                $(hook('my-list-item', {index: 2})).trigger(clickEvent2)
+                $hook('myList-item', {index: 0}).trigger(clickEvent)
+                $hook('myList-item', {index: 2}).trigger(clickEvent2)
                 return wait()
               })
             })
 
             it('item 0 is selected', function () {
-              expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 1 is selected', function () {
-              expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
             })
 
             it('item 2 is selected', function () {
-              expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+              expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
             })
 
             it('selectedItems length to be 6', function () {
@@ -899,16 +995,19 @@ describe(test.label, function () {
         Ember.Object.create({id: '5'}),
         Ember.Object.create({id: '6'})
       ])
-      this.set('items', testItems)
-      const testSelectedItems = A([])
-      this.set('selectedItems', testSelectedItems)
-      this.set('onSelectionChange', (selectedItems) => {
-        this.get('selectedItems').setObjects(selectedItems)
+
+      this.setProperties({
+        items: testItems,
+        onSelectionChange: (selectedItems) => {
+          this.get('selectedItems').setObjects(selectedItems)
+        },
+        selectedItems: A([])
       })
+
       this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
-          hook='my-list'
+          hook='myList'
           items=items
           selectedItems=selectedItems
           onSelectionChange=onSelectionChange
@@ -924,37 +1023,37 @@ describe(test.label, function () {
           clickEvent.shiftKey = true
           const clickEvent2 = $.Event('click')
           clickEvent2.shiftKey = true
-          $(hook('my-list-item', {index: 1})).trigger(clickEvent)
-          $(hook('my-list-item', {index: 5})).trigger(clickEvent2)
+          $hook('myList-item', {index: 1}).trigger(clickEvent)
+          $hook('myList-item', {index: 5}).trigger(clickEvent2)
           return wait()
         })
 
         it('item 0 is not selected', function () {
-          expect($hook('my-list-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
+          expect($hook('myList-item-container', {index: 0}).hasClass('is-selected')).to.eql(false)
         })
 
         it('item 1 is selected', function () {
-          expect($hook('my-list-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 1}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 2 is selected', function () {
-          expect($hook('my-list-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 2}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 3 is selected', function () {
-          expect($hook('my-list-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 3}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 4 is selected', function () {
-          expect($hook('my-list-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 4}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 5 is selected', function () {
-          expect($hook('my-list-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
+          expect($hook('myList-item-container', {index: 5}).hasClass('is-selected')).to.eql(true)
         })
 
         it('item 6 is not selected', function () {
-          expect($hook('my-list-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
+          expect($hook('myList-item-container', {index: 6}).hasClass('is-selected')).to.eql(false)
         })
 
         it('selectedItems length to be 5', function () {
@@ -970,20 +1069,24 @@ describe(test.label, function () {
         Ember.Object.create({id: '0'}),
         Ember.Object.create({id: '1'})
       ])
-      this.set('items', testItems)
-      this.set('selectedItems', A([]))
-      this.set('expandedItems', A([]))
-      this.set('onSelectionChange', (selectedItems) => {
-        this.get('selectedItems').setObjects(selectedItems)
+
+      this.setProperties({
+        items: testItems,
+        expandedItems: A([]),
+        selectedItems: A([]),
+        onExpansionChange: (expandedItems) => {
+          this.get('expandedItems').setObjects(expandedItems)
+        },
+        onSelectionChange: (selectedItems) => {
+          this.get('selectedItems').setObjects(selectedItems)
+        }
       })
-      this.set('onExpansionChange', (expandedItems) => {
-        this.get('expandedItems').setObjects(expandedItems)
-      })
+
       this.render(hbs`
         {{frost-list
           item=(component 'frost-list-item')
           itemExpansion=(component 'frost-list-item')
-          hook='my-list'
+          hook='myList'
           items=items
           selectedItems=selectedItems
           onSelectionChange=onSelectionChange
@@ -996,21 +1099,21 @@ describe(test.label, function () {
 
     describe('clicking item 0 expansion button', function () {
       beforeEach(function () {
-        $hook('my-list-expansion', {index: 0}).click()
+        $hook('myList-expansion', {index: 0}).click()
         return wait()
       })
 
       it('item 0 is expanded', function () {
-        expect($hook('my-list-item-expansion', {index: 0})).to.have.length(1)
+        expect($hook('myList-item-expansion', {index: 0})).to.have.length(1)
       })
 
       describe('clicking item 0 expansion button', function () {
         beforeEach(function () {
-          $hook('my-list-expansion', {index: 0}).click()
+          $hook('myList-expansion', {index: 0}).click()
           return wait()
         })
         it('item 0 is not expanded', function () {
-          expect($hook('my-list-item-expansion', {index: 0})).to.have.length(0)
+          expect($hook('myList-item-expansion', {index: 0})).to.have.length(0)
         })
       })
     })

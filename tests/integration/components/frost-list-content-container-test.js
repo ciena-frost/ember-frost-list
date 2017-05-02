@@ -3,53 +3,80 @@
  */
 
 import {expect} from 'chai'
+const {A} = Ember
+import Ember from 'ember'
 import {$hook} from 'ember-hook'
-import wait from 'ember-test-helpers/wait'
 import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
-import sinon from 'sinon'
+import {registerMockComponent, unregisterMockComponent} from '../../helpers/mock-component'
 
 import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
 const test = integration('frost-list-content-container')
-describe.skip(test.label, function () {
+describe(test.label, function () {
   test.setup()
 
-  let sandbox
-
   beforeEach(function () {
-    sandbox = sinon.sandbox.create()
+    const list = A([
+      Ember.Object.create({uuid: '0'})
+    ])
+
+    this.setProperties({
+      alwaysUseDefaultHeight: false,
+      bufferSize: 10,
+      defaultHeight: 50,
+      hook: 'myListContentContainer',
+      items: list,
+      scrollTop: 0
+    })
   })
 
-  afterEach(function () {
-    sandbox.restore()
-  })
-
-  it('should have real tests', function () {
-    expect(true).to.equal(false)
-  })
-
-  describe('after render', function () {
+  describe('without the pagination property set', function () {
     beforeEach(function () {
-      this.setProperties({
-        myHook: 'myThing'
-      })
+      this.render(hbs`
+        {{frost-list-content-container
+          alwaysUseDefaultHeight=alwaysUseDefaultHeight
+          bufferSize=bufferSize
+          defaultHeight=defaultHeight
+          hook=hook
+          items=items
+          scrollTop=scrollTop
+        }}
+      `)
+    })
+
+    it('has one vertical item created', function () {
+      expect(this.$('.vertical-item')).to.have.length(1)
+    })
+  })
+
+  describe('when the pagination property is set', function () {
+    beforeEach(function () {
+      registerMockComponent(this, 'mock-pagination')
 
       this.render(hbs`
         {{frost-list-content-container
-          hook=myHook
+          alwaysUseDefaultHeight=alwaysUseDefaultHeight
+          bufferSize=bufferSize
+          defaultHeight=defaultHeight
+          hook=hook
+          items=items
+          pagination=(component 'mock-pagination' class='mock-pagination')
+          scrollTop=scrollTop
         }}
       `)
-
-      return wait()
     })
 
-    it('should have an element', function () {
-      expect(this.$()).to.have.length(1)
+    afterEach(function () {
+      unregisterMockComponent(this)
     })
 
-    it('should be accessible via the hook', function () {
-      expect($hook('myThing')).to.have.length(1)
+    it('should set the "paged" class', function () {
+      expect($hook('myListContentContainer')).to.have.class('paged')
+    })
+
+    it('should have a scroll bar', function () {
+      expect($hook('myListContentContainer-scroll')).to.have.length(1)
     })
   })
 })
