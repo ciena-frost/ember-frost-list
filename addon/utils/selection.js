@@ -162,6 +162,7 @@ export default {
 
   /**
    * Reproducing the `findIndex` behavior to avoid use cases where it's not defined.
+   *
    * @param {Array} array the array of elements
    * @param {Object} rhs right hand side value to compare to the elements in the array
    * @param {Function} compareFct the compare function
