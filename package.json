@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "ember build",
-    "coverage": "pr-bumper check-coverage",
+    "check-coverage": "pr-bumper check-coverage",
     "lint": "lint-all-the-things",
     "start": "ember server",
     "test": "npm run lint && npm run test-addon",
