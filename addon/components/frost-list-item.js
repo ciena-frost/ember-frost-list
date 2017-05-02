@@ -15,10 +15,6 @@ export default Component.extend({
   // == Properties ============================================================
 
   classNames: ['frost-list-item'],
-  classNameBindings: [
-    'isExpanded',
-    'isSelected'
-  ],
 
   propTypes: {
     // Options
@@ -29,7 +25,6 @@ export default Component.extend({
     isExpanded: PropTypes.bool,
     isSelected: PropTypes.bool,
 
-    onExpand: PropTypes.func,
     onSelect: PropTypes.func
   },
 
