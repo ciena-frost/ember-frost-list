@@ -6,6 +6,7 @@ module.exports = {
   ],
   useBabelInstrumenter: true,
   reporters: [
+    'json-summary',
     'lcov',
     'text-summary'
   ]
