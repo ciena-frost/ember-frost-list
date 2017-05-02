@@ -18,7 +18,7 @@ describe(test.label, function () {
 
   beforeEach(function () {
     const list = A([
-      Ember.Object.create({id: '0'})
+      Ember.Object.create({uuid: '0'})
     ])
 
     this.setProperties({
@@ -27,36 +27,48 @@ describe(test.label, function () {
       defaultHeight: 50,
       hook: 'myListContentContainer',
       items: list,
-      pagination: undefined,
       scrollTop: 0
     })
-
-    this.render(hbs`
-      {{frost-list-content-container
-        alwaysUseDefaultHeight=alwaysUseDefaultHeight
-        bufferSize=bufferSize
-        defaultHeight=defaultHeight
-        hook=hook
-        items=items
-        pagination=pagination
-        scrollTop=scrollTop
-      }}
-    `)
   })
 
-  afterEach(function () {
-    unregisterMockComponent(this)
-  })
+  describe('without the pagination property set', function () {
+    beforeEach(function () {
+      this.render(hbs`
+        {{frost-list-content-container
+          alwaysUseDefaultHeight=alwaysUseDefaultHeight
+          bufferSize=bufferSize
+          defaultHeight=defaultHeight
+          hook=hook
+          items=items
+          scrollTop=scrollTop
+        }}
+      `)
+    })
 
-  it('has one vertical item created', function () {
-    expect(this.$('.vertical-item')).to.have.length(1)
+    it('has one vertical item created', function () {
+      expect(this.$('.vertical-item')).to.have.length(1)
+    })
   })
 
   describe('when the pagination property is set', function () {
     beforeEach(function () {
       registerMockComponent(this, 'mock-pagination')
-      // eslint-disable-next-line quotes
-      this.set('pagination', `(component 'mock-pagination' class='mock-pagination')`)
+
+      this.render(hbs`
+        {{frost-list-content-container
+          alwaysUseDefaultHeight=alwaysUseDefaultHeight
+          bufferSize=bufferSize
+          defaultHeight=defaultHeight
+          hook=hook
+          items=items
+          pagination=(component 'mock-pagination' class='mock-pagination')
+          scrollTop=scrollTop
+        }}
+      `)
+    })
+
+    afterEach(function () {
+      unregisterMockComponent(this)
     })
 
     it('should set the "paged" class', function () {
