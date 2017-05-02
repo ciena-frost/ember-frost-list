@@ -1,3 +1,7 @@
+# 5.5.7 (2017-04-27)
+- Changed link appearance to align with UX spec
+
+
 # 5.5.6 (2017-04-26)
 * **Split** states and record for a list item
 * **Fixed** #129 
