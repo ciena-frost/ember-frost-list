@@ -3,10 +3,10 @@ import Ember from 'ember'
 const {$, A} = Ember
 import {$hook, initialize as initializeHook} from 'ember-hook'
 import wait from 'ember-test-helpers/wait'
+import {registerMockComponent, unregisterMockComponent} from 'ember-test-utils/test-support/mock-component'
+import {integration} from 'ember-test-utils/test-support/setup-component-test'
 import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
-import {registerMockComponent, unregisterMockComponent} from '../../helpers/mock-component'
-import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 import sinon from 'sinon'
 
 const test = integration('frost-list')
@@ -96,7 +96,7 @@ describe(test.label, function () {
     })
 
     afterEach(function () {
-      unregisterMockComponent(this)
+      unregisterMockComponent(this, 'mock-sort')
     })
 
     it('should render the sort component', function () {
@@ -125,7 +125,7 @@ describe(test.label, function () {
     })
 
     afterEach(function () {
-      unregisterMockComponent(this)
+      unregisterMockComponent(this, 'mock-pagination')
     })
 
     it('should render the pagination component', function () {
@@ -176,7 +176,7 @@ describe(test.label, function () {
     })
 
     afterEach(function () {
-      unregisterMockComponent(this)
+      unregisterMockComponent(this, 'mock-item-expansion')
     })
 
     it('did not render the itemExpansion component when "model.isExpanded" is "false"', function () {

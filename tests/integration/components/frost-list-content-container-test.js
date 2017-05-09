@@ -5,18 +5,18 @@
 import {expect} from 'chai'
 const {A} = Ember
 import Ember from 'ember'
-import {$hook} from 'ember-hook'
+import {$hook, initialize as initializeHook} from 'ember-hook'
+import {registerMockComponent, unregisterMockComponent} from 'ember-test-utils/test-support/mock-component'
+import {integration} from 'ember-test-utils/test-support/setup-component-test'
 import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
-import {registerMockComponent, unregisterMockComponent} from '../../helpers/mock-component'
-
-import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
 
 const test = integration('frost-list-content-container')
 describe(test.label, function () {
   test.setup()
 
   beforeEach(function () {
+    initializeHook()
     const list = A([
       Ember.Object.create({uuid: '0'})
     ])
@@ -68,7 +68,7 @@ describe(test.label, function () {
     })
 
     afterEach(function () {
-      unregisterMockComponent(this)
+      unregisterMockComponent(this, 'mock-pagination')
     })
 
     it('should set the "paged" class', function () {
