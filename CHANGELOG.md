@@ -1,3 +1,7 @@
+# 5.5.8 (2017-05-10)
+* **Updated** secure auth token
+
+
 # 5.5.7 (2017-04-27)
 - Changed link appearance to align with UX spec
 
