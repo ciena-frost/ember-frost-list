@@ -1,3 +1,6 @@
+# 5.5.9 (2017-05-12)
+* **Fixed** `font-weight` for `list-item-element-label`
+
 # 5.5.8 (2017-05-10)
 * **Updated** secure auth token
 
