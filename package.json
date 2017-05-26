@@ -54,7 +54,6 @@
     "ember-export-application-global": "^1.0.4",
     "ember-frost-test": "1.0.1",
     "ember-get-config": "0.2.1",
-    "ember-hash-helper-polyfill": "0.1.2",
     "ember-hook": "1.4.1",
     "ember-load-initializers": "0.6.3",
     "ember-prop-types": "^3.10.3",
