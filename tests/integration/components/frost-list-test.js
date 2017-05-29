@@ -1117,5 +1117,20 @@ describe(test.label, function () {
         })
       })
     })
+
+    describe('clicking Expand All button', function () {
+      beforeEach(function () {
+        $hook('myList-expansion-expand-all').click()
+        return wait()
+      })
+
+      it('item 0 is expanded', function () {
+        expect($hook('myList-item-expansion', {index: 0})).to.have.length(1)
+      })
+
+      it('item 1 is expanded', function () {
+        expect($hook('myList-item-expansion', {index: 1})).to.have.length(1)
+      })
+    })
   })
 })
