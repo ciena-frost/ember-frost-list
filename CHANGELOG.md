@@ -1,3 +1,8 @@
+# 5.5.10 (2017-05-29)
+* **Fixed** Expand All handling of model items
+* Removed unnecessary ember-hash-helper-polyfill
+
+
 # 5.5.9 (2017-05-12)
 * **Fixed** `font-weight` for `list-item-element-label`
 
