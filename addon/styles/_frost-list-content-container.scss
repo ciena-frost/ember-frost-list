@@ -35,6 +35,14 @@
   }
 }
 
+.frost-list-content-container-animation {
+  height: 100%;
+
+  .liquid-child {
+    height: 100%;
+  }
+}
+
 // The scroll rail requires a padding offset, so a typical border-top/border-bottom
 // doesn't work (overflows the scroll gutter)
 // Offset rails https://github.com/noraesae/perfect-scrollbar/issues/508

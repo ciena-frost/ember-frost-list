@@ -3,12 +3,11 @@
  */
 
 import Ember from 'ember'
-const {$, A, get, isEmpty, isNone, run} = Ember
+const {$, A, ObjectProxy, get, isEmpty, isNone, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
 import {PropTypes} from 'ember-prop-types'
-import uuid from 'ember-simple-uuid'
 
 import layout from '../templates/components/frost-list'
 
@@ -96,43 +95,22 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('items.[]')
-  /**
-   * Add a unique id to every item to avoid rerendering on updates like selection and expansion.
-   * @param {Array} items a list of items
-   * @returns {Array} a list of items with unique ids
-   */
-  _itemsWithUniqueId (items) {
-    if (isEmpty(items)) {
-      return []
-    }
-
-    return items.map(item => {
-      return {
-        record: item,
-        uuid: uuid()
-      }
-    })
-  },
-
-  @readOnly
-  @computed('expandedItems.[]', '_itemsWithUniqueId.[]', 'selectedItems.[]', '_itemComparator')
+  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator')
   _items (expandedItems, items, selectedItems, _itemComparator) {
     if (isEmpty(items)) {
       return []
     }
 
-    return items.map(({uuid, record}) => {
-      return {
-        uuid,
-        record,
+    return items.map(item => {
+      return ObjectProxy.create({
+        content: item,
         states: {
           isExpanded: isEmpty(expandedItems) ? false : expandedItems.some(
-            selectedItem => _itemComparator(selectedItem, record)),
+            expandedItem => _itemComparator(expandedItem, item)),
           isSelected: isEmpty(selectedItems) ? false : selectedItems.some(
-            selectedItem => _itemComparator(selectedItem, record))
+            selectedItem => _itemComparator(selectedItem, item))
         }
-      }
+      })
     })
   },
 
