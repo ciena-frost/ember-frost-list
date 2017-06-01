@@ -10,34 +10,32 @@
     {{/each}}
   {{/frost-scroll}}
 {{else}}
-  {{#liquid-bind items class=(concat css '-animation') rules=_transition as |currentItems|}}
-    {{#vertical-collection
-      alwaysRemeasure=true
-      alwaysUseDefaultHeight=alwaysUseDefaultHeight
-      bufferSize=bufferSize
-      content=currentItems
-      defaultHeight=defaultHeight
-      firstReached=onLoadPrevious
-      lastReached=onLoadNext
-      scrollPosition=scrollTop
-      useContentProxy=false
-      key=_verticalCollectionItemKey
-      resizeDebounce=64
-      firstVisibleChanged=null
-      lastVisibleChanged=null
-      didMountCollection=null
-      idForFirstItem=null
-      renderFromLast=false
-      renderAllInitially=false
-      shouldRender=true
-      minimumMovement=15
-      containerSelector=null
-      containerHeight=null
-      as |model index|
-    }}
-      {{yield model index}}
-    {{else}}
-      {{yield to="inverse"}}
-    {{/vertical-collection}}
-  {{/liquid-bind}}
+  {{#vertical-collection
+    alwaysRemeasure=true
+    alwaysUseDefaultHeight=alwaysUseDefaultHeight
+    bufferSize=bufferSize
+    content=currentItems
+    defaultHeight=defaultHeight
+    firstReached=onLoadPrevious
+    lastReached=onLoadNext
+    scrollPosition=scrollTop
+    useContentProxy=false
+    key=_verticalCollectionItemKey
+    resizeDebounce=64
+    firstVisibleChanged=null
+    lastVisibleChanged=null
+    didMountCollection=null
+    idForFirstItem=null
+    renderFromLast=false
+    renderAllInitially=false
+    shouldRender=true
+    minimumMovement=15
+    containerSelector=null
+    containerHeight=null
+    as |model index|
+  }}
+    {{yield model index}}
+  {{else}}
+    {{yield to="inverse"}}
+  {{/vertical-collection}}
 {{/if}}
