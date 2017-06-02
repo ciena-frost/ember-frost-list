@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-list",
-  "version": "5.5.9",
+  "version": "5.5.10",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
@@ -54,7 +54,6 @@
     "ember-export-application-global": "^1.0.4",
     "ember-frost-test": "1.0.1",
     "ember-get-config": "0.2.1",
-    "ember-hash-helper-polyfill": "0.1.2",
     "ember-hook": "1.4.1",
     "ember-load-initializers": "0.6.3",
     "ember-prop-types": "^3.10.3",
@@ -90,6 +89,6 @@
     "name": "frost-list"
   },
   "pr-bumper": {
-    "coverage": 95.0
+    "coverage": 96.0
   }
 }

@@ -181,7 +181,8 @@ export default Component.extend({
     },
 
     _expandAll () {
-      this.onExpansionChange(this.get('items'))
+      const clonedItems = A(this.get('items').slice())
+      this.onExpansionChange(clonedItems)
     },
 
     _select ({isRangeSelect, isSpecificSelect, item}) {
