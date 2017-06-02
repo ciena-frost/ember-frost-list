@@ -1,3 +1,7 @@
+# 5.6.0 (2017-06-02)
+- Exposed `itemKey` as a configurable property.  List records with a matching `itemKey` will update instead of fully re-rendering when the record changes.
+
+
 # 5.5.10 (2017-05-29)
 * **Fixed** Expand All handling of model items
 * Removed unnecessary ember-hash-helper-polyfill
