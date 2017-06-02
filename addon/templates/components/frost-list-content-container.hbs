@@ -3,7 +3,7 @@
   {{#frost-scroll
     hook=(concat hookPrefix '-scroll')
   }}
-    {{#each items key='uuid' as |model index|}}
+    {{#each items key=_eachItemKey as |model index|}}
       {{yield model index}}
     {{else}}
       {{yield to="inverse"}}
@@ -20,8 +20,7 @@
     lastReached=onLoadNext
     scrollPosition=scrollTop
     useContentProxy=false
-
-    key='@identity'
+    key=_verticalCollectionItemKey
     resizeDebounce=64
     firstVisibleChanged=null
     lastVisibleChanged=null
@@ -33,7 +32,6 @@
     minimumMovement=15
     containerSelector=null
     containerHeight=null
-
     as |model index|
   }}
     {{yield model index}}
