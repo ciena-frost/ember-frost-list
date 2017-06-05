@@ -1,3 +1,9 @@
+# 5.6.1 (2017-06-05)
+* **Updated** to use ember-source npm package
+* **Updated** some devDependencies to align with Ember 2.11
+* **Updated** ember-try config for move to ember-source
+
+
 # 5.6.0 (2017-06-02)
 - Exposed `itemKey` as a configurable property.  List records with a matching `itemKey` will update instead of fully re-rendering when the record changes.
 
