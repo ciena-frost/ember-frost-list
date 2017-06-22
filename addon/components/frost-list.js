@@ -129,12 +129,12 @@ export default Component.extend({
 
   // == Lifecycle Hooks =======================================================
 
-  didUpdateAttrs ({newAttrs}) {
-    if (newAttrs.scrollTop) {
+  didUpdateAttrs () {
+    if (this.get('scrollTop')) {
       // TODO Push this down into frost-scroll
       const scrollbar = this.$('.frost-scroll')[0]
       if (scrollbar) {
-        scrollbar.scrollTop = newAttrs.scrollTop
+        scrollbar.scrollTop = this.get('scrollTop')
         window.Ps.update(scrollbar)
       }
     }
