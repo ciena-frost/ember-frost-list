@@ -1,3 +1,6 @@
+# 5.7.0 (2017-06-26)
+* Closes #141
+
 # 5.6.1 (2017-06-05)
 * **Updated** to use ember-source npm package
 * **Updated** some devDependencies to align with Ember 2.11
