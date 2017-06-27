@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['frost-standard']
+  extends: 'frost-standard'
 }
