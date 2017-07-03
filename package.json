@@ -48,7 +48,6 @@
     "ember-data": "^2.11.1",
     "ember-data-factory-guy": "git://github.com/juwara0/ember-data-factory-guy#removeOnlyDev",
     "ember-disable-prototype-extensions": "^1.1.0",
-    "ember-disable-proxy-controllers": "^1.0.1",
     "ember-elsewhere": "0.4.1",
     "ember-export-application-global": "^1.0.5",
     "ember-frost-test": "1.0.1",
