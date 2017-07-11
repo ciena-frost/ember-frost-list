@@ -20,9 +20,8 @@ addons:
     - g++-4.8
 env:
   matrix:
-  - EMBER_TRY_SCENARIO=ember-2-8
-  - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-lts-2.8
+  - EMBER_TRY_SCENARIO=ember-default
   global:
     - CXX=g++-4.8
     - secure: R/sDLMQAy0D7pHnpnu1PQTU1JHEIYkS64NIg0/NgZxxkHRB/1ftCp3rjFgrwFgve1BfDizKCkEiXMX8X9kwsCf45uK4kUjKjNaQE72pU8Pjbs5MrGvWGWLpnoF/X0nLLclqe+QD4dyTMmkNqbQDY8ypn2zfdX7b+df7LoreOh/xHLZfwk0NcyMN3KQUPvoax5WxDQpDqMH+BxCInlxcbLvsnVuVdaNzH1OzZypXGu2jGjhXwgc49OKfw25ta4KEG5C+YPsxDG9hwCW5L/MXyKxIvBoKzduKOjwGRMiZwHfYoUWmM3GTbJXRGdAMJQh4bd2sxW2x3evg57AK0vr6g2i2BcEwyCotMQooGQfKuQqhv7l8XObdyJMt3b1Wwm4eZy/J+HhkvrV0YCjzAFLoLeoRy6V7ziNNOLrIrtI3OKsrcoD6AqdKQzV6e4TCLOjoMHcGW8ZiCx4SOBHhFMW4gFlihkJDulVdLsv8pCL/rDLLor11mChija9vuYNO7UpMIOrqlGDXhQxhp4M6AdvDXny+muFBSTuff7I1VArEeuLXbsoKzGNMnBVuHkM6CN42GuZ5uRLF/luW48m5F3DugguRWOm5DYTbgWAJ8ozW6raKmJLWVHgmBDRvowgW7Utd61kGt95mNPBNfbvIlhRZcOyU4ZOsZR+qpPEjnqst9qkA=
@@ -63,7 +62,7 @@ deploy:
     secure: Gyp3pPBVZ8RceL1CLtKBu57eyJbFUAYVima2nyYKbyTox/kBUTiVLr7OWEyiVd6iGKSZK9YwmWoFPomZwt4WnwJ4khwRP7o1iBDVPMylEz9gTjuutZ3mTlvItWRowLX7nvy4Zbhi7lAuUidAtrR4ISS3v8y10FuySMjXgZTBI2NyOPIEn2dlSugZ0h/I12Z20Gx0xjGkY0ZA8LRRNupLXFEjtEOcDy9oTyxtzPfAwNgMgUFjdGSuM4oice12QYlq6hL1DbnRhyRY7yHlZVvb3OeBxSLhiGukvYYZKrl5arGTQXgJoyPg0vQca4GgnDxoaN0m0Iy+hEDhjKZu7Zk49bRGLre9VAzLKD8Og8LErv36nns8PLU9Air1MOptyy1ggDFzFGwcVUcq8BSzzANAMFIekq6T9HR6k0pFWjlvcRPBOtKWtwBobFPITKDm5qHVBx1N78pEp3mjo2QySmpvANyGs0YuHQSelwrqJ8lA9HqVwZnPJSKEz4L6VXiLSGZvM2N3DgH6W8mQPXWnbNDD1x5tnbPABDmU5Nprk+QMtN6Y2/B4rwaR/e1KDQYgu3k+Gy4TdRLB2wfgrQRTzhGXGVvbWxytbmGvGWLeILXnb+yvPSyTGX9MVfB9+74dbezd7EXw28TUJV6aUd24b4icnnzxSuaXuJv9BO1nLRoCbzk=
   on:
     all_branches: true
-    condition: "$EMBER_TRY_SCENARIO = 'default'"
+    condition: "$EMBER_TRY_SCENARIO = 'ember-default'"
     node: '6.9.1'
     tags: true
 

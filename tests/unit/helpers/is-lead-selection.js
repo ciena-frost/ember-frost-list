@@ -1,4 +1,5 @@
-/* jshint expr:true */
+/* eslint-env node */
+
 import {expect} from 'chai'
 import {floor} from 'ember-frost-list/helpers/is-lead-selection'
 import {describe, it} from 'mocha'

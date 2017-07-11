@@ -8,10 +8,10 @@
 .editorconfig
 .ember-cli
 .gitignore
-.jshintrc
+.eslintrc.js
 .watchmanconfig
 .travis.yml
 bower.json
 ember-cli-build.js
-testem.json
+testem.js
 .idea

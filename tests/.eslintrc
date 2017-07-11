@@ -1,7 +1,0 @@
-{
-  "globals": {
-    "$": false,
-    "chai": false,
-    "server": false
-  }
-}
