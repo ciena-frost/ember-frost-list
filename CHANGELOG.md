@@ -1,3 +1,6 @@
+# 5.8.0 (2017-07-11)
+* Upgrade `ember-cli` to `12.2.3` (also catching missed items from prior upgrades)
+
 # 5.7.0 (2017-06-26)
 * Closes #141
 
