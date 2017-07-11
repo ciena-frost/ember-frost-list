@@ -1,18 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs/><symbol id="add" viewBox="0 0 30 30">
-  <rect x="14.5" y="7.5" fill="#009EEF" width="1" height="15"/>
-  <rect x="7.5" y="14.5" fill="#009EEF" width="15" height="1"/>
-  <path fill="#009EEF" d="M15,2.5c6.9,0,12.5,5.6,12.5,12.5S21.9,27.5,15,27.5S2.5,21.9,2.5,15S8.1,2.5,15,2.5 M15,1.5
-    C7.5,1.5,1.5,7.5,1.5,15s6,13.5,13.5,13.5s13.5-6,13.5-13.5S22.5,1.5,15,1.5L15,1.5z"/>
-</symbol><symbol id="direction" viewBox="0 15 30 30">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs/><symbol id="direction" viewBox="0 15 30 30">
   <rect x="14.2" y="21.7" fill="#009EEF" width="1.4" height="17.4"/>
   <rect x="11.1" y="19.2" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 3.1541 49.4962)" fill="#009EEF" width="1.4" height="9.8"/>
   <rect x="17.2" y="19.3" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -11.9147 19.746)" fill="#009EEF" width="1.4" height="9.8"/>
   <path fill="#009EEF" d="M15,17.5c6.9,0,12.5,5.6,12.5,12.5S21.9,42.5,15,42.5S2.5,36.9,2.5,30S8.1,17.5,15,17.5 M15,16.5
     c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5s13.5-6,13.5-13.5S22.5,16.5,15,16.5L15,16.5z"/>
-</symbol><symbol id="remove" viewBox="0 0 30 30">
-	<circle fill="#FFFFFF" cx="15" cy="15" r="15"/>
-  <rect x="13.5" y="7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 15 -6.2132)" width="3" height="15.9"/>
-  <rect x="7" y="13.5" transform="matrix(0.7071 0.7071 -0.7071 0.7071 15 -6.2132)" width="15.9" height="3"/>
-  <path d="M15,2c7.2,0,13,5.8,13,13s-5.8,13-13,13S2,22.2,2,15S7.8,2,15,2 M15,0C6.7,0,0,6.7,0,15s6.7,15,15,15
-  s15-6.7,15-15S23.3,0,15,0L15,0z"/>
 </symbol></svg>
