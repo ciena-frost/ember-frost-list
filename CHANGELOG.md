@@ -1,3 +1,8 @@
+# 5.8.1 (2017-08-01)
+- **Modified** specific multi-select to also work with non-mac systems.
+	modified:   addon/components/frost-list-item.js
+
+
 # 5.8.0 (2017-07-11)
 * Upgrade `ember-cli` to `12.2.3` (also catching missed items from prior upgrades)
 
