@@ -3,9 +3,9 @@ const blueprintHelper = require('ember-frost-core/blueprint-helper')
 module.exports = {
   afterInstall: function (options) {
     const addonsToAdd = [
-      {name: 'ember-frost-core', target: '^1.14.3'},
-      {name: 'ember-frost-sort', target: '^7.0.0'},
-      {name: 'ember-math-helpers', target: '^2.0.5'},
+      {name: 'ember-frost-core', target: '1.23.10'},
+      {name: 'ember-frost-sort', target: '7.2.9'},
+      {name: 'ember-math-helpers', target: '2.0.6'},
       {name: 'smoke-and-mirrors', target: 'github:ciena-frost/smoke-and-mirrors'}
     ]
 
