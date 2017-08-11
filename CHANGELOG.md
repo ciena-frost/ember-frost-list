@@ -1,3 +1,6 @@
+# 5.8.2 (2017-08-11)
+* **Updated** ember-cli 2.12.3 inter-dependencies
+
 # 5.8.1 (2017-08-01)
 - **Modified** specific multi-select to also work with non-mac systems.
 	modified:   addon/components/frost-list-item.js
