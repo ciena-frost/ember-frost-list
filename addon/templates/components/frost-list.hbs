@@ -42,58 +42,16 @@
   onLoadPrevious=onLoadPrevious
   as |model index|
 }}
-  <div class={{concat
-      'frost-list-item-container'
-      (if (eq index 0) ' first')
-      (if (eq index (sub _items.length 1)) ' last')
-      (if model.states.isSelected ' is-selected')
-    }}
-    data-test={{hook (concat hook '-item-container') index=index }}
-  >
-    <div class='frost-list-item-container-base'>
-      {{#if itemExpansion}}
-        {{frost-list-item-expansion
-          hook=(concat hookPrefix '-expansion')
-          hookQualifiers=(hash index=index)
-          model=model.content
-          isExpanded=model.states.isExpanded
-          onExpand=(action '_expand')
-        }}
-      {{/if}}
-
-      {{#if onSelectionChange}}
-        {{frost-list-item-selection
-          hook=(concat hookPrefix '-selection')
-          hookQualifiers=(hash index=index)
-          model=model.content
-          isSelected=model.states.isSelected
-          onSelect=(action '_select')
-        }}
-      {{/if}}
-
-      {{component item
-        hook=(concat hookPrefix '-item')
-        hookQualifiers=(hash index=index)
-        model=model.content
-        isExpanded=model.states.isExpanded
-        isSelected=model.states.isSelected
-        onSelect=(action '_select')
-      }}
-    </div>
-
-    {{#if model.states.isExpanded}}
-      <div class='frost-list-item-container-expansion'>
-        {{component itemExpansion
-          hook=(concat hookPrefix '-item-expansion')
-          hookQualifiers=(hash index=index)
-          model=model.content
-          isExpanded=model.states.isExpanded
-          isSelected=model.states.isSelected
-          onSelect=(action '_select')
-        }}
-      </div>
-    {{/if}}
-  </div>
+  {{frost-list-item-content
+    hook=(concat hookPrefix '-itemContent')
+    model=model
+    index=index
+    item=item
+    itemExpansion=itemExpansion
+    onSelectionChange=onSelectionChange
+    onExpand=(action '_expand')
+    onSelect=(action '_select')
+  }}
 {{else}}
   {{yield to="inverse"}}
 {{/frost-list-content-container}}
