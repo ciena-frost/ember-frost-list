@@ -7,7 +7,7 @@
   data-test={{hook (concat hook '-item-container') index=index }}
 >
   <div class='frost-list-item-container-base'>
-    {{#if itemExpansion}}
+    {{#if (and (or itemExpansion isTypedItemWithExpansion) (not isTypedItemWithoutExpansion))}}
       {{frost-list-item-expansion
         hook=(concat hookPrefix '-expansion')
         hookQualifiers=(hash index=index)
@@ -27,7 +27,7 @@
       }}
     {{/if}}
 
-    {{component item
+    {{component itemComponent
       hook=(concat hookPrefix '-item')
       hookQualifiers=(hash index=index)
       model=model.content
@@ -39,14 +39,27 @@
 
   {{#if model.states.isExpanded}}
     <div class='frost-list-item-container-expansion'>
-      {{component itemExpansion
-        hook=(concat hookPrefix '-item')
-        hookQualifiers=(hash index=index)
-        model=model.content
-        isExpanded=model.states.isExpanded
-        isSelected=model.states.isSelected
-        onSelect=onSelect
-      }}
+      {{#if isTypedItemWithExpansion}}
+        {{component typedItemComponent
+          hook=(concat hookPrefix '-item')
+          hookQualifiers=(hash index=index)
+          model=model.content
+          isExpanded=model.states.isExpanded
+          isSelected=model.states.isSelected
+          onSelect=onSelect
+        }}
+      {{else if isTypedItemWithoutExpansion}}
+        {{!-- Don't render default expansion template --}}
+      {{else}}
+        {{component itemExpansion
+          hook=(concat hookPrefix '-item')
+          hookQualifiers=(hash index=index)
+          model=model.content
+          isExpanded=model.states.isExpanded
+          isSelected=model.states.isSelected
+          onSelect=onSelect
+        }}
+      {{/if}}
     </div>
   {{/if}}
 </div>
