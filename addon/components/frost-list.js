@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, ObjectProxy, get, isEmpty, isNone, run} = Ember
+const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -43,6 +43,7 @@ export default Component.extend({
     ])),
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
+    itemTypes: PropTypes.object,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -112,6 +113,23 @@ export default Component.extend({
         }
       })
     })
+  },
+
+  @readOnly
+  @computed('itemTypes')
+  isAnyCustomItemExpansion (itemTypes) {
+    if (isPresent(itemTypes)) {
+      for (var itemType in itemTypes) {
+        const type = get(itemTypes, itemType)
+        const itemExpansion = get(type, 'itemExpansion')
+
+        if (isPresent(itemExpansion)) {
+          return true
+        }
+      }
+    }
+
+    return false
   },
 
   // == Functions =============================================================
