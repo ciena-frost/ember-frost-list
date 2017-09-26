@@ -41,7 +41,7 @@
     <div class='frost-list-item-container-expansion'>
       {{#if isTypedItemWithExpansion}}
         {{component typedItemExpansionComponent
-          hook=(concat hookPrefix '-item')
+          hook=(concat hookPrefix '-itemExpansion')
           hookQualifiers=(hash index=index)
           model=model.content
           isExpanded=model.states.isExpanded
@@ -52,7 +52,7 @@
         {{!-- Don't render default expansion template --}}
       {{else}}
         {{component itemExpansion
-          hook=(concat hookPrefix '-item')
+          hook=(concat hookPrefix '-itemExpansion')
           hookQualifiers=(hash index=index)
           model=model.content
           isExpanded=model.states.isExpanded
