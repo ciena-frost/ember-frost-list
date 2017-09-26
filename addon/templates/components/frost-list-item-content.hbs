@@ -40,7 +40,7 @@
   {{#if model.states.isExpanded}}
     <div class='frost-list-item-container-expansion'>
       {{#if isTypedItemWithExpansion}}
-        {{component typedItemComponent
+        {{component typedItemExpansionComponent
           hook=(concat hookPrefix '-item')
           hookQualifiers=(hash index=index)
           model=model.content
