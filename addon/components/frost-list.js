@@ -117,7 +117,7 @@ export default Component.extend({
 
   @readOnly
   @computed('itemTypes')
-  isAnyCustomItemExpansion (itemTypes) {
+  isAnyTypedItemExpansion (itemTypes) {
     if (isPresent(itemTypes)) {
       for (var itemType in itemTypes) {
         const type = get(itemTypes, itemType)

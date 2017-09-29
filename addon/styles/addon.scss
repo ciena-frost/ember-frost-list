@@ -11,6 +11,7 @@ $frost-list-scroll-rail-gutter-width: 11px;
 @import 'frost-list-pagination';
 @import 'frost-list-expansion';
 @import 'frost-list-item-container';
+@import 'frost-list-item-content';
 @import 'frost-list-item';
 @import 'frost-list-item-expansion';
 @import 'frost-list-item-selection';
@@ -22,4 +23,3 @@ $frost-list-scroll-rail-gutter-width: 11px;
     user-select: none;
   }
 }
-

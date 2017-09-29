@@ -15,6 +15,8 @@
         isExpanded=model.states.isExpanded
         onExpand=onExpand
       }}
+    {{else if isAnyTypedItemExpansion}}
+      <div class="item-expansion-placeholder"></div>
     {{/if}}
 
     {{#if onSelectionChange}}
