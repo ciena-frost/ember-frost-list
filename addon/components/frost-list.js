@@ -118,14 +118,12 @@ export default Component.extend({
   @readOnly
   @computed('itemTypes')
   isAnyTypedItemExpansion (itemTypes) {
-    if (isPresent(itemTypes)) {
-      for (var itemType in itemTypes) {
-        const type = get(itemTypes, itemType)
-        const itemExpansion = get(type, 'itemExpansion')
+    for (var itemType in itemTypes) {
+      const itemTypeContent = get(itemTypes, itemType)
+      const itemExpansion = get(itemTypeContent, 'itemExpansion')
 
-        if (isPresent(itemExpansion)) {
-          return true
-        }
+      if (isPresent(itemExpansion)) {
+        return true
       }
     }
 

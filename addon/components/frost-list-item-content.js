@@ -44,7 +44,7 @@ export default Component.extend({
   @computed('model', 'itemTypes')
   typedItemComponent (model, itemTypes) {
     if (isPresent(model) && isPresent(itemTypes)) {
-      const type = model.get('type')
+      const type = model.get('itemType')
 
       if (type in itemTypes) {
         const itemType = get(itemTypes, type)
@@ -59,7 +59,7 @@ export default Component.extend({
   @computed('model', 'itemTypes')
   typedItemExpansionComponent (model, itemTypes) {
     if (isPresent(model) && isPresent(itemTypes)) {
-      const type = model.get('type')
+      const type = model.get('itemType')
 
       if (type in itemTypes) {
         const itemType = get(itemTypes, type)
