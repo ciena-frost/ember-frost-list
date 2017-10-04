@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run} = Ember
+const {$, A, Logger, ObjectProxy, get, getWithDefault, isEmpty, isNone, isPresent, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -44,6 +44,7 @@ export default Component.extend({
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
     itemTypes: PropTypes.object,
+    itemTypeKey: PropTypes.string,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -171,6 +172,11 @@ export default Component.extend({
       })
     }
 
+    const itemTypeKey = this.get('itemTypeKey')
+    if (!itemKey && itemTypeKey) {
+      Logger.warn('If itemTypeKey is defined, then itemKey needs to be defined as well')
+    }
+
     this._keyHandler = this.setShift.bind(this)
     $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this._keyHandler)
   },
@@ -218,7 +224,21 @@ export default Component.extend({
       } else {
         selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
       }
-      this.onSelectionChange(clonedSelectedItems)
+
+      const itemTypes = this.get('itemTypes')
+      const itemTypeKey = this.get('itemTypeKey')
+
+      const selectedTypesWithControls = clonedSelectedItems.reduce((typesWithControls, item) => {
+        if (isPresent(itemTypes) && isPresent(itemTypeKey)) {
+          const itemType = get(item, itemTypeKey)
+          const itemTypeContent = getWithDefault(itemTypes, itemType, {})
+          const itemTypeContentControls = getWithDefault(itemTypeContent, 'controls', [])
+          typesWithControls[itemType] = itemTypeContentControls
+        }
+        return typesWithControls
+      }, {})
+
+      this.onSelectionChange(clonedSelectedItems, selectedTypesWithControls)
     }
   }
 })

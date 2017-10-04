@@ -25,6 +25,7 @@ export default Component.extend({
     // Options - general
     onSelectionChange: PropTypes.func,
     itemTypes: PropTypes.object,
+    itemTypeKey: PropTypes.string,
     isAnyTypedItemExpansion: PropTypes.bool,
 
     // Options - sub-components
@@ -41,10 +42,10 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('model', 'itemTypes')
-  typedItemComponent (model, itemTypes) {
-    if (isPresent(model) && isPresent(itemTypes)) {
-      const type = model.get('itemType')
+  @computed('model', 'itemTypes', 'itemTypeKey')
+  typedItemComponent (model, itemTypes, itemTypeKey) {
+    if (isPresent(model) && isPresent(itemTypes) && isPresent(itemTypeKey)) {
+      const type = model.get(itemTypeKey)
 
       if (type in itemTypes) {
         const itemType = get(itemTypes, type)
@@ -56,10 +57,10 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('model', 'itemTypes')
-  typedItemExpansionComponent (model, itemTypes) {
-    if (isPresent(model) && isPresent(itemTypes)) {
-      const type = model.get('itemType')
+  @computed('model', 'itemTypes', 'itemTypeKey')
+  typedItemExpansionComponent (model, itemTypes, itemTypeKey) {
+    if (isPresent(model) && isPresent(itemTypes) && isPresent(itemTypeKey)) {
+      const type = model.get(itemTypeKey)
 
       if (type in itemTypes) {
         const itemType = get(itemTypes, type)
