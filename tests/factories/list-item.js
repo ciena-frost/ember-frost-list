@@ -10,10 +10,20 @@ FactoryGuy.define('list-item', {
         'baz'
       ]
       return items[num % items.length]
+    },
+    itemType: (num) => {
+      let items = [
+        'a',
+        'b',
+        'c',
+        'd'
+      ]
+      return items[num % items.length]
     }
   },
 
   default: {
-    label: FactoryGuy.generate('label')
+    label: FactoryGuy.generate('label'),
+    itemType: FactoryGuy.generate('itemType')
   }
 })

@@ -14,6 +14,7 @@ Router.map(function () {
   })
   this.route('infinite')
   this.route('paged')
+  this.route('typed')
 })
 
 export default Router
