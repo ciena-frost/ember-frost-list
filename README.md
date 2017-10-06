@@ -60,6 +60,8 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
 | `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
+| `Attribute`        | `itemTypes`            | `hash`         |       | Optional: With itemTypes set, the consumer can provide `item` and `itemExpansion` components for a particular type of list item. When used in conjunction with the `frost-object-browser` addon, the consumer can also provide a list of component names that correspond to control components given to the object browser. |
+| `Attribute`        | `itemTypeKey`            | `string`         |       | Optional: With itemTypeKey set, itemTypes.get(itemTypeKey) will be used for accessing the hash of components within `itemTypes`. Note, if `itemTypeKey` is set, then `itemKey` must also be set. |
 
 
 ### Infinite scroll
@@ -114,6 +116,18 @@ actions: {
 }
 ```
 
+## Testing with ember-hook
+
+The list component is accessible using ember-hook:
+
+* Top level hook - `$hook('<hook-name>')`
+* Frost list pagination - `$hook('<hook-name>-pagination')`
+* Frost list expansion - `$hook('<hook-name>-expansion')`
+* Frost list content container - `$hook('<hook-name>-contentContainer')`
+* Frost list item content - `$hook('<hook-name>-itemContent')`
+* Frost list item - `$hook('<hook-name>-itemContent-item')`
+* Frost list item expansion - `$hook('<hook-name>-itemContent-itemExpansion')`
+* Frost list item selection - `$hook('<hook-name>-itemContent-selection')`
 
 ## Examples
 
