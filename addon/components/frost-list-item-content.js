@@ -43,31 +43,29 @@ export default Component.extend({
 
   @readOnly
   @computed('model', 'itemTypes', 'itemTypeKey')
-  typedItemComponent (model, itemTypes, itemTypeKey) {
+  _itemTypeContent (model, itemTypes, itemTypeKey) {
     if (isPresent(model) && isPresent(itemTypes) && isPresent(itemTypeKey)) {
-      const type = model.get(itemTypeKey)
+      const itemType = model.get(itemTypeKey)
 
-      if (type in itemTypes) {
-        const itemType = get(itemTypes, type)
-        const item = get(itemType, 'item')
-
-        return item
+      if (itemType in itemTypes) {
+        return get(itemTypes, itemType)
       }
     }
   },
 
   @readOnly
-  @computed('model', 'itemTypes', 'itemTypeKey')
-  typedItemExpansionComponent (model, itemTypes, itemTypeKey) {
-    if (isPresent(model) && isPresent(itemTypes) && isPresent(itemTypeKey)) {
-      const type = model.get(itemTypeKey)
+  @computed('_itemTypeContent')
+  typedItemComponent (itemTypeContent) {
+    if (isPresent(itemTypeContent)) {
+      return get(itemTypeContent, 'item')
+    }
+  },
 
-      if (type in itemTypes) {
-        const itemType = get(itemTypes, type)
-        const itemExpansion = get(itemType, 'itemExpansion')
-
-        return itemExpansion
-      }
+  @readOnly
+  @computed('_itemTypeContent')
+  typedItemExpansionComponent (itemTypeContent) {
+    if (isPresent(itemTypeContent)) {
+      return get(itemTypeContent, 'itemExpansion')
     }
   },
 
