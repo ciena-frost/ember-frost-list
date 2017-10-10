@@ -54,7 +54,7 @@ export default Component.extend({
 
   @readOnly
   @computed('_itemTypeContent')
-  typedItemComponent (itemTypeContent) {
+  _typedItem (itemTypeContent) {
     if (isPresent(itemTypeContent)) {
       return get(itemTypeContent, 'item')
     }
@@ -62,40 +62,28 @@ export default Component.extend({
 
   @readOnly
   @computed('_itemTypeContent')
-  typedItemExpansionComponent (itemTypeContent) {
+  _typedItemExpansion (itemTypeContent) {
     if (isPresent(itemTypeContent)) {
       return get(itemTypeContent, 'itemExpansion')
     }
   },
 
   @readOnly
-  @computed('typedItemComponent', 'typedItemExpansionComponent')
-  isTypedItemWithExpansion (typedItemComponent, typedItemExpansionComponent) {
-    return typedItemComponent && typedItemExpansionComponent
-  },
-
-  @readOnly
-  @computed('typedItemComponent', 'typedItemExpansionComponent')
-  isTypedItemWithoutExpansion (typedItemComponent, typedItemExpansionComponent) {
-    return typedItemComponent && !typedItemExpansionComponent
-  },
-
-  @readOnly
-  @computed('typedItemComponent', 'item')
-  itemComponent (typedItemComponent, item) {
-    if (typedItemComponent) {
-      return typedItemComponent
+  @computed('_typedItem', 'item')
+  _item (typedItem, item) {
+    if (typedItem) {
+      return typedItem
     }
 
     return item
   },
 
   @readOnly
-  @computed('isTypedItemWithExpansion', 'isTypedItemWithoutExpansion', 'typedItemExpansionComponent', 'itemExpansion')
-  _itemExpansion (isTypedItemWithExpansion, isTypedItemWithoutExpansion, typedItemExpansionComponent, itemExpansion) {
-    if (isTypedItemWithExpansion) {
-      return typedItemExpansionComponent
-    } else if (isTypedItemWithoutExpansion) {
+  @computed('_typedItem', '_typedItemExpansion', 'itemExpansion')
+  _itemExpansion (typedItem, typedItemExpansion, itemExpansion) {
+    if (this._isTypedItemWithExpansion(typedItem, typedItemExpansion)) {
+      return typedItemExpansion
+    } else if (this._isTypedItemWithoutExpansion(typedItem, typedItemExpansion)) {
       return undefined
     } else {
       return itemExpansion
@@ -103,12 +91,21 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('itemExpansion', 'isTypedItemWithExpansion', 'isTypedItemWithoutExpansion')
-  isItemExpansionVisible (itemExpansion, isTypedItemWithExpansion, isTypedItemWithoutExpansion) {
-    return (isPresent(itemExpansion) || isTypedItemWithExpansion) && !isTypedItemWithoutExpansion
-  }
+  @computed('_itemExpansion', '_typedItem', '_typedItemExpansion')
+  _isItemExpansionVisible (itemExpansion, typedItem, typedItemExpansion) {
+    return (isPresent(itemExpansion) || this._isTypedItemWithExpansion(typedItem, typedItemExpansion)) &&
+      !this._isTypedItemWithoutExpansion(typedItem, typedItemExpansion)
+  },
 
   // == Functions =============================================================
+
+  _isTypedItemWithExpansion (typedItem, typedItemExpansion) {
+    return typedItem && typedItemExpansion
+  },
+
+  _isTypedItemWithoutExpansion (typedItem, typedItemExpansion) {
+    return typedItem && !typedItemExpansion
+  }
 
   // == DOM Events ============================================================
 

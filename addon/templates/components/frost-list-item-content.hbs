@@ -7,7 +7,7 @@
   data-test={{hook (concat hook '-item-container') index=index }}
 >
   <div class='frost-list-item-container-base'>
-    {{#if isItemExpansionVisible}}
+    {{#if _isItemExpansionVisible}}
       {{frost-list-item-expansion
         hook=(concat hookPrefix '-expansion')
         hookQualifiers=(hash index=index)
@@ -29,7 +29,7 @@
       }}
     {{/if}}
 
-    {{component itemComponent
+    {{component _item
       hook=(concat hookPrefix '-item')
       hookQualifiers=(hash index=index)
       model=model.content
@@ -41,14 +41,16 @@
 
   {{#if model.states.isExpanded}}
     <div class='frost-list-item-container-expansion'>
-      {{component _itemExpansion
-        hook=(concat hookPrefix '-itemExpansion')
-        hookQualifiers=(hash index=index)
-        model=model.content
-        isExpanded=model.states.isExpanded
-        isSelected=model.states.isSelected
-        onSelect=onSelect
-      }}
+      {{#if _itemExpansion}}
+        {{component _itemExpansion
+          hook=(concat hookPrefix '-itemExpansion')
+          hookQualifiers=(hash index=index)
+          model=model.content
+          isExpanded=model.states.isExpanded
+          isSelected=model.states.isSelected
+          onSelect=onSelect
+        }}
+      {{/if}}
     </div>
   {{/if}}
 </div>
