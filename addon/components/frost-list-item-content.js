@@ -7,7 +7,6 @@ import {PropTypes} from 'ember-prop-types'
 import layout from '../templates/components/frost-list-item-content'
 
 export default Component.extend({
-
   // == Dependencies ==========================================================
 
   // == Keyword Properties ====================================================
@@ -89,6 +88,18 @@ export default Component.extend({
     }
 
     return item
+  },
+
+  @readOnly
+  @computed('isTypedItemWithExpansion', 'isTypedItemWithoutExpansion', 'typedItemExpansionComponent', 'itemExpansion')
+  _itemExpansion (isTypedItemWithExpansion, isTypedItemWithoutExpansion, typedItemExpansionComponent, itemExpansion) {
+    if (isTypedItemWithExpansion) {
+      return typedItemExpansionComponent
+    } else if (isTypedItemWithoutExpansion) {
+      return undefined
+    } else {
+      return itemExpansion
+    }
   }
 
   // == Functions =============================================================
