@@ -100,6 +100,12 @@ export default Component.extend({
     } else {
       return itemExpansion
     }
+  },
+
+  @readOnly
+  @computed('itemExpansion', 'isTypedItemWithExpansion', 'isTypedItemWithoutExpansion')
+  isItemExpansionVisible (itemExpansion, isTypedItemWithExpansion, isTypedItemWithoutExpansion) {
+    return (isPresent(itemExpansion) || isTypedItemWithExpansion) && !isTypedItemWithoutExpansion
   }
 
   // == Functions =============================================================

@@ -7,7 +7,7 @@
   data-test={{hook (concat hook '-item-container') index=index }}
 >
   <div class='frost-list-item-container-base'>
-    {{#if (and (or itemExpansion isTypedItemWithExpansion) (not isTypedItemWithoutExpansion))}}
+    {{#if isItemExpansionVisible}}
       {{frost-list-item-expansion
         hook=(concat hookPrefix '-expansion')
         hookQualifiers=(hash index=index)
