@@ -131,6 +131,18 @@ export default Component.extend({
     return false
   },
 
+  @readOnly
+  @computed('itemExpansion', 'isAnyTypedItemExpansion')
+  isExpandAllVisible (itemExpansion, isAnyTypedItemExpansion) {
+    return isPresent(itemExpansion) || isAnyTypedItemExpansion
+  },
+
+  @readOnly
+  @computed('pagination', 'isExpandAllVisible')
+  isHeaderDividerVisible (pagination, isExpandAllVisible) {
+    return pagination && isExpandAllVisible
+  },
+
   // == Functions =============================================================
 
   setShift (event) {
@@ -227,16 +239,17 @@ export default Component.extend({
 
       const itemTypes = this.get('itemTypes')
       const itemTypeKey = this.get('itemTypeKey')
+      let selectedTypesWithControls
 
-      const selectedTypesWithControls = clonedSelectedItems.reduce((typesWithControls, item) => {
-        if (isPresent(itemTypes) && isPresent(itemTypeKey)) {
+      if (isPresent(itemTypes) && isPresent(itemTypeKey)) {
+        selectedTypesWithControls = clonedSelectedItems.reduce((typesWithControls, item) => {
           const itemType = get(item, itemTypeKey)
           const itemTypeContent = getWithDefault(itemTypes, itemType, {})
           const itemTypeContentControls = getWithDefault(itemTypeContent, 'controls', [])
           typesWithControls[itemType] = itemTypeContentControls
-        }
-        return typesWithControls
-      }, {})
+          return typesWithControls
+        }, {})
+      }
 
       this.onSelectionChange(clonedSelectedItems, selectedTypesWithControls)
     }

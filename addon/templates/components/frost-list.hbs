@@ -14,11 +14,11 @@
       }}
     {{/if}}
 
-    {{#if (and pagination (or itemExpansion isAnyTypedItemExpansion))}}
+    {{#if isHeaderDividerVisible}}
       <div class='frost-list-header-divider'></div>
     {{/if}}
 
-    {{#if (or itemExpansion isAnyTypedItemExpansion)}}
+    {{#if isExpandAllVisible}}
       {{frost-list-expansion
         hook=(concat hookPrefix '-expansion')
         onCollapseAll=(action '_collapseAll')
