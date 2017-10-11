@@ -45,6 +45,14 @@ export default Component.extend({
     itemKey: PropTypes.string,
     itemTypes: PropTypes.object,
     itemTypeKey: PropTypes.string,
+    itemDefinitions: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
+    itemExpansionDefinitions: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -117,10 +125,27 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('itemTypes')
-  isAnyTypedItemExpansion (itemTypes) {
-    for (var itemType in itemTypes) {
-      const itemTypeContent = get(itemTypes, itemType)
+  @computed('itemTypes', 'itemDefinitions', 'itemExpansionDefinitions')
+  typedItemComponents (itemTypes, itemDefinitions, itemExpansionDefinitions) {
+    if (isPresent(itemTypes) && isPresent(itemDefinitions)) {
+      return Object.keys(itemTypes).reduce((componentsByType, itemType) => {
+        const itemTypeContent = get(itemTypes, itemType)
+        const itemName = get(itemTypeContent, 'item')
+        const itemExpansionName = get(itemTypeContent, 'itemExpansion')
+        componentsByType[itemType] = {
+          item: itemDefinitions[itemName],
+          itemExpansion: itemExpansionDefinitions[itemExpansionName]
+        }
+        return componentsByType
+      }, {})
+    }
+  },
+
+  @readOnly
+  @computed('typedItemComponents')
+  isAnyTypedItemExpansion (typedItemComponents) {
+    for (var itemType in typedItemComponents) {
+      const itemTypeContent = get(typedItemComponents, itemType)
       const itemExpansion = get(itemTypeContent, 'itemExpansion')
 
       if (isPresent(itemExpansion)) {

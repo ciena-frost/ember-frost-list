@@ -23,7 +23,10 @@ export default Component.extend({
 
     // Options - general
     onSelectionChange: PropTypes.func,
-    itemTypes: PropTypes.object,
+    typedItemComponents: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
     itemTypeKey: PropTypes.string,
     isAnyTypedItemExpansion: PropTypes.bool,
 
@@ -41,13 +44,13 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('model', 'itemTypes', 'itemTypeKey')
-  _itemTypeContent (model, itemTypes, itemTypeKey) {
-    if (isPresent(model) && isPresent(itemTypes) && isPresent(itemTypeKey)) {
+  @computed('model', 'typedItemComponents', 'itemTypeKey')
+  _itemTypeContent (model, typedItemComponents, itemTypeKey) {
+    if (isPresent(model) && isPresent(typedItemComponents) && isPresent(itemTypeKey)) {
       const itemType = model.get(itemTypeKey)
 
-      if (itemType in itemTypes) {
-        return get(itemTypes, itemType)
+      if (itemType in typedItemComponents) {
+        return get(typedItemComponents, itemType)
       }
     }
   },

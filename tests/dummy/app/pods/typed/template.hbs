@@ -3,14 +3,21 @@
   hook='demo'
   itemTypes=(hash
     a=(hash
-      item=(component 'list-item-type-a')
-      itemExpansion=(component 'list-item-type-a-expansion')
+      item='listItemTypeA'
+      itemExpansion='listItemTypeAExpansion'
     )
     b=(hash
-      item=(component 'list-item-type-b')
+      item='listItemTypeB'
     )
   )
   itemTypeKey='itemType'
+  itemDefinitions=(hash
+    listItemTypeA=(component 'list-item-type-a')
+    listItemTypeB=(component 'list-item-type-b')
+  )
+  itemExpansionDefinitions=(hash
+    listItemTypeAExpansion=(component 'list-item-type-a-expansion')
+  )
   item=(component 'list-item-typed')
   itemExpansion=(component 'list-item-typed-expansion')
   items=items
