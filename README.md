@@ -59,9 +59,12 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}], This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
-| `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
-| `Attribute`        | `itemTypes`            | `hash`         |       | Optional: With itemTypes set, the consumer can provide `item` and `itemExpansion` components for a particular type of list item. When used in conjunction with the `frost-object-browser` addon, the consumer can also provide a list of component names that correspond to control components given to the object browser. |
-| `Attribute`        | `itemTypeKey`            | `string`         |       | Optional: With itemTypeKey set, itemTypes.get(itemTypeKey) will be used for accessing the hash of components within `itemTypes`. Note, if `itemTypeKey` is set, then `itemKey` must also be set. |
+| `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparison, Else the default item === item comparison used. |
+| `Attribute`        | `componentKeyNamesForTypes` | `hash`    |       | Optional: With `componentKeyNamesForTypes` set, the list will render a different `item` and `itemExpansion` component for each list item, depending on its type. Must be used in conjunction with `itemDefinitions` and `itemExpansionDefinitions`. |
+| `Attribute`        | `componentKeyNames`  | `hash`           |       | Optional: With `componentKeyNames` set, these key names will be used to identify component key names in `componentKeyNamesForTypes`. Only applicable when using a list with more than one type of item. |
+| `Attribute`        | `itemTypeKey`        | `string`         |       | Optional: With `itemTypeKey` set, it will be used to identify a list item's type. It will also be used for accessing the hash of components within `componentKeyNamesForTypes`. Note, if `itemTypeKey` is set, then `itemKey` must also be set. |
+| `Attribute`        | `itemDefinitions`    | `hash`           |       | Optional: A set of components that are to be used in the list as the `item` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
+| `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 
 
 ### Infinite scroll
