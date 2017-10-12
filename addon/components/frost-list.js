@@ -166,6 +166,21 @@ export default Component.extend({
     })
   },
 
+  selectedTypesWithControls (selectedItems) {
+    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+    const itemTypeKey = this.get('itemTypeKey')
+
+    if (isPresent(componentKeyNamesForTypes) && isPresent(itemTypeKey)) {
+      return selectedItems.reduce((typesWithControls, item) => {
+        const itemType = get(item, itemTypeKey)
+        const itemTypeContent = getWithDefault(componentKeyNamesForTypes, itemType, {})
+        const itemTypeContentControls = getWithDefault(itemTypeContent, 'controls', [])
+        typesWithControls[itemType] = itemTypeContentControls
+        return typesWithControls
+      }, {})
+    }
+  },
+
   // == DOM Events ============================================================
 
   // == Lifecycle Hooks =======================================================
@@ -277,21 +292,7 @@ export default Component.extend({
         selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
       }
 
-      const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
-      const itemTypeKey = this.get('itemTypeKey')
-      let selectedTypesWithControls
-
-      if (isPresent(componentKeyNamesForTypes) && isPresent(itemTypeKey)) {
-        selectedTypesWithControls = clonedSelectedItems.reduce((typesWithControls, item) => {
-          const itemType = get(item, itemTypeKey)
-          const itemTypeContent = getWithDefault(componentKeyNamesForTypes, itemType, {})
-          const itemTypeContentControls = getWithDefault(itemTypeContent, 'controls', [])
-          typesWithControls[itemType] = itemTypeContentControls
-          return typesWithControls
-        }, {})
-      }
-
-      this.onSelectionChange(clonedSelectedItems, selectedTypesWithControls)
+      this.onSelectionChange(clonedSelectedItems, this.selectedTypesWithControls(clonedSelectedItems))
     }
   }
 })
