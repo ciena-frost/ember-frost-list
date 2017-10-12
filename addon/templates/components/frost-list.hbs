@@ -47,11 +47,9 @@
     hookQualifiers=(hash index=index)
     model=model
     index=index
-    typedItemComponents=typedItemComponents
-    itemTypeKey=itemTypeKey
     isAnyTypedItemExpansion=isAnyTypedItemExpansion
-    item=item
-    itemExpansion=itemExpansion
+    item=(get itemDefinitions (get-typed-component-name componentKeyNamesForTypes itemTypeKey model 'itemName' 'default'))
+    itemExpansion=(get-with-default itemExpansionDefinitions (get-typed-component-name componentKeyNamesForTypes itemTypeKey model 'itemExpansionName' 'default') undefined)
     onSelectionChange=onSelectionChange
     onExpand=(action '_expand')
     onSelect=(action '_select')

@@ -1,22 +1,28 @@
 {{frost-list
   class='demo'
   hook='demo'
-  itemTypes=(hash
+  componentKeyNamesForTypes=(hash
     a=(hash
-      item='listItemTypeA'
-      itemExpansion='listItemTypeAExpansion'
+      itemName='listItemTypeA'
+      itemExpansionName='listItemTypeAExpansion'
     )
     b=(hash
-      item='listItemTypeB'
+      itemName='listItemTypeB'
+    )
+    default=(hash
+      itemName='listItemTyped'
+      itemExpansionName='listItemTypedExpansion'
     )
   )
   itemTypeKey='itemType'
   itemDefinitions=(hash
     listItemTypeA=(component 'list-item-type-a')
     listItemTypeB=(component 'list-item-type-b')
+    listItemTyped=(component 'list-item-typed')
   )
   itemExpansionDefinitions=(hash
     listItemTypeAExpansion=(component 'list-item-type-a-expansion')
+    listItemTypedExpansion=(component 'list-item-typed-expansion')
   )
   item=(component 'list-item-typed')
   itemExpansion=(component 'list-item-typed-expansion')

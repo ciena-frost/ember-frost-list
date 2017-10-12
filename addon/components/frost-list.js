@@ -43,8 +43,11 @@ export default Component.extend({
     ])),
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
-    itemTypes: PropTypes.object,
     itemTypeKey: PropTypes.string,
+    componentKeyNamesForTypes: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
     itemDefinitions: PropTypes.oneOfType([
       PropTypes.EmberObject,
       PropTypes.object
@@ -88,6 +91,7 @@ export default Component.extend({
     return {
       // Options - general
       scrollTop: 0,
+      itemTypeKey: 'itemType',
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -125,28 +129,11 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('itemTypes', 'itemDefinitions', 'itemExpansionDefinitions')
-  typedItemComponents (itemTypes, itemDefinitions, itemExpansionDefinitions) {
-    if (isPresent(itemTypes) && isPresent(itemDefinitions)) {
-      return Object.keys(itemTypes).reduce((componentsByType, itemType) => {
-        const itemTypeContent = get(itemTypes, itemType)
-        const itemName = get(itemTypeContent, 'item')
-        const itemExpansionName = get(itemTypeContent, 'itemExpansion')
-        componentsByType[itemType] = {
-          item: itemDefinitions[itemName],
-          itemExpansion: itemExpansionDefinitions[itemExpansionName]
-        }
-        return componentsByType
-      }, {})
-    }
-  },
-
-  @readOnly
-  @computed('typedItemComponents')
-  isAnyTypedItemExpansion (typedItemComponents) {
-    for (var itemType in typedItemComponents) {
-      const itemTypeContent = get(typedItemComponents, itemType)
-      const itemExpansion = get(itemTypeContent, 'itemExpansion')
+  @computed('componentKeyNamesForTypes')
+  isAnyTypedItemExpansion (componentKeyNamesForTypes) {
+    for (var itemType in componentKeyNamesForTypes) {
+      const itemTypeContent = get(componentKeyNamesForTypes, itemType)
+      const itemExpansion = get(itemTypeContent, 'itemExpansionName')
 
       if (isPresent(itemExpansion)) {
         return true
@@ -214,6 +201,34 @@ export default Component.extend({
       Logger.warn('If itemTypeKey is defined, then itemKey needs to be defined as well')
     }
 
+    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+    const item = this.get('item')
+    if (!componentKeyNamesForTypes && item) {
+      const componentName = get(item, 'name')
+      this.set('componentKeyNamesForTypes', {
+        default: {
+          itemName: componentName
+        }
+      })
+      this.set('itemDefinitions', {
+        [componentName]: item
+      })
+    }
+
+    const itemExpansion = this.get('itemExpansion')
+    if (!componentKeyNamesForTypes && itemExpansion) {
+      const componentName = get(itemExpansion, 'name')
+      this.set('componentKeyNamesForTypes', {
+        default: {
+          itemName: get(item, 'name'),
+          itemExpansionName: componentName
+        }
+      })
+      this.set('itemExpansionDefinitions', {
+        [componentName]: itemExpansion
+      })
+    }
+
     this._keyHandler = this.setShift.bind(this)
     $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this._keyHandler)
   },
@@ -262,14 +277,14 @@ export default Component.extend({
         selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
       }
 
-      const itemTypes = this.get('itemTypes')
+      const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
       const itemTypeKey = this.get('itemTypeKey')
       let selectedTypesWithControls
 
-      if (isPresent(itemTypes) && isPresent(itemTypeKey)) {
+      if (isPresent(componentKeyNamesForTypes) && isPresent(itemTypeKey)) {
         selectedTypesWithControls = clonedSelectedItems.reduce((typesWithControls, item) => {
           const itemType = get(item, itemTypeKey)
-          const itemTypeContent = getWithDefault(itemTypes, itemType, {})
+          const itemTypeContent = getWithDefault(componentKeyNamesForTypes, itemType, {})
           const itemTypeContentControls = getWithDefault(itemTypeContent, 'controls', [])
           typesWithControls[itemType] = itemTypeContentControls
           return typesWithControls
