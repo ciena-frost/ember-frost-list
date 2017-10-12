@@ -98,8 +98,7 @@ export default Component.extend({
       itemTypeKey: 'itemType',
       componentKeyNames: {
         item: 'itemName',
-        itemExpansion: 'itemExpansionName',
-        controls: 'controlNames'
+        itemExpansion: 'itemExpansionName'
       },
 
       // Smoke and mirrors options
@@ -176,22 +175,6 @@ export default Component.extend({
       }
       this.set('_isShiftDown', event.shiftKey)
     })
-  },
-
-  selectedTypesWithControls (selectedItems) {
-    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
-    const itemTypeKey = this.get('itemTypeKey')
-    const componentKeyNames = this.get('componentKeyNames')
-
-    if (isPresent(componentKeyNamesForTypes) && isPresent(itemTypeKey)) {
-      return selectedItems.reduce((typesWithControls, item) => {
-        const itemType = get(item, itemTypeKey)
-        const itemTypeContent = getWithDefault(componentKeyNamesForTypes, itemType, {})
-        const itemTypeContentControls = getWithDefault(itemTypeContent, get(componentKeyNames, 'controls'), [])
-        typesWithControls[itemType] = itemTypeContentControls
-        return typesWithControls
-      }, {})
-    }
   },
 
   // == DOM Events ============================================================
@@ -308,7 +291,7 @@ export default Component.extend({
         selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
       }
 
-      this.onSelectionChange(clonedSelectedItems, this.selectedTypesWithControls(clonedSelectedItems))
+      this.onSelectionChange(clonedSelectedItems)
     }
   }
 })
