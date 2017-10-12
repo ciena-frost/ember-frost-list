@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, Logger, ObjectProxy, get, getWithDefault, isEmpty, isNone, isPresent, run} = Ember
+const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -205,11 +205,6 @@ export default Component.extend({
       this.set('_itemComparator', function (lhs, rhs) {
         return lhs === rhs
       })
-    }
-
-    const itemTypeKey = this.get('itemTypeKey')
-    if (!itemKey && itemTypeKey) {
-      Logger.warn('If itemTypeKey is defined, then itemKey needs to be defined as well')
     }
 
     const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
