@@ -48,8 +48,16 @@
     model=model
     index=index
     isAnyTypedItemExpansion=isAnyTypedItemExpansion
-    item=(get itemDefinitions (get-typed-component-name componentKeyNamesForTypes itemTypeKey model 'itemName' 'default'))
-    itemExpansion=(get-with-default itemExpansionDefinitions (get-typed-component-name componentKeyNamesForTypes itemTypeKey model 'itemExpansionName' 'default') undefined)
+    item=(get
+      itemDefinitions (get-typed-component-name
+        componentKeyNamesForTypes itemTypeKey model (get componentKeyNames 'item') 'default'
+      )
+    )
+    itemExpansion=(get-with-default
+      itemExpansionDefinitions (get-typed-component-name
+        componentKeyNamesForTypes itemTypeKey model (get componentKeyNames 'itemExpansion') 'default'
+      ) undefined
+    )
     onSelectionChange=onSelectionChange
     onExpand=(action '_expand')
     onSelect=(action '_select')

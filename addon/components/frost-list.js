@@ -44,6 +44,10 @@ export default Component.extend({
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
     itemTypeKey: PropTypes.string,
+    componentKeyNames: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
     componentKeyNamesForTypes: PropTypes.oneOfType([
       PropTypes.EmberObject,
       PropTypes.object
@@ -92,6 +96,11 @@ export default Component.extend({
       // Options - general
       scrollTop: 0,
       itemTypeKey: 'itemType',
+      componentKeyNames: {
+        item: 'itemName',
+        itemExpansion: 'itemExpansionName',
+        controls: 'controlNames'
+      },
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -131,9 +140,12 @@ export default Component.extend({
   @readOnly
   @computed('componentKeyNamesForTypes')
   isAnyTypedItemExpansion (componentKeyNamesForTypes) {
+    const componentKeyNames = this.get('componentKeyNames')
+    const itemExpansionKeyName = get(componentKeyNames, 'itemExpansion')
+
     for (var itemType in componentKeyNamesForTypes) {
       const itemTypeContent = get(componentKeyNamesForTypes, itemType)
-      const itemExpansion = get(itemTypeContent, 'itemExpansionName')
+      const itemExpansion = get(itemTypeContent, itemExpansionKeyName)
 
       if (isPresent(itemExpansion)) {
         return true
@@ -169,12 +181,13 @@ export default Component.extend({
   selectedTypesWithControls (selectedItems) {
     const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
     const itemTypeKey = this.get('itemTypeKey')
+    const componentKeyNames = this.get('componentKeyNames')
 
     if (isPresent(componentKeyNamesForTypes) && isPresent(itemTypeKey)) {
       return selectedItems.reduce((typesWithControls, item) => {
         const itemType = get(item, itemTypeKey)
         const itemTypeContent = getWithDefault(componentKeyNamesForTypes, itemType, {})
-        const itemTypeContentControls = getWithDefault(itemTypeContent, 'controls', [])
+        const itemTypeContentControls = getWithDefault(itemTypeContent, get(componentKeyNames, 'controls'), [])
         typesWithControls[itemType] = itemTypeContentControls
         return typesWithControls
       }, {})
@@ -217,12 +230,15 @@ export default Component.extend({
     }
 
     const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+    const componentKeyNames = this.get('componentKeyNames')
+    const itemComponentKey = get(componentKeyNames, 'item')
+    const itemExpansionComponentKey = get(componentKeyNames, 'itemExpansion')
     const item = this.get('item')
     if (!componentKeyNamesForTypes && item) {
       const componentName = get(item, 'name')
       this.set('componentKeyNamesForTypes', {
         default: {
-          itemName: componentName
+          [itemComponentKey]: componentName
         }
       })
       this.set('itemDefinitions', {
@@ -235,8 +251,8 @@ export default Component.extend({
       const componentName = get(itemExpansion, 'name')
       this.set('componentKeyNamesForTypes', {
         default: {
-          itemName: get(item, 'name'),
-          itemExpansionName: componentName
+          [itemComponentKey]: get(item, 'name'),
+          [itemExpansionComponentKey]: componentName
         }
       })
       this.set('itemExpansionDefinitions', {
