@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run} = Ember
+const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -175,6 +175,41 @@ export default Component.extend({
     })
   },
 
+  setDefaultItem () {
+    const item = this.get('item')
+    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+
+    if (item && !componentKeyNamesForTypes) {
+      const componentKeyNames = this.get('componentKeyNames')
+      const itemComponentKey = get(componentKeyNames, 'item')
+      const componentName = get(item, 'name')
+      this.set('componentKeyNamesForTypes', {
+        default: {
+          [itemComponentKey]: componentName
+        }
+      })
+      this.set('itemDefinitions', {
+        [componentName]: item
+      })
+    }
+  },
+
+  setDefaultItemExpansion () {
+    const itemExpansion = this.get('itemExpansion')
+    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+
+    if (itemExpansion && componentKeyNamesForTypes) {
+      const componentKeyNames = this.get('componentKeyNames')
+      const itemExpansionComponentKey = get(componentKeyNames, 'itemExpansion')
+      const defaultComponentNames = get(componentKeyNamesForTypes, 'default')
+      const componentName = get(itemExpansion, 'name')
+      set(defaultComponentNames, itemExpansionComponentKey, componentName)
+      this.set('itemExpansionDefinitions', {
+        [componentName]: itemExpansion
+      })
+    }
+  },
+
   // == DOM Events ============================================================
 
   // == Lifecycle Hooks =======================================================
@@ -205,35 +240,9 @@ export default Component.extend({
       })
     }
 
-    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
-    const componentKeyNames = this.get('componentKeyNames')
-    const itemComponentKey = get(componentKeyNames, 'item')
-    const itemExpansionComponentKey = get(componentKeyNames, 'itemExpansion')
-    const item = this.get('item')
-    if (!componentKeyNamesForTypes && item) {
-      const componentName = get(item, 'name')
-      this.set('componentKeyNamesForTypes', {
-        default: {
-          [itemComponentKey]: componentName
-        }
-      })
-      this.set('itemDefinitions', {
-        [componentName]: item
-      })
-    }
-
-    const itemExpansion = this.get('itemExpansion')
-    if (!componentKeyNamesForTypes && itemExpansion) {
-      const componentName = get(itemExpansion, 'name')
-      this.set('componentKeyNamesForTypes', {
-        default: {
-          [itemComponentKey]: get(item, 'name'),
-          [itemExpansionComponentKey]: componentName
-        }
-      })
-      this.set('itemExpansionDefinitions', {
-        [componentName]: itemExpansion
-      })
+    if (!this.get('componentKeyNamesForTypes')) {
+      this.setDefaultItem()
+      this.setDefaultItemExpansion()
     }
 
     this._keyHandler = this.setShift.bind(this)
