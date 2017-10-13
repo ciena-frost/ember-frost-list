@@ -137,16 +137,20 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('componentKeyNamesForTypes')
-  isAnyTypedItemExpansion (componentKeyNamesForTypes) {
+  @computed('itemExpansion', 'componentKeyNamesForTypes')
+  isAnyItemExpansion (itemExpansion, componentKeyNamesForTypes) {
+    if (isPresent(itemExpansion)) {
+      return true
+    }
+
     const componentKeyNames = this.get('componentKeyNames')
     const itemExpansionKeyName = get(componentKeyNames, 'itemExpansion')
 
-    for (var itemType in componentKeyNamesForTypes) {
+    for (let itemType in componentKeyNamesForTypes) {
       const itemTypeContent = get(componentKeyNamesForTypes, itemType)
-      const itemExpansion = get(itemTypeContent, itemExpansionKeyName)
+      const typedItemExpansion = get(itemTypeContent, itemExpansionKeyName)
 
-      if (isPresent(itemExpansion)) {
+      if (isPresent(typedItemExpansion)) {
         return true
       }
     }
@@ -155,15 +159,9 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('itemExpansion', 'isAnyTypedItemExpansion')
-  isExpandAllVisible (itemExpansion, isAnyTypedItemExpansion) {
-    return isPresent(itemExpansion) || isAnyTypedItemExpansion
-  },
-
-  @readOnly
-  @computed('pagination', 'isExpandAllVisible')
-  isHeaderDividerVisible (pagination, isExpandAllVisible) {
-    return pagination && isExpandAllVisible
+  @computed('pagination', 'isAnyItemExpansion')
+  isHeaderDividerVisible (pagination, isAnyItemExpansion) {
+    return pagination && isAnyItemExpansion
   },
 
   // == Functions =============================================================

@@ -3,7 +3,7 @@
     (if (eq index 0) ' first')
     (if (eq index (sub _items.length 1)) ' last')
     (if model.states.isSelected ' is-selected')
-    (if (and isAnyTypedItemExpansion (not itemExpansion)) ' is-any-expansion')
+    (if (and isAnyItemExpansion (not itemExpansion)) ' no-expansion')
   }}
   data-test={{hook (concat hook '-item-container') index=index }}
 >

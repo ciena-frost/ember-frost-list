@@ -18,7 +18,7 @@
       <div class='frost-list-header-divider'></div>
     {{/if}}
 
-    {{#if isExpandAllVisible}}
+    {{#if isAnyItemExpansion}}
       {{frost-list-expansion
         hook=(concat hookPrefix '-expansion')
         onCollapseAll=(action '_collapseAll')
@@ -47,7 +47,7 @@
     hookQualifiers=(hash index=index)
     model=model
     index=index
-    isAnyTypedItemExpansion=isAnyTypedItemExpansion
+    isAnyItemExpansion=isAnyItemExpansion
     item=(get
       itemDefinitions (get-typed-component-name
         componentKeyNamesForTypes itemTypeKey model (get componentKeyNames 'item') 'default'

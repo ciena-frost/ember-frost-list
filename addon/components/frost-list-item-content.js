@@ -20,7 +20,7 @@ export default Component.extend({
 
     // Options - general
     onSelectionChange: PropTypes.func,
-    isAnyTypedItemExpansion: PropTypes.bool,
+    isAnyItemExpansion: PropTypes.bool,
 
     // Options - sub-components
     item: PropTypes.EmberComponent.isRequired,
@@ -29,7 +29,7 @@ export default Component.extend({
 
   getDefaultProps () {
     return {
-      isAnyTypedItemExpansion: false
+      isAnyItemExpansion: false
     }
   }
 
