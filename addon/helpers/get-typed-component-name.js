@@ -5,7 +5,7 @@ export function getTypedComponentName ([componentKeyNamesForTypes, itemTypeKey, 
   const type = get(model, itemTypeKey)
 
   // Get the set of key names for this type (ex. item, itemExpansion, etc.)
-  let componentKeyNames = get(componentKeyNamesForTypes, type)
+  let componentKeyNames = type ? get(componentKeyNamesForTypes, type) : undefined
 
   // If there are no key names for this type, fall back to default set of key names
   if (!componentKeyNames) {
