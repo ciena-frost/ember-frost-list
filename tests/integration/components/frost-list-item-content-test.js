@@ -22,6 +22,7 @@ describe(test.label, function () {
   describe('renders frost-list-item-content', function () {
     beforeEach(function () {
       registerMockComponent(this, 'mock-list-item')
+      registerMockComponent(this, 'mock-list-item-expansion')
 
       this.setProperties({
         model: Ember.Object.create({id: '0'}),
@@ -39,6 +40,7 @@ describe(test.label, function () {
           onExpand=onExpand
           onSelect=onSelect
           item=(component 'mock-list-item')
+          itemExpansion=(component 'mock-list-item-expansion')
         }}
       `)
 
@@ -47,6 +49,7 @@ describe(test.label, function () {
 
     afterEach(function () {
       unregisterMockComponent(this, 'mock-list-item')
+      unregisterMockComponent(this, 'mock-list-item-expansion')
     })
 
     it('sets "frost-list-item-content" class', function () {
@@ -55,6 +58,18 @@ describe(test.label, function () {
 
     it('creates one list item content', function () {
       expect($hook('myListItemContent', {index: 0})).to.have.length(1)
+    })
+
+    it('concatenates the -item-container hook property', function () {
+      expect($hook('myListItemContent-item-container', {index: 0})).to.have.length(1)
+    })
+
+    it('concatenates the -item hook property', function () {
+      expect($hook('myListItemContent-item', {index: 0})).to.have.length(1)
+    })
+
+    it('concatenates the -expnansion hook property', function () {
+      expect($hook('myListItemContent-expansion', {index: 0})).to.have.length(1)
     })
   })
 })
