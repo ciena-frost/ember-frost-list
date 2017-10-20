@@ -60,7 +60,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
 | `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
-| `Attribute`        | `size`               | `string`         |       | Optional: Size can take either "small" or "medium". With size set to "small", list will provide a compressed list item view. This attribute gets ignored when defaultHeight is provided. |
+| `Attribute`        | `size`               | `string`         |       | Optional: Defaults to "medium", and can take either "small" or "medium". With size set to "small", list will provide a compressed list item view. This attribute gets ignored when defaultHeight is provided. |
 ### Infinite scroll
 
 | parameters type | Attribute | Type | Description |

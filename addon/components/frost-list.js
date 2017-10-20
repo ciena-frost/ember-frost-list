@@ -119,18 +119,25 @@ export default Component.extend({
   @readOnly
   @computed('defaultHeight', 'size')
   listRowHeight (defaultHeight, size) {
+    let listRowHeight
+
     if (isPresent(defaultHeight)) {
-      return defaultHeight
+      listRowHeight = defaultHeight
+    } else {
+      switch (size) {
+        case 'medium':
+          listRowHeight = 50
+          break
+        case 'small':
+          listRowHeight = 30
+          break
+        default:
+          listRowHeight = 50
+          break
+      }
     }
 
-    switch (size) {
-      case 'medium':
-        return 50
-      case 'small':
-        return 30
-      default:
-        return 50
-    }
+    return listRowHeight
   },
 
   @readOnly

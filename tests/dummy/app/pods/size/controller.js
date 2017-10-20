@@ -13,8 +13,8 @@ export default Controller.extend({
 
   // == Properties ============================================================
 
-  expandedItems: A([]),
-  selectedItems: A([]),
+  expandedItems: A(),
+  selectedItems: A(),
   sortOrder: A(['-id']),
   sortingProperties: [
     {label: 'Id', value: 'id'},
