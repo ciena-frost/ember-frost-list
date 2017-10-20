@@ -68,7 +68,6 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 
 
->>>>>>> cc90c3107e5d88e81b88119af521d6e4775e8aac
 ### Infinite scroll
 
 | parameters type | Attribute | Type | Description |
