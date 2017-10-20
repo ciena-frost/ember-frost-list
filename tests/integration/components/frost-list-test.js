@@ -127,6 +127,30 @@ describe(test.label, function () {
     })
   })
 
+  describe('renders frost-list with size sets to invalid value', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          size='size'
+        }}
+      `)
+      return wait()
+    })
+
+    it('sets "frost-list-item" row height to default 50px', function () {
+      expect($hook('myList-item-container').height()).to.equal(50)
+    })
+  })
+
   describe('renders frost-list with defaultHeight=60', function () {
     beforeEach(function () {
       const list = A([
