@@ -59,8 +59,16 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}], This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
-| `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparision, Else the default item === item comparison used. |
+| `Attribute`        | `itemKey`            | `string`         |       | Optional: With itemKey set, item.get(itemKey) will be used for comparison, Else the default item === item comparison used. |
 | `Attribute`        | `size`               | `string`         |       | Optional: Defaults to "medium", and can take either "small" or "medium". With size set to "small", list will provide a compressed list item view. This attribute gets ignored when defaultHeight is provided. |
+| `Attribute`        | `componentKeyNamesForTypes` | `hash`    |       | Optional: With `componentKeyNamesForTypes` set, the list will render a different `item` and `itemExpansion` component for each list item, depending on its type. Must be used in conjunction with `itemDefinitions` and `itemExpansionDefinitions`. |
+| `Attribute`        | `componentKeyNames`  | `hash`           |       | Optional: With `componentKeyNames` set, these key names will be used to identify component key names in `componentKeyNamesForTypes`. Only applicable when using a list with more than one type of item. |
+| `Attribute`        | `itemTypeKey`        | `string`         |       | Optional: With `itemTypeKey` set, it will be used to identify a list item's type. It will also be used for accessing the hash of components within `componentKeyNamesForTypes`. |
+| `Attribute`        | `itemDefinitions`    | `hash`           |       | Optional: A set of components that are to be used in the list as the `item` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
+| `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
+
+
+>>>>>>> cc90c3107e5d88e81b88119af521d6e4775e8aac
 ### Infinite scroll
 
 | parameters type | Attribute | Type | Description |
@@ -113,6 +121,18 @@ actions: {
 }
 ```
 
+## Testing with ember-hook
+
+The list component is accessible using ember-hook:
+
+* Top level hook - `$hook('<hook-name>')`
+* Frost list pagination - `$hook('<hook-name>-pagination')`
+* Frost list expansion - `$hook('<hook-name>-expansion')`
+* Frost list content container - `$hook('<hook-name>-contentContainer')`
+* Frost list item content - `$hook('<hook-name>-itemContent')`
+* Frost list item - `$hook('<hook-name>-itemContent-item')`
+* Frost list item expansion - `$hook('<hook-name>-itemContent-itemExpansion')`
+* Frost list item selection - `$hook('<hook-name>-itemContent-selection')`
 
 ## Examples
 

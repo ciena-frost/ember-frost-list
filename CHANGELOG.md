@@ -1,3 +1,16 @@
+# 6.0.0 (2017-10-20)
+
+* Added a new frost-list-item-content component
+* Added support for rendering different list-item and list-item-expansion components based on a set of types via new `itemTypes` property
+* Added support for rendering different controls based on list-item type
+* Added support for consumer-defined list-item type via new `itemTypeKey` property
+* Added a warning if consumer defines `itemTypeKey` property but not `itemKey` property
+* Changed hook from `-item` to `-itemContent-item` for list-item component
+* Changed hook from `-expansion` to `-itemContent-expansion` for frost-list-item-expansion component
+* Changed hook from `-selection` to `-itemContent-selection` for frost-list-item-selection component
+* Changed hook from `-item-container` to `-itemContent-item-container` for frost-list-item-container DOM element
+* Changed hook from `-item` to `-itemExpansion` for list-item-expansion component
+
 # 5.8.2 (2017-08-11)
 * **Updated** ember-cli 2.12.3 inter-dependencies
 

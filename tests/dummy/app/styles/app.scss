@@ -1,6 +1,11 @@
 @import 'node_modules/ember-frost-core/addon/styles/frost-theme';
 @import 'tests/dummy/app/pods/components/list-item/styles';
+@import 'tests/dummy/app/pods/components/list-item-typed/styles';
+@import 'tests/dummy/app/pods/components/list-item-type-a/styles';
+@import 'tests/dummy/app/pods/components/list-item-type-b/styles';
 @import 'tests/dummy/app/pods/components/list-item-expansion/styles';
+@import 'tests/dummy/app/pods/components/list-item-typed-expansion/styles';
+@import 'tests/dummy/app/pods/components/list-item-type-a-expansion/styles';
 
 // List sizing for demos
 
