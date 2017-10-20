@@ -1,3 +1,15 @@
+# 6.1.0 (2017-10-20)
+* **Removed** default value for `defaultHeight` property.
+* **Updated** `smoke-and-mirror` to consume `listRowHeight` instead of `defaultHeight`.
+* **Updated** `frost-checkbox` in `frost-list-item-section`, now it reacts to `size`.
+* **Updated** `frost-list-item-container-base` to generate its height based on `listRowHeight`.
+ * **Added** new interface `size` that defaults to `medium`.
+ * **Added** new computed property `listRowHeight` calculates based on `defaultHeight` and `size`.
+
+
+
+
+
 # 6.0.0 (2017-10-20)
 
 * Added a new frost-list-item-content component
