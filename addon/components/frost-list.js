@@ -175,6 +175,15 @@ export default Component.extend({
     })
   },
 
+  legacyComponentName (component) {
+    return Object.keys(component).reduce((accumulator, key) => {
+      if (key.indexOf('__COMPONENT_PATH__') > -1) {
+        accumulator = component[key]
+      }
+      return accumulator
+    }, '')
+  },
+
   setDefaultItem () {
     const item = this.get('item')
     const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
@@ -182,7 +191,13 @@ export default Component.extend({
     if (item && !componentKeyNamesForTypes) {
       const componentKeyNames = this.get('componentKeyNames')
       const itemComponentKey = get(componentKeyNames, 'item')
-      const componentName = get(item, 'name')
+      let componentName = get(item, 'name')
+
+      // Necessary to support Ember 2.8-LTS
+      if (!componentName) {
+        componentName = this.legacyComponentName(item)
+      }
+
       this.set('componentKeyNamesForTypes', {
         default: {
           [itemComponentKey]: componentName
@@ -202,7 +217,13 @@ export default Component.extend({
       const componentKeyNames = this.get('componentKeyNames')
       const itemExpansionComponentKey = get(componentKeyNames, 'itemExpansion')
       const defaultComponentNames = get(componentKeyNamesForTypes, 'default')
-      const componentName = get(itemExpansion, 'name')
+      let componentName = get(itemExpansion, 'name')
+
+      // Necessary to support Ember 2.8-LTS
+      if (!componentName) {
+        componentName = this.legacyComponentName(itemExpansion)
+      }
+
       set(defaultComponentNames, itemExpansionComponentKey, componentName)
       this.set('itemExpansionDefinitions', {
         [componentName]: itemExpansion
