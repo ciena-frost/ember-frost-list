@@ -52,10 +52,8 @@ describe(test.label, function () {
     })
   })
 
-  describe('when item component is set', function () {
+  describe('renders frost-list-item', function () {
     beforeEach(function () {
-      registerMockComponent(this, 'mock-list-item')
-
       const list = A([
         Ember.Object.create({id: '0'})
       ])
@@ -64,16 +62,12 @@ describe(test.label, function () {
 
       this.render(hbs`
         {{frost-list
-          item=(component 'mock-list-item')
+          item=(component 'frost-list-item')
           items=items
           hook='myList'
         }}
       `)
       return wait()
-    })
-
-    afterEach(function () {
-      unregisterMockComponent(this, 'mock-list-item')
     })
 
     it('sets "frost-list" class', function () {
