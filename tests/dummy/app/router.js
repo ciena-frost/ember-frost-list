@@ -14,6 +14,7 @@ Router.map(function () {
   })
   this.route('infinite')
   this.route('paged')
+  this.route('size')
   this.route('typed')
 })
 

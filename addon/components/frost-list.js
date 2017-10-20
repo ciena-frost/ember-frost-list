@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run, set} = Ember
+const {$, A, ObjectProxy, String: EmberString, get, isEmpty, isNone, isPresent, run, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -48,6 +48,7 @@ export default Component.extend({
     ])),
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
+    size: PropTypes.string,
     itemTypeKey: PropTypes.string,
     componentKeyNames: PropTypes.oneOfType([
       PropTypes.EmberObject,
@@ -73,6 +74,7 @@ export default Component.extend({
     // Options - infinite scroll
     onLoadNext: PropTypes.func,
     onLoadPrevious: PropTypes.func,
+
     // Smoke and mirrors
     alwaysUseDefaultHeight: PropTypes.bool,
     bufferSize: PropTypes.number,
@@ -100,6 +102,7 @@ export default Component.extend({
     return {
       // Options - general
       scrollTop: 0,
+      size: 'medium',
       itemTypeKey: 'itemType',
       componentKeyNames: {
         item: 'itemName',
@@ -109,7 +112,6 @@ export default Component.extend({
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
       bufferSize: 10,
-      defaultHeight: 50,
 
       // State
       _rangeState: {
@@ -139,6 +141,36 @@ export default Component.extend({
         }
       })
     })
+  },
+
+  @readOnly
+  @computed('defaultHeight', 'size')
+  listRowHeight (defaultHeight, size) {
+    let listRowHeight
+
+    if (isPresent(defaultHeight)) {
+      listRowHeight = defaultHeight
+    } else {
+      switch (size) {
+        case 'medium':
+          listRowHeight = 50
+          break
+        case 'small':
+          listRowHeight = 30
+          break
+        default:
+          listRowHeight = 50
+          break
+      }
+    }
+
+    return listRowHeight
+  },
+
+  @readOnly
+  @computed('listRowHeight')
+  listRowHeightString (listRowHeight) {
+    return EmberString.htmlSafe(`height:${listRowHeight}px`)
   },
 
   @readOnly

@@ -79,6 +79,127 @@ describe(test.label, function () {
     })
   })
 
+  describe('renders frost-list with size=medium', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          size='medium'
+        }}
+      `)
+      return wait()
+    })
+
+    it('sets "frost-list-item" row height to 50px', function () {
+      expect($hook('myList-itemContent-item-container').height()).to.equal(50)
+    })
+  })
+
+  describe('renders frost-list with size=small', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          size='small'
+        }}
+      `)
+      return wait()
+    })
+
+    it('sets "frost-list-item" row height to 30px', function () {
+      expect($hook('myList-itemContent-item-container').height()).to.equal(30)
+    })
+  })
+
+  describe('renders frost-list with size sets to invalid value', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          size='size'
+        }}
+      `)
+      return wait()
+    })
+
+    it('sets "frost-list-item" row height to default 50px', function () {
+      expect($hook('myList-itemContent-item-container').height()).to.equal(50)
+    })
+  })
+
+  describe('renders frost-list with defaultHeight=60', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          defaultHeight=60
+        }}
+      `)
+      return wait()
+    })
+
+    it('sets "frost-list-item" row height to 60px.', function () {
+      expect($hook('myList-itemContent-item-container').height()).to.equal(60)
+    })
+  })
+
+  describe('renders frost-list with size=small and defaultHeight=60', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          item=(component 'frost-list-item')
+          items=items
+          hook='myList'
+          defaultHeight=60
+          size='small'
+        }}
+      `)
+      return wait()
+    })
+
+    it('size attribute gets ignored.', function () {
+      expect($hook('myList-itemContent-item-container').height()).to.equal(60)
+    })
+  })
+
   describe('when sort component is set', function () {
     beforeEach(function () {
       registerMockComponent(this, 'mock-sort')

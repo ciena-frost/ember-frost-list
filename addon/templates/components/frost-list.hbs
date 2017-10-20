@@ -32,7 +32,7 @@
 {{#frost-list-content-container
   alwaysUseDefaultHeight=alwaysUseDefaultHeight
   bufferSize=bufferSize
-  defaultHeight=defaultHeight
+  defaultHeight=listRowHeight
   hook=(concat hookPrefix '-contentContainer')
   items=_items
   itemKey=itemKey
@@ -47,6 +47,7 @@
     hookQualifiers=(hash index=index)
     model=model
     index=index
+    listRowHeightString=listRowHeightString
     isAnyItemExpansion=isAnyItemExpansion
     item=(get
       itemDefinitions (get-typed-component-name

@@ -7,7 +7,7 @@
   }}
   data-test={{hook (concat hook '-item-container') index=index }}
 >
-  <div class='frost-list-item-container-base'>
+  <div class='frost-list-item-container-base' style={{listRowHeightString}}>
     {{#if itemExpansion}}
       {{frost-list-item-expansion
         hook=(concat hookPrefix '-expansion')
@@ -25,6 +25,7 @@
         model=model.content
         isSelected=model.states.isSelected
         onSelect=onSelect
+        size=size
       }}
     {{/if}}
 
