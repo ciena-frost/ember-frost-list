@@ -11,6 +11,8 @@ import {PropTypes} from 'ember-prop-types'
 
 import layout from '../templates/components/frost-list'
 
+import getComponentName from '../utils/get-component-name'
+
 export default Component.extend({
 
   // == Dependencies ==========================================================
@@ -178,15 +180,6 @@ export default Component.extend({
     })
   },
 
-  legacyComponentName (component) {
-    return Object.keys(component).reduce((accumulator, key) => {
-      if (key.indexOf('__COMPONENT_PATH__') > -1) {
-        accumulator = component[key]
-      }
-      return accumulator
-    }, '')
-  },
-
   setDefaultItem () {
     const item = this.get('item')
     const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
@@ -194,12 +187,7 @@ export default Component.extend({
     if (item && !componentKeyNamesForTypes) {
       const componentKeyNames = this.get('componentKeyNames')
       const itemComponentKey = get(componentKeyNames, 'item')
-      let componentName = get(item, 'name')
-
-      // Necessary to support Ember 2.8-LTS
-      if (!componentName) {
-        componentName = this.legacyComponentName(item)
-      }
+      let componentName = getComponentName(item)
 
       this.set('componentKeyNamesForTypes', {
         default: {
@@ -220,12 +208,7 @@ export default Component.extend({
       const componentKeyNames = this.get('componentKeyNames')
       const itemExpansionComponentKey = get(componentKeyNames, 'itemExpansion')
       const defaultComponentNames = get(componentKeyNamesForTypes, 'default')
-      let componentName = get(itemExpansion, 'name')
-
-      // Necessary to support Ember 2.8-LTS
-      if (!componentName) {
-        componentName = this.legacyComponentName(itemExpansion)
-      }
+      let componentName = getComponentName(itemExpansion)
 
       set(defaultComponentNames, itemExpansionComponentKey, componentName)
       this.set('itemExpansionDefinitions', {
