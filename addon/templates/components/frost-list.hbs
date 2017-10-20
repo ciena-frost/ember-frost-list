@@ -32,7 +32,7 @@
 {{#frost-list-content-container
   alwaysUseDefaultHeight=alwaysUseDefaultHeight
   bufferSize=bufferSize
-  defaultHeight=defaultHeight
+  defaultHeight=listRowHeight
   hook=(concat hookPrefix '-contentContainer')
   items=_items
   itemKey=itemKey
@@ -50,7 +50,7 @@
     }}
     data-test={{hook (concat hook '-item-container') index=index }}
   >
-    <div class='frost-list-item-container-base'>
+    <div class='frost-list-item-container-base' style={{listRowHeightString}}>
       {{#if itemExpansion}}
         {{frost-list-item-expansion
           hook=(concat hookPrefix '-expansion')
@@ -67,6 +67,7 @@
           hookQualifiers=(hash index=index)
           model=model.content
           isSelected=model.states.isSelected
+          size=size
           onSelect=(action '_select')
         }}
       {{/if}}

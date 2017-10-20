@@ -34,6 +34,7 @@ describe(test.label, function () {
         hook=hook
         isSelected=model.states.isSelected
         model=model
+        size='medium'
         onSelect=(action 'selectAction')
       }}
     `)

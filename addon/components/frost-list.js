@@ -3,7 +3,7 @@
  */
 
 import Ember from 'ember'
-const {$, A, ObjectProxy, get, isEmpty, isNone, run} = Ember
+const {$, A, ObjectProxy, String: EmberString, get, isEmpty, isNone, isPresent, run} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
@@ -43,6 +43,7 @@ export default Component.extend({
     ])),
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
+    size: PropTypes.string,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -51,6 +52,7 @@ export default Component.extend({
     // Options - infinite scroll
     onLoadNext: PropTypes.func,
     onLoadPrevious: PropTypes.func,
+
     // Smoke and mirrors
     alwaysUseDefaultHeight: PropTypes.bool,
     bufferSize: PropTypes.number,
@@ -78,11 +80,11 @@ export default Component.extend({
     return {
       // Options - general
       scrollTop: 0,
+      size: 'medium',
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
       bufferSize: 10,
-      defaultHeight: 50,
 
       // State
       _rangeState: {
@@ -112,6 +114,29 @@ export default Component.extend({
         }
       })
     })
+  },
+
+  @readOnly
+  @computed('defaultHeight', 'size')
+  listRowHeight (defaultHeight, size) {
+    if (isPresent(defaultHeight)) {
+      return defaultHeight
+    }
+
+    switch (size) {
+      case 'medium':
+        return 50
+      case 'small':
+        return 30
+      default:
+        return 50
+    }
+  },
+
+  @readOnly
+  @computed('listRowHeight')
+  listRowHeightString (listRowHeight) {
+    return EmberString.htmlSafe(`height:${listRowHeight}px`)
   },
 
   // == Functions =============================================================

@@ -82,10 +82,20 @@ $frost-modal-demos-shadow-color: rgba(0, 0, 0, .13);
 .frost-modal-demo-example {
   display: flex;
   flex: 1;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
   padding-left: 20px;
   background-color: $frost-color-lgrey-3;
+
+  .example-block {
+    .title {
+      color: $frost-color-grey-3;
+      font-weight: 500;      
+    }
+  }
+  .example-block ~ .example-block {
+    margin-top: 50px;
+  }
 }
 
 .frost-modal-demo-api,

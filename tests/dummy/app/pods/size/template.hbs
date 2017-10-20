@@ -1,0 +1,41 @@
+<div class='example-block'>
+  <div class='title'>Default view</div>
+  {{frost-list
+    class='demo'
+    hook='demo'
+    item=(component 'list-item')
+    itemExpansion=(component 'list-item-expansion')
+    items=items
+    expandedItems=expandedItems
+    selectedItems=selectedItems
+    onExpansionChange=(action 'onExpansionChange')
+    onSelectionChange=(action 'onSelectionChange')
+    sorting=(component 'frost-sort'
+      sortOrder=sortOrder
+      sortingProperties=sortingProperties
+      onChange=(action 'onSortingChange')
+    )
+  }}
+</div>
+
+<div class='example-block'>
+  <div class='title'>Small view</div>
+
+  {{frost-list
+    class='demo'
+    hook='demo'
+    item=(component 'list-item')
+    itemExpansion=(component 'list-item-expansion')
+    items=items
+    expandedItems=expandedItems
+    selectedItems=selectedItems
+    size='small'
+    onExpansionChange=(action 'onExpansionChange')
+    onSelectionChange=(action 'onSelectionChange')
+    sorting=(component 'frost-sort'
+      sortOrder=sortOrder
+      sortingProperties=sortingProperties
+      onChange=(action 'onSortingChange')
+    )
+  }}
+</div>
