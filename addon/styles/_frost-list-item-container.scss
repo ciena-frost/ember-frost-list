@@ -16,6 +16,10 @@
     z-index: 1;
   }
 
+  &.no-expansion {
+    padding-left: 35px;
+  }
+
 
   // The last list item container is given a class so that it can be targeted
   // This is primarily to support the case where additional bottom margin needs

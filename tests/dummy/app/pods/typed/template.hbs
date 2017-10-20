@@ -1,0 +1,39 @@
+{{frost-list
+  class='demo'
+  hook='demo'
+  componentKeyNamesForTypes=(hash
+    a=(hash
+      itemName='listItemTypeA'
+      itemExpansionName='listItemTypeAExpansion'
+    )
+    b=(hash
+      itemName='listItemTypeB'
+    )
+    default=(hash
+      itemName='listItemTyped'
+      itemExpansionName='listItemTypedExpansion'
+    )
+  )
+  itemTypeKey='itemType'
+  itemDefinitions=(hash
+    listItemTypeA=(component 'list-item-type-a')
+    listItemTypeB=(component 'list-item-type-b')
+    listItemTyped=(component 'list-item-typed')
+  )
+  itemExpansionDefinitions=(hash
+    listItemTypeAExpansion=(component 'list-item-type-a-expansion')
+    listItemTypedExpansion=(component 'list-item-typed-expansion')
+  )
+  item=(component 'list-item-typed')
+  itemExpansion=(component 'list-item-typed-expansion')
+  items=items
+  expandedItems=expandedItems
+  selectedItems=selectedItems
+  onExpansionChange=(action 'onExpansionChange')
+  onSelectionChange=(action 'onSelectionChange')
+  sorting=(component 'frost-sort'
+    sortOrder=sortOrder
+    sortingProperties=sortingProperties
+    onChange=(action 'onSortingChange')
+  )
+}}

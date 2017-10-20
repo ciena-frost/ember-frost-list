@@ -3,13 +3,15 @@
  */
 
 import Ember from 'ember'
-const {$, A, ObjectProxy, get, isEmpty, isNone, run} = Ember
+const {$, A, ObjectProxy, get, isEmpty, isNone, isPresent, run, set} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
 import {PropTypes} from 'ember-prop-types'
 
 import layout from '../templates/components/frost-list'
+
+import getComponentName from '../utils/get-component-name'
 
 export default Component.extend({
 
@@ -35,7 +37,10 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ])),
-    itemExpansion: PropTypes.EmberComponent,
+    itemExpansion: PropTypes.oneOfType([
+      PropTypes.null,
+      PropTypes.EmberComponent
+    ]),
     scrollTop: PropTypes.number,
     selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
       PropTypes.EmberObject,
@@ -43,6 +48,23 @@ export default Component.extend({
     ])),
     onSelectionChange: PropTypes.func,
     itemKey: PropTypes.string,
+    itemTypeKey: PropTypes.string,
+    componentKeyNames: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
+    componentKeyNamesForTypes: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
+    itemDefinitions: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
+    itemExpansionDefinitions: PropTypes.oneOfType([
+      PropTypes.EmberObject,
+      PropTypes.object
+    ]),
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -78,6 +100,11 @@ export default Component.extend({
     return {
       // Options - general
       scrollTop: 0,
+      itemTypeKey: 'itemType',
+      componentKeyNames: {
+        item: 'itemName',
+        itemExpansion: 'itemExpansionName'
+      },
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -114,6 +141,34 @@ export default Component.extend({
     })
   },
 
+  @readOnly
+  @computed('itemExpansion', 'componentKeyNamesForTypes')
+  isAnyItemExpansion (itemExpansion, componentKeyNamesForTypes) {
+    if (isPresent(itemExpansion)) {
+      return true
+    }
+
+    const componentKeyNames = this.get('componentKeyNames')
+    const itemExpansionKeyName = get(componentKeyNames, 'itemExpansion')
+
+    for (let itemType in componentKeyNamesForTypes) {
+      const itemTypeContent = get(componentKeyNamesForTypes, itemType)
+      const typedItemExpansion = get(itemTypeContent, itemExpansionKeyName)
+
+      if (isPresent(typedItemExpansion)) {
+        return true
+      }
+    }
+
+    return false
+  },
+
+  @readOnly
+  @computed('pagination', 'isAnyItemExpansion')
+  isHeaderDividerVisible (pagination, isAnyItemExpansion) {
+    return pagination && isAnyItemExpansion
+  },
+
   // == Functions =============================================================
 
   setShift (event) {
@@ -123,6 +178,43 @@ export default Component.extend({
       }
       this.set('_isShiftDown', event.shiftKey)
     })
+  },
+
+  setDefaultItem () {
+    const item = this.get('item')
+    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+
+    if (item && !componentKeyNamesForTypes) {
+      const componentKeyNames = this.get('componentKeyNames')
+      const itemComponentKey = get(componentKeyNames, 'item')
+      let componentName = getComponentName(item)
+
+      this.set('componentKeyNamesForTypes', {
+        default: {
+          [itemComponentKey]: componentName
+        }
+      })
+      this.set('itemDefinitions', {
+        [componentName]: item
+      })
+    }
+  },
+
+  setDefaultItemExpansion () {
+    const itemExpansion = this.get('itemExpansion')
+    const componentKeyNamesForTypes = this.get('componentKeyNamesForTypes')
+
+    if (itemExpansion && componentKeyNamesForTypes) {
+      const componentKeyNames = this.get('componentKeyNames')
+      const itemExpansionComponentKey = get(componentKeyNames, 'itemExpansion')
+      const defaultComponentNames = get(componentKeyNamesForTypes, 'default')
+      let componentName = getComponentName(itemExpansion)
+
+      set(defaultComponentNames, itemExpansionComponentKey, componentName)
+      this.set('itemExpansionDefinitions', {
+        [componentName]: itemExpansion
+      })
+    }
   },
 
   // == DOM Events ============================================================
@@ -153,6 +245,11 @@ export default Component.extend({
       this.set('_itemComparator', function (lhs, rhs) {
         return lhs === rhs
       })
+    }
+
+    if (!this.get('componentKeyNamesForTypes')) {
+      this.setDefaultItem()
+      this.setDefaultItemExpansion()
     }
 
     this._keyHandler = this.setShift.bind(this)
@@ -202,6 +299,7 @@ export default Component.extend({
       } else {
         selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
       }
+
       this.onSelectionChange(clonedSelectedItems)
     }
   }
