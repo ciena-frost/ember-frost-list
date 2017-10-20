@@ -35,7 +35,10 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ])),
-    itemExpansion: PropTypes.EmberComponent,
+    itemExpansion: PropTypes.oneOfType([
+      PropTypes.null,
+      PropTypes.EmberComponent
+    ]),
     scrollTop: PropTypes.number,
     selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
       PropTypes.EmberObject,

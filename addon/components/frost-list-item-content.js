@@ -24,7 +24,10 @@ export default Component.extend({
 
     // Options - sub-components
     item: PropTypes.EmberComponent.isRequired,
-    itemExpansion: PropTypes.EmberComponent
+    itemExpansion: PropTypes.oneOfType([
+      PropTypes.null,
+      PropTypes.EmberComponent
+    ])
   },
 
   getDefaultProps () {
