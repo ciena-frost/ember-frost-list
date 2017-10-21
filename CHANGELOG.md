@@ -1,3 +1,7 @@
+# 6.1.1 (2017-10-21)
+- Fixed issue when running against 2.8.3, List can't get the valid component name to render.
+
+
 # 6.1.0 (2017-10-20)
 * **Removed** default value for `defaultHeight` property.
 * **Updated** `smoke-and-mirror` to consume `listRowHeight` instead of `defaultHeight`.
