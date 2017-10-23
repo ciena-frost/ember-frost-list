@@ -109,7 +109,13 @@ describe(test.label, function () {
         Ember.Object.create({id: '0'})
       ])
 
-      this.set('items', list)
+      this.setProperties({
+        items: list,
+        selectedItems: A([]),
+        onSelectionChange: (selectedItems) => {
+          this.get('selectedItems').setObjects(selectedItems)
+        }
+      })
 
       this.render(hbs`
         {{frost-list
@@ -117,6 +123,8 @@ describe(test.label, function () {
           items=items
           hook='myList'
           size='small'
+          selectedItems=selectedItems
+          onSelectionChange=onSelectionChange
         }}
       `)
       return wait()
@@ -124,6 +132,16 @@ describe(test.label, function () {
 
     it('sets "frost-list-item" row height to 30px', function () {
       expect($hook('myList-itemContent-item-container').height()).to.equal(30)
+    })
+
+    it('should display small checkbox', function () {
+      expect($hook('myList-itemContent-selection-checkbox').hasClass('small')).to.eql(true)
+    })
+
+    it('after click, should display small checkbox', function () {
+      const $el = $hook('myList-itemContent-selection-checkbox')
+      $el.click()
+      expect($el.hasClass('small')).to.eql(true)
     })
   })
 
