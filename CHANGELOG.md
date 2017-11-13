@@ -1,3 +1,7 @@
+# 6.1.3 (2017-11-13)
+* Closes #157 
+
+
 # 6.1.2 (2017-10-23)
 * **Fixed** issue that `size` attribute didn't propagate down to `frost-checkbox`
 
