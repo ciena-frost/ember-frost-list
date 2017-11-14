@@ -1,3 +1,7 @@
+# 7.0.0 (2017-11-14)
+* Use latest major for `ember-frost-core`
+
+
 # 6.1.4 (2017-11-14)
 * Remove unused `ember-simple-uuid` dependency
 
