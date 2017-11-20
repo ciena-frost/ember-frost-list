@@ -10,6 +10,7 @@
     padding: 0 5px;
     color: $frost-color-blue-1;
     line-height: 30px;
+    white-space: nowrap;
 
     &:hover {
       background-color: $frost-list-expansion-item-hover-color;
