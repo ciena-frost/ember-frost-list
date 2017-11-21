@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-list",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
@@ -87,6 +87,6 @@
     "name": "frost-list"
   },
   "pr-bumper": {
-    "coverage": 97.19
+    "coverage": 97.2
   }
 }
