@@ -2,7 +2,6 @@
 
 <div class='frost-list-header {{if pagination 'paged'}}'>
   {{#if sorting}}
-    <div class='frost-list-header-sort-title'>Sort by:</div>
     {{component sorting
       hook=(concat hookPrefix '-sorting')
     }}
