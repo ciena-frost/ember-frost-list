@@ -6,25 +6,6 @@
   &.paged {
     padding-right: $frost-list-scroll-rail-gutter-width;
   }
-
-  .frost-list-header-sort-title {
-    color: $frost-color-grey-4;
-    font-size: $frost-font-s;
-    white-space: nowrap;
-  }
-
-  .frost-sort {
-    flex-wrap: wrap;
-
-    .frost-sort-item {
-      height: 100%;
-    }
-
-    .frost-sort-title {
-      display: none;
-    }
-
-  }
 }
 
 .frost-list-header-divider {
