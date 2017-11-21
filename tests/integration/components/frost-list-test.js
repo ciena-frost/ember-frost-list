@@ -218,6 +218,32 @@ describe(test.label, function () {
     })
   })
 
+  describe('renders frost-list with isDynamicRowHeight set to true', function () {
+    beforeEach(function () {
+      const list = A([
+        Ember.Object.create({id: '0'})
+      ])
+
+      this.set('items', list)
+
+      this.render(hbs`
+        {{frost-list
+          hook='myList'
+          item=(component 'frost-list-item')
+          items=items
+          isDynamicRowHeight=true
+          defaultHeight=60
+          size='small'
+        }}
+      `)
+      return wait()
+    })
+
+    it('should ignore both defaultHeight and size.', function () {
+      expect($hook('myList-itemContent-item-container').height()).to.equal(0)
+    })
+  })
+
   describe('when sort component is set', function () {
     beforeEach(function () {
       registerMockComponent(this, 'mock-sort')

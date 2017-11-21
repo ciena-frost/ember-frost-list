@@ -3,6 +3,7 @@
 @import 'tests/dummy/app/pods/components/list-item-typed/styles';
 @import 'tests/dummy/app/pods/components/list-item-type-a/styles';
 @import 'tests/dummy/app/pods/components/list-item-type-b/styles';
+@import 'tests/dummy/app/pods/components/list-item-dynamic-height/styles';
 @import 'tests/dummy/app/pods/components/list-item-expansion/styles';
 @import 'tests/dummy/app/pods/components/list-item-typed-expansion/styles';
 @import 'tests/dummy/app/pods/components/list-item-type-a-expansion/styles';
@@ -91,11 +92,12 @@ $frost-modal-demos-shadow-color: rgba(0, 0, 0, .13);
   height: 100vh;
   padding-left: 20px;
   background-color: $frost-color-lgrey-3;
+  overflow: auto;
 
   .example-block {
     .title {
       color: $frost-color-grey-3;
-      font-weight: 500;      
+      font-weight: 500;
     }
   }
   .example-block ~ .example-block {
