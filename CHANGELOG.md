@@ -1,3 +1,7 @@
+# 7.0.3 (2017-11-22)
+* **Added** isDynamicRowHeight API to support dynamic list row height.
+
+
 # 7.0.2 (2017-11-22)
 * Fixes #161 : Have frost-list flex-wrap sort if it overflows
 
