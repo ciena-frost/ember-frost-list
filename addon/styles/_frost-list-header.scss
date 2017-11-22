@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 45px;
 
   &.paged {
     padding-right: $frost-list-scroll-rail-gutter-width;
@@ -20,6 +19,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 45px;
+  justify-content: flex-end;
   margin-left: auto;
 }
