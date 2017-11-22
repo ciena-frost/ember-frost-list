@@ -37,6 +37,7 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ])),
+    isDynamicRowHeight: PropTypes.bool,
     itemExpansion: PropTypes.oneOfType([
       PropTypes.null,
       PropTypes.EmberComponent
@@ -103,6 +104,7 @@ export default Component.extend({
       // Options - general
       scrollTop: 0,
       size: 'medium',
+      isDynamicRowHeight: false,
       itemTypeKey: 'itemType',
       componentKeyNames: {
         item: 'itemName',
@@ -144,8 +146,12 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('defaultHeight', 'size')
-  listRowHeight (defaultHeight, size) {
+  @computed('defaultHeight', 'size', 'isDynamicRowHeight')
+  listRowHeight (defaultHeight, size, isDynamicRowHeight) {
+    if (isDynamicRowHeight) {
+      return
+    }
+
     let listRowHeight
 
     if (isPresent(defaultHeight)) {
@@ -170,7 +176,7 @@ export default Component.extend({
   @readOnly
   @computed('listRowHeight')
   listRowHeightString (listRowHeight) {
-    return EmberString.htmlSafe(`height:${listRowHeight}px`)
+    return listRowHeight ? EmberString.htmlSafe(`height:${listRowHeight}px`) : ''
   },
 
   @readOnly

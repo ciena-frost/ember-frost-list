@@ -39,3 +39,26 @@
     )
   }}
 </div>
+
+<div class='example-block'>
+  <div class='title'>Dynamic content height</div>
+
+  {{frost-list
+    class='demo'
+    hook='demo'
+    isDynamicRowHeight=true
+    item=(component 'list-item-dynamic-height')
+    itemExpansion=(component 'list-item-expansion')
+    items=items
+    expandedItems=expandedItems
+    selectedItems=selectedItems
+    size='small'
+    onExpansionChange=(action 'onExpansionChange')
+    onSelectionChange=(action 'onSelectionChange')
+    sorting=(component 'frost-sort'
+      sortOrder=sortOrder
+      sortingProperties=sortingProperties
+      onChange=(action 'onSortingChange')
+    )
+  }}
+</div>
