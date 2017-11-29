@@ -317,22 +317,22 @@ export default Component.extend({
     },
 
     _select ({isRangeSelect, isSpecificSelect, item}) {
-      const items = this.get('items')
-      const itemKey = this.get('itemKey')
-      const _itemComparator = this.get('_itemComparator')
-      const clonedSelectedItems = A(this.get('selectedItems').slice())
-      const _rangeState = this.get('_rangeState')
-
-      // Selects are proccessed in order of precedence: specific, range, basic
-      if (isSpecificSelect) {
-        selection.specific(clonedSelectedItems, item, _rangeState, _itemComparator)
-      } else if (isRangeSelect) {
-        selection.range(items, clonedSelectedItems, item, _rangeState, _itemComparator, itemKey)
-      } else {
-        selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
-      }
-
       if (this.onSelectionChange) {
+        const items = this.get('items')
+        const itemKey = this.get('itemKey')
+        const _itemComparator = this.get('_itemComparator')
+        const clonedSelectedItems = A(this.get('selectedItems').slice())
+        const _rangeState = this.get('_rangeState')
+
+        // Selects are proccessed in order of precedence: specific, range, basic
+        if (isSpecificSelect) {
+          selection.specific(clonedSelectedItems, item, _rangeState, _itemComparator)
+        } else if (isRangeSelect) {
+          selection.range(items, clonedSelectedItems, item, _rangeState, _itemComparator, itemKey)
+        } else {
+          selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
+        }
+
         this.onSelectionChange(clonedSelectedItems)
       }
     }
