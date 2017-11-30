@@ -1,3 +1,7 @@
+# 7.0.4 (2017-11-30)
+fixed _select call when there is no onSelectionChange to prevent console error.
+
+
 # 7.0.3 (2017-11-22)
 * **Added** isDynamicRowHeight API to support dynamic list row height.
 
