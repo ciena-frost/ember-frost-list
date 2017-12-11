@@ -1,3 +1,18 @@
+# 8.0.0 (2017-12-11)
+* **Added** `bower` to devDependencies since it is no longer included with Ember CLI
+* **Updated** to version 4 of `ember-frost-core`
+* **Updated** to version 9 of `ember-frost-sort` and move from dependencies to devDependencies since only used in the dummy app
+* **Updated** to version 5 of `ember-prop-types` and moved from devDependencies to dependencies
+* **Removed** blueprints since they are no longer needed to install packages
+* **Updated** `ember-computed-decorators` to a dependency instead of a devDependency
+* **Updated** `ember-hook` to a dependency instead of a devDependency
+* **Removed** unused `ember-concurrency` package since it is now included via the dependencies of `ember-frost-core`
+* **Removed** unused `ember-elsewhere` package since it is now included via the dependencies of `ember-frost-core`
+* **Removed** unused `ember-spread` package since it is now included via the dependencies of `ember-frost-core`
+* **Updated** `ember-truth-helpers` to a dependency instead of a devDependency
+* **Removed** unused `ember-get-config` package
+* **Updated** `ember-data-factory-guy` to use the published version with the fix instead of a branch
+
 # 7.0.4 (2017-11-30)
 fixed _select call when there is no onSelectionChange to prevent console error.
 
