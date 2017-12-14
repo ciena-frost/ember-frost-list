@@ -1,3 +1,8 @@
+# 8.0.1 (2017-12-14)
+
+* Updated margin/padding in the list-item to provide consistent spacing and follow UX specs
+
+
 # 8.0.0 (2017-12-11)
 * **Added** `bower` to devDependencies since it is no longer included with Ember CLI
 * **Updated** to version 4 of `ember-frost-core`
