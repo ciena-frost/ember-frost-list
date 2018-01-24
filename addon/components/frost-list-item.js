@@ -7,6 +7,7 @@ const {ViewUtils} = Ember
 const {isSimpleClick} = ViewUtils
 import {Component} from 'ember-frost-core'
 import {PropTypes} from 'ember-prop-types'
+import UAParser from 'ua-parser-js'
 
 export default Component.extend({
 
@@ -44,7 +45,7 @@ export default Component.extend({
   click (event) {
     // Acceptable event modifiers
     // TODO Move instance to a service
-    const isSpecificSelect = (new window.UAParser()).getOS().name === 'Mac OS' ? event.metaKey : event.ctrlKey
+    const isSpecificSelect = (new UAParser()).getOS().name === 'Mac OS' ? event.metaKey : event.ctrlKey
     const isRangeSelect = event.shiftKey
 
     // Only process simple clicks or clicks with the acceptable modifiers

@@ -7,6 +7,7 @@ const {ViewUtils} = Ember
 const {isSimpleClick} = ViewUtils
 import {Component} from 'ember-frost-core'
 import {PropTypes} from 'ember-prop-types'
+import UAParser from 'ua-parser-js'
 
 import layout from '../templates/components/frost-list-item-selection'
 
@@ -47,7 +48,7 @@ export default Component.extend({
     // Acceptable event modifiers
     // When the checkbox is the target a simple click is equivalent to a specific select
     const isSpecificSelect = isSimpleClick(event) ||
-      ((new window.UAParser()).getOS() === 'Mac OS' ? event.ctrlKey : event.metaKey) // TODO Move instance to a service
+      ((new UAParser()).getOS() === 'Mac OS' ? event.ctrlKey : event.metaKey) // TODO Move instance to a service
     const isRangeSelect = event.shiftKey
 
     // Only process simple clicks or clicks with the acceptable modifiers
