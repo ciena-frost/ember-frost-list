@@ -56,7 +56,6 @@
     "ember-test-utils": "^8.1.0",
     "loader.js": "^4.2.3",
     "pr-bumper": "^1.11.0",
-    "pull-report": "^0.3.1",
     "sinon-chai": "^2.14.0"
   },
   "keywords": [
