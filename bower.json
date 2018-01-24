@@ -1,8 +1,10 @@
 {
   "name": "ember-frost-list",
   "dependencies": {
+    "animation-frame": "~0.2.4"
+  },
+  "devDependencies": {
     "Faker": "^3.1.0",
-    "animation-frame": "~0.2.4",
     "jquery-mockjax": "2.2.1"
   }
 }
