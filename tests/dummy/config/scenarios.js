@@ -1,4 +1,4 @@
 import Main from '../scenarios/main'
 
-var main = new Main()
+const main = new Main()
 main()

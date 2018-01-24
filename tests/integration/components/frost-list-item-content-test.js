@@ -52,23 +52,23 @@ describe(test.label, function () {
       unregisterMockComponent(this, 'mock-list-item-expansion')
     })
 
-    it('sets "frost-list-item-content" class', function () {
+    it('should set "frost-list-item-content" class', function () {
       expect(this.$('.frost-list-item-content')).to.have.length(1)
     })
 
-    it('creates one list item content', function () {
+    it('should create one list item content', function () {
       expect($hook('myListItemContent', {index: 0})).to.have.length(1)
     })
 
-    it('concatenates the -item-container hook property', function () {
+    it('should concatenate the -item-container hook property', function () {
       expect($hook('myListItemContent-item-container', {index: 0})).to.have.length(1)
     })
 
-    it('concatenates the -item hook property', function () {
+    it('should concatenate the -item hook property', function () {
       expect($hook('myListItemContent-item', {index: 0})).to.have.length(1)
     })
 
-    it('concatenates the -expnansion hook property', function () {
+    it('should concatenate the -expnansion hook property', function () {
       expect($hook('myListItemContent-expansion', {index: 0})).to.have.length(1)
     })
   })

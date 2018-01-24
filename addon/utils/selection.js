@@ -168,6 +168,7 @@ export default {
    * @param {Function} compareFct the compare function
    * @returns {Number} the index of the rhs value if it's in the array otherwise -1
    */
+  /* eslint-disable complexity */
   _findIndex (array, rhs, compareFct) {
     if (this.isSupportedInEnvironment(array, 'findIndex')) {
       return array.findIndex(currentItem => compareFct(currentItem, rhs))
@@ -185,4 +186,5 @@ export default {
       return findIndex
     }
   }
+  /* eslint-enable complexity */
 }

@@ -43,7 +43,8 @@ export default Component.extend({
 
   click (event) {
     // Acceptable event modifiers
-    const isSpecificSelect = (new window.UAParser()).getOS().name === 'Mac OS' ? event.metaKey : event.ctrlKey // TODO Move instance to a service
+    // TODO Move instance to a service
+    const isSpecificSelect = (new window.UAParser()).getOS().name === 'Mac OS' ? event.metaKey : event.ctrlKey
     const isRangeSelect = event.shiftKey
 
     // Only process simple clicks or clicks with the acceptable modifiers
