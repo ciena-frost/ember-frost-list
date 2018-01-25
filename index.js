@@ -15,7 +15,7 @@ module.exports = {
       this.app = app = app.app
     }
 
-    this._super.included.apply(this, arguments)
+    this._super.included.apply(this, app)
 
     if (app) {
       app.import(path.join('vendor', 'ua-parser.min.js'))
