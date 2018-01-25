@@ -67,7 +67,7 @@
     "broccoli-merge-trees": "^2.0.0",
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.1.1",
-    "ember-cli-sass": "5.6.0",
+    "ember-cli-sass": "7.1.1",
     "ember-computed-decorators": "0.3.0",
     "ember-frost-core": "^4.0.1",
     "ember-hook": "1.4.2",
