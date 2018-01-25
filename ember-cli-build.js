@@ -2,10 +2,7 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon')
 
 module.exports = function (defaults) {
-  var app = new EmberAddon(defaults, {
-    'ember-cli-mocha': {
-      useLintTree: false
-    },
+  let app = new EmberAddon(defaults, {
     sassOptions: {
       includePaths: [
       ]

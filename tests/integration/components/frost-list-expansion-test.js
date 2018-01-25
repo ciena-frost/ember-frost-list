@@ -20,7 +20,7 @@ describe(test.label, function () {
     sandbox.restore()
   })
 
-  it('renders with default class', function () {
+  it('should render with default class', function () {
     this.render(hbs`
       {{frost-list-expansion
         hook='myExpansion'
@@ -32,7 +32,7 @@ describe(test.label, function () {
     expect(this.$('.frost-list-expansion')).to.be.length(1)
   })
 
-  it('fires onCollapseAll closure action', function () {
+  it('should fire onCollapseAll closure action', function () {
     const collapseAllSpy = sandbox.spy()
 
     this.on('collapseAllAction', collapseAllSpy)
@@ -50,7 +50,7 @@ describe(test.label, function () {
     expect(collapseAllSpy).have.callCount(1)
   })
 
-  it('fires onExpandAll closure action', function () {
+  it('should fire onExpandAll closure action', function () {
     const expandAllSpy = sandbox.spy()
 
     this.on('expandAllAction', expandAllSpy)
@@ -79,13 +79,13 @@ describe(test.label, function () {
       `)
     })
 
-    it('sets -collapse-all hook correctly', function () {
+    it('should set -collapse-all hook correctly', function () {
       expect(
         $hook('myExpansion-collapse-all').text().trim()
       ).to.equal('Collapse all')
     })
 
-    it('sets -expand-all hook correctly', function () {
+    it('should set -expand-all hook correctly', function () {
       expect(
         $hook('myExpansion-expand-all').text().trim()
       ).to.equal('Expand all')

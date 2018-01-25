@@ -3,6 +3,8 @@
 'use strict'
 
 const path = require('path')
+const MergeTrees = require('broccoli-merge-trees')
+const Funnel = require('broccoli-funnel')
 
 module.exports = {
   name: 'ember-frost-list',
@@ -17,9 +19,11 @@ module.exports = {
 
     if (app) {
       app.import(path.join('vendor', 'ua-parser.min.js'))
+      app.import(path.join('vendor', 'shims', 'ua-parser-js.js'))
     }
   },
 
+  /* eslint-disable complexity */
   init: function (app) {
     this.options = this.options || {}
     this.options.babel = this.options.babel || {}
@@ -32,5 +36,14 @@ module.exports = {
     /* eslint-disable no-unused-expressions */
     this._super.init && this._super.init.apply(this, arguments)
     /* eslint-enable no-unused-expressions */
+  },
+  /* eslint-enable complexity */
+
+  treeForVendor: function (vendorTree) {
+    const packageTree = new Funnel(path.join(this.project.root, 'node_modules', 'ua-parser-js', 'dist'), {
+      files: ['ua-parser.min.js']
+    })
+
+    return new MergeTrees([vendorTree, packageTree])
   }
 }

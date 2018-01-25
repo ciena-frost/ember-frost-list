@@ -33,7 +33,7 @@ describe(test.label, function () {
     sandbox.restore()
   })
 
-  it('renders with default class', function () {
+  it('should render with default class', function () {
     expect(this.$('.frost-list-item')).to.be.length(1)
   })
 
@@ -42,19 +42,19 @@ describe(test.label, function () {
       $hook('myListItem').trigger('click')
     })
 
-    it('fires onSelect closure action', function () {
+    it('should fire onSelect closure action', function () {
       expect(selectSpy).have.callCount(1)
     })
 
-    it('passes the isRangeSelect property', function () {
+    it('should pass the isRangeSelect property', function () {
       expect(selectSpy.args[0][0]).to.have.property('isRangeSelect')
     })
 
-    it('passes the isSpecificSelect property', function () {
+    it('should pass the isSpecificSelect property', function () {
       expect(selectSpy.args[0][0]).to.have.property('isSpecificSelect')
     })
 
-    it('passes the model', function () {
+    it('should pass the model', function () {
       expect(selectSpy.args[0][0].item.id).to.equal('400')
     })
   })

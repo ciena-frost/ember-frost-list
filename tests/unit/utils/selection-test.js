@@ -230,21 +230,21 @@ describe('Unit / Utility / selection', function () {
 
   describe('isSupportedInEnvironment()', function () {
     describe('when objectName is not an object', function () {
-      it('returns false', function () {
+      it('should return false', function () {
         expect(selection.isSupportedInEnvironment('testObject', 'testMethod')).to.be.equal(false)
       })
     })
 
     describe('when methodName is not an string', function () {
       let testObject = {testMethod: function () {}}
-      it('returns false', function () {
+      it('should return false', function () {
         expect(selection.isSupportedInEnvironment(testObject, 1)).to.be.equal(false)
       })
     })
 
     describe('when objectName is an "Object" and methodName is a "String"', function () {
       let testObject = {testMethod: function () {}}
-      it('returns true', function () {
+      it('should return true', function () {
         expect(selection.isSupportedInEnvironment(testObject, 'testMethod')).to.be.equal(true)
       })
     })

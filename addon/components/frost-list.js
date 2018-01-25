@@ -4,14 +4,12 @@
 
 import Ember from 'ember'
 const {$, A, ObjectProxy, String: EmberString, get, isEmpty, isNone, isPresent, run, set} = Ember
+import layout from '../templates/components/frost-list'
+import getComponentName from '../utils/get-component-name'
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {selection} from 'ember-frost-list'
 import {PropTypes} from 'ember-prop-types'
-
-import layout from '../templates/components/frost-list'
-
-import getComponentName from '../utils/get-component-name'
 
 export default Component.extend({
 

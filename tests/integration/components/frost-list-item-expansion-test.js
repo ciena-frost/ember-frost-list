@@ -43,19 +43,19 @@ describe(test.label, function () {
     sandbox.restore()
   })
 
-  it('renders with default class', function () {
+  it('should render with default class', function () {
     expect(this.$('.frost-list-item-expansion')).to.be.length(1)
   })
 
-  it('adds correct class to frost-icon', function () {
+  it('should add correct class to frost-icon', function () {
     expect(this.$('.frost-list-item-expansion-icon')).to.be.length(1)
   })
 
-  it('sets -icon hook correctly', function () {
+  it('should set -icon hook correctly', function () {
     expect($hook('myListItemExpansion-icon')).to.be.length(1)
   })
 
-  it('sets the correct icon', function () {
+  it('should set the correct icon', function () {
     expect(
       $hook('myListItemExpansion-icon')
     ).to.have.class('frost-icon-frost-list-chevron-thin')
@@ -66,11 +66,11 @@ describe(test.label, function () {
       $hook('myListItemExpansion').trigger('click')
     })
 
-    it('fires onExpand closure action', function () {
+    it('should fire onExpand closure action', function () {
       expect(expandSpy).have.callCount(1)
     })
 
-    it('passes the model', function () {
+    it('should pass the model', function () {
       expect(expandSpy.args[0][0].id).to.equal('400')
     })
   })

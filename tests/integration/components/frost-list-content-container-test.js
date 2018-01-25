@@ -3,8 +3,8 @@
  */
 
 import {expect} from 'chai'
-const {A} = Ember
 import Ember from 'ember'
+const {A} = Ember
 import {$hook, initialize as initializeHook} from 'ember-hook'
 import {registerMockComponent, unregisterMockComponent} from 'ember-test-utils/test-support/mock-component'
 import {integration} from 'ember-test-utils/test-support/setup-component-test'
@@ -45,7 +45,7 @@ describe(test.label, function () {
       `)
     })
 
-    it('has one vertical item created', function () {
+    it('should have one vertical item created', function () {
       expect(this.$('.vertical-item')).to.have.length(1)
     })
   })

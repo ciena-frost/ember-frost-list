@@ -40,36 +40,36 @@ describe(test.label, function () {
       `)
     })
 
-    it('sets frost-pagination class', function () {
+    it('should set frost-pagination class', function () {
       expect(
         this.$('.frost-list-pagination')
       ).to.have.length(1)
     })
 
-    it('shows correct pagination text', function () {
+    it('should show correct pagination text', function () {
       expect(
         $hook('myHook-text').text().trim()
       ).to.eql('1 to 10 of 100')
     })
 
     describe('hooks', function () {
-      it('sets "-first-page" hook', function () {
+      it('should set "-first-page" hook', function () {
         expect($hook('myHook-first-page')).to.have.length(1)
       })
 
-      it('sets "-previous-page" hook', function () {
+      it('should set "-previous-page" hook', function () {
         expect($hook('myHook-previous-page')).to.have.length(1)
       })
 
-      it('sets "-text" hook', function () {
+      it('should set "-text" hook', function () {
         expect($hook('myHook-text')).to.have.length(1)
       })
 
-      it('sets "-next-page" hook', function () {
+      it('should set "-next-page" hook', function () {
         expect($hook('myHook-next-page')).to.have.length(1)
       })
 
-      it('sets "-last-page" hook', function () {
+      it('should set "-last-page" hook', function () {
         expect($hook('myHook-last-page')).to.have.length(1)
       })
     })
@@ -115,13 +115,13 @@ describe(test.label, function () {
     })
 
     describe('disables buttons on the left', function () {
-      it('disables "first page" button', function () {
+      it('should disable "first page" button', function () {
         expect(
           $hook('myHook-first-page').prop('disabled')
         ).to.eql(true)
       })
 
-      it('disables "previous page" button', function () {
+      it('should disable "previous page" button', function () {
         expect(
           $hook('myHook-previous-page').prop('disabled')
         ).to.eql(true)
@@ -129,13 +129,13 @@ describe(test.label, function () {
     })
 
     describe('enables buttons on the right', function () {
-      it('enables "last page" button', function () {
+      it('should enable "last page" button', function () {
         expect(
           $hook('myHook-last-page').prop('disabled')
         ).to.eql(false)
       })
 
-      it('enables "next page" button', function () {
+      it('should enable "next page" button', function () {
         expect(
           $hook('myHook-next-page').prop('disabled')
         ).to.eql(false)
@@ -160,32 +160,32 @@ describe(test.label, function () {
       `)
     })
 
-    it('shows correct pagination text', function () {
+    it('should show correct pagination text', function () {
       expect(
         $hook('myHook-text').text().trim()
       ).to.eql('11 to 20 of 100')
     })
 
     describe('enable all buttons', function () {
-      it('enables "first page" button', function () {
+      it('should enable "first page" button', function () {
         expect(
           $hook('myHook-first-page').prop('disabled')
         ).to.eql(false)
       })
 
-      it('enables "previous page" button', function () {
+      it('should enable "previous page" button', function () {
         expect(
           $hook('myHook-previous-page').prop('disabled')
         ).to.eql(false)
       })
 
-      it('enables "next page" button', function () {
+      it('should enable "next page" button', function () {
         expect(
           $hook('myHook-next-page').prop('disabled')
         ).to.eql(false)
       })
 
-      it('enables "last page" button', function () {
+      it('should enable "last page" button', function () {
         expect(
           $hook('myHook-last-page').prop('disabled')
         ).to.eql(false)
@@ -210,20 +210,20 @@ describe(test.label, function () {
       `)
     })
 
-    it('shows correct pagination text', function () {
+    it('should show correct pagination text', function () {
       expect(
         $hook('myHook-text').text().trim()
       ).to.eql('91 to 100 of 100')
     })
 
     describe('enables buttons on the left', function () {
-      it('enables "first page" button', function () {
+      it('should enable "first page" button', function () {
         expect(
           $hook('myHook-first-page').prop('disabled')
         ).to.eql(false)
       })
 
-      it('enables "previous page" button', function () {
+      it('should enable "previous page" button', function () {
         expect(
           $hook('myHook-previous-page').prop('disabled')
         ).to.eql(false)
@@ -231,13 +231,13 @@ describe(test.label, function () {
     })
 
     describe('disables buttons on the right', function () {
-      it('disables "next page" button', function () {
+      it('should disable "next page" button', function () {
         expect(
           $hook('myHook-next-page').prop('disabled')
         ).to.eql(true)
       })
 
-      it('disables "last page" button', function () {
+      it('should disable "last page" button', function () {
         expect(
           $hook('myHook-last-page').prop('disabled')
         ).to.eql(true)
@@ -262,20 +262,20 @@ describe(test.label, function () {
       `)
     })
 
-    it('shows correct pagination text', function () {
+    it('should show correct pagination text', function () {
       expect(
         $hook('myHook-text').text().trim()
       ).to.eql('0 results found')
     })
 
     describe('disables buttons on the right', function () {
-      it('disables "next page" button', function () {
+      it('should disable "next page" button', function () {
         expect(
           $hook('myHook-next-page').prop('disabled')
         ).to.eql(true)
       })
 
-      it('disables "last page" button', function () {
+      it('should disable "last page" button', function () {
         expect(
           $hook('myHook-last-page').prop('disabled')
         ).to.eql(true)
@@ -308,7 +308,7 @@ describe(test.label, function () {
       return wait()
     })
 
-    it('fires onChange closure action', function () {
+    it('should fire onChange closure action', function () {
       this.$('.frost-button').trigger('click')
 
       return wait().then(() => {
