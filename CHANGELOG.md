@@ -1,3 +1,38 @@
+# 9.0.0 (2018-01-25)
+* **Added** ignore the linting of the `CHANGELOG.md`
+* **Added** ignoring of `package-lock` until we are ready to move to node 8
+* **Removed** useLintTree ember-cli-mocha configuration from `ember-cli-build.js`
+* **Removed** `.remarkrc` file since it is now provided by `ember-test-utils`
+* **Updated** `ember-frost-test` to `^4.0.0`
+* **Updated** `ember-cli-chai` to `0.4.3`
+* **Updated** `ember-cli-mocha` to `0.14.4`
+* **Updated** `ember-sinon` to `^0.7.0`
+* **Updated** `ember-test-utils` to `^8.1.0`
+* **Updated** `sinon-chai` @ `^2.14.0`
+* **Updated** `ember-cli-code-coverage` to `0.3.12`
+* **Updated** `ember-cli-frost-blueprints` to `^5.0.1`
+* **Updated** `ember-cli-notifications` to `^4.2.1`
+* **Updated** pin `ember-code-snippet` to `1.7.0`
+* **Updated** `ember-frost-sort` to `^10.0.0`
+* **Removed** unused `ember-async-image` package
+* **Removed** unused `pull-report` package
+* **Added** `broccoli-funnel` @ `^2.0.1`
+* **Added** `broccoli-merge-trees` @ `^2.0.0`
+* **Updated** `ember-cli-sass` to `7.1.1`
+* **Updated** `ember-frost-core` to `^5.1.1`
+* **Updated** `ember-hook` to `1.4.2`
+* **Updated** `ember-prop-types` to `^6.0.1`
+* **Updated** `ember-truth-helpers to `^1.3.0`
+* **Updated** `ua-parser-js` to `^0.7.17`
+* **Removed** static copy of `ua-parser-js.js` located in `vendor/`
+* **Added** a vendor shim to enable import of `ua-parser-js` npm package
+* **Updated** `index.js` file to add `ua-parser-js` to this add-on's build tree
+* **Updated** usage of UAParser to use new importable module instead of global
+* **Updated** move code coverage config file to tests/dummy/config/
+* **Removed** unused `animation-frame` bower package
+* **Updated** `Faker` and `jquery-mockjax` bower packages to be devDependencies
+
+
 # 8.0.1 (2017-12-14)
 
 * Updated margin/padding in the list-item to provide consistent spacing and follow UX specs
