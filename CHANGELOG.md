@@ -1,3 +1,7 @@
+# 9.0.1 (2018-01-30)
+* **Added** `min-height` of `45px` to `frost-list-header`
+
+
 # 9.0.0 (2018-01-25)
 * **Added** ignore the linting of the `CHANGELOG.md`
 * **Added** ignoring of `package-lock` until we are ready to move to node 8
