@@ -10,6 +10,29 @@ import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
 const test = integration('frost-list')
+
+/**
+ * It helper for selectedItems length
+ * @param {Number} length - expected length of selectedItems
+ */
+function itShouldHaveSelectedItemsLength (length) {
+  it(`should have selectedItems length to be ${length}`, function () {
+    expect(this.get('selectedItems').length).to.eql(length)
+  })
+}
+
+/**
+ * It helper for whether item is selected or not
+ * @param {Number} index - index of selected item.
+ * @param {Boolean} isSelected - whether item is selected or not.
+ */
+function itShouldHaveItemSelectedState (index, isSelected) {
+  const state = isSelected ? 'selected' : 'deselected'
+  it(`should have item ${index} ${state}`, function () {
+    expect($hook('myList-itemContent-item-container', {index}).hasClass('is-selected')).to.eql(isSelected)
+  })
+}
+
 describe(test.label, function () {
   test.setup()
 
@@ -1295,6 +1318,248 @@ describe(test.label, function () {
 
       it('should have item 1 is expanded', function () {
         expect($hook('myList-itemContent-itemExpansion', {index: 1})).to.have.length(1)
+      })
+    })
+  })
+
+  describe('When using disableDeselectAll property', function () {
+    beforeEach(function () {
+      const testItems = A([
+        Ember.Object.create({id: '0'}),
+        Ember.Object.create({id: '1'})
+      ])
+
+      this.setProperties({
+        disableDeselectAll: true,
+        items: testItems,
+        selectedItems: A([]),
+        onSelectionChange: (selectedItems) => {
+          this.get('selectedItems').setObjects(selectedItems)
+        }
+      })
+
+      this.render(hbs`
+        {{frost-list
+          disableDeselectAll=disableDeselectAll
+          item=(component 'frost-list-item')
+          hook='myList'
+          items=items
+          selectedItems=selectedItems
+          onSelectionChange=onSelectionChange
+          itemKey='id'
+        }}
+      `)
+      return wait()
+    })
+
+    describe('When using specific click', function () {
+      describe('When selecting item 0', function () {
+        beforeEach(function () {
+          $hook('myList-itemContent-selection', {index: 0}).click()
+          return wait()
+        })
+
+        itShouldHaveItemSelectedState(0, true)
+        itShouldHaveItemSelectedState(1, false)
+        itShouldHaveSelectedItemsLength(1)
+
+        describe('When deselecting item 1', function () {
+          beforeEach(function () {
+            $hook('myList-itemContent-selection', {index: 0}).click()
+            return wait()
+          })
+
+          itShouldHaveItemSelectedState(0, false)
+          itShouldHaveItemSelectedState(1, false)
+          itShouldHaveSelectedItemsLength(0)
+        })
+      })
+
+      describe('When selecting every item', function () {
+        beforeEach(function () {
+          $hook('myList-itemContent-selection', {index: 0}).click()
+          $hook('myList-itemContent-selection', {index: 1}).click()
+          return wait()
+        })
+
+        itShouldHaveItemSelectedState(0, true)
+        itShouldHaveItemSelectedState(1, true)
+        itShouldHaveSelectedItemsLength(2)
+
+        describe('When deselecting every item', function () {
+          beforeEach(function () {
+            $hook('myList-itemContent-selection', {index: 0}).click()
+            $hook('myList-itemContent-selection', {index: 1}).click()
+            return wait()
+          })
+
+          itShouldHaveItemSelectedState(0, false)
+          itShouldHaveItemSelectedState(1, false)
+          itShouldHaveSelectedItemsLength(0)
+        })
+      })
+    })
+
+    describe('When using ranged base clicks', function () {
+      beforeEach(function () {
+        const testItems = A([
+          Ember.Object.create({id: '0'}),
+          Ember.Object.create({id: '1'}),
+          Ember.Object.create({id: '2'}),
+          Ember.Object.create({id: '3'}),
+          Ember.Object.create({id: '4'}),
+          Ember.Object.create({id: '5'}),
+          Ember.Object.create({id: '6'})
+        ])
+        this.set('items', testItems)
+        return wait()
+      })
+
+      describe('When using shift click from item1-5', function () {
+        beforeEach(function () {
+          const clickEvent = $.Event('click')
+          clickEvent.shiftKey = true
+          const clickEvent2 = $.Event('click')
+          clickEvent2.shiftKey = true
+          $hook('myList-itemContent-item', {index: 1}).trigger(clickEvent)
+          $hook('myList-itemContent-item', {index: 5}).trigger(clickEvent2)
+          return wait()
+        })
+
+        itShouldHaveItemSelectedState(0, false)
+        itShouldHaveItemSelectedState(1, true)
+        itShouldHaveItemSelectedState(2, true)
+        itShouldHaveItemSelectedState(3, true)
+        itShouldHaveItemSelectedState(4, true)
+        itShouldHaveItemSelectedState(5, true)
+        itShouldHaveItemSelectedState(6, false)
+        itShouldHaveSelectedItemsLength(5)
+      })
+
+      describe('When using shift click on item 1', function () {
+        beforeEach(function () {
+          const clickEvent = $.Event('click')
+          clickEvent.shiftKey = true
+          $hook('myList-itemContent-item', {index: 1}).trigger(clickEvent)
+          return wait()
+        })
+
+        itShouldHaveItemSelectedState(0, false)
+        itShouldHaveItemSelectedState(1, true)
+        itShouldHaveItemSelectedState(2, false)
+        itShouldHaveItemSelectedState(3, false)
+        itShouldHaveItemSelectedState(4, false)
+        itShouldHaveItemSelectedState(5, false)
+        itShouldHaveItemSelectedState(6, false)
+        itShouldHaveSelectedItemsLength(1)
+
+        describe('When using shift click on item 3', function () {
+          beforeEach(function () {
+            const clickEvent = $.Event('click')
+            clickEvent.shiftKey = true
+            $hook('myList-itemContent-item', {index: 3}).trigger(clickEvent)
+            return wait()
+          })
+
+          itShouldHaveItemSelectedState(0, false)
+          itShouldHaveItemSelectedState(1, true)
+          itShouldHaveItemSelectedState(2, true)
+          itShouldHaveItemSelectedState(3, true)
+          itShouldHaveItemSelectedState(4, false)
+          itShouldHaveItemSelectedState(5, false)
+          itShouldHaveItemSelectedState(6, false)
+          itShouldHaveSelectedItemsLength(3)
+
+          describe('When using shift click on item 5', function () {
+            beforeEach(function () {
+              const clickEvent = $.Event('click')
+              clickEvent.shiftKey = true
+              $hook('myList-itemContent-item', {index: 5}).trigger(clickEvent)
+              return wait()
+            })
+
+            itShouldHaveItemSelectedState(0, false)
+            itShouldHaveItemSelectedState(1, true)
+            itShouldHaveItemSelectedState(2, true)
+            itShouldHaveItemSelectedState(3, true)
+            itShouldHaveItemSelectedState(4, true)
+            itShouldHaveItemSelectedState(5, true)
+            itShouldHaveItemSelectedState(6, false)
+            itShouldHaveSelectedItemsLength(5)
+
+            describe('When using shift click on item 1', function () {
+              beforeEach(function () {
+                const clickEvent = $.Event('click')
+                clickEvent.shiftKey = true
+                $hook('myList-itemContent-item', {index: 1}).trigger(clickEvent)
+                return wait()
+              })
+
+              itShouldHaveItemSelectedState(0, false)
+              itShouldHaveItemSelectedState(1, true)
+              itShouldHaveItemSelectedState(2, false)
+              itShouldHaveItemSelectedState(3, false)
+              itShouldHaveItemSelectedState(4, false)
+              itShouldHaveItemSelectedState(5, false)
+              itShouldHaveItemSelectedState(6, false)
+              itShouldHaveSelectedItemsLength(1)
+            })
+
+            describe('When using shift click on item 0', function () {
+              beforeEach(function () {
+                const clickEvent = $.Event('click')
+                clickEvent.shiftKey = true
+                $hook('myList-itemContent-item', {index: 0}).trigger(clickEvent)
+                return wait()
+              })
+
+              itShouldHaveItemSelectedState(0, true)
+              itShouldHaveItemSelectedState(1, true)
+              itShouldHaveItemSelectedState(2, false)
+              itShouldHaveItemSelectedState(3, false)
+              itShouldHaveItemSelectedState(4, false)
+              itShouldHaveItemSelectedState(5, false)
+              itShouldHaveItemSelectedState(6, false)
+              itShouldHaveSelectedItemsLength(2)
+            })
+          })
+        })
+      })
+    })
+
+    describe('When using basic click', function () {
+      // Basic click should behave like an isSpecificSelect click now.
+      describe('When selecting item 0', function () {
+        beforeEach(function () {
+          $hook('myList-itemContent-item', {index: 0}).click()
+          return wait()
+        })
+
+        itShouldHaveItemSelectedState(0, true)
+        itShouldHaveItemSelectedState(1, false)
+        itShouldHaveSelectedItemsLength(1)
+
+        describe('When selecting item 1', function () {
+          beforeEach(function () {
+            $hook('myList-itemContent-item', {index: 1}).click()
+            return wait()
+          })
+
+          itShouldHaveItemSelectedState(0, true)
+          itShouldHaveItemSelectedState(1, true)
+          itShouldHaveSelectedItemsLength(2)
+
+          describe('When deselecting item 0', function () {
+            beforeEach(function () {
+              $hook('myList-itemContent-item', {index: 0}).click()
+              return wait()
+            })
+
+            itShouldHaveItemSelectedState(0, false)
+            itShouldHaveItemSelectedState(1, true)
+            itShouldHaveSelectedItemsLength(1)
+          })
+        })
       })
     })
   })
