@@ -66,6 +66,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `itemTypeKey`        | `string`         |       | Optional: With `itemTypeKey` set, it will be used to identify a list item's type. It will also be used for accessing the hash of components within `componentKeyNamesForTypes`. |
 | `Attribute`        | `itemDefinitions`    | `hash`           |       | Optional: A set of components that are to be used in the list as the `item` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 | `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
+| `Attribute`        | `disableDeselectAll` | `boolean`     | false    | Optional: disables deselect all click turning frost list into a multi-select type list |
 
 
 ### Infinite scroll

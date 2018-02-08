@@ -31,6 +31,7 @@ export default Component.extend({
     ])).isRequired,
 
     // Options - general
+    disableDeselectAll: PropTypes.bool,
     expandedItems: PropTypes.arrayOf(PropTypes.oneOfType([
       PropTypes.EmberObject,
       PropTypes.object
@@ -100,6 +101,7 @@ export default Component.extend({
   getDefaultProps () {
     return {
       // Options - general
+      disableDeselectAll: false,
       scrollTop: 0,
       size: 'medium',
       isDynamicRowHeight: false,
@@ -320,13 +322,20 @@ export default Component.extend({
       this.onExpansionChange(clonedItems)
     },
 
+    /* eslint-disable complexity */
     _select ({isRangeSelect, isSpecificSelect, item}) {
+      isRangeSelect = !!isRangeSelect // isRangeSelect can come in as undefined
       if (this.onSelectionChange) {
         const items = this.get('items')
         const itemKey = this.get('itemKey')
         const _itemComparator = this.get('_itemComparator')
         const clonedSelectedItems = A(this.get('selectedItems').slice())
         const _rangeState = this.get('_rangeState')
+
+        if (isRangeSelect === false && this.get('disableDeselectAll') === true) {
+          // Ensure we are not interrupting a range select prior to forcing a isSpecificSelect
+          isSpecificSelect = true
+        }
 
         // Selects are proccessed in order of precedence: specific, range, basic
         if (isSpecificSelect) {
@@ -340,5 +349,6 @@ export default Component.extend({
         this.onSelectionChange(clonedSelectedItems)
       }
     }
+    /* eslint-enable complexity */
   }
 })
