@@ -1,3 +1,7 @@
+# 9.1.0 (2018-02-09)
+* Add disableDeselectAll attribute which disables deselect all click, giving ember-frost-list multi-select behavior.
+
+
 # 9.0.1 (2018-01-30)
 * **Added** `min-height` of `45px` to `frost-list-header`
 
