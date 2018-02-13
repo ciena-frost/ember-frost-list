@@ -6,7 +6,7 @@
     disabled=_isLeftDisabled
     hook=(concat hook '-first-page')
     icon='chevron-double'
-    onClick=(action onChange 0)
+    onClick=(action '_onChange' 0)
     priority='tertiary'
     size='small'
   }}
@@ -15,7 +15,7 @@
     disabled=_isLeftDisabled
     hook=(concat hook '-previous-page')
     icon='chevron'
-    onClick=(action onChange (sub page 1))
+    onClick=(action '_onChange' (sub page 1))
     priority='tertiary'
     size='small'
   }}
@@ -33,7 +33,7 @@
     icon='chevron'
     priority='tertiary'
     size='small'
-    onClick=(action onChange (add page 1))
+    onClick=(action '_onChange' (add page 1))
   }}
   {{frost-button
     class='frost-list-pagination-button'
@@ -42,6 +42,6 @@
     icon='chevron-double'
     priority='tertiary'
     size='small'
-    onClick=(action onChange (floor (div (sub total 1) itemsPerPage)))
+    onClick=(action '_onChange' _lastPage)
   }}
 </div>

@@ -17,12 +17,14 @@
  *   )
  * }}
  */
-
+import Ember from 'ember'
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {PropTypes} from 'ember-prop-types'
 
 import layout from '../templates/components/frost-list-pagination'
+
+const {run} = Ember
 
 export default Component.extend({
 
@@ -31,9 +33,10 @@ export default Component.extend({
   layout,
 
   // == Properties ============================================================
-
+  _pageClickCounter: 0,
   propTypes: {
     // Options
+    debounceInterval: PropTypes.number,
     itemsPerPage: PropTypes.number.isRequired,
     page: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
@@ -77,14 +80,48 @@ export default Component.extend({
   @computed('_offset', '_end', 'total')
   _paginationText (_offset, _end, total) {
     return total === 0 ? '0 results found' : `${_offset} to ${_end} of ${total}`
-  }
-
+  },
+  @readOnly
+  @computed('total', 'itemsPerPage')
+  _lastPage (total, itemsPerPage) {
+    return Math.floor((total - 1) / itemsPerPage)
+  },
   // == Functions =============================================================
+  _sendDebounceOnChange (page) {
+    this.sendAction('onChange', page)
+    this.set('pageClickCounter', 0)
+  },
+  /* eslint-disable complexity */
+  _handleDebouncedOnChange (page, debounceInterval) {
+    const currentPage = this.get('page')
 
+    if (Math.abs(currentPage - page) > 1) {
+      this._sendDebounceOnChange(page)
+    } else {
+      const totalPages = this.get('_lastPage')
+      let counter = this.get('pageClickCounter') || 0
+      currentPage > page ? counter-- : counter++
+      this.set('pageClickCounter', counter)
+      let newPage = counter ? currentPage + counter : page
+      newPage = newPage < 0 ? 0 : newPage
+      newPage = newPage > totalPages ? totalPages : newPage
+
+      run.debounce(this, this._sendDebounceOnChange, newPage, debounceInterval)
+    }
+  },
   // == Ember Lifecycle Hooks =================================================
 
   // == DOM Events ============================================================
 
   // == Actions ===============================================================
-
+  actions: {
+    _onChange (page) {
+      const debounceInterval = this.get('debounceInterval')
+      if (debounceInterval) {
+        this._handleDebouncedOnChange(page, debounceInterval)
+      } else {
+        this.sendAction('onChange', page)
+      }
+    }
+  }
 })
