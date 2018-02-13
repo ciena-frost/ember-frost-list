@@ -2,6 +2,7 @@
 {{#if pagination}}
   {{#frost-scroll
     hook=(concat hookPrefix '-scroll')
+    class='full'
   }}
     {{#each items key=_eachItemKey as |model index|}}
       {{yield model index}}
