@@ -34,6 +34,7 @@ export default Component.extend({
 
   // == Properties ============================================================
   _pageClickCounter: 0,
+  _debouncedPaging: null,
   propTypes: {
     // Options
     debounceInterval: PropTypes.number,
@@ -96,17 +97,19 @@ export default Component.extend({
     const currentPage = this.get('page')
 
     if (Math.abs(currentPage - page) > 1) {
+      const debouncedCall = this.get('_debouncedPaging')
+      run.cancel(debouncedCall)
       this._sendDebounceOnChange(page)
     } else {
       const totalPages = this.get('_lastPage')
       let counter = this.get('pageClickCounter') || 0
-      currentPage > page ? counter-- : counter++
+      const isGoingBack = currentPage > page
+      isGoingBack ? counter-- : counter++
       this.set('pageClickCounter', counter)
-      let newPage = counter ? currentPage + counter : page
+      let newPage = currentPage + counter
       newPage = newPage < 0 ? 0 : newPage
       newPage = newPage > totalPages ? totalPages : newPage
-
-      run.debounce(this, this._sendDebounceOnChange, newPage, debounceInterval)
+      this.set('_debouncedPaging', run.debounce(this, this._sendDebounceOnChange, newPage, debounceInterval))
     }
   },
   // == Ember Lifecycle Hooks =================================================
