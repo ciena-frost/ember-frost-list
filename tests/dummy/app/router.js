@@ -16,6 +16,7 @@ Router.map(function () {
   this.route('paged')
   this.route('size')
   this.route('typed')
+  this.route('debounced-paging')
 })
 
 export default Router

@@ -1,0 +1,25 @@
+{{frost-list
+  class='demo'
+  hook='demo'
+  item=(component 'list-item')
+  itemExpansion=(component 'list-item-expansion')
+  itemKey='id'
+  items=items
+  scrollTop=scrollTop
+  expandedItems=expandedItems
+  selectedItems=selectedItems
+  onExpansionChange=(action 'onExpansionChange')
+  onSelectionChange=(action 'onSelectionChange')
+  pagination=(component 'frost-list-pagination'
+    debounceInterval=200
+    itemsPerPage=itemsPerPage
+    page=page
+    total=totalItems
+    onChange=(action 'onPaginationChange')
+  )
+  sorting=(component 'frost-sort'
+    sortOrder=sortOrder
+    sortingProperties=sortingProperties
+    onChange=(action 'onSortingChange')
+  )
+}}

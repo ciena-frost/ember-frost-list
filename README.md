@@ -121,6 +121,19 @@ actions: {
 }
 ```
 
+#### Debouncing pagination
+In some cases you may wish to debounce the onChange action so it is not called every click, instead called after 200ms have passed (with the correct click count). This is possible with the `debounceInterval` attribute on `frost-list-pagination`.
+
+```
+{{frost-list-pagination
+  debounceInterval=200
+  itemsPerPage=10
+  page=0
+  total=200
+  onChange=(action 'onPaginationChange')
+}}
+```
+
 ## Testing with ember-hook
 
 The list component is accessible using ember-hook:
