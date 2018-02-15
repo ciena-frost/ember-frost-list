@@ -1,3 +1,7 @@
+# 9.2.0 (2018-02-15)
+* Added disableDeselectAll. If true, clicking outside of the checkbox in a list item will no longer deselect all of the other items.
+
+
 # 9.1.0 (2018-02-09)
 * Add disableDeselectAll attribute which disables deselect all click, giving ember-frost-list multi-select behavior.
 
