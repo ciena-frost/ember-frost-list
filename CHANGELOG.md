@@ -1,3 +1,8 @@
+# 9.2.1 (2018-03-07)
+* Update frost-list to match new UX specs (wrap paging when sort does, and ensure page buttons are one same line)
+
+
+
 # 9.2.0 (2018-02-15)
 * Added disableDeselectAll. If true, clicking outside of the checkbox in a list item will no longer deselect all of the other items.
 
