@@ -73,7 +73,7 @@
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-sass": "7.1.1",
     "ember-computed-decorators": "0.3.0",
-    "ember-frost-core": "^5.1.1",
+    "ember-frost-core": "^7.0.0",
     "ember-hook": "1.4.2",
     "ember-math-helpers": "2.0.6",
     "ember-prop-types": "^6.0.1",
