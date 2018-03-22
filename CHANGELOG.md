@@ -1,3 +1,16 @@
+# 9.2.1 (2018-03-07)
+* Update frost-list to match new UX specs (wrap paging when sort does, and ensure page buttons are one same line)
+
+
+
+# 9.2.0 (2018-02-15)
+* Added disableDeselectAll. If true, clicking outside of the checkbox in a list item will no longer deselect all of the other items.
+
+
+# 9.1.0 (2018-02-09)
+* Add disableDeselectAll attribute which disables deselect all click, giving ember-frost-list multi-select behavior.
+
+
 # 9.0.1 (2018-01-30)
 * **Added** `min-height` of `45px` to `frost-list-header`
 
