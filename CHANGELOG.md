@@ -14,6 +14,7 @@
 * **Removed** ignoring of `package-lock.json` file
 * **Added** `package-lock.json` file
 * **Updated** Travis CI scripts to allow non-exact node version
+* **Removed** is-lead-selection.js helper since it is not being used
 
 # 9.2.1 (2018-03-07)
 * Update frost-list to match new UX specs (wrap paging when sort does, and ensure page buttons are one same line)
@@ -110,7 +111,7 @@ fixed _select call when there is no onSelectionChange to prevent console error.
 * Remove unused `ember-simple-uuid` dependency
 
 # 6.1.3 (2017-11-13)
-* Closes #157 
+* Closes #157
 
 
 # 6.1.2 (2017-10-23)
@@ -188,7 +189,7 @@ fixed _select call when there is no onSelectionChange to prevent console error.
 
 # 5.5.6 (2017-04-26)
 * **Split** states and record for a list item
-* **Fixed** #129 
+* **Fixed** #129
 * **Changed** version of `smoke-and-mirrors`
 * **Added** blueprint check
 
@@ -381,18 +382,18 @@ This change is [<img src="https://reviewable.io/review_button.svg" height="34" a
 
 # 1.0.0
 
-* **Removed** internal record state management. 
-* **Removed** small/medium/large detail level support. 
+* **Removed** internal record state management.
+* **Removed** small/medium/large detail level support.
 * **Removed** support for list block format rendering.
 * **Updated**  user interface to support new component driven API and data driven API.
-* **Updated** css to serve new template layout. 
-* **Updated** to `smoke-and-mirror: 0.5.4`. 
+* **Updated** css to serve new template layout.
+* **Updated** to `smoke-and-mirror: 0.5.4`.
 * **Added**  a bunch of Mixins to support common list operation.
 * **Added**  list expand/collapse control component.
 * **Added**  live demo with source code generating.
 * **Added**  hook for testing.
 * **Added**  README
-* **Fixed**  content shifting when item gets selected. 
+* **Fixed**  content shifting when item gets selected.
 
 # 0.7.8
 No CHANGELOG section found in Pull Request description.
