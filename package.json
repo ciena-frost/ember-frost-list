@@ -15,7 +15,10 @@
     "test": "npm run lint && npm run test-addon",
     "test-addon": "EMBER_TRY_SCENARIO=${EMBER_TRY_SCENARIO:=ember-default} && ember try:one $EMBER_TRY_SCENARIO --- COVERAGE=true ember test"
   },
-  "repository": "git@github.com:ciena-frost/ember-frost-list.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciena-frost/ember-frost-list.git"
+  },
   "engines": {
     "node": ">= 6.0.0"
   },
@@ -36,7 +39,7 @@
     "ember-cli-chai": "0.4.3",
     "ember-cli-code-coverage": "0.3.12",
     "ember-cli-dependency-checker": "^1.3.0",
-    "ember-cli-frost-blueprints": "^5.0.1",
+    "ember-cli-frost-blueprints": "^5.0.2",
     "ember-cli-htmlbars-inline-precompile": "0.3.12",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-mocha": "0.14.4",
@@ -48,15 +51,15 @@
     "ember-data-factory-guy": "2.8.2",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
-    "ember-frost-sort": "^10.0.0",
-    "ember-frost-test": "^4.0.0",
+    "ember-frost-sort": "^12.0.0",
+    "ember-frost-test": "^4.0.1",
     "ember-load-initializers": "^0.6.0",
     "ember-resolver": "^2.0.3",
     "ember-sinon": "^0.7.0",
     "ember-source": "~2.12.0",
-    "ember-test-utils": "^8.1.0",
+    "ember-test-utils": "^8.1.1",
     "loader.js": "^4.2.3",
-    "pr-bumper": "^1.11.0",
+    "pr-bumper": "^3.7.0",
     "sinon-chai": "^2.14.0"
   },
   "keywords": [
@@ -70,12 +73,12 @@
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-sass": "7.1.1",
     "ember-computed-decorators": "0.3.0",
-    "ember-frost-core": "^5.1.1",
+    "ember-frost-core": "^7.0.0",
     "ember-hook": "1.4.2",
     "ember-math-helpers": "2.0.6",
-    "ember-prop-types": "^6.0.1",
+    "ember-prop-types": "^7.0.2",
     "ember-truth-helpers": "^1.3.0",
-    "smoke-and-mirrors": "github:ciena-frost/smoke-and-mirrors",
+    "smoke-and-mirrors": "github:ciena-frost/smoke-and-mirrors#1af93487126c4ea048009315ad0e32ee0efe4250",
     "ua-parser-js": "^0.7.17"
   },
   "ember-addon": {
@@ -85,6 +88,6 @@
     "name": "frost-list"
   },
   "pr-bumper": {
-    "coverage": 95.87
+    "coverage": 94.00
   }
 }
