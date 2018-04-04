@@ -8,7 +8,7 @@
   data-test={{hook (concat hook '-item-container') index=index }}
 >
   <div class='frost-list-item-container-base' style={{listRowHeightString}}>
-    {{#if itemExpansion}}
+    {{#if isExpansionIconVisible}}
       {{frost-list-item-expansion
         hook=(concat hookPrefix '-expansion')
         hookQualifiers=(hash index=index)
@@ -23,9 +23,11 @@
         hook=(concat hookPrefix '-selection')
         hookQualifiers=(hash index=index)
         model=model.content
+        index=index
         isSelected=model.states.isSelected
         onSelect=onSelect
         size=size
+        singleSelection=singleSelection
       }}
     {{/if}}
 

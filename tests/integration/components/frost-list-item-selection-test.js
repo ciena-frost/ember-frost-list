@@ -27,7 +27,8 @@ describe(test.label, function () {
     this.on('selectAction', selectSpy)
     this.setProperties({
       hook: 'myListItemSelection',
-      model: model
+      model: model,
+      singleSelection: false
     })
     this.render(hbs`
       {{frost-list-item-selection
@@ -36,6 +37,7 @@ describe(test.label, function () {
         model=model
         size='medium'
         onSelect=(action 'selectAction')
+        singleSelection=singleSelection
       }}
     `)
   })
@@ -85,6 +87,24 @@ describe(test.label, function () {
 
     it('should have an "is-selected" class', function () {
       expect($hook('myListItemSelection')).to.have.class('is-selected')
+    })
+  })
+
+  describe('when singleSelection is true', function () {
+    beforeEach(function () {
+      this.set('singleSelection', true)
+    })
+
+    it('should set -radio-button hook correctly', function () {
+      expect($hook('myListItemSelection-radio-button')).to.be.length(1)
+    })
+
+    it('should use radio buttons instead of checkboxes', function () {
+      expect($hook('myListItemSelection-radio-button-input').attr('type')).to.equal('radio')
+    })
+
+    it('should add correct size to the radio buttons', function () {
+      expect($hook('myListItemSelection-radio-button')).to.have.class('medium')
     })
   })
 })

@@ -18,7 +18,7 @@
       <div class='frost-list-header-divider'></div>
     {{/if}}
 
-    {{#if isAnyItemExpansion}}
+    {{#if isCollapseExpandAllVisible}}
       {{frost-list-expansion
         hook=(concat hookPrefix '-expansion')
         onCollapseAll=(action '_collapseAll')
@@ -63,6 +63,8 @@
     onSelectionChange=onSelectionChange
     onExpand=(action '_expand')
     onSelect=(action '_select')
+    alwaysExpanded=alwaysExpanded
+    singleSelection=singleSelection
   }}
 {{else}}
   {{yield to="inverse"}}

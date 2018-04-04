@@ -28,7 +28,9 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ]),
+    index: PropTypes.number,
     isSelected: PropTypes.bool,
+    singleSelection: PropTypes.bool,
 
     onSelect: PropTypes.func.isRequired
   },

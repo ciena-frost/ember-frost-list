@@ -66,6 +66,8 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ]),
+    alwaysExpanded: PropTypes.bool,
+    singleSelection: PropTypes.bool,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -110,6 +112,8 @@ export default Component.extend({
         item: 'itemName',
         itemExpansion: 'itemExpansionName'
       },
+      alwaysExpanded: false,
+      singleSelection: false,
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -132,12 +136,20 @@ export default Component.extend({
       return []
     }
 
+    const alwaysExpanded = this.get('alwaysExpanded')
     return items.map(item => {
+      let expanded
+      if (alwaysExpanded === true) {
+        expanded = true
+      } else {
+        expanded = isEmpty(expandedItems) ? false : expandedItems.some(
+          expandedItem => _itemComparator(expandedItem, item))
+      }
+
       return ObjectProxy.create({
         content: item,
         states: {
-          isExpanded: isEmpty(expandedItems) ? false : expandedItems.some(
-            expandedItem => _itemComparator(expandedItem, item)),
+          isExpanded: expanded,
           isSelected: isEmpty(selectedItems) ? false : selectedItems.some(
             selectedItem => _itemComparator(selectedItem, item))
         }
@@ -205,6 +217,12 @@ export default Component.extend({
   @computed('pagination', 'isAnyItemExpansion')
   isHeaderDividerVisible (pagination, isAnyItemExpansion) {
     return pagination && isAnyItemExpansion
+  },
+
+  @readOnly
+  @computed('isAnyItemExpansion', 'alwaysExpanded')
+  isCollapseExpandAllVisible (isAnyItemExpansion, alwaysExpanded) {
+    return isAnyItemExpansion && !alwaysExpanded
   },
 
   // == Functions =============================================================
@@ -331,14 +349,18 @@ export default Component.extend({
         const _itemComparator = this.get('_itemComparator')
         const clonedSelectedItems = A(this.get('selectedItems').slice())
         const _rangeState = this.get('_rangeState')
+        const singleSelection = this.get('singleSelection')
 
         if (isRangeSelect === false && this.get('disableDeselectAll') === true) {
           // Ensure we are not interrupting a range select prior to forcing a isSpecificSelect
           isSpecificSelect = true
         }
 
-        // Selects are proccessed in order of precedence: specific, range, basic
-        if (isSpecificSelect) {
+        // If single selection is enabled, we can just use the basic selection
+        // Otherwise, selects are proccessed in order of precedence: specific, range, basic
+        if (singleSelection) {
+          selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
+        } else if (isSpecificSelect) {
           selection.specific(clonedSelectedItems, item, _rangeState, _itemComparator)
         } else if (isRangeSelect) {
           selection.range(items, clonedSelectedItems, item, _rangeState, _itemComparator, itemKey)

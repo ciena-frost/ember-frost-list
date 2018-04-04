@@ -67,6 +67,8 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `itemDefinitions`    | `hash`           |       | Optional: A set of components that are to be used in the list as the `item` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 | `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 | `Attribute`        | `disableDeselectAll` | `boolean`     | false    | Optional: disables deselect all click turning frost list into a multi-select type list |
+| `Attribute`        | `alwaysExpanded`     | `boolean`     | false    | Optional: all list items will always be expanded. frost-list-expansion and frost-list-item-expansion will not be displayed.  |
+| `Attribute`        | `singleSelection` | `boolean`     | false    | Optional: disables multiple selection entirely and displays radio buttons instead of checkboxes in frost-list-item-selection to clarify the list's behavior. |
 
 
 ### Infinite scroll
