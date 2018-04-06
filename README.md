@@ -55,7 +55,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `expansion`          | `hash`           |       | component which handles expansion and collapsing for entire list. This component should be wrapped inside component helper. |
 | `Sub Attribute`    | `onExpandAll`        | `action closure` |       | callback functions user provided to handle all list items collapsing. This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `onCollapseAll`      | `action closure` |       | callback functions user provided to handle all list items expansion. This is an attribute on frost-list-expansion component. |
-| `Attribute`        | `sorting`            | `hash`           |       | component which handles expansion and collapsing for entire list. This component should be wrapped inside component helper. |
+| `Attribute`        | `sorting`            | `hash`           |       | component which handles sorting for the list. This component should be wrapped inside component helper. |
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}], This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
