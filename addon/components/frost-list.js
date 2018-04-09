@@ -130,13 +130,12 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator')
-  _items (expandedItems, items, selectedItems, _itemComparator) {
+  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator', 'alwaysExpanded')
+  _items (expandedItems, items, selectedItems, _itemComparator, alwaysExpanded) {
     if (isEmpty(items)) {
       return []
     }
 
-    const alwaysExpanded = this.get('alwaysExpanded')
     return items.map(item => {
       let expanded
       if (alwaysExpanded === true) {
