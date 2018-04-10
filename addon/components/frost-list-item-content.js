@@ -1,8 +1,8 @@
+import layout from '../templates/components/frost-list-item-content'
+import expansionTypeEnum from '../utils/expansion-types'
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
 import {PropTypes} from 'ember-prop-types'
-
-import layout from '../templates/components/frost-list-item-content'
 
 export default Component.extend({
   // == Dependencies ==========================================================
@@ -29,7 +29,7 @@ export default Component.extend({
       PropTypes.null,
       PropTypes.EmberComponent
     ]),
-    alwaysExpanded: PropTypes.bool,
+    expansionType: PropTypes.string,
     singleSelection: PropTypes.bool
   },
 
@@ -41,9 +41,9 @@ export default Component.extend({
 
   // == Computed Properties ===================================================
   @readOnly
-  @computed('itemExpansion', 'alwaysExpanded')
-  isExpansionIconVisible (itemExpansion, alwaysExpanded) {
-    return itemExpansion && !alwaysExpanded
+  @computed('itemExpansion', 'expansionType')
+  isExpansionIconVisible (itemExpansion, expansionType) {
+    return itemExpansion && expansionType !== expansionTypeEnum.ALWAYS
   }
 
   // == Functions =============================================================

@@ -1619,8 +1619,79 @@ describe(test.label, function () {
     })
   })
 
-  describe('When alwaysExpanded is true', function () {
-    describe('itemExpansion is provided', function () {
+  describe('expansionType', function () {
+    describe('Set to always', function () {
+      describe('itemExpansion is provided', function () {
+        beforeEach(function () {
+          registerMockComponent(this, 'mock-item-expansion')
+          const testItems = A([
+            Ember.Object.create({id: '0'}),
+            Ember.Object.create({id: '1'})
+          ])
+
+          this.setProperties({
+            items: testItems,
+            expandedItems: A([])
+          })
+
+          this.render(hbs`
+            {{frost-list
+              expansionType='always'
+              item=(component 'frost-list-item')
+              itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
+              hook='myList'
+              items=items
+            }}
+          `)
+          return wait()
+        })
+
+        afterEach(function () {
+          unregisterMockComponent(this, 'mock-item-expansion')
+        })
+
+        it('should not show list-expansion header', function () {
+          expect($hook('myList-expansion')).to.have.length(0)
+        })
+
+        it('should not show item-expansion arrow', function () {
+          expect($hook('myList-itemContent-expansion')).to.have.length(0)
+        })
+
+        it('should have all items expanded', function () {
+          expect($hook('myList-itemContent-itemExpansion')).to.have.length(2)
+        })
+      })
+
+      describe('itemExpansion not provided', function () {
+        beforeEach(function () {
+          const testItems = A([
+            Ember.Object.create({id: '0'}),
+            Ember.Object.create({id: '1'})
+          ])
+
+          this.setProperties({
+            items: testItems
+          })
+
+          this.render(hbs`
+            {{frost-list
+              expansionType='always'
+              item=(component 'frost-list-item')
+              hook='myList'
+              items=items
+            }}
+          `)
+          return wait()
+        })
+
+        it('should still render items if itemExpansion not provided', function () {
+          expect($hook('myList-itemContent')).to.have.length(2)
+        })
+      })
+    })
+
+    describe('Set to initial', function () {
       beforeEach(function () {
         registerMockComponent(this, 'mock-item-expansion')
         const testItems = A([
@@ -1629,16 +1700,18 @@ describe(test.label, function () {
         ])
 
         this.setProperties({
-          items: testItems
+          items: testItems,
+          expandedItems: A([])
         })
 
         this.render(hbs`
           {{frost-list
-            alwaysExpanded=true
+            expansionType='initial'
             item=(component 'frost-list-item')
             itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
             hook='myList'
             items=items
+            onExpansionChange=onExpansionChange
           }}
         `)
         return wait()
@@ -1648,43 +1721,16 @@ describe(test.label, function () {
         unregisterMockComponent(this, 'mock-item-expansion')
       })
 
-      it('should not show list-expansion header', function () {
-        expect($hook('myList-expansion')).to.have.length(0)
+      it('should show list-expansion header', function () {
+        expect($hook('myList-expansion')).to.have.length(1)
       })
 
-      it('should not show item-expansion arrow', function () {
-        expect($hook('myList-itemContent-expansion')).to.have.length(0)
+      it('should show item-expansion arrow', function () {
+        expect($hook('myList-itemContent-expansion')).to.have.length(2)
       })
 
       it('should have all items expanded', function () {
         expect($hook('myList-itemContent-itemExpansion')).to.have.length(2)
-      })
-    })
-
-    describe('itemExpansion not provided', function () {
-      beforeEach(function () {
-        const testItems = A([
-          Ember.Object.create({id: '0'}),
-          Ember.Object.create({id: '1'})
-        ])
-
-        this.setProperties({
-          items: testItems
-        })
-
-        this.render(hbs`
-          {{frost-list
-            alwaysExpanded=true
-            item=(component 'frost-list-item')
-            hook='myList'
-            items=items
-          }}
-        `)
-        return wait()
-      })
-
-      it('should still render items if itemExpansion not provided', function () {
-        expect($hook('myList-itemContent')).to.have.length(2)
       })
     })
   })

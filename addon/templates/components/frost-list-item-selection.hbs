@@ -1,4 +1,5 @@
 {{#if singleSelection}}
+  {{!-- frost-radio-button requires a string value, so we concat '' --}}
   {{frost-radio-button 
     checked=isSelected
     hook=(concat hookPrefix '-radio-button')

@@ -17,6 +17,7 @@ Router.map(function () {
   this.route('size')
   this.route('typed')
   this.route('single')
+  this.route('expansion-type')
 })
 
 export default Router

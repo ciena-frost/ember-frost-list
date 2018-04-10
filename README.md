@@ -66,9 +66,9 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `itemTypeKey`        | `string`         |       | Optional: With `itemTypeKey` set, it will be used to identify a list item's type. It will also be used for accessing the hash of components within `componentKeyNamesForTypes`. |
 | `Attribute`        | `itemDefinitions`    | `hash`           |       | Optional: A set of components that are to be used in the list as the `item` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 | `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
-| `Attribute`        | `disableDeselectAll` | `boolean`     | false    | Optional: disables deselect all click turning frost list into a multi-select type list |
-| `Attribute`        | `alwaysExpanded`     | `boolean`     | false    | Optional: all list items will always be expanded. frost-list-expansion and frost-list-item-expansion will not be displayed.  |
-| `Attribute`        | `singleSelection` | `boolean`     | false    | Optional: disables multiple selection entirely and displays radio buttons instead of checkboxes in frost-list-item-selection to clarify the list's behavior. |
+| `Attribute`        | `disableDeselectAll` | `boolean`        | false | Optional: disables deselect all click turning frost list into a multi-select type list |
+| `Attribute`        | `expansionType`      | `string`         |       | Optional: controls the expand/collapse capability for items in the list. If set to `always`, items will always be expanded, and the ability to expand/collapse items will be disabled. If set to `initial`, all items will be expanded initially, but may still be collapsed/expanded as usual. |
+| `Attribute`        | `singleSelection`    | `boolean`        | false | Optional: disables multiple selection entirely and displays radio buttons instead of checkboxes in frost-list-item-selection to clarify the list's behavior. |
 
 
 ### Infinite scroll

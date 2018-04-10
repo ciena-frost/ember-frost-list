@@ -5,6 +5,7 @@
 import Ember from 'ember'
 const {$, A, ObjectProxy, String: EmberString, get, isEmpty, isNone, isPresent, run, set} = Ember
 import layout from '../templates/components/frost-list'
+import expansionTypeEnum from '../utils/expansion-types'
 import getComponentName from '../utils/get-component-name'
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
@@ -66,7 +67,7 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ]),
-    alwaysExpanded: PropTypes.bool,
+    expansionType: PropTypes.string,
     singleSelection: PropTypes.bool,
 
     // Options - sub-components
@@ -112,7 +113,7 @@ export default Component.extend({
         item: 'itemName',
         itemExpansion: 'itemExpansionName'
       },
-      alwaysExpanded: false,
+      expansionType: '',
       singleSelection: false,
 
       // Smoke and mirrors options
@@ -130,25 +131,18 @@ export default Component.extend({
   // == Computed Properties ===================================================
 
   @readOnly
-  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator', 'alwaysExpanded')
-  _items (expandedItems, items, selectedItems, _itemComparator, alwaysExpanded) {
+  @computed('expandedItems.[]', 'items.[]', 'selectedItems.[]', '_itemComparator')
+  _items (expandedItems, items, selectedItems, _itemComparator) {
     if (isEmpty(items)) {
       return []
     }
 
     return items.map(item => {
-      let expanded
-      if (alwaysExpanded === true) {
-        expanded = true
-      } else {
-        expanded = isEmpty(expandedItems) ? false : expandedItems.some(
-          expandedItem => _itemComparator(expandedItem, item))
-      }
-
       return ObjectProxy.create({
         content: item,
         states: {
-          isExpanded: expanded,
+          isExpanded: isEmpty(expandedItems) ? false : expandedItems.some(
+            expandedItem => _itemComparator(expandedItem, item)),
           isSelected: isEmpty(selectedItems) ? false : selectedItems.some(
             selectedItem => _itemComparator(selectedItem, item))
         }
@@ -219,9 +213,9 @@ export default Component.extend({
   },
 
   @readOnly
-  @computed('isAnyItemExpansion', 'alwaysExpanded')
-  isCollapseExpandAllVisible (isAnyItemExpansion, alwaysExpanded) {
-    return isAnyItemExpansion && !alwaysExpanded
+  @computed('isAnyItemExpansion', 'expansionType')
+  isCollapseExpandAllVisible (isAnyItemExpansion, expansionType) {
+    return isAnyItemExpansion && expansionType !== expansionTypeEnum.ALWAYS
   },
 
   // == Functions =============================================================
@@ -305,6 +299,12 @@ export default Component.extend({
     if (!this.get('componentKeyNamesForTypes')) {
       this.setDefaultItem()
       this.setDefaultItemExpansion()
+    }
+
+    const expansionType = this.get('expansionType')
+    if (expansionType === expansionTypeEnum.ALWAYS || expansionType === expansionTypeEnum.INITIAL) {
+      const clonedItems = this.get('items').slice()
+      this.set('expandedItems', clonedItems)
     }
 
     this._keyHandler = this.setShift.bind(this)
