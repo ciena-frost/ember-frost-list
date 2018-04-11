@@ -37,6 +37,7 @@ export default Component.extend({
 
   getDefaultProps () {
     return {
+      singleSelection: false
     }
   },
 

@@ -1,5 +1,6 @@
 import Ember from 'ember'
 const {A, Controller, isEmpty} = Ember
+import expansionTypeEnum from 'ember-frost-list/utils/expansion-types'
 import computed, {readOnly} from 'ember-computed-decorators'
 import {sort} from 'ember-frost-sort'
 
@@ -15,6 +16,7 @@ export default Controller.extend({
     {label: 'Id', value: 'id'},
     {label: 'Label', value: 'label'}
   ],
+  expansionType: expansionTypeEnum.INITIAL,
 
   // == Computed Properties ===================================================
 

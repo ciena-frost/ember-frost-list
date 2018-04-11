@@ -1711,7 +1711,6 @@ describe(test.label, function () {
             itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
             hook='myList'
             items=items
-            onExpansionChange=onExpansionChange
           }}
         `)
         return wait()
