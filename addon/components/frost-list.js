@@ -303,8 +303,8 @@ export default Component.extend({
 
     const expansionType = this.get('expansionType')
     if (expansionType === expansionTypeEnum.ALWAYS || expansionType === expansionTypeEnum.INITIAL) {
-      const clonedItems = this.get('items').slice()
-      this.set('expandedItems', clonedItems)
+      const clonedItems = A(this.get('items').slice())
+      this.get('expandedItems').setObjects(clonedItems)
     }
 
     this._keyHandler = this.setShift.bind(this)

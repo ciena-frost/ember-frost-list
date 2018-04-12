@@ -11,6 +11,7 @@ export default Controller.extend({
   // == Properties ============================================================
 
   selectedItems: A([]),
+  expandedItems: A([]),
   sortOrder: A(['-id']),
   sortingProperties: [
     {label: 'Id', value: 'id'},
@@ -37,7 +38,7 @@ export default Controller.extend({
 
   actions: {
     onExpansionChange (expandedItems) {
-      this.set('expandedItems', expandedItems)
+      this.get('expandedItems').setObjects(expandedItems)
     },
 
     onSelectionChange (selectedItems) {
