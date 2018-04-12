@@ -1637,6 +1637,7 @@ describe(test.label, function () {
           this.render(hbs`
             {{frost-list
               expansionType='always'
+              expandedItems=expandedItems
               item=(component 'frost-list-item')
               itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
               hook='myList'
@@ -1671,12 +1672,14 @@ describe(test.label, function () {
           ])
 
           this.setProperties({
-            items: testItems
+            items: testItems,
+            expandedItems: A([])
           })
 
           this.render(hbs`
             {{frost-list
               expansionType='always'
+              expandedItems=expandedItems
               item=(component 'frost-list-item')
               hook='myList'
               items=items
@@ -1707,6 +1710,7 @@ describe(test.label, function () {
         this.render(hbs`
           {{frost-list
             expansionType='initial'
+            expandedItems=expandedItems
             item=(component 'frost-list-item')
             itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
             hook='myList'
