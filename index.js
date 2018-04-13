@@ -5,17 +5,18 @@
 const path = require('path')
 const MergeTrees = require('broccoli-merge-trees')
 const Funnel = require('broccoli-funnel')
+const {setSvgConfiguration} = require('ember-frost-core/utils/frost-icon-svg')
 
 module.exports = {
   name: 'ember-frost-list',
 
   included: function (app) {
-    // Addons - see: https://github.com/ember-cli/ember-cli/issues/3718
-    if (typeof app.import !== 'function' && app.app) {
-      this.app = app = app.app
-    }
+    this.app = app = this._findHost.call(this) // eslint-disable-line no-useless-call
 
-    this._super.included.apply(this, app)
+    // Set ember-cli-svgstore options so that consuming applications don't have to
+    setSvgConfiguration.call(this, 'frost-list')
+
+    this._super.included.apply(this, arguments)
 
     if (app) {
       app.import(path.join('vendor', 'ua-parser.min.js'))
