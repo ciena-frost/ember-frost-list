@@ -113,7 +113,6 @@ export default Component.extend({
         item: 'itemName',
         itemExpansion: 'itemExpansionName'
       },
-      expansionType: '',
       singleSelection: false,
 
       // Smoke and mirrors options
