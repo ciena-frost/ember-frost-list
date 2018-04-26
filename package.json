@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-list",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "frostGuideDirectory": "ui-components/content-views/list",
   "directories": {
@@ -51,7 +51,7 @@
     "ember-data-factory-guy": "2.8.2",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
-    "ember-frost-sort": "^12.0.0",
+    "ember-frost-sort": "^13.0.0",
     "ember-frost-test": "^4.0.1",
     "ember-load-initializers": "^0.6.0",
     "ember-resolver": "^2.0.3",
@@ -72,8 +72,9 @@
     "ember-cli-babel": "^5.1.7",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-sass": "7.1.1",
+    "ember-cli-svgstore": "github:ciena-blueplanet/ember-cli-svgstore#977df1cf58ae43b1d98a591573c3e06947744321",
     "ember-computed-decorators": "0.3.0",
-    "ember-frost-core": "^7.0.0",
+    "ember-frost-core": "^8.0.0",
     "ember-hook": "1.4.2",
     "ember-math-helpers": "2.0.6",
     "ember-prop-types": "^7.0.2",
@@ -83,9 +84,6 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "ember-frost-icon-pack": {
-    "name": "frost-list"
   },
   "pr-bumper": {
     "coverage": 94
