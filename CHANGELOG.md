@@ -1,3 +1,7 @@
+# 11.1.0 (2018-04-26)
+- Add always expanded and single selection behaviors
+
+
 # 11.0.0 (2018-04-16)
 
 * **Upgraded** `ember-frost-core` to `^8.0.0`
