@@ -55,7 +55,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `expansion`          | `hash`           |       | component which handles expansion and collapsing for entire list. This component should be wrapped inside component helper. |
 | `Sub Attribute`    | `onExpandAll`        | `action closure` |       | callback functions user provided to handle all list items collapsing. This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `onCollapseAll`      | `action closure` |       | callback functions user provided to handle all list items expansion. This is an attribute on frost-list-expansion component. |
-| `Attribute`        | `sorting`            | `hash`           |       | component which handles expansion and collapsing for entire list. This component should be wrapped inside component helper. |
+| `Attribute`        | `sorting`            | `hash`           |       | component which handles sorting for the list. This component should be wrapped inside component helper. |
 | `Sub Attribute`    | `activeSorting`      | `array`          |       | Array that specifies the sort order. eg. [{"direction: "asc/desc", "value": <attr-name>}], This is an attribute on frost-list-expansion component.|
 | `Sub Attribute`    | `properties`         | `array`          |       | Array of sortable attributes. eg. [{"label: "foo", "value": "bar"}], This is an attribute on frost-sort component.|
 | `Sub Attribute`    | `onSort`             | `action closure` |       | callback functions user provided to handle sorting.  This is an attribute on frost-sort component.|
@@ -66,7 +66,9 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `itemTypeKey`        | `string`         |       | Optional: With `itemTypeKey` set, it will be used to identify a list item's type. It will also be used for accessing the hash of components within `componentKeyNamesForTypes`. |
 | `Attribute`        | `itemDefinitions`    | `hash`           |       | Optional: A set of components that are to be used in the list as the `item` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
 | `Attribute`        | `itemExpansionDefinitions` | `hash`     |       | Optional: A set of components that are to be used in the list as the `itemExpansion` component. Note that this had to be used in conjunction with `componentKeyNamesForTypes` |
-| `Attribute`        | `disableDeselectAll` | `boolean`     | false    | Optional: disables deselect all click turning frost list into a multi-select type list |
+| `Attribute`        | `disableDeselectAll` | `boolean`        | false | Optional: disables deselect all click turning frost list into a multi-select type list |
+| `Attribute`        | `expansionType`      | `string`         |       | Optional: controls the expand/collapse capability for items in the list. If set to `always`, items will always be expanded, and the ability to expand/collapse items will be disabled. If set to `initial`, all items will be expanded initially, but may still be collapsed/expanded as usual. |
+| `Attribute`        | `singleSelection`    | `boolean`        | false | Optional: disables multiple selection entirely and displays radio buttons instead of checkboxes in frost-list-item-selection to clarify the list's behavior. |
 
 
 ### Infinite scroll

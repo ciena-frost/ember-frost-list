@@ -5,6 +5,7 @@
 import Ember from 'ember'
 const {$, A, ObjectProxy, String: EmberString, get, isEmpty, isNone, isPresent, run, set} = Ember
 import layout from '../templates/components/frost-list'
+import expansionTypeEnum from '../utils/expansion-types'
 import getComponentName from '../utils/get-component-name'
 import computed, {readOnly} from 'ember-computed-decorators'
 import {Component} from 'ember-frost-core'
@@ -66,6 +67,8 @@ export default Component.extend({
       PropTypes.EmberObject,
       PropTypes.object
     ]),
+    expansionType: PropTypes.string,
+    singleSelection: PropTypes.bool,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -110,6 +113,7 @@ export default Component.extend({
         item: 'itemName',
         itemExpansion: 'itemExpansionName'
       },
+      singleSelection: false,
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
@@ -207,6 +211,12 @@ export default Component.extend({
     return pagination && isAnyItemExpansion
   },
 
+  @readOnly
+  @computed('isAnyItemExpansion', 'expansionType')
+  isCollapseExpandAllVisible (isAnyItemExpansion, expansionType) {
+    return isAnyItemExpansion && expansionType !== expansionTypeEnum.ALWAYS
+  },
+
   // == Functions =============================================================
 
   setShift (event) {
@@ -290,6 +300,12 @@ export default Component.extend({
       this.setDefaultItemExpansion()
     }
 
+    const expansionType = this.get('expansionType')
+    if (expansionType === expansionTypeEnum.ALWAYS || expansionType === expansionTypeEnum.INITIAL) {
+      const clonedItems = A(this.get('items').slice())
+      this.get('expandedItems').setObjects(clonedItems)
+    }
+
     this._keyHandler = this.setShift.bind(this)
     $(document).on(`keyup.${this.elementId} keydown.${this.elementId}`, this._keyHandler)
   },
@@ -331,14 +347,18 @@ export default Component.extend({
         const _itemComparator = this.get('_itemComparator')
         const clonedSelectedItems = A(this.get('selectedItems').slice())
         const _rangeState = this.get('_rangeState')
+        const singleSelection = this.get('singleSelection')
 
         if (isRangeSelect === false && this.get('disableDeselectAll') === true) {
           // Ensure we are not interrupting a range select prior to forcing a isSpecificSelect
           isSpecificSelect = true
         }
 
-        // Selects are proccessed in order of precedence: specific, range, basic
-        if (isSpecificSelect) {
+        // If single selection is enabled, we can just use the basic selection
+        // Otherwise, selects are proccessed in order of precedence: specific, range, basic
+        if (singleSelection) {
+          selection.basic(clonedSelectedItems, item, _rangeState, _itemComparator)
+        } else if (isSpecificSelect) {
           selection.specific(clonedSelectedItems, item, _rangeState, _itemComparator)
         } else if (isRangeSelect) {
           selection.range(items, clonedSelectedItems, item, _rangeState, _itemComparator, itemKey)

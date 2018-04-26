@@ -1563,4 +1563,178 @@ describe(test.label, function () {
       })
     })
   })
+
+  describe('When singleSelection is true', function () {
+    beforeEach(function () {
+      const testItems = A([
+        Ember.Object.create({id: '0'}),
+        Ember.Object.create({id: '1'}),
+        Ember.Object.create({id: '2'})
+      ])
+
+      this.setProperties({
+        items: testItems,
+        selectedItems: A([]),
+        onSelectionChange: (selectedItems) => {
+          this.get('selectedItems').setObjects(selectedItems)
+        }
+      })
+
+      this.render(hbs`
+        {{frost-list
+          singleSelection=true
+          item=(component 'frost-list-item')
+          hook='myList'
+          items=items
+          selectedItems=selectedItems
+          onSelectionChange=onSelectionChange
+        }}
+      `)
+      return wait()
+    })
+
+    describe('should only select one item with shift', function () {
+      beforeEach(function () {
+        $hook('myList-itemContent-item', {index: 0}).click()
+        const clickEvent = $.Event('click')
+        clickEvent.shiftKey = true
+        $hook('myList-itemContent-item', {index: 2}).trigger(clickEvent)
+      })
+
+      itShouldHaveItemSelectedState(0, false)
+      itShouldHaveItemSelectedState(1, false)
+      itShouldHaveItemSelectedState(2, true)
+      itShouldHaveSelectedItemsLength(1)
+    })
+
+    describe('should only select one item with specific click', function () {
+      beforeEach(function () {
+        $hook('myList-itemContent-selection', {index: 0}).click()
+        $hook('myList-itemContent-selection', {index: 1}).click()
+      })
+
+      itShouldHaveItemSelectedState(0, false)
+      itShouldHaveItemSelectedState(1, true)
+      itShouldHaveSelectedItemsLength(1)
+    })
+  })
+
+  describe('expansionType', function () {
+    describe('Set to always', function () {
+      describe('itemExpansion is provided', function () {
+        beforeEach(function () {
+          registerMockComponent(this, 'mock-item-expansion')
+          const testItems = A([
+            Ember.Object.create({id: '0'}),
+            Ember.Object.create({id: '1'})
+          ])
+
+          this.setProperties({
+            items: testItems,
+            expandedItems: A([])
+          })
+
+          this.render(hbs`
+            {{frost-list
+              expansionType='always'
+              expandedItems=expandedItems
+              item=(component 'frost-list-item')
+              itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
+              hook='myList'
+              items=items
+            }}
+          `)
+          return wait()
+        })
+
+        afterEach(function () {
+          unregisterMockComponent(this, 'mock-item-expansion')
+        })
+
+        it('should not show list-expansion header', function () {
+          expect($hook('myList-expansion')).to.have.length(0)
+        })
+
+        it('should not show item-expansion arrow', function () {
+          expect($hook('myList-itemContent-expansion')).to.have.length(0)
+        })
+
+        it('should have all items expanded', function () {
+          expect($hook('myList-itemContent-itemExpansion')).to.have.length(2)
+        })
+      })
+
+      describe('itemExpansion not provided', function () {
+        beforeEach(function () {
+          const testItems = A([
+            Ember.Object.create({id: '0'}),
+            Ember.Object.create({id: '1'})
+          ])
+
+          this.setProperties({
+            items: testItems,
+            expandedItems: A([])
+          })
+
+          this.render(hbs`
+            {{frost-list
+              expansionType='always'
+              expandedItems=expandedItems
+              item=(component 'frost-list-item')
+              hook='myList'
+              items=items
+            }}
+          `)
+          return wait()
+        })
+
+        it('should still render items if itemExpansion not provided', function () {
+          expect($hook('myList-itemContent')).to.have.length(2)
+        })
+      })
+    })
+
+    describe('Set to initial', function () {
+      beforeEach(function () {
+        registerMockComponent(this, 'mock-item-expansion')
+        const testItems = A([
+          Ember.Object.create({id: '0'}),
+          Ember.Object.create({id: '1'})
+        ])
+
+        this.setProperties({
+          items: testItems,
+          expandedItems: A([])
+        })
+
+        this.render(hbs`
+          {{frost-list
+            expansionType='initial'
+            expandedItems=expandedItems
+            item=(component 'frost-list-item')
+            itemExpansion=(component 'mock-item-expansion' class='mock-item-expansion')
+            hook='myList'
+            items=items
+          }}
+        `)
+        return wait()
+      })
+
+      afterEach(function () {
+        unregisterMockComponent(this, 'mock-item-expansion')
+      })
+
+      it('should show list-expansion header', function () {
+        expect($hook('myList-expansion')).to.have.length(1)
+      })
+
+      it('should show item-expansion arrow', function () {
+        expect($hook('myList-itemContent-expansion')).to.have.length(2)
+      })
+
+      it('should have all items expanded', function () {
+        expect($hook('myList-itemContent-itemExpansion')).to.have.length(2)
+      })
+    })
+  })
 })

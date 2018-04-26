@@ -1,7 +1,19 @@
-{{! Template for the frost-list-item-selection component }}
-
-{{frost-checkbox
-  checked=isSelected
-  hook=(concat hookPrefix '-checkbox')
-  size=size
-}}
+{{#if singleSelection}}
+  {{!--
+    frost-radio-button requires a string for "value", so we concat ''.
+    Approached this way so that "index" could remain a number in case
+    we ever want to take further action based on its value.
+  --}}
+  {{frost-radio-button 
+    checked=isSelected
+    hook=(concat hookPrefix '-radio-button')
+    size=size
+    value=(concat index '')
+  }}
+{{else}}
+  {{frost-checkbox
+    checked=isSelected
+    hook=(concat hookPrefix '-checkbox')
+    size=size
+  }}
+{{/if}}
