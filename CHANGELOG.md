@@ -1,3 +1,6 @@
+# 11.1.1 (2018-05-29)
+* Pin `ember-cli-notifications` to fix broken demo app
+
 # 11.1.0 (2018-04-26)
 - Add always expanded and single selection behaviors
 
