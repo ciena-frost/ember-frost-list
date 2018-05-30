@@ -1,3 +1,6 @@
+# 11.1.2 (2018-05-30)
+* **Updated** `travis.yml` to set node version to `8.6.0`
+
 # 11.1.1 (2018-05-29)
 * Pin `ember-cli-notifications` to fix broken demo app
 
