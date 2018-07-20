@@ -1,3 +1,8 @@
+# 11.1.3 (2018-07-20)
+
+* **Fixed** Travis API key.
+
+
 # 11.1.2 (2018-05-30)
 * **Updated** `travis.yml` to set node version to `8.6.0`
 
