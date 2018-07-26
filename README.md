@@ -69,6 +69,7 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `disableDeselectAll` | `boolean`        | false | Optional: disables deselect all click turning frost list into a multi-select type list |
 | `Attribute`        | `expansionType`      | `string`         |       | Optional: controls the expand/collapse capability for items in the list. If set to `always`, items will always be expanded, and the ability to expand/collapse items will be disabled. If set to `initial`, all items will be expanded initially, but may still be collapsed/expanded as usual. |
 | `Attribute`        | `singleSelection`    | `boolean`        | false | Optional: disables multiple selection entirely and displays radio buttons instead of checkboxes in frost-list-item-selection to clarify the list's behavior. |
+| `Attribute`        | `isLoading`    | `boolean`        | false | Optional: shows loading indicator in middle of list if true |
 
 
 ### Infinite scroll
@@ -101,7 +102,7 @@ In these cases pagination may optionally be used
 }}
 ```
 
-The onChange action will receive the `page` being requested, which can be combined with 
+The onChange action will receive the `page` being requested, which can be combined with
 the `itemsPerPage` to make an API request and provide the new items for the list
 
 ```
