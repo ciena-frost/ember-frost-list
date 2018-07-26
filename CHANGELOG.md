@@ -1,3 +1,7 @@
+# 11.2.0 (2018-07-26)
+
+* Add optional `isLoading` flag to show loading indicator
+
 # 11.1.3 (2018-07-20)
 
 * **Fixed** Travis API key.
