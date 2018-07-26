@@ -124,6 +124,19 @@ actions: {
 }
 ```
 
+Pagination by default uses the simple `each` helper for it's list rather than vertical collection (since vertical collection is too extreme for pages that have very few items). In the case you wish to still use vertical collection (ideal when you wish to not render all items in the list) you can use:
+```
+{{frost-list
+  pagination=(hash
+    itemsPerPage=
+    page=
+    total=
+    onChange=
+  )
+  useVerticalCollectionForPagination=true
+}}
+```
+
 ## Testing with ember-hook
 
 The list component is accessible using ember-hook:

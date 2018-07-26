@@ -299,7 +299,10 @@ describe(test.label, function () {
   describe('when pagination component is set', function () {
     beforeEach(function () {
       registerMockComponent(this, 'mock-pagination')
-      this.set('items', A())
+      this.setProperties({
+        items: A(),
+        useVerticalCollectionForPagination: false
+      })
 
       this.render(hbs`
         {{frost-list
@@ -307,6 +310,7 @@ describe(test.label, function () {
           items=items
           hook='myList'
           pagination=(component 'mock-pagination' class='mock-pagination')
+          useVerticalCollectionForPagination=useVerticalCollectionForPagination
         }}
       `)
       return wait()
@@ -334,6 +338,19 @@ describe(test.label, function () {
 
     it('should have the "paged" class set on "frost-list-content-container-bottom-border"', function () {
       expect(this.$('.frost-list-content-container-bottom-border')).to.have.class('paged')
+    })
+
+    it('should not use vertical collection', function () {
+      expect(this.$('vertical-collection')).to.have.length(0)
+    })
+
+    describe('when useVerticalCollectionForPagination is set to true', function () {
+      beforeEach(function () {
+        this.set('useVerticalCollectionForPagination', true)
+      })
+      it('should use vertical collection', function () {
+        expect(this.$('vertical-collection')).to.have.length(1)
+      })
     })
   })
 
