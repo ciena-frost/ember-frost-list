@@ -79,4 +79,19 @@ describe(test.label, function () {
       expect($hook('myListContentContainer-scroll')).to.have.length(1)
     })
   })
+
+  describe('when isLoading property is set', function () {
+    beforeEach(function () {
+      this.render(hbs`
+        {{frost-list-content-container
+          hook=hook
+          isLoading=true
+        }}
+      `)
+    })
+
+    it('should show loading indicator', function () {
+      expect($hook('myListContentContainer-loading')).to.have.length(1)
+    })
+  })
 })
