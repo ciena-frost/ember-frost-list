@@ -22,7 +22,8 @@ export default Component.extend({
   // == PropTypes =============================================================
 
   propTypes: {
-    itemKey: PropTypes.string
+    itemKey: PropTypes.string,
+    isLoading: PropTypes.bool
   },
 
   getDefaultProps () {
