@@ -69,6 +69,7 @@ export default Component.extend({
     ]),
     expansionType: PropTypes.string,
     singleSelection: PropTypes.bool,
+    isLoading: PropTypes.bool,
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
@@ -114,6 +115,7 @@ export default Component.extend({
         itemExpansion: 'itemExpansionName'
       },
       singleSelection: false,
+      isLoading: false,
 
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,

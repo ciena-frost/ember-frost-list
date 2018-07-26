@@ -33,6 +33,17 @@
       padding-right: $frost-list-scroll-rail-gutter-width;
     }
   }
+
+  .frost-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    > svg {
+      height: 100px;
+    }
+  }
 }
 
 // The scroll rail requires a padding offset, so a typical border-top/border-bottom
