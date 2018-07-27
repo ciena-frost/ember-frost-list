@@ -1,3 +1,8 @@
+# 11.3.0 (2018-07-27)
+
+* **Add** flag `useVerticalCollectionForPagination` that allows a consumer to use `vertical-collection` during pagination
+
+
 # 11.2.0 (2018-07-26)
 
 * Add optional `isLoading` flag to show loading indicator
