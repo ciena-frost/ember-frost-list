@@ -70,7 +70,8 @@ Detailed API and example usage can be found in the sample application in tests/d
 | `Attribute`        | `expansionType`      | `string`         |       | Optional: controls the expand/collapse capability for items in the list. If set to `always`, items will always be expanded, and the ability to expand/collapse items will be disabled. If set to `initial`, all items will be expanded initially, but may still be collapsed/expanded as usual. |
 | `Attribute`        | `singleSelection`    | `boolean`        | false | Optional: disables multiple selection entirely and displays radio buttons instead of checkboxes in frost-list-item-selection to clarify the list's behavior. |
 | `Attribute`        | `isLoading`    | `boolean`        | false | Optional: shows loading indicator in middle of list if true |
-
+| `Attribute`        | `pagination`    | `component`        |    | Optional: When set enables pagination. Placing component in at the end of frost-list header|
+| `Attribute`        | `useVerticalCollectionForPagination`    | `boolean`        |  false  | Optional: When `true` and `pagination` is set `vertical-collection` will be used. By default `frost-list` uses `each` helper if `pagination` is set |
 
 ### Infinite scroll
 
@@ -93,11 +94,11 @@ In these cases pagination may optionally be used
 
 ```
 {{frost-list
-  pagination=(hash
-    itemsPerPage=
-    page=
-    total=
-    onChange=
+  pagination=(component 'frost-list-pagination'
+      itemsPerPage=
+      page=
+      total=
+      onChange=
   )
 }}
 ```
@@ -122,6 +123,19 @@ actions: {
     this.fetchPage(page)
   }
 }
+```
+
+Pagination by default uses the simple `each` helper for it's list rather than vertical collection (since vertical collection is too extreme for pages that have very few items). In the case you wish to still use vertical collection (ideal when you wish to not render all items in the list) you can use:
+```
+{{frost-list
+  pagination=(component 'frost-list-pagination'
+      itemsPerPage=
+      page=
+      total=
+      onChange=
+  )
+  useVerticalCollectionForPagination=true
+}}
 ```
 
 ## Testing with ember-hook

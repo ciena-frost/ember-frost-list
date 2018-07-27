@@ -73,6 +73,7 @@ export default Component.extend({
 
     // Options - sub-components
     pagination: PropTypes.EmberComponent,
+    useVerticalCollectionForPagination: PropTypes.bool,
     sorting: PropTypes.EmberComponent,
 
     // Options - infinite scroll
@@ -120,6 +121,9 @@ export default Component.extend({
       // Smoke and mirrors options
       alwaysUseDefaultHeight: false,
       bufferSize: 10,
+
+      // Pagination options
+      useVerticalCollectionForPagination: false,
 
       // State
       _rangeState: {

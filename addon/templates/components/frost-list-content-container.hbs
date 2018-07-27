@@ -3,7 +3,7 @@
   {{frost-loading
     hook=(concat hookPrefix '-loading')
   }}
-{{else if pagination}}
+{{else if (and pagination (not useVerticalCollectionForPagination))}}
   {{#frost-scroll
     hook=(concat hookPrefix '-scroll')
     class='full'
