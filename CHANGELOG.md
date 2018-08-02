@@ -1,3 +1,7 @@
+# 11.3.1 (2018-08-02)
+* Make sure that we adding the padding on the right for the scroll
+
+
 # 11.3.0 (2018-07-27)
 
 * **Add** flag `useVerticalCollectionForPagination` that allows a consumer to use `vertical-collection` during pagination
