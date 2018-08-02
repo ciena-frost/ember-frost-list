@@ -6,7 +6,7 @@
 {{else if (and pagination (not useVerticalCollectionForPagination))}}
   {{#frost-scroll
     hook=(concat hookPrefix '-scroll')
-    class='full'
+    class='full is-scrollable'
   }}
     {{#each items key=_eachItemKey as |model index|}}
       {{yield model index}}
@@ -37,6 +37,7 @@
     minimumMovement=15
     containerSelector=null
     containerHeight=null
+    class='is-scrollable'
     as |model index|
   }}
     {{yield model index}}
