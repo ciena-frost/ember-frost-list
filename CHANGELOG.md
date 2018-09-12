@@ -1,3 +1,7 @@
+# 11.3.2 (2018-09-12)
+* Make sure that we adding the padding on the right for the scroll
+
+
 # 11.3.1 (2018-08-02)
 * Make sure that we adding the padding on the right for the scroll
 
